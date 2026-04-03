@@ -4,15 +4,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import useIsSafari from "../../util/useIsSafari";
 import Editor from "../Editor";
 import styles from "./DefaultFrame.module.css";
-import {
-  elementDarkModeAtom,
-  elementFileNameAtom,
-  elementPaddingAtom,
-  elementThemeAtom,
-  elementTransparentAtom,
-  themeBackgroundAtom,
-  updateSlideElementAtom,
-} from "../../store/editor";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementThemeAtom, elementTransparentAtom, themeBackgroundAtom, updateSlideElementAtom } from "../../store/editor";
 
 const DefaultFrame = () => {
   const isSafari = useIsSafari();

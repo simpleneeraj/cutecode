@@ -281,7 +281,7 @@ function Editor() {
 
   const [isHighlightingLines, setIsHighlightingLines] = useState(false);
   const [showLineNumbers] = useAtom(themeLineNumbersAtom);
-  const numberOfLines = (code.match(/\n/g) || []).length;
+  const numberOfLines = (code?.match(/\n/g) || []).length;
   const language = selectedLanguage?.name ?? "";
 
   useHotkeys("f", (event) => {

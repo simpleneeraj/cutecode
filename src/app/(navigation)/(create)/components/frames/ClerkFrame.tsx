@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { useAtom, useAtomValue } from "jotai";
 
-import { showBackgroundAtom } from "../../store";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+
+
+
 import clerkPattern from "../../assets/clerk/pattern.svg?url";
 
 import Editor from "../Editor";

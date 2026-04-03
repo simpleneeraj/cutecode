@@ -51,7 +51,7 @@ const OptionsControl: React.FC = () => {
               });
             }}
           >
-            Show background
+            {transparent ? "Hide background" : "Show background"}
           </MenuCheckboxItem>
           <MenuCheckboxItem
             variant="switch"

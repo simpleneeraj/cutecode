@@ -4,13 +4,7 @@ import React from "react";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./BrowserbaseFrame.module.css";
-import {
-  elementDarkModeAtom,
-  elementFileNameAtom,
-  elementPaddingAtom,
-  elementTransparentAtom,
-  updateSlideElementAtom,
-} from "../../store/editor";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, updateSlideElementAtom } from "../../store/editor";
 
 const BrowserbaseFrame = () => {
   const padding = useAtomValue(elementPaddingAtom);

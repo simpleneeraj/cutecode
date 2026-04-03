@@ -153,7 +153,6 @@ export type SlideTypes = {
   id: string;
   name: string;
   background?: SlideBackgroundTypes;
-  elements: ElementType[];
 };
 
 /* ---------------------------------- */

@@ -1,21 +1,24 @@
 import classNames from "classnames";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue , useSetAtom } from "jotai";
 
-import { fileNameAtom, showBackgroundAtom } from "../../store";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+
+
+
 import mintlifyPatternDark from "../../assets/mintlify-pattern-dark.svg?url";
 import mintlifyPatternLight from "../../assets/mintlify-pattern-light.svg?url";
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./MintlifyFrame.module.css";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom , updateSlideElementAtom} from "../../store/editor";
+
 
 const MintlifyFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const [padding] = useAtom(paddingAtom);
-  const [showBackground] = useAtom(showBackgroundAtom);
-  const [fileName, setFileName] = useAtom(fileNameAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const [padding] = useAtom(elementPaddingAtom);
+  const [showBackground] = useAtom(elementTransparentAtom);
+  const fileName = useAtomValue(elementFileNameAtom);
+  const _updateElement = useSetAtom(updateSlideElementAtom);
 
   return (
     <div
@@ -40,7 +43,7 @@ const MintlifyFrame = () => {
             <input
               type="text"
               value={fileName}
-              onChange={(event) => setFileName(event.target.value)}
+              onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
               spellCheck={false}
               tabIndex={-1}
               size={1}

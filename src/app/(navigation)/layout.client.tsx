@@ -5,7 +5,7 @@ import InfoDialog from "./(create)/components/InfoDialog";
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs";
 import FormatButton from "./(create)/components/FormatCodeButton";
 import ExportButton from "./(create)/components/ExportButton";
-import PlansDialog from "./(create)/components/PlansDialog";
+import UserMenu from "./(create)/components/UserMenu";
 import View from "@/components/view";
 import { usePathname, useRouter } from "next/navigation";
 import siteConfig from "@/contstant/site-config";
@@ -58,7 +58,7 @@ export default function CodeLayoutClient({ children }: { children: React.ReactNo
             <FormatButton />
             <ExportButton />
             <ThemeSwitch />
-            <PlansDialog />
+            <UserMenu />
             <InfoDialog />
           </div>
         </div>

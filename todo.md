@@ -46,3 +46,12 @@ team sharing
 
 Today To Do
 (A) Migrate to our state management sturcture start with small piece
+(B) Remove fonts those are not good, default state rename the fonts names
+(C) Inegration of the Clerk and dodopayments
+
+Core
+Pro ⭐
+Elite
+Ultimate
+
+Neeraj#Prince@2026
