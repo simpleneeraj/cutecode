@@ -41,3 +41,4 @@ todo.md
 certificates
 
 .env
+.env.local

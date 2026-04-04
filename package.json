@@ -60,6 +60,7 @@
     "jotai-immer": "^0.4.3",
     "jotai-location": "^0.6.2",
     "js-base64": "^3.7.8",
+    "jszip": "^3.10.1",
     "localforage": "^1.10.0",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^1.7.0",
