@@ -6,7 +6,6 @@ import { Toaster } from "@/components/toast";
 import { Analytics } from "@vercel/analytics/react";
 import { TooltipProvider } from "@/components/tooltip";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";
-import { ClerkProvider } from "@clerk/nextjs";
 import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 
 const title = "CuteCode — Beautiful Code Snippets";
@@ -27,35 +26,29 @@ export const metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#181818",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f0f0f0" },
+    { media: "(prefers-color-scheme: dark)", color: "#181818" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider
-      unsafe_disableDevelopmentModeConsoleWarning
-      appearance={{
-        layout: {
-          unsafe_disableDevelopmentModeWarnings: true,
-        },
-      }}
-    >
-      <html lang="en" suppressHydrationWarning>
-        <head>
-          <Analytics />
-        </head>
-        <body className="relative">
-          <ThemeProvider>
-            <ClerkThemeProvider>
-              <TooltipProvider>
-                <Log />
-                <div className="isolate relative flex flex-col">{children}</div>
-                <Toaster position="top-center" offset={70} duration={2000} />
-              </TooltipProvider>
-            </ClerkThemeProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <Analytics />
+      </head>
+      <body className="relative">
+        <ThemeProvider>
+          <ClerkThemeProvider>
+            <TooltipProvider>
+              <Log />
+              <div className="isolate relative flex flex-col">{children}</div>
+              <Toaster position="top-center" offset={70} duration={2000} />
+            </TooltipProvider>
+          </ClerkThemeProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

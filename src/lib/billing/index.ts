@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/db";
 import { Plan } from "@/generated/prisma/client";
 import { getPlanLimits, isPlanAtLeast } from "./plans";
-import { clerkClient } from "@clerk/nextjs/server";
 export { PLANS, getPlanLimits, canUseFeature, isPlanAtLeast } from "./plans";
 
 /** Fetch the subscription record for a DB user */
@@ -68,16 +67,8 @@ export async function getRemainingExports(userId: string): Promise<number | type
   return Math.max(0, limits.monthlyExports - user.usageMonth);
 }
 
-/**
- * Sync the user's plan to their Clerk publicMetadata.
- * Allows the client-side useSubscription hook to work without a DB call.
- */
-export async function syncPlanToClerk(clerkId: string, plan: Plan) {
-  const clerk = await clerkClient();
-  await clerk.users.updateUserMetadata(clerkId, {
-    publicMetadata: { plan },
-  });
-}
+// syncPlanToClerk removed — Clerk Billing manages plan sync internally.
+// Plans are reflected in session claims automatically via Clerk Dashboard configuration.
 
 /**
  * Check if a user has at least the required plan tier. Throws if not.

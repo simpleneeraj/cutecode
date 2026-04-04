@@ -1,35 +1,45 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useId, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { LayerMask01Icon } from "@hugeicons/core-free-icons";
+import { Moon, Sun } from "lucide-react";
 
 export default function ThemeSwitch() {
-  const id = useId();
-  const { theme, setTheme } = useTheme();
-  const [system, setSystem] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-  const smartToggle = () => {
-    /* The smart toggle by @nrjdalal */
-    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (theme === "system") {
-      setTheme(prefersDarkScheme ? "light" : "dark");
-      setSystem(false);
-    } else if ((theme === "light" && !prefersDarkScheme) || (theme === "dark" && prefersDarkScheme)) {
-      setTheme(theme === "light" ? "dark" : "light");
-      setSystem(false);
-    } else {
-      setTheme("system");
-      setSystem(true);
-    }
-  };
+  // Avoid hydration mismatch — only render icon after mount
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) {
+    return (
+      <Button size="icon" variant="outline" className="relative size-8" aria-label="Toggle theme">
+        <span className="size-4" />
+      </Button>
+    );
+  }
+
+  const isDark = resolvedTheme === "dark";
 
   return (
-    <Button className="relative size-8" onClick={smartToggle} size="icon" title="Toggle theme" variant="outline">
-      <HugeiconsIcon className="-rotate-45 size-4" icon={LayerMask01Icon} strokeWidth={2} />
-      <span className="sr-only">Toggle theme</span>
+    <Button
+      size="icon"
+      variant="outline"
+      className="relative size-8 transition-all"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+    >
+      <Sun
+        className="size-4 rotate-0 scale-100 transition-all duration-200 dark:-rotate-90 dark:scale-0"
+        aria-hidden
+      />
+      <Moon
+        className="absolute size-4 rotate-90 scale-0 transition-all duration-200 dark:rotate-0 dark:scale-100"
+        aria-hidden
+      />
+      <span className="sr-only">{isDark ? "Switch to light mode" : "Switch to dark mode"}</span>
     </Button>
   );
 }

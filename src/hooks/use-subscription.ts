@@ -1,30 +1,36 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { Plan } from "@/generated/prisma/enums";
-import { PLAN_ORDER } from "@/lib/billing/plans";
+import { useAuth } from "@clerk/nextjs";
 
 /**
- * Client-side subscription hook.
+ * Client-side subscription hook — powered by Clerk Billing.
  *
- * Reads plan from Clerk publicMetadata (synced via DodoPayments webhook).
- * Use for UI gating ONLY — all real enforcement is server-side.
+ * Uses Clerk's native has() to check Plans configured in the Clerk Dashboard.
+ * Plan slugs must match the slugs set in the Clerk Dashboard.
+ * Use for UI gating ONLY — all real enforcement is server-side via auth().has().
  */
 export function useSubscription() {
-  const { user, isLoaded } = useUser();
+  const { has, isLoaded } = useAuth();
 
-  const plan = (user?.publicMetadata?.plan as Plan) ?? Plan.FREE;
+  const isUltimate = has?.({ plan: "ultimate" }) ?? false;
+  const isElite = isUltimate || (has?.({ plan: "elite" }) ?? false);
+  const isPro = isElite || (has?.({ plan: "pro" }) ?? false);
 
-  const isPro = PLAN_ORDER[plan] >= PLAN_ORDER[Plan.PRO];
-  const isElite = PLAN_ORDER[plan] >= PLAN_ORDER[Plan.ELITE];
-  const isUltimate = plan === Plan.ULTIMATE;
+  // Derive a display-friendly plan label
+  const plan = isUltimate
+    ? "ultimate"
+    : isElite
+    ? "elite"
+    : isPro
+    ? "pro"
+    : "free";
 
   return {
     plan,
     isPro,
     isElite,
     isUltimate,
-    isFree: plan === Plan.FREE,
+    isFree: !isPro,
     isLoaded,
   };
 }

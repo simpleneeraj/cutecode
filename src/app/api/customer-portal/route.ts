@@ -1,6 +1,13 @@
-import { CustomerPortal } from "@dodopayments/nextjs";
+/**
+ * Billing management is now handled natively by Clerk Billing.
+ * Users manage their subscription via the Clerk <UserProfile /> component
+ * or the /pricing page which renders <PricingTable />.
+ *
+ * This route is no longer needed and is kept only as a redirect for
+ * any bookmarked URLs.
+ */
+import { NextResponse } from "next/server";
 
-export const GET = CustomerPortal({
-  bearerToken: process.env.DODO_PAYMENTS_API_KEY!,
-  environment: process.env.DODO_PAYMENTS_ENVIRONMENT as "test_mode" | "live_mode",
-});
+export function GET() {
+  return NextResponse.redirect(new URL("/pricing", process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"));
+}
