@@ -28,7 +28,7 @@ enum AuthState {
   FREE = "free",
 }
 
-export function HeaderAuthControls() {
+export function AuthControls() {
   const { isSignedIn, isLoaded } = useUser();
   const { isPro, isLoaded: subLoaded } = useSubscription();
 

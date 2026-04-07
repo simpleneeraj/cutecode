@@ -9,7 +9,7 @@ import FormatButton from "../(create)/components/FormatCodeButton";
 import ExportButton from "../(create)/components/ExportButton";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
-import { HeaderAuthControls } from "./controls";
+import { AuthControls } from "./controls";
 
 const tabs = [
   { label: "Create", value: "create", href: "/" },
@@ -60,7 +60,7 @@ export function Header() {
           <ExportButton />
           <ThemeSwitch />
           <Separator orientation="vertical" className="h-5" />
-          <HeaderAuthControls />
+          <AuthControls />
         </div>
       </div>
     </header>
