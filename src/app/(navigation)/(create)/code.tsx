@@ -36,6 +36,7 @@ export function Code() {
       <NoSSR>
         <Frame />
         <Controls />
+        {/* Triggered Deployment */}
       </NoSSR>
     </div>
   );
