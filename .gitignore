@@ -40,6 +40,6 @@ next-env.d.ts
 todo.md
 certificates
 
-.env
+.env*
 # clerk configuration (can include secrets)
 /.clerk/
