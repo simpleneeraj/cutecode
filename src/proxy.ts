@@ -10,6 +10,7 @@ const isPublicRoute = createRouteMatcher([
   "/checkout/success(.*)",
   "/api/webhooks/(.*)",
   "/api/checkout(.*)",
+  "/waitlist(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
