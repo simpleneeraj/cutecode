@@ -1,0 +1,9 @@
+ {
+    "name": "Input Mono",
+    "variable": "--font-input-mono",
+    "src": "/fonts/input-mono/input-mono.ttf",
+    "license": "SIL Open Font License 1.1",
+    "provider": "David Jonathan Ross",
+    "source": "Adobe Fonts",
+    "source_url": "https://fonts.adobe.com/fonts/input-mono"
+  },

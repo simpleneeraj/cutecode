@@ -2,9 +2,7 @@ import classNames from "classnames";
 import { useAtom, useAtomValue } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 
-import { windowWidthAtom } from "../../store";
-
-
+import { windowWidthAtom } from "../../store/editor";
 
 import useIsSafari from "../../util/useIsSafari";
 

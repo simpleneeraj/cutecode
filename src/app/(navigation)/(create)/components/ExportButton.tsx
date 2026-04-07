@@ -7,15 +7,20 @@ import ClipboardIcon from "../assets/icons/clipboard-16.svg";
 
 import { FrameContext } from "../store/context/frame";
 import { derivedFlashMessageAtom, flashShownAtom } from "../store/flash";
-import { fileNameAtom } from "../store";
 import download from "../util/download";
 import { toPng, toSvg, toBlob } from "../lib/image";
 
 import useHotkeys from "../../../../utils/useHotkeys";
 import usePngClipboardSupported from "../util/usePngClipboardSupported";
 import { useAtom, useAtomValue } from "jotai";
-import { EXPORT_SIZE_OPTIONS, exportSizeAtom } from "../store/image";
-import { autoDetectLanguageAtom, selectedLanguageAtom } from "../store/code";
+import {
+  EXPORT_SIZE_OPTIONS,
+  exportSizeAtom,
+  fileNameAtom,
+  autoDetectLanguageAtom,
+  selectedLanguageAtom,
+  currentSlideIdAtom,
+} from "../store/editor";
 import { LANGUAGES } from "../util/languages";
 
 import { Kbd, Kbds } from "@/components/kbd";
@@ -30,7 +35,6 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectItem, SelectPopup, SelectTrigger } from "@/components/ui/select";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Download02Icon } from "@hugeicons/core-free-icons";
-import { currentSlideIdAtom } from "../store/editor";
 
 const ExportButton: React.FC = () => {
   const frameRefs = useContext(FrameContext);

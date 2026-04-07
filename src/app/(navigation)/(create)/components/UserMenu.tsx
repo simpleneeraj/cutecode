@@ -13,7 +13,7 @@ export default function UserMenu() {
   const { openBilling } = useBilling();
 
   return (
-    <div className="relative">
+    <div className="relative flex flex-col items-center">
       <UserButton
         appearance={{
           elements: {
@@ -57,7 +57,7 @@ export default function UserMenu() {
 
       {/* Premium Badge */}
       {isPro && (
-        <div className="absolute -bottom-0.5 -right-0.5 flex items-center justify-center p-0.5">
+        <div className="absolute -bottom-1.5 -right-1 flex items-center justify-center p-0.5">
           <div className="flex items-center justify-center w-3 h-3 rounded-full bg-linear-to-tr from-violet-600 to-purple-400 shadow-md ring-2 ring-neutral-900">
             <HugeiconsIcon icon={Crown03Icon} className="size-1.5 text-white" />
           </div>

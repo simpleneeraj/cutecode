@@ -1,9 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { highlighterAtom } from "./store";
+import { highlighterAtom, shikiTheme } from "./store/editor";
 import { useAtom, useAtomValue } from "jotai";
-
-import { shikiTheme } from "./store/themes";
 
 import Frame from "./components/Frame";
 import Controls from "./components/controls";

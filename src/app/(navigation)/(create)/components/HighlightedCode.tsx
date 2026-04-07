@@ -4,8 +4,7 @@ import { Language, LANGUAGES } from "../util/languages";
 
 import styles from "./Editor.module.css";
 import { useAtomValue, useSetAtom } from "jotai";
-import { elementHighlightedLinesAtom, elementThemeAtom, themeDarkModeAtom } from "../store/editor";
-import { highlighterAtom, loadingLanguageAtom } from "../store";
+import { elementHighlightedLinesAtom, elementThemeAtom, themeDarkModeAtom, highlighterAtom, loadingLanguageAtom } from "../store/editor";
 
 type PropTypes = {
   selectedLanguage: Language | null;

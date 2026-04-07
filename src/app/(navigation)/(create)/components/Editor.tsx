@@ -9,8 +9,6 @@ import React, {
 } from "react";
 import styles from "./Editor.module.css";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { isCodeExampleAtom } from "../store/code";
-import { themeLineNumbersAtom } from "../store/themes";
 import useHotkeys from "../../../../utils/useHotkeys";
 import HighlightedCode from "./HighlightedCode";
 import { derivedFlashMessageAtom } from "../store/flash";
@@ -22,6 +20,8 @@ import {
   elementPaddingAtom,
   selectedLanguageAtom,
   themeCSSAtom,
+  themeLineNumbersAtom,
+  isCodeExampleAtom,
   updateSlideElementAtom,
 } from "../store/editor";
 import { cn } from "@/utils/cn";

@@ -2,10 +2,7 @@ import classNames from "classnames";
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
-import { windowWidthAtom } from "../../store";
-
-
-
+import { windowWidthAtom } from "../../store/editor";
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";

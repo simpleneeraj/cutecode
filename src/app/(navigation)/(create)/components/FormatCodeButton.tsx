@@ -2,7 +2,7 @@
 
 import formatCode, { formatterSupportedLanguages } from "../util/formatCode";
 import { useAtom } from "jotai";
-import { codeAtom, selectedLanguageAtom } from "../store/code";
+import { codeAtom, selectedLanguageAtom } from "../store/editor";
 import useHotkeys from "@/utils/useHotkeys";
 import { toast } from "@/components/toast";
 import { cn } from "@/utils/cn";
