@@ -25,7 +25,7 @@ const HighlightedCode: React.FC<PropTypes> = ({ selectedLanguage, code }) => {
   useEffect(() => {
     const generateHighlightedHtml = async () => {
       if (!highlighter || !selectedLanguage || selectedLanguage === LANGUAGES.plaintext) {
-        return code.replace(/[\u00A0-\u9999<>\&]/g, (i) => `&#${i.charCodeAt(0)};`);
+        return code?.replace(/[\u00A0-\u9999<>\&]/g, (i) => `&#${i.charCodeAt(0)};`);
       }
 
       const loadedLanguages = highlighter.getLoadedLanguages() || [];

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import { FrameContext } from "../store/context/frame";
 import FlashMessage from "./FlashMessage";
 import ResizableFrame from "./ResizableFrame";
@@ -21,59 +21,63 @@ import TailwindFrame from "./frames/TailwindFrame";
 import TriggerdevFrame from "./frames/TriggerdevFrame";
 import VercelFrame from "./frames/VercelFrame";
 
-import styles from "./Frame.module.css";
-import { THEMES } from "../constants/themes";
-import ToolbarParticle from "./Toolbar";
-import View from "@/components/view";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { currentElementAtom, currentSlideIdAtom, selectSlideAtom, slidesAtom } from "../store/editor";
-import React from "react";
-import type { Swiper as SwiperType } from "swiper";
 import { cn } from "@/utils/cn";
+import styles from "./Frame.module.css";
+import ToolbarParticle from "./Toolbar";
+import { THEMES } from "../constants/themes";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { currentElementAtom, currentSlideAtom } from "../store/editor";
 
 type Presets = {
   id: string;
 };
 
+const toolbarVariants: Variants = {
+  hidden: { opacity: 0, y: -8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
+const frameInnerVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    filter: "blur(8px)",
+  },
+  visible: {
+    opacity: 1,
+    filter: "blur(0px)",
+    transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] },
+  },
+};
+
 const Frame = () => {
   const frameRefs = useContext(FrameContext);
 
-  const slides = useAtomValue(slidesAtom);
   const elementState = useAtomValue(currentElementAtom);
   const themeId = elementState?.properties?.theme!;
   const darkMode = (elementState?.properties?.darkMode as boolean) ?? false;
 
-  const selectSlide = useSetAtom(selectSlideAtom);
-  const slideId = useAtomValue(currentSlideIdAtom);
-
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const swiperRef = React.useRef<SwiperType | null>(null);
+  const slide = useAtomValue(currentSlideAtom);
 
   return (
-    <>
-      <div className={cn(styles.frameContainer)} data-theme={darkMode ? "dark" : "light"}>
-        <Swiper
-          initialSlide={Math.max(
-            0,
-            slides.findIndex((s) => s.id === slideId),
-          )}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          onSlideChange={(swiper) => {
-            const slide = slides[swiper.activeIndex];
-            setActiveIndex(swiper.activeIndex);
-            if (slide) selectSlide(slide.id);
-          }}
-          allowTouchMove={false}
-          spaceBetween={50}
-          className={"flex items-center justify-center"}
-        >
-          {slides.map((slide) => (
-            <SwiperSlide key={slide.id} className="w-full flex! flex-col items-center justify-center">
-              <View className="flex items-center justify-center mb-4">
-                <ToolbarParticle />
-              </View>
+    <div className={cn(styles.frameContainer)} data-theme={darkMode ? "dark" : "light"}>
+      <AnimatePresence mode="wait">
+        {slide && (
+          <motion.div
+            key={slide.id}
+            className="w-full flex flex-col items-center justify-center"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <motion.div className="flex items-center justify-center mb-4" variants={toolbarVariants}>
+              <ToolbarParticle />
+            </motion.div>
+
+            <motion.div variants={frameInnerVariants}>
               <ResizableFrame>
                 <FlashMessage />
                 <div
@@ -86,11 +90,11 @@ const Frame = () => {
                   <Presets id={themeId} />
                 </div>
               </ResizableFrame>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

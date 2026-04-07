@@ -1,4 +1,4 @@
-import { Extension } from "@/api/store";
+import { Extension } from "@/app/api/store";
 import { cn } from "@/utils/cn";
 import { AtSymbolIcon } from "@raycast/icons";
 import Image from "next/image";

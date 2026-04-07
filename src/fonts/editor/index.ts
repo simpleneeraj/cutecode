@@ -1,7 +1,8 @@
 import { cn } from "@/utils/cn";
 import localFont from "next/font/local";
-import { Geist_Mono, Google_Sans_Code, Space_Mono, DM_Mono } from "next/font/google";
+import { Geist_Mono, Space_Mono, DM_Mono } from "next/font/google";
 
+// Google_Sans_Code
 /***
  * Need to remove the fonts
  */
@@ -17,12 +18,12 @@ export const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
 });
 
-export const googleSansCode = Google_Sans_Code({
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-  variable: "--font-google-sans-code",
-});
+// export const googleSansCode = Google_Sans_Code({
+//   subsets: ["latin"],
+//   weight: "400",
+//   display: "swap",
+//   variable: "--font-google-sans-code",
+// });
 
 export const spaceMono = Space_Mono({
   subsets: ["latin"],
@@ -361,7 +362,7 @@ export const fontVariables = cn(
   xanhMonoItalic.variable,
   xanhMonoRegular.variable,
   geistMono.variable,
-  googleSansCode.variable,
+  // googleSansCode.variable,
   spaceMono.variable,
   dmMono.variable,
 );

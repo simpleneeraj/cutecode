@@ -18,7 +18,6 @@ export default function ToolbarParticle() {
       id: crypto.randomUUID(),
       name: "New Slide",
       background: {},
-      elements: [],
     });
   };
 
@@ -33,7 +32,7 @@ export default function ToolbarParticle() {
                 render={
                   <ToolbarButton
                     aria-label="Delete slide"
-                    render={<Button size="icon-sm" variant="outline" onClick={deleteSlide} />}
+                    render={<Button size="icon-sm" variant="ghost" onClick={deleteSlide} />}
                   >
                     <Trash2 className="text-accent-foreground" />
                   </ToolbarButton>
@@ -48,7 +47,7 @@ export default function ToolbarParticle() {
               render={
                 <ToolbarButton
                   aria-label="Duplicate slide"
-                  render={<Button size="icon-sm" variant="outline" onClick={duplicateSlide} />}
+                  render={<Button size="icon-sm" variant="ghost" onClick={duplicateSlide} />}
                 >
                   <CopyPlus className="text-accent-foreground" />
                 </ToolbarButton>
@@ -63,7 +62,7 @@ export default function ToolbarParticle() {
               render={
                 <ToolbarButton
                   aria-label="Add slide"
-                  render={<Button size="icon-sm" variant="outline" onClick={onCreateSlide} />}
+                  render={<Button size="icon-sm" variant="ghost" onClick={onCreateSlide} />}
                 >
                   <Plus className="text-accent-foreground" />
                 </ToolbarButton>

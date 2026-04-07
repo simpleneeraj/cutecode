@@ -2,21 +2,23 @@ import classNames from "classnames";
 import { useAtomValue } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
-import { showBackgroundAtom, windowWidthAtom } from "../../store";
-import { codeAtom } from "../../store/code";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+import { windowWidthAtom } from "../../store";
+
+
+
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./ElevenLabsFrame.module.css";
+import { elementContentAtom, elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+
 
 const ElevenLabsFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const padding = useAtomValue(paddingAtom);
-  const showBackground = useAtomValue(showBackgroundAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const padding = useAtomValue(elementPaddingAtom);
+  const showBackground = useAtomValue(elementTransparentAtom);
   const windowWidth = useAtomValue(windowWidthAtom);
-  const code = useAtomValue(codeAtom);
+  const code = useAtomValue(elementContentAtom);
 
   const windowRef = useRef<HTMLDivElement>(null);
   const [circleDiameter, setCircleDiameter] = useState(0);

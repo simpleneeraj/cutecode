@@ -2,21 +2,23 @@ import classNames from "classnames";
 import { useAtom, useAtomValue } from "jotai";
 import React, { useEffect, useRef, useState } from "react";
 
-import { showBackgroundAtom, windowWidthAtom } from "../../store";
-import { codeAtom } from "../../store/code";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+import { windowWidthAtom } from "../../store";
+
+
+
 import useIsSafari from "../../util/useIsSafari";
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./StripeFrame.module.css";
+import { elementContentAtom, elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+
 
 const StripeFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const [padding] = useAtom(paddingAtom);
-  const [showBackground] = useAtom(showBackgroundAtom);
-  const code = useAtomValue(codeAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const [padding] = useAtom(elementPaddingAtom);
+  const [showBackground] = useAtom(elementTransparentAtom);
+  const code = useAtomValue(elementContentAtom);
   const windowWidth = useAtomValue(windowWidthAtom);
   const isSafari = useIsSafari();
 

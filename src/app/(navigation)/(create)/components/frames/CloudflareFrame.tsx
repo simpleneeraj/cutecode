@@ -1,21 +1,24 @@
 import classNames from "classnames";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue , useSetAtom } from "jotai";
 
-import { fileNameAtom, showBackgroundAtom } from "../../store";
-import { selectedLanguageAtom } from "../../store/code";
+
+
 import { flashShownAtom } from "../../store/flash";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+
+
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./CloudflareFrame.module.css";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, selectedLanguageAtom , updateSlideElementAtom} from "../../store/editor";
+
 
 const CloudflareFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const [padding] = useAtom(paddingAtom);
-  const [showBackground] = useAtom(showBackgroundAtom);
-  const [fileName, setFileName] = useAtom(fileNameAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const [padding] = useAtom(elementPaddingAtom);
+  const [showBackground] = useAtom(elementTransparentAtom);
+  const fileName = useAtomValue(elementFileNameAtom);
+  const _updateElement = useSetAtom(updateSlideElementAtom);
   const [selectedLanguage] = useAtom(selectedLanguageAtom);
   const flashShown = useAtomValue(flashShownAtom);
 
@@ -40,7 +43,7 @@ const CloudflareFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
@@ -54,7 +57,7 @@ const CloudflareFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}

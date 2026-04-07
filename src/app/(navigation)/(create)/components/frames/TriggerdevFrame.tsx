@@ -1,23 +1,26 @@
 import classNames from "classnames";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue , useSetAtom } from "jotai";
 
-import { fileNameAtom, showBackgroundAtom } from "../../store";
-import { selectedLanguageAtom } from "../../store/code";
+
+
 import { flashShownAtom } from "../../store/flash";
-import { paddingAtom } from "../../store/padding";
-import { themeBackgroundAtom, themeDarkModeAtom } from "../../store/themes";
+
+
 import triggerPattern from "../../assets/triggerdev/pattern.svg?url";
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./TriggerdevFrame.module.css";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, selectedLanguageAtom, themeBackgroundAtom , updateSlideElementAtom} from "../../store/editor";
+
 
 const TriggerdevFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const [padding] = useAtom(paddingAtom);
-  const [showBackground] = useAtom(showBackgroundAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const [padding] = useAtom(elementPaddingAtom);
+  const [showBackground] = useAtom(elementTransparentAtom);
   const [themeBackground] = useAtom(themeBackgroundAtom);
-  const [fileName, setFileName] = useAtom(fileNameAtom);
+  const fileName = useAtomValue(elementFileNameAtom);
+  const _updateElement = useSetAtom(updateSlideElementAtom);
   const [selectedLanguage] = useAtom(selectedLanguageAtom);
   const flashShown = useAtomValue(flashShownAtom);
 
@@ -48,7 +51,7 @@ const TriggerdevFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
@@ -62,7 +65,7 @@ const TriggerdevFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}

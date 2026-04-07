@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { highlighterAtom } from "./store";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 import { shikiTheme } from "./store/themes";
 
@@ -19,7 +19,7 @@ import tailwindDark from "./assets/tailwind/dark.json";
 import { cn } from "@/utils/cn";
 
 export function Code() {
-  const [highlighter, setHighlighter] = useAtom(highlighterAtom);
+  const [, setHighlighter] = useAtom(highlighterAtom);
 
   useEffect(() => {
     createHighlighterCore({

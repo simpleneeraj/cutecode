@@ -1,20 +1,23 @@
 import classNames from "classnames";
-import { useAtom, useAtomValue } from "jotai";
+import { useAtom, useAtomValue , useSetAtom } from "jotai";
 
-import { fileNameAtom, showBackgroundAtom } from "../../store";
+
 import { flashShownAtom } from "../../store/flash";
-import { paddingAtom } from "../../store/padding";
-import { themeDarkModeAtom } from "../../store/themes";
+
+
 
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./PrismaFrame.module.css";
+import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom , updateSlideElementAtom} from "../../store/editor";
+
 
 const PrismaFrame = () => {
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const [padding] = useAtom(paddingAtom);
-  const [showBackground] = useAtom(showBackgroundAtom);
-  const [fileName, setFileName] = useAtom(fileNameAtom);
+  const darkMode = useAtomValue(elementDarkModeAtom);
+  const [padding] = useAtom(elementPaddingAtom);
+  const [showBackground] = useAtom(elementTransparentAtom);
+  const fileName = useAtomValue(elementFileNameAtom);
+  const _updateElement = useSetAtom(updateSlideElementAtom);
   const flashShown = useAtomValue(flashShownAtom);
 
   return (
@@ -40,7 +43,7 @@ const PrismaFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
@@ -53,7 +56,7 @@ const PrismaFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => setFileName(event.target.value)}
+                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
