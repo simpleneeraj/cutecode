@@ -1404,7 +1404,7 @@
       "to": "#000"
     },
     "group": "Brands",
-    "iconUrl": "http://localhost:3000undefined",
+    "iconUrl": "http://localhost:3000",
     "font": "geist-mono",
     "partner": true,
     "syntax": {

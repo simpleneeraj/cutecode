@@ -43,6 +43,9 @@ export type UserMinAggregateOutputType = {
   plan: $Enums.Plan | null
   usageMonth: number | null
   usageReset: Date | null
+  lastIpHash: string | null
+  deviceFp: string | null
+  trialUsed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +59,9 @@ export type UserMaxAggregateOutputType = {
   plan: $Enums.Plan | null
   usageMonth: number | null
   usageReset: Date | null
+  lastIpHash: string | null
+  deviceFp: string | null
+  trialUsed: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -69,6 +75,9 @@ export type UserCountAggregateOutputType = {
   plan: number
   usageMonth: number
   usageReset: number
+  lastIpHash: number
+  deviceFp: number
+  trialUsed: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -92,6 +101,9 @@ export type UserMinAggregateInputType = {
   plan?: true
   usageMonth?: true
   usageReset?: true
+  lastIpHash?: true
+  deviceFp?: true
+  trialUsed?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -105,6 +117,9 @@ export type UserMaxAggregateInputType = {
   plan?: true
   usageMonth?: true
   usageReset?: true
+  lastIpHash?: true
+  deviceFp?: true
+  trialUsed?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -118,6 +133,9 @@ export type UserCountAggregateInputType = {
   plan?: true
   usageMonth?: true
   usageReset?: true
+  lastIpHash?: true
+  deviceFp?: true
+  trialUsed?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -218,6 +236,9 @@ export type UserGroupByOutputType = {
   plan: $Enums.Plan
   usageMonth: number
   usageReset: Date
+  lastIpHash: string | null
+  deviceFp: string | null
+  trialUsed: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
@@ -254,10 +275,17 @@ export type UserWhereInput = {
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
   usageMonth?: Prisma.IntFilter<"User"> | number
   usageReset?: Prisma.DateTimeFilter<"User"> | Date | string
+  lastIpHash?: Prisma.StringNullableFilter<"User"> | string | null
+  deviceFp?: Prisma.StringNullableFilter<"User"> | string | null
+  trialUsed?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   snippets?: Prisma.SnippetListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  usageEvents?: Prisma.UsageEventListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
+  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -269,10 +297,17 @@ export type UserOrderByWithRelationInput = {
   plan?: Prisma.SortOrder
   usageMonth?: Prisma.SortOrder
   usageReset?: Prisma.SortOrder
+  lastIpHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceFp?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   subscription?: Prisma.SubscriptionOrderByWithRelationInput
   snippets?: Prisma.SnippetOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
+  usageEvents?: Prisma.UsageEventOrderByRelationAggregateInput
+  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  dunningAttempts?: Prisma.DunningAttemptOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -287,10 +322,17 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
   usageMonth?: Prisma.IntFilter<"User"> | number
   usageReset?: Prisma.DateTimeFilter<"User"> | Date | string
+  lastIpHash?: Prisma.StringNullableFilter<"User"> | string | null
+  deviceFp?: Prisma.StringNullableFilter<"User"> | string | null
+  trialUsed?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   snippets?: Prisma.SnippetListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
+  usageEvents?: Prisma.UsageEventListRelationFilter
+  auditLogs?: Prisma.AuditLogListRelationFilter
+  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
 }, "id" | "clerkId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -302,6 +344,9 @@ export type UserOrderByWithAggregationInput = {
   plan?: Prisma.SortOrder
   usageMonth?: Prisma.SortOrder
   usageReset?: Prisma.SortOrder
+  lastIpHash?: Prisma.SortOrderInput | Prisma.SortOrder
+  deviceFp?: Prisma.SortOrderInput | Prisma.SortOrder
+  trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -323,6 +368,9 @@ export type UserScalarWhereWithAggregatesInput = {
   plan?: Prisma.EnumPlanWithAggregatesFilter<"User"> | $Enums.Plan
   usageMonth?: Prisma.IntWithAggregatesFilter<"User"> | number
   usageReset?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  lastIpHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  deviceFp?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  trialUsed?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -336,10 +384,17 @@ export type UserCreateInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -351,10 +406,17 @@ export type UserUncheckedCreateInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -366,10 +428,17 @@ export type UserUpdateInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -381,10 +450,17 @@ export type UserUncheckedUpdateInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -396,6 +472,9 @@ export type UserCreateManyInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -409,6 +488,9 @@ export type UserUpdateManyMutationInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -422,6 +504,9 @@ export type UserUncheckedUpdateManyInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -435,6 +520,9 @@ export type UserCountOrderByAggregateInput = {
   plan?: Prisma.SortOrder
   usageMonth?: Prisma.SortOrder
   usageReset?: Prisma.SortOrder
+  lastIpHash?: Prisma.SortOrder
+  deviceFp?: Prisma.SortOrder
+  trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -452,6 +540,9 @@ export type UserMaxOrderByAggregateInput = {
   plan?: Prisma.SortOrder
   usageMonth?: Prisma.SortOrder
   usageReset?: Prisma.SortOrder
+  lastIpHash?: Prisma.SortOrder
+  deviceFp?: Prisma.SortOrder
+  trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -465,6 +556,9 @@ export type UserMinOrderByAggregateInput = {
   plan?: Prisma.SortOrder
   usageMonth?: Prisma.SortOrder
   usageReset?: Prisma.SortOrder
+  lastIpHash?: Prisma.SortOrder
+  deviceFp?: Prisma.SortOrder
+  trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -476,6 +570,11 @@ export type UserSumOrderByAggregateInput = {
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -506,6 +605,10 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type UserCreateNestedOneWithoutSubscriptionInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionInput, Prisma.UserUncheckedCreateWithoutSubscriptionInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubscriptionInput
@@ -518,6 +621,64 @@ export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
   upsert?: Prisma.UserUpsertWithoutSubscriptionInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.UserUpdateWithoutSubscriptionInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionInput>
+}
+
+export type UserCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserCreateNestedOneWithoutUsageEventsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUsageEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutUsageEventsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUsageEventsInput
+  upsert?: Prisma.UserUpsertWithoutUsageEventsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUsageEventsInput, Prisma.UserUpdateWithoutUsageEventsInput>, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
+}
+
+export type UserCreateNestedOneWithoutAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserCreateNestedOneWithoutDunningAttemptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDunningAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDunningAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDunningAttemptsInput
+  upsert?: Prisma.UserUpsertWithoutDunningAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDunningAttemptsInput, Prisma.UserUpdateWithoutDunningAttemptsInput>, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
 }
 
 export type UserCreateNestedOneWithoutSnippetsInput = {
@@ -543,9 +704,16 @@ export type UserCreateWithoutSubscriptionInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -557,9 +725,16 @@ export type UserUncheckedCreateWithoutSubscriptionInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -587,9 +762,16 @@ export type UserUpdateWithoutSubscriptionInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -601,9 +783,416 @@ export type UserUncheckedUpdateWithoutSubscriptionInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPaymentsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+}
+
+export type UserUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type UserUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutUsageEventsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutUsageEventsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutUsageEventsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
+}
+
+export type UserUpsertWithoutUsageEventsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutUsageEventsInput, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutUsageEventsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutUsageEventsInput, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
+}
+
+export type UserUpdateWithoutUsageEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutUsageEventsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAuditLogsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAuditLogsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+}
+
+export type UserUpsertWithoutAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
+}
+
+export type UserUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDunningAttemptsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDunningAttemptsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDunningAttemptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
+}
+
+export type UserUpsertWithoutDunningAttemptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDunningAttemptsInput, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDunningAttemptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDunningAttemptsInput, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
+}
+
+export type UserUpdateWithoutDunningAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDunningAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSnippetsInput = {
@@ -615,9 +1204,16 @@ export type UserCreateWithoutSnippetsInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSnippetsInput = {
@@ -629,9 +1225,16 @@ export type UserUncheckedCreateWithoutSnippetsInput = {
   plan?: $Enums.Plan
   usageMonth?: number
   usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSnippetsInput = {
@@ -659,9 +1262,16 @@ export type UserUpdateWithoutSnippetsInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSnippetsInput = {
@@ -673,9 +1283,16 @@ export type UserUncheckedUpdateWithoutSnippetsInput = {
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
   usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
   usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -685,10 +1302,18 @@ export type UserUncheckedUpdateWithoutSnippetsInput = {
 
 export type UserCountOutputType = {
   snippets: number
+  payments: number
+  usageEvents: number
+  auditLogs: number
+  dunningAttempts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   snippets?: boolean | UserCountOutputTypeCountSnippetsArgs
+  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
+  usageEvents?: boolean | UserCountOutputTypeCountUsageEventsArgs
+  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  dunningAttempts?: boolean | UserCountOutputTypeCountDunningAttemptsArgs
 }
 
 /**
@@ -708,6 +1333,34 @@ export type UserCountOutputTypeCountSnippetsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.SnippetWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountUsageEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UsageEventWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AuditLogWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DunningAttemptWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -718,10 +1371,17 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   plan?: boolean
   usageMonth?: boolean
   usageReset?: boolean
+  lastIpHash?: boolean
+  deviceFp?: boolean
+  trialUsed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   snippets?: boolean | Prisma.User$snippetsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -734,6 +1394,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   plan?: boolean
   usageMonth?: boolean
   usageReset?: boolean
+  lastIpHash?: boolean
+  deviceFp?: boolean
+  trialUsed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -747,6 +1410,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   plan?: boolean
   usageMonth?: boolean
   usageReset?: boolean
+  lastIpHash?: boolean
+  deviceFp?: boolean
+  trialUsed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
@@ -760,14 +1426,21 @@ export type UserSelectScalar = {
   plan?: boolean
   usageMonth?: boolean
   usageReset?: boolean
+  lastIpHash?: boolean
+  deviceFp?: boolean
+  trialUsed?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clerkId" | "email" | "name" | "role" | "plan" | "usageMonth" | "usageReset" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clerkId" | "email" | "name" | "role" | "plan" | "usageMonth" | "usageReset" | "lastIpHash" | "deviceFp" | "trialUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   snippets?: boolean | Prisma.User$snippetsArgs<ExtArgs>
+  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
+  usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
+  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -778,6 +1451,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     snippets: Prisma.$SnippetPayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
+    usageEvents: Prisma.$UsageEventPayload<ExtArgs>[]
+    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    dunningAttempts: Prisma.$DunningAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -788,6 +1465,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     plan: $Enums.Plan
     usageMonth: number
     usageReset: Date
+    lastIpHash: string | null
+    deviceFp: string | null
+    trialUsed: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1186,6 +1866,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscription<T extends Prisma.User$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionArgs<ExtArgs>>): Prisma.Prisma__SubscriptionClient<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   snippets<T extends Prisma.User$snippetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$snippetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  usageEvents<T extends Prisma.User$usageEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usageEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsageEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  dunningAttempts<T extends Prisma.User$dunningAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dunningAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DunningAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1223,6 +1907,9 @@ export interface UserFieldRefs {
   readonly plan: Prisma.FieldRef<"User", 'Plan'>
   readonly usageMonth: Prisma.FieldRef<"User", 'Int'>
   readonly usageReset: Prisma.FieldRef<"User", 'DateTime'>
+  readonly lastIpHash: Prisma.FieldRef<"User", 'String'>
+  readonly deviceFp: Prisma.FieldRef<"User", 'String'>
+  readonly trialUsed: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1658,6 +2345,102 @@ export type User$snippetsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SnippetScalarFieldEnum | Prisma.SnippetScalarFieldEnum[]
+}
+
+/**
+ * User.payments
+ */
+export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
+}
+
+/**
+ * User.usageEvents
+ */
+export type User$usageEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UsageEvent
+   */
+  select?: Prisma.UsageEventSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UsageEvent
+   */
+  omit?: Prisma.UsageEventOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UsageEventInclude<ExtArgs> | null
+  where?: Prisma.UsageEventWhereInput
+  orderBy?: Prisma.UsageEventOrderByWithRelationInput | Prisma.UsageEventOrderByWithRelationInput[]
+  cursor?: Prisma.UsageEventWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UsageEventScalarFieldEnum | Prisma.UsageEventScalarFieldEnum[]
+}
+
+/**
+ * User.auditLogs
+ */
+export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AuditLog
+   */
+  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AuditLog
+   */
+  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AuditLogInclude<ExtArgs> | null
+  where?: Prisma.AuditLogWhereInput
+  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.AuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.dunningAttempts
+ */
+export type User$dunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DunningAttempt
+   */
+  select?: Prisma.DunningAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DunningAttempt
+   */
+  omit?: Prisma.DunningAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DunningAttemptInclude<ExtArgs> | null
+  where?: Prisma.DunningAttemptWhereInput
+  orderBy?: Prisma.DunningAttemptOrderByWithRelationInput | Prisma.DunningAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.DunningAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DunningAttemptScalarFieldEnum | Prisma.DunningAttemptScalarFieldEnum[]
 }
 
 /**

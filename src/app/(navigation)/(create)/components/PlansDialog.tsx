@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { useRouter } from "next/navigation";
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/nextjs";
 import { Fingerprint, CrownIcon, Loader2 } from "lucide-react";
 import { motion } from "motion/react";
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -23,6 +23,10 @@ import {
 import { useSubscription } from "@/hooks/use-subscription";
 import { Plan } from "@/generated/prisma/enums";
 import { PLANS } from "@/lib/billing/plans";
+import useBilling from "@/hooks/use-billing";
+import { getRedirectUrlWithParam, removeSearchParam, hasSearchParam } from "@/utils/url";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { locationAtom, plansDialogOpenAtom } from "../store/plans-dialog";
 
 const PRO_PRODUCT_ID = process.env.NEXT_PUBLIC_DODO_PRODUCT_PRO;
 
@@ -66,60 +70,45 @@ function ProFeatureList() {
 }
 
 export default function PlansDialog() {
-  const router = useRouter();
   const { isSignedIn, isLoaded } = useUser();
-  const { openSignIn } = useClerk();
   const { plan, isPro, isLoaded: subLoaded } = useSubscription();
-  const [isRedirecting, setIsRedirecting] = React.useState(false);
+  const { openBilling, openPortal, isLoading } = useBilling();
 
   const proPlan = PLANS[Plan.PRO];
+  // Global open state
+  const [open, setOpen] = useAtom(plansDialogOpenAtom);
+
+  // Auto-open after sign-in via ?upgrade=true
+  const [loc, setLoc] = useAtom(locationAtom);
+
+  React.useEffect(() => {
+    if (!isLoaded || !isSignedIn) return;
+    if (hasSearchParam(loc.searchParams, "upgrade", "true")) {
+      setOpen(true);
+      // Clean ?upgrade=true from URL without adding a history entry
+      setLoc((prev) => ({
+        ...prev,
+        searchParams: removeSearchParam(prev.searchParams, "upgrade"),
+      }));
+    }
+  }, [isLoaded, isSignedIn, loc.searchParams, setOpen, setLoc]);
 
   async function handleUpgradeClick() {
-    // Not signed in → open Clerk sign-in modal, redirect back here after
-    if (!isSignedIn) {
-      openSignIn({ forceRedirectUrl: window.location.href });
-      return;
-    }
-
-    // Already on Pro or above → go to customer portal to manage subscription
-    if (isPro) {
-      const res = await fetch("/api/customer-portal");
-      const { customer_portal_url } = await res.json();
-      window.location.href = customer_portal_url ?? "/pricing";
-      return;
-    }
-
-    // Fetch the DodoPayments checkout URL, then redirect to it
-    if (PRO_PRODUCT_ID) {
-      try {
-        setIsRedirecting(true);
-        const res = await fetch(`/api/checkout?productId=${PRO_PRODUCT_ID}`);
-        const { checkout_url } = await res.json();
-        window.location.href = checkout_url;
-      } catch {
-        setIsRedirecting(false);
-        router.push("/pricing");
-      }
-    } else {
-      router.push("/pricing");
-    }
+    await openBilling(PRO_PRODUCT_ID);
   }
 
-  // Don't render until both Clerk and subscription data are ready
-  const loading = !isLoaded || !subLoaded || isRedirecting;
+  const loading = !isLoaded || !subLoaded || isLoading;
 
-  // Already pro — show a "Manage" button instead of "Upgrade"
   if (isLoaded && isPro) {
     return (
-      <Button variant="outline" size="sm" onClick={() => router.push("/api/customer-portal")} className="gap-1.5">
+      <Button variant="outline" size="sm" onClick={openPortal} className="gap-1.5">
         <HugeiconsIcon icon={Crown03Icon} className="size-4 text-amber-500" />
         {plan} Plan
       </Button>
     );
   }
-
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />} className="gap-1.5">
         <HugeiconsIcon icon={Crown03Icon} />
         Upgrade to Pro
@@ -144,16 +133,15 @@ export default function PlansDialog() {
 
         <DialogFooter className="flex-1">
           <div className="flex-1 flex flex-col gap-3">
-            <button
-              type="button"
-              disabled={loading}
-              onClick={handleUpgradeClick}
-              className="group relative inline-flex h-10 w-full items-center justify-center overflow-hidden rounded-xl bg-linear-to-r from-rose-500 to-pink-500 font-semibold text-sm text-white tracking-wide shadow-lg shadow-rose-500/20 transition-all duration-500 hover:from-rose-600 hover:to-pink-600 hover:shadow-rose-500/30 hover:shadow-xl dark:from-rose-600 dark:to-pink-600 dark:hover:from-rose-500 dark:hover:to-pink-500 disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {loading ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <>
+            {!isSignedIn ? (
+              <SignInButton
+                mode="modal"
+                forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}
+              >
+                <button
+                  type="button"
+                  className="group relative inline-flex h-10 w-full items-center justify-center overflow-hidden rounded-xl bg-linear-to-r from-rose-500 to-pink-500 font-semibold text-sm text-white tracking-wide shadow-lg shadow-rose-500/20 transition-all duration-500 hover:from-rose-600 hover:to-pink-600 hover:shadow-rose-500/30 hover:shadow-xl dark:from-rose-600 dark:to-pink-600 dark:hover:from-rose-500 dark:hover:to-pink-500"
+                >
                   <motion.span
                     className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
                     transition={{ duration: 1.5, ease: "easeInOut", repeat: 0 }}
@@ -165,24 +153,68 @@ export default function PlansDialog() {
                     initial={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {!isSignedIn ? "Sign in to upgrade" : "Subscribe now"}
+                    Sign in to upgrade
                     <motion.div
                       animate={{ rotate: [0, 15, -15, 0], y: [0, -2, 2, 0] }}
-                      transition={{
-                        duration: 2,
-                        ease: "easeInOut",
-                        repeat: Number.POSITIVE_INFINITY,
-                        repeatDelay: 1,
-                      }}
+                      transition={{ duration: 2, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY, repeatDelay: 1 }}
                     >
                       <Fingerprint className="h-4 w-4" />
                     </motion.div>
                   </motion.div>
-                </>
-              )}
-            </button>
+                </button>
+              </SignInButton>
+            ) : (
+              <button
+                type="button"
+                disabled={loading}
+                onClick={handleUpgradeClick}
+                className="group relative inline-flex h-10 w-full items-center justify-center overflow-hidden rounded-xl bg-linear-to-r from-rose-500 to-pink-500 font-semibold text-sm text-white tracking-wide shadow-lg shadow-rose-500/20 transition-all duration-500 hover:from-rose-600 hover:to-pink-600 hover:shadow-rose-500/30 hover:shadow-xl dark:from-rose-600 dark:to-pink-600 dark:hover:from-rose-500 dark:hover:to-pink-500 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <>
+                    <motion.span
+                      className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
+                      transition={{ duration: 1.5, ease: "easeInOut", repeat: 0 }}
+                      whileHover={{ x: ["-200%", "200%"] }}
+                    />
+                    <motion.div
+                      animate={{ opacity: 1 }}
+                      className="relative flex items-center gap-2 tracking-tighter"
+                      initial={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      Subscribe now
+                      <motion.div
+                        animate={{ rotate: [0, 15, -15, 0], y: [0, -2, 2, 0] }}
+                        transition={{
+                          duration: 2,
+                          ease: "easeInOut",
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatDelay: 1,
+                        }}
+                      >
+                        <Fingerprint className="h-4 w-4" />
+                      </motion.div>
+                    </motion.div>
+                  </>
+                )}
+              </button>
+            )}
 
-            <Button variant="link">Maybe later</Button>
+            <Button
+              variant="link"
+              onClick={() => {
+                setOpen(false);
+                setLoc((prev) => ({
+                  ...prev,
+                  searchParams: removeSearchParam(prev.searchParams, "upgrade"),
+                }));
+              }}
+            >
+              Maybe later
+            </Button>
           </div>
         </DialogFooter>
       </DialogPopup>

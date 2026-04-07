@@ -15,6 +15,7 @@ import { Webhook, WebhookRequiredHeaders } from "svix";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { syncClerkUser, deleteClerkUser, extractEmail } from "@/lib/auth/sync";
+import { logger } from "@/lib/logger";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -117,7 +118,7 @@ export async function POST(req: Request): Promise<NextResponse> {
   if (!svixId || !svixTimestamp || !svixSignature) {
     // Missing headers almost always means a non-Svix caller (e.g. a scanner).
     // Log at warn, not error, to avoid alert fatigue from internet noise.
-    console.warn(JSON.stringify(buildLogContext("unknown", "error", { reason: "missing_svix_headers" })));
+    logger.warn(buildLogContext("unknown", "error", { reason: "missing_svix_headers" }));
     return NextResponse.json({ error: "Missing required Svix headers." }, { status: 400 });
   }
 
@@ -129,13 +130,11 @@ export async function POST(req: Request): Promise<NextResponse> {
   //
   const eventAgeMs = Date.now() - Number(svixTimestamp) * 1000;
   if (eventAgeMs > TIMESTAMP_TOLERANCE_MS) {
-    console.warn(
-      JSON.stringify(
-        buildLogContext("unknown", "error", {
-          reason: "stale_timestamp",
-          eventAgeMs,
-        }),
-      ),
+    logger.warn(
+      buildLogContext("unknown", "error", {
+        reason: "stale_timestamp",
+        eventAgeMs,
+      }),
     );
     return NextResponse.json({ error: "Webhook timestamp is too old." }, { status: 400 });
   }
@@ -159,14 +158,12 @@ export async function POST(req: Request): Promise<NextResponse> {
     evt = webhookVerifier.verify(rawBody, svixHeaders) as ClerkWebhookEvent;
   } catch (err) {
     // verify() throws on bad HMAC or structurally invalid payloads.
-    console.error(
-      JSON.stringify(
-        buildLogContext("unknown", "error", {
-          reason: "signature_verification_failed",
-          // Avoid logging the raw error message in case it leaks internals.
-          error: err instanceof Error ? err.message : "unknown",
-        }),
-      ),
+    logger.error(
+      buildLogContext("unknown", "error", {
+        reason: "signature_verification_failed",
+        // Avoid logging the raw error message in case it leaks internals.
+        error: err instanceof Error ? err.message : "unknown",
+      }),
     );
     return NextResponse.json({ error: "Webhook signature verification failed." }, { status: 401 });
   }
@@ -187,7 +184,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
         await syncClerkUser({ clerkId: data.id, email, name });
 
-        console.info(JSON.stringify(buildLogContext(type, "success", { clerkId: data.id })));
+        logger.info(buildLogContext(type, "success", { clerkId: data.id }));
         break;
       }
 
@@ -195,7 +192,7 @@ export async function POST(req: Request): Promise<NextResponse> {
         const { data } = evt;
         await deleteClerkUser(data.id);
 
-        console.info(JSON.stringify(buildLogContext(type, "success", { clerkId: data.id })));
+        logger.info(buildLogContext(type, "success", { clerkId: data.id }));
         break;
       }
 
@@ -209,12 +206,10 @@ export async function POST(req: Request): Promise<NextResponse> {
         const _exhaustiveCheck: never = evt;
         void _exhaustiveCheck;
 
-        console.info(
-          JSON.stringify(
-            buildLogContext((evt as ClerkWebhookEvent).type ?? "unknown", "ignored", {
-              reason: "unhandled_event_type",
-            }),
-          ),
+        logger.info(
+          buildLogContext((evt as ClerkWebhookEvent).type ?? "unknown", "ignored", {
+            reason: "unhandled_event_type",
+          }),
         );
       }
     }
@@ -226,13 +221,11 @@ export async function POST(req: Request): Promise<NextResponse> {
      * Returning 5xx causes Svix to automatically retry — exactly the behaviour
      * you want when a transient DB error prevented the sync.
      */
-    console.error(
-      JSON.stringify(
-        buildLogContext(type, "error", {
-          reason: "handler_exception",
-          error: err instanceof Error ? err.message : String(err),
-        }),
-      ),
+    logger.error(
+      buildLogContext(type, "error", {
+        reason: "handler_exception",
+        error: err instanceof Error ? err.message : String(err),
+      }),
     );
     return NextResponse.json({ error: "Internal error while processing webhook." }, { status: 500 });
   }

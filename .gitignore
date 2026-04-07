@@ -41,3 +41,5 @@ todo.md
 certificates
 
 .env
+# clerk configuration (can include secrets)
+/.clerk/

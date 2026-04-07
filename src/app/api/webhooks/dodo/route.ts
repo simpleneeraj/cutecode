@@ -1,135 +1,89 @@
+import { NextRequest, NextResponse } from "next/server";
 import { Webhooks } from "@dodopayments/nextjs";
-import { prisma } from "@/lib/db";
-import { Plan, SubscriptionStatus } from "@/generated/prisma/client";
-import { syncPlanToClerk } from "@/lib/billing";
+import { WebhookService } from "@/lib/billing/webhook-service";
+import { AuditLogger } from "@/lib/billing/audit";
+import { AuditAction } from "@/generated/prisma/enums";
+import { logger } from "@/lib/logger";
+
+// ─── Shared Event Processor ──────────────────────────────────────────────────
 
 /**
- * Map DodoPayments product IDs → Plan enum values.
- * Update these when you create products in your DodoPayments dashboard.
+ * Standardizes the webhook pipeline: Store → Audit → Process.
+ * Ensures idempotency and error tracking across all event cases.
  */
-function getProductPlanMap(): Record<string, Plan> {
-  return {
-    [process.env.NEXT_PUBLIC_DODO_PRODUCT_PRO ?? ""]: Plan.PRO,
-    [process.env.NEXT_PUBLIC_DODO_PRODUCT_ELITE ?? ""]: Plan.ELITE,
-    [process.env.NEXT_PUBLIC_DODO_PRODUCT_ULTIMATE ?? ""]: Plan.ULTIMATE,
-  };
-}
+async function processWebhookEvent(payload: any) {
+  const data = payload.data || payload;
 
-type WebhookData = {
-  subscription_id: string;
-  customer: { email: string };
-  product_id?: string;
-  current_period_start?: string;
-  current_period_end?: string;
-};
+  // Extract event ID and Type securely
+  const eventId =
+    data.event_id ??
+    payload.id ??
+    payload.eventId ??
+    `fallback_${data.subscription_id ?? data.payment_id ?? "unknown"}_${Date.now()}`;
 
-type WebhookPayload = { data: WebhookData };
+  const eventType = payload.type ?? payload.event_type ?? data.type ?? "unknown";
 
-async function handleSubscriptionEvent(payload: WebhookPayload, status: SubscriptionStatus) {
-  const { data } = payload;
-  const productPlanMap = getProductPlanMap();
+  // ① Store raw event FIRST (ensures no event loss if processing fails)
+  const isNew = await WebhookService.store(eventId, eventType, payload);
 
-  // Active → resolve plan from product_id; any other status → downgrade to FREE
-  const plan: Plan =
-    status === SubscriptionStatus.ACTIVE && data.product_id
-      ? (productPlanMap[data.product_id] ?? Plan.FREE)
-      : Plan.FREE;
-
-  const user = await prisma.user.findUnique({
-    where: { email: data.customer.email },
-    select: { id: true, clerkId: true },
+  await AuditLogger.record({
+    action: isNew ? AuditAction.WEBHOOK_RECEIVED : AuditAction.IDEMPOTENCY_HIT,
+    metadata: { eventId, eventType, duplicate: !isNew },
   });
 
-  if (!user) {
-    console.warn(`[dodo-webhook] No user found for email ${data.customer.email}`);
+  if (!isNew) {
+    // Duplicate delivery — exit idempotently
     return;
   }
 
-  const now = new Date();
-  const periodStart = data.current_period_start ? new Date(data.current_period_start) : now;
-  const periodEnd = data.current_period_end ? new Date(data.current_period_end) : now;
-
-  // Atomic transaction: subscription record + user.plan updated together
-  await prisma.$transaction([
-    prisma.subscription.upsert({
-      where: { userId: user.id },
-      create: {
-        userId: user.id,
-        dodoSubscriptionId: data.subscription_id,
-        plan,
-        status,
-        currentPeriodStart: periodStart,
-        currentPeriodEnd: periodEnd,
-      },
-      update: {
-        plan,
-        status,
-        currentPeriodStart: periodStart,
-        currentPeriodEnd: periodEnd,
-        cancelAtPeriodEnd: status === SubscriptionStatus.CANCELLED,
-      },
-    }),
-    prisma.user.update({
-      where: { id: user.id },
-      data: { plan },
-    }),
-  ]);
-
-  // Sync plan to Clerk publicMetadata for fast client-side access
-  await syncPlanToClerk(user.clerkId, plan);
+  // ② Process inline with domain logic
+  try {
+    await WebhookService.process(eventId);
+  } catch (err) {
+    logger.error({ err, eventId }, `[webhook] Processing failed for ${eventId}`);
+    throw err;
+  }
 }
 
+// ─── Route Handler ─────────────────────────────────────────────────────────────
+
+/**
+ * POST /api/webhooks/dodo
+ *
+ * Uses the official @dodopayments/nextjs SDK for reliable signature verification.
+ * Explicitly binds to all granular webhook cases supported by the SDK.
+ */
 export const POST = Webhooks({
   webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_KEY!,
 
-  onSubscriptionActive: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.ACTIVE),
-  onSubscriptionRenewed: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.ACTIVE),
-  onSubscriptionPlanChanged: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.ACTIVE),
-  onSubscriptionOnHold: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.ON_HOLD),
-  onSubscriptionCancelled: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.CANCELLED),
-  onSubscriptionFailed: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.FAILED),
-  onSubscriptionExpired: (p) => handleSubscriptionEvent(p as WebhookPayload, SubscriptionStatus.EXPIRED),
+  // Payments
+  onPaymentSucceeded: processWebhookEvent,
+  onPaymentFailed: processWebhookEvent,
+  onPaymentProcessing: processWebhookEvent,
+  onPaymentCancelled: processWebhookEvent,
 
+  // Refunds
+  onRefundSucceeded: processWebhookEvent,
+  onRefundFailed: processWebhookEvent,
 
-  onPaymentSucceeded: async (payload: unknown) => {
-    const data = (payload as { data: { customer: { email: string }; payment_id: string; subscription_id?: string } }).data;
-    const user = await prisma.user.findUnique({
-      where: { email: data.customer.email },
-      select: { id: true },
-    });
-    if (!user) {
-      console.warn(`[dodo-webhook] onPaymentSucceeded: no user for ${data.customer.email}`);
-      return;
-    }
-    // Payment success is already handled by onSubscriptionActive/Renewed.
-    // Log it here for your own records / analytics.
-    console.info(`[dodo-webhook] Payment succeeded for user ${user.id} | payment_id=${data.payment_id}`);
-  },
+  // Disputes (Chargebacks & Arbitrations)
+  onDisputeOpened: processWebhookEvent,
+  onDisputeExpired: processWebhookEvent,
+  onDisputeAccepted: processWebhookEvent,
+  onDisputeCancelled: processWebhookEvent,
+  onDisputeChallenged: processWebhookEvent,
+  onDisputeWon: processWebhookEvent,
+  onDisputeLost: processWebhookEvent,
 
-  onPaymentFailed: async (payload: unknown) => {
-    const data = (payload as { data: { customer: { email: string }; payment_id: string; subscription_id?: string } }).data;
-    const user = await prisma.user.findUnique({
-      where: { email: data.customer.email },
-      select: { id: true },
-    });
-    if (!user) {
-      console.warn(`[dodo-webhook] onPaymentFailed: no user for ${data.customer.email}`);
-      return;
-    }
-    // Mark subscription as FAILED so the UI can reflect it
-    if (data.subscription_id) {
-      await prisma.subscription.updateMany({
-        where: { userId: user.id, dodoSubscriptionId: data.subscription_id },
-        data: { status: SubscriptionStatus.FAILED },
-      });
-      // Sync plan downgrade to Clerk so client picks it up immediately
-      const dbUser = await prisma.user.update({
-        where: { id: user.id },
-        data: { plan: Plan.FREE },
-        select: { clerkId: true },
-      });
-      await syncPlanToClerk(dbUser.clerkId, Plan.FREE);
-    }
-    console.warn(`[dodo-webhook] Payment FAILED for user ${user.id} | payment_id=${data.payment_id}`);
-  },
+  // Subscriptions
+  onSubscriptionActive: processWebhookEvent,
+  onSubscriptionOnHold: processWebhookEvent,
+  onSubscriptionRenewed: processWebhookEvent,
+  onSubscriptionPlanChanged: processWebhookEvent,
+  onSubscriptionCancelled: processWebhookEvent,
+  onSubscriptionFailed: processWebhookEvent,
+  onSubscriptionExpired: processWebhookEvent,
+
+  // Custom Product Events
+  onLicenseKeyCreated: processWebhookEvent,
 });
