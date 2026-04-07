@@ -2,9 +2,12 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const withMDX = require('@next/mdx')()
+
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   reactStrictMode: true,
   transpilePackages: ["highlight.js"],
   // Keep Prisma and its runtime server-side only — never bundle for the browser
@@ -203,4 +206,4 @@ const nextConfig = {
   // },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = withBundleAnalyzer(withMDX(nextConfig));

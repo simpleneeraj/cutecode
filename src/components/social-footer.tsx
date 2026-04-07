@@ -1,13 +1,14 @@
 import { BrandGithubIcon, BrandSlackIcon, BrandXIcon, BrandYoutubeIcon, RaycastLogoNegIcon } from "@raycast/icons";
+import Link from "next/link";
 
 const socialLinks = [
   {
-    href: "https://github.com/raycast/ray-so",
+    href: "https://github.com/simpleneeraj/cutecode",
     label: "GitHub",
     icon: BrandGithubIcon,
   },
   {
-    href: "https://x.com/raycast",
+    href: "https://x.com/cutecode",
     label: "X",
     icon: BrandXIcon,
   },
@@ -16,20 +17,20 @@ const socialLinks = [
     label: "Slack Community",
     icon: BrandSlackIcon,
   },
-  {
-    href: "https://www.youtube.com/@raycastapp",
-    label: "YouTube",
-    icon: BrandYoutubeIcon,
-  },
 ];
 
 export function SocialFooter({ referral = "ray-so" }: { referral?: string }) {
   return (
     <div className="flex items-center gap-2 justify-between">
-      <a href={`https://raycast.com/#ref=ray-so-${referral}`} className="flex items-center gap-1.5 text-gray-12 group">
-        <RaycastLogoNegIcon className="w-4 h-4" />
-        <span className="text-[13px] font-medium group-hover:underline">Made by Raycast</span>
-      </a>
+      <div className="flex flex-wrap items-center gap-4">
+        <a href={`https://raycast.com/#ref=ray-so-${referral}`} className="flex items-center gap-1.5 text-gray-12 group">
+          <RaycastLogoNegIcon className="w-4 h-4" />
+          <span className="text-[13px] font-medium group-hover:underline">Forked from Raycast</span>
+        </a>
+        <Link href="/terms" className="text-[13px] font-medium text-gray-11 hover:underline">
+          Terms & Conditions
+        </Link>
+      </div>
       <div className="flex gap-3">
         {socialLinks.map((link) => (
           <a

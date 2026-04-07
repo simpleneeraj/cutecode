@@ -1,14 +1,14 @@
 <!-- TEXT_SECTION:header:START -->
 <p align="center">
-  <a href="https://ray.so" target="_blank" rel="noopener noreferrer">
-    <img width="1024" src="app/assets/og-image.png" alt="ray.so">
+  <a href="https://cutecode.com" target="_blank" rel="noopener noreferrer">
+    <img width="1024" src="app/assets/og-image.png" alt="CuteCode">
   </a>
 </p>
 <h1 align="center">
-  ray.so
+  CuteCode
 </h1>
 <h3 align="center">
-  Built by <a href="https://raycast.com/#ref=ray.so" target="_blank" rel="noopener noreferrer">Raycast</a>
+  Forked from <a href="https://raycast.com/#ref=ray.so" target="_blank" rel="noopener noreferrer">Raycast / ray.so</a>
 </h3>
 <p align="center">
   Create code snippets, browse AI prompts, create extension icons and more.
@@ -27,7 +27,7 @@
 
 ## About
 
-This repository contains the source code for [ray.so](https://ray.so), a collection of tools built by [Raycast](https://raycast.com/#ref=ray.so). It includes:
+This repository contains the source code for [CuteCode](https://cutecode.com), a collection of tools forked from [ray.so](https://ray.so) by [Raycast](https://raycast.com/#ref=ray.so). It includes:
 
 - [**Code Images**](</app/(navigation)/(code)>): Create beautiful images of your code.
 - [**Icon Maker**](</app/(navigation)/icon/>): Create beautiful icons for Raycast Extensions.
