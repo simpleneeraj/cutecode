@@ -1,18 +1,11 @@
-import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
 import React from "react";
 import Editor from "../Editor";
+import classNames from "classnames";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./BrowserbaseFrame.module.css";
-import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, updateSlideElementAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-const BrowserbaseFrame = () => {
-  const padding = useAtomValue(elementPaddingAtom);
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const transparent = useAtomValue(elementTransparentAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const update = useSetAtom(updateSlideElementAtom);
-
+const BrowserbaseFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange }: BaseFrameProps) => {
   return (
     <div
       className={classNames(
@@ -47,7 +40,7 @@ const BrowserbaseFrame = () => {
             <input
               type="text"
               value={fileName}
-              onChange={(event) => update({ header: { properties: { title: { text: event.target.value } } } })}
+              onChange={(event) => onFileNameChange(event.target.value)}
               spellCheck={false}
               tabIndex={-1}
             />

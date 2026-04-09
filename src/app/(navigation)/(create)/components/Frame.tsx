@@ -1,36 +1,14 @@
+import Presets from "./presets";
+import { cn } from "@/utils/cn";
 import { useContext } from "react";
 import { useAtomValue } from "jotai";
-import { FrameContext } from "../store/context/frame";
-import FlashMessage from "./FlashMessage";
-import ResizableFrame from "./ResizableFrame";
-import BrowserbaseFrame from "./frames/BrowserbaseFrame";
-import ClerkFrame from "./frames/ClerkFrame";
-import CloudflareFrame from "./frames/CloudflareFrame";
-import DefaultFrame from "./frames/DefaultFrame";
-import ElevenLabsFrame from "./frames/ElevenLabsFrame";
-import FirecrawlFrame from "./frames/FirecrawlFrame";
-import GeminiFrame from "./frames/GeminiFrame";
-import MintlifyFrame from "./frames/MintlifyFrame";
-import NuxtFrame from "./frames/NuxtFrame";
-import OpenAIFrame from "./frames/OpenAIFrame";
-import PrismaFrame from "./frames/PrismaFrame";
-import ResendFrame from "./frames/ResendFrame";
-import StripeFrame from "./frames/StripeFrame";
-import SupabaseFrame from "./frames/SupabaseFrame";
-import TailwindFrame from "./frames/TailwindFrame";
-import TriggerdevFrame from "./frames/TriggerdevFrame";
-import VercelFrame from "./frames/VercelFrame";
-
-import { cn } from "@/utils/cn";
 import styles from "./Frame.module.css";
 import ToolbarParticle from "./Toolbar";
-import { THEMES } from "../constants/themes";
+import FlashMessage from "./FlashMessage";
+import ResizableFrame from "./ResizableFrame";
+import { FrameContext } from "../store/context/frame";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { currentElementAtom, currentSlideAtom } from "../store/editor";
-
-type Presets = {
-  id: string;
-};
 
 const toolbarVariants: Variants = {
   hidden: { opacity: 0, y: -8 },
@@ -99,43 +77,3 @@ const Frame = () => {
 };
 
 export default Frame;
-
-function Presets({ id }: Presets) {
-  switch (id) {
-    case THEMES.vercel.id:
-    case THEMES.rabbit.id:
-      return <VercelFrame />;
-    case THEMES.supabase.id:
-      return <SupabaseFrame />;
-    case THEMES.tailwind.id:
-      return <TailwindFrame />;
-    case THEMES.clerk.id:
-      return <ClerkFrame />;
-    case THEMES.mintlify.id:
-      return <MintlifyFrame />;
-    case THEMES.openai.id:
-      return <OpenAIFrame />;
-    case THEMES.triggerdev.id:
-      return <TriggerdevFrame />;
-    case THEMES.prisma.id:
-      return <PrismaFrame />;
-    case THEMES.elevenlabs.id:
-      return <ElevenLabsFrame />;
-    case THEMES.resend.id:
-      return <ResendFrame />;
-    case THEMES.browserbase.id:
-      return <BrowserbaseFrame />;
-    case THEMES.nuxt.id:
-      return <NuxtFrame />;
-    case THEMES.gemini.id:
-      return <GeminiFrame />;
-    case THEMES.cloudflare.id:
-      return <CloudflareFrame />;
-    case THEMES.stripe.id:
-      return <StripeFrame />;
-    case THEMES.firecrawl.id:
-      return <FirecrawlFrame />;
-    default:
-      return <DefaultFrame />;
-  }
-}

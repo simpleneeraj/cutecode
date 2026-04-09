@@ -1,27 +1,18 @@
 import classNames from "classnames";
-import { useAtomValue, useSetAtom } from "jotai";
 
 import useIsSafari from "../../util/useIsSafari";
 import Editor from "../Editor";
 import styles from "./DefaultFrame.module.css";
-import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementThemeAtom, elementTransparentAtom, themeBackgroundAtom, updateSlideElementAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-const DefaultFrame = () => {
+const DefaultFrame = ({ padding, darkMode, transparent, fileName, themeBackground, onFileNameChange, themeId }: BaseFrameProps) => {
   const isSafari = useIsSafari();
-  const themeBackground = useAtomValue(themeBackgroundAtom);
-  const themeId = useAtomValue(elementThemeAtom);
-
-  const padding = useAtomValue(elementPaddingAtom);
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const transparent = useAtomValue(elementTransparentAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const update = useSetAtom(updateSlideElementAtom);
 
   return (
     <div
       className={classNames(
         styles.frame,
-        styles[themeId],
+        styles[themeId || "default"],
         darkMode && styles.darkMode,
         transparent && styles.withBackground,
       )}
@@ -47,7 +38,7 @@ const DefaultFrame = () => {
             <input
               type="text"
               value={fileName}
-              onChange={(event) => update({ header: { properties: { title: { text: event.target.value } } } })}
+              onChange={(event) => onFileNameChange(event.target.value)}
               spellCheck={false}
               tabIndex={-1}
             />

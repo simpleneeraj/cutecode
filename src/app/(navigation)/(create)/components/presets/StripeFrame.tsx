@@ -9,15 +9,10 @@ import useIsSafari from "../../util/useIsSafari";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./StripeFrame.module.css";
-import { elementContentAtom, elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-
-const StripeFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  const code = useAtomValue(elementContentAtom);
-  const windowWidth = useAtomValue(windowWidthAtom);
+const StripeFrame = ({ padding, darkMode, transparent, code, windowWidth }: BaseFrameProps) => {
+  const showBackground = transparent;
   const isSafari = useIsSafari();
 
   const windowRef = useRef<HTMLDivElement>(null);

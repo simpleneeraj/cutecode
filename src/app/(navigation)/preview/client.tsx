@@ -20,6 +20,8 @@ import { Label } from "@/components/ui/label";
 import { Slider, SliderValue } from "@/components/ui/slider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { BaseFrameProps } from "@/app/(navigation)/(create)/components/presets/index";
+import RosesFrame from "@/app/(navigation)/(create)/components/presets/RosesFrame";
 
 const frameworkOptions = [
   { label: "Next.js", value: "next" },
@@ -35,6 +37,28 @@ const PreviewSnippetClient: React.FC<ShareWidgetProps> = ({}) => {
 
   const updateOptions = (newOptions: MaskWallpaperOptions) => {
     setOptions(newOptions);
+  };
+
+  const embedProps1: BaseFrameProps = {
+    padding: 32,
+    darkMode: true,
+    transparent: true,
+    themeBackground: "",
+    fileName: "hello-world.ts",
+    selectedLanguage: { name: "TypeScript", value: "typescript" },
+    flashShown: false,
+    windowWidth: 800,
+    code: "console.log('Hello from embed!');",
+    exportSize: 2,
+    themeId: "roses",
+    onFileNameChange: () => {},
+  };
+
+  const embedProps2: BaseFrameProps = {
+    ...embedProps1,
+    darkMode: false,
+    padding: 16,
+    fileName: "light-mode-example.js",
   };
 
   return (
@@ -55,13 +79,17 @@ const PreviewSnippetClient: React.FC<ShareWidgetProps> = ({}) => {
                 February 2, 2024
               </Badge>
             </View>
-            <Particle>{/* <ClerkFrame /> */}</Particle>
+            <Particle>
+              <RosesFrame {...embedProps1} />
+            </Particle>
             <View className="flex items-center justify-center">
               <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
                 February 4, 2024
               </Badge>
             </View>
-            <Particle>{/* <ClerkFrame /> */}</Particle>
+            <Particle>
+              <RosesFrame {...embedProps2} />
+            </Particle>
           </View>
           {/* Widget Section with Ads and sponsorship */}
           <View className="flex flex-col gap-3 flex-1 sticky top-2 self-start z-10">

@@ -1,5 +1,3 @@
-@reference tailwindcss;
-
 .frameContainer {
   display: flex;
   justify-content: center;

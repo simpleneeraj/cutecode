@@ -9,12 +9,9 @@ import clerkPattern from "../../assets/clerk/pattern.svg?url";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./ClerkFrame.module.css";
-import { elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-const ClerkFrame = () => {
-  const padding = useAtomValue(elementPaddingAtom);
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const transparent = useAtomValue(elementTransparentAtom);
+const ClerkFrame = ({ padding, darkMode, transparent }: BaseFrameProps) => {
   return (
     <div
       className={classNames(

@@ -113,12 +113,9 @@ function FirecrawlFrameCanvas({
   );
 }
 
-const FirecrawlFrame = () => {
-  const exportSize = useAtomValue(exportSizeAtom);
+import { BaseFrameProps } from "./index";
 
-  const padding = useAtomValue(elementPaddingAtom);
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const transparent = useAtomValue(elementTransparentAtom);
+const FirecrawlFrame = ({ exportSize, padding, darkMode, transparent }: BaseFrameProps) => {
   const gridColor = darkMode ? "#444" : "#ededed";
 
   return (
@@ -144,7 +141,7 @@ const FirecrawlFrame = () => {
           <FirecrawlFrameCanvas
             gridColor={gridColor}
             padding={parseInt(padding.toString().replace("px", ""))}
-            exportPixelRatio={exportSize}
+            exportPixelRatio={exportSize || 2}
           />
         )}
       </div>

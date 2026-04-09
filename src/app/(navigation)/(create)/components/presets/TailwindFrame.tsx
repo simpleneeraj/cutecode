@@ -10,14 +10,10 @@ import useIsSafari from "../../util/useIsSafari";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./TailwindFrame.module.css";
-import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-
-const TailwindFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  useAtom(elementFileNameAtom);
+const TailwindFrame = ({ padding, darkMode, transparent }: BaseFrameProps) => {
+  const showBackground = transparent;
   const isSafari = useIsSafari();
 
   return (

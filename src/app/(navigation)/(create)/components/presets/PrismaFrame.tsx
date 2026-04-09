@@ -12,13 +12,10 @@ import styles from "./PrismaFrame.module.css";
 import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom , updateSlideElementAtom} from "../../store/editor";
 
 
-const PrismaFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const _updateElement = useSetAtom(updateSlideElementAtom);
-  const flashShown = useAtomValue(flashShownAtom);
+import { BaseFrameProps } from "./index";
+
+const PrismaFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange, flashShown }: BaseFrameProps) => {
+  const showBackground = transparent;
 
   return (
     <div
@@ -43,7 +40,7 @@ const PrismaFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+                onChange={(event) => onFileNameChange(event.target.value)}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
@@ -56,7 +53,7 @@ const PrismaFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+                onChange={(event) => onFileNameChange(event.target.value)}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}

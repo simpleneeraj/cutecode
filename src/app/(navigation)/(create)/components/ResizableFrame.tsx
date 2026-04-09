@@ -1,17 +1,11 @@
 import React, { MouseEventHandler, PropsWithChildren, useCallback, useRef, useState } from "react";
 import { useAtom } from "jotai";
 import { windowWidthAtom } from "../store/editor";
-import classnames from "classnames";
-import { CSSTransition } from "react-transition-group";
-
-import styles from "./ResizableFrame.module.css";
-
+import { motion, AnimatePresence } from "framer-motion";
 import XMarkIcon from "../assets/icons/x-mark-circle-filled-16.svg";
+import { MAX_SLIDE_WIDTH, MIN_SLIDE_WIDTH } from "../store/editor/state";
 
 type Handle = "right" | "left";
-
-let maxWidth = 920;
-let minWidth = 520;
 
 const ResizableFrame: React.FC<PropsWithChildren> = ({ children }) => {
   const currentHandleRef = useRef<Handle>(undefined);
@@ -20,8 +14,6 @@ const ResizableFrame: React.FC<PropsWithChildren> = ({ children }) => {
   const startXRef = useRef<number>(undefined);
   const [windowWidth, setWindowWidth] = useAtom(windowWidthAtom);
   const [isResizing, setResizing] = useState(false);
-  const resetWindowWidthRef = useRef<HTMLDivElement>(null);
-  const rulerRef = useRef<HTMLDivElement>(null);
 
   const mouseMoveHandler = useCallback(
     (event: MouseEvent) => {
@@ -33,10 +25,10 @@ const ResizableFrame: React.FC<PropsWithChildren> = ({ children }) => {
         newWidth = startWidthRef.current! + (event.clientX - startXRef.current!) * 2;
       }
 
-      if (newWidth > maxWidth) {
-        newWidth = maxWidth;
-      } else if (newWidth < minWidth) {
-        newWidth = minWidth;
+      if (newWidth > MAX_SLIDE_WIDTH) {
+        newWidth = MAX_SLIDE_WIDTH;
+      } else if (newWidth < MIN_SLIDE_WIDTH) {
+        newWidth = MIN_SLIDE_WIDTH;
       }
 
       setWindowWidth(newWidth);
@@ -77,61 +69,55 @@ const ResizableFrame: React.FC<PropsWithChildren> = ({ children }) => {
   );
 
   return (
-    <div className={classnames(styles.resizableFrame, isResizing && styles.isResizing)}>
+    <div className={`relative inline-block ${isResizing ? "select-none" : ""}`}>
       <div
-        className={classnames(styles.windowSizeDragPoint, styles.left)}
+        className="absolute z-10 top-1/2 left-0 w-6 h-6 -translate-x-1/2 -translate-y-1/2 cursor-col-resize select-none after:absolute after:top-1/2 after:left-1/2 after:w-1.5 after:h-1.5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-neutral-800 dark:after:bg-white after:content-['']"
         onMouseDown={handleResizeFrameX("left")}
       ></div>
       <div
-        className={classnames(styles.windowSizeDragPoint, styles.right)}
+        className="absolute z-10 top-1/2 right-0 w-6 h-6 translate-x-1/2 -translate-y-1/2 cursor-col-resize select-none after:absolute after:top-1/2 after:left-1/2 after:w-1.5 after:h-1.5 after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:bg-neutral-800 dark:after:bg-white after:content-['']"
         onMouseDown={handleResizeFrameX("right")}
       ></div>
-      <div ref={windowRef} style={{ width: windowWidth || "auto" }}>
+      <div ref={windowRef} style={{ width: windowWidth! }}>
         {children}
       </div>
 
-      <CSSTransition
-        nodeRef={resetWindowWidthRef}
-        in={!!(windowWidth && !isResizing)}
-        unmountOnExit
-        timeout={200}
-        classNames={{
-          enter: styles.fadeEnter,
-          enterActive: styles.fadeEnterActive,
-          exit: styles.fadeExit,
-          exitActive: styles.fadeExitActive,
-        }}
-      >
-        <div className={styles.resetWidthContainer} ref={resetWindowWidthRef}>
-          <a
-            className={styles.resetWidth}
-            onClick={(event) => {
-              event.preventDefault();
-              setWindowWidth(null);
-            }}
+      <AnimatePresence>
+        {!!(windowWidth && !isResizing) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 left-0 flex justify-center"
           >
-            <XMarkIcon />
-            Set to auto width
-          </a>
-        </div>
-      </CSSTransition>
+            <a
+              className="inline-flex flex-col items-center m-4 text-xxs gap-1.5 cursor-pointer text-neutral-500 hover:text-neutral-800 dark:text-white/40 dark:hover:text-white/70 transition-colors duration-200"
+              onClick={(event) => {
+                event.preventDefault();
+                setWindowWidth(null);
+              }}
+            >
+              <XMarkIcon />
+              Set to auto width
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      <CSSTransition
-        nodeRef={rulerRef}
-        in={isResizing}
-        unmountOnExit
-        timeout={200}
-        classNames={{
-          enter: styles.fadeEnter,
-          enterActive: styles.fadeEnterActive,
-          exit: styles.fadeExit,
-          exitActive: styles.fadeExitActive,
-        }}
-      >
-        <div ref={rulerRef} className={styles.ruler}>
-          <span>{windowWidth} px</span>
-        </div>
-      </CSSTransition>
+      <AnimatePresence>
+        {isResizing && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute right-0 left-0 my-4 text-xxs text-center text-neutral-400 dark:text-white/30 border-r border-l border-neutral-300 dark:border-white/30 before:absolute before:-z-10 before:top-1/2 before:right-0 before:left-0 before:border-t before:border-neutral-300 dark:before:border-white/30 before:content-['']"
+          >
+            <span className="px-4 bg-background">{windowWidth} px</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

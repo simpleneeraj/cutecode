@@ -105,7 +105,7 @@ export function groupThemes(object: { [index: string]: Theme }) {
       background: theme.background,
     });
   }
-  const order: Array<ThemeGroup["value"]> = ["Brands", "Defaults"];
+  const order: Array<ThemeGroup["value"]> = ["Brands", "AI", "Defaults"];
 
   return order.map((value) => ({ items: groups[value] ?? [], value }));
 }
@@ -302,7 +302,7 @@ export const THEMES: { [index: string]: Theme } = {
     icon: OpenAiLogo,
     iconUrl: OpenAiLogoUrl,
     partner: true,
-    group: "Brands",
+    group: "AI",
     font: "soehne-mono",
     lineNumbers: true,
     syntax: {
@@ -514,7 +514,7 @@ export const THEMES: { [index: string]: Theme } = {
     iconUrl: ElevenLabsLogoUrl,
     font: "roboto-mono",
     partner: true,
-    group: "Brands",
+    group: "AI",
     syntax: {
       light: convertToShikiTheme({
         foreground: "#1c1c1c",
@@ -820,7 +820,7 @@ export const THEMES: { [index: string]: Theme } = {
     iconUrl: GeminiLogoUrl,
     font: "google-sans-code",
     partner: true,
-    group: "Brands",
+    group: "AI",
     syntax: {
       light: convertToShikiTheme({
         foreground: "#37474f",
@@ -1227,8 +1227,8 @@ export const THEMES: { [index: string]: Theme } = {
     id: "candy",
     name: "Candy",
     background: {
-      from: "#A58EFB",
-      to: "#E9BFF8",
+      from: "#7B1FA2",
+      to: "#00BCD4",
     },
     group: "Defaults",
     syntax: {
@@ -1524,6 +1524,55 @@ export const THEMES: { [index: string]: Theme } = {
       }),
     },
   },
+  roses: {
+    id: "roses",
+    name: "Roses",
+    background: {
+      from: "#3d0d18",
+      to: "#0e0305",
+    },
+    group: "Defaults",
+    syntax: {
+      light: convertToShikiTheme({
+        foreground: "#5c1a26",
+        constant: "#a63050",
+        string: "#7a2a3a",
+        comment: "#b08090",
+        keyword: "#c0304a",
+        parameter: "#8b2040",
+        function: "#b5294e",
+        stringExpression: "#7a2a3a",
+        punctuation: "#9a3050",
+        link: "#c0304a",
+        number: "#a63050",
+        property: "#c0304a",
+        highlight: "rgba(192, 48, 74, 0.10)",
+        highlightBorder: "#c0304a",
+        highlightHover: "rgba(192, 48, 74, 0.05)",
+        diffInserted: "#6ab04c",
+        diffDeleted: "#c0304a",
+      }),
+      dark: convertToShikiTheme({
+        foreground: "#f2c0c8",
+        constant: "#f08098",
+        string: "#e8a0b0",
+        comment: "#6e3040",
+        keyword: "#ff6e88",
+        parameter: "#f0b0c0",
+        function: "#ff8fa3",
+        stringExpression: "#e8a0b0",
+        punctuation: "#e06070",
+        link: "#ff6e88",
+        number: "#f08098",
+        property: "#f08098",
+        highlight: "rgba(255, 110, 136, 0.12)",
+        highlightBorder: "#ff6e88",
+        highlightHover: "rgba(255, 110, 136, 0.07)",
+        diffInserted: "#8ed16a",
+        diffDeleted: "#ff6e88",
+      }),
+    },
+  },
   firecrawl: {
     id: "firecrawl",
     name: "Firecrawl",
@@ -1531,7 +1580,7 @@ export const THEMES: { [index: string]: Theme } = {
       from: "#000",
       to: "#000",
     },
-    group: "Brands",
+    group: "AI",
     icon: FirecrawlLogo,
     iconUrl: `${BASE_URL}${FirecrawlLogoUrl.src}`,
     font: "geist-mono",
@@ -1571,6 +1620,56 @@ export const THEMES: { [index: string]: Theme } = {
         property: "#a7a7a7",
         diffInserted: "#a7a7a7",
         diffDeleted: "#a7a7a7",
+      }),
+    },
+  },
+  anthropic: {
+    id: "anthropic",
+    name: "Anthropic",
+    background: {
+      from: "#1B1A18",
+      to: "#1B1A18",
+    },
+    group: "AI",
+    font: "soehne-mono",
+    syntax: {
+      light: convertToShikiTheme({
+        foreground: "#1f1d1a",
+        constant: "#8a584e",
+        string: "#2d7045",
+        comment: "#85817c",
+        keyword: "#8a584e",
+        parameter: "#8a584e",
+        function: "#b04431",
+        stringExpression: "#2d7045",
+        punctuation: "#85817c",
+        link: "#b04431",
+        number: "#2d7045",
+        property: "#8a584e",
+        highlight: "rgba(176, 68, 49, 0.12)",
+        highlightBorder: "#b04431",
+        highlightHover: "rgba(176, 68, 49, 0.06)",
+        diffInserted: "#2d7045",
+        diffDeleted: "#b04431",
+      }),
+      dark: convertToShikiTheme({
+        foreground: "#DFDCD8",
+        constant: "#CCA199",
+        string: "#79C091",
+        comment: "#7B7975",
+        keyword: "#CCA199",
+        parameter: "#CCA199",
+        function: "#E08579",
+        stringExpression: "#79C091",
+        punctuation: "#7B7975",
+        link: "#E08579",
+        number: "#79C091",
+        property: "#CCA199",
+        highlight: "rgba(224, 133, 121, 0.15)",
+        highlightBorder: "#E08579",
+        highlightHover: "rgba(224, 133, 121, 0.08)",
+        diffInserted: "#79C091",
+        diffDeleted: "#E08579",
       }),
     },
   },

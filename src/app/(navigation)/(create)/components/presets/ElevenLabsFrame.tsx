@@ -7,15 +7,10 @@ import { windowWidthAtom } from "../../store/editor";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./ElevenLabsFrame.module.css";
-import { elementContentAtom, elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-
-const ElevenLabsFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const padding = useAtomValue(elementPaddingAtom);
-  const showBackground = useAtomValue(elementTransparentAtom);
-  const windowWidth = useAtomValue(windowWidthAtom);
-  const code = useAtomValue(elementContentAtom);
+const ElevenLabsFrame = ({ padding, darkMode, transparent, windowWidth, code }: BaseFrameProps) => {
+  const showBackground = transparent;
 
   const windowRef = useRef<HTMLDivElement>(null);
   const [circleDiameter, setCircleDiameter] = useState(0);

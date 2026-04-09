@@ -9,7 +9,7 @@ import {
 } from "@/typings/editor";
 
 export const MIN_SLIDE_WIDTH = 520;
-export const MAX_SLIDE_WIDTH = 720;
+export const MAX_SLIDE_WIDTH = 920;
 
 export const createDefaultElement = (): ElementType => ({
   id: crypto.randomUUID().toString(),

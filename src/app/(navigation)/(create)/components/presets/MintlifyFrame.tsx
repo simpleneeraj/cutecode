@@ -13,12 +13,10 @@ import styles from "./MintlifyFrame.module.css";
 import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom , updateSlideElementAtom} from "../../store/editor";
 
 
-const MintlifyFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const _updateElement = useSetAtom(updateSlideElementAtom);
+import { BaseFrameProps } from "./index";
+
+const MintlifyFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange }: BaseFrameProps) => {
+  const showBackground = transparent;
 
   return (
     <div
@@ -43,7 +41,7 @@ const MintlifyFrame = () => {
             <input
               type="text"
               value={fileName}
-              onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+              onChange={(event) => onFileNameChange(event.target.value)}
               spellCheck={false}
               tabIndex={-1}
               size={1}

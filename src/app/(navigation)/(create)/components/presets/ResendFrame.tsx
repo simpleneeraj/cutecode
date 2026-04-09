@@ -9,16 +9,10 @@ import { useAtom, useAtomValue , useSetAtom } from "jotai";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./ResendFrame.module.css";
-import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, selectedLanguageAtom , updateSlideElementAtom} from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-
-const ResendFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const _updateElement = useSetAtom(updateSlideElementAtom);
-  const selectedLanguage = useAtomValue(selectedLanguageAtom);
+const ResendFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange, selectedLanguage }: BaseFrameProps) => {
+  const showBackground = transparent;
 
   return (
     <div
@@ -37,7 +31,7 @@ const ResendFrame = () => {
             <input
               type="text"
               value={fileName}
-              onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+              onChange={(event) => onFileNameChange(event.target.value)}
               spellCheck={false}
               tabIndex={-1}
               size={1}

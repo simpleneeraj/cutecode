@@ -11,18 +11,10 @@ import triggerPattern from "../../assets/triggerdev/pattern.svg?url";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./TriggerdevFrame.module.css";
-import { elementDarkModeAtom, elementFileNameAtom, elementPaddingAtom, elementTransparentAtom, selectedLanguageAtom, themeBackgroundAtom , updateSlideElementAtom} from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-
-const TriggerdevFrame = () => {
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const [padding] = useAtom(elementPaddingAtom);
-  const [showBackground] = useAtom(elementTransparentAtom);
-  const [themeBackground] = useAtom(themeBackgroundAtom);
-  const fileName = useAtomValue(elementFileNameAtom);
-  const _updateElement = useSetAtom(updateSlideElementAtom);
-  const [selectedLanguage] = useAtom(selectedLanguageAtom);
-  const flashShown = useAtomValue(flashShownAtom);
+const TriggerdevFrame = ({ padding, darkMode, transparent, themeBackground, fileName, onFileNameChange, selectedLanguage, flashShown }: BaseFrameProps) => {
+  const showBackground = transparent;
 
   return (
     <div
@@ -51,7 +43,7 @@ const TriggerdevFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+                onChange={(event) => onFileNameChange(event.target.value)}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}
@@ -65,7 +57,7 @@ const TriggerdevFrame = () => {
               <input
                 type="text"
                 value={fileName}
-                onChange={(event) => _updateElement({ header: { properties: { title: { text: event.target.value } } } })}
+                onChange={(event) => onFileNameChange(event.target.value)}
                 spellCheck={false}
                 tabIndex={-1}
                 size={1}

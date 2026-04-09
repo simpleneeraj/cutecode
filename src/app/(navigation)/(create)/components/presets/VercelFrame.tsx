@@ -4,12 +4,9 @@ import { useAtomValue } from "jotai";
 import Editor from "../Editor";
 import sharedStyles from "./DefaultFrame.module.css";
 import styles from "./VercelFrame.module.css";
-import { elementDarkModeAtom, elementPaddingAtom, elementTransparentAtom } from "../../store/editor";
+import { BaseFrameProps } from "./index";
 
-const VercelFrame = () => {
-  const padding = useAtomValue(elementPaddingAtom);
-  const darkMode = useAtomValue(elementDarkModeAtom);
-  const transparent = useAtomValue(elementTransparentAtom);
+const VercelFrame = ({ padding, darkMode, transparent }: BaseFrameProps) => {
   return (
     <div
       className={classNames(
