@@ -1,14 +1,33 @@
 "use client";
 
-import React, { createContext, PropsWithChildren, useRef } from "react";
+import React, { createContext, PropsWithChildren, useContext, useRef, useState } from "react";
+import type { Highlighter } from "shiki";
 
-export const FrameContext = createContext<React.MutableRefObject<Map<string, HTMLDivElement | null>>>({
-  current: new Map(),
+interface FrameContextValue {
+  frameRefs: React.RefObject<Map<string, HTMLDivElement | null>>;
+  highlighter: Highlighter | null;
+  setHighlighter: (h: Highlighter) => void;
+}
+
+export const FrameContext = createContext<FrameContextValue>({
+  frameRefs: { current: new Map() },
+  highlighter: null,
+  setHighlighter: () => {},
 });
 
-const FrameContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
+export const FrameContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const frameRefs = useRef<Map<string, HTMLDivElement | null>>(new Map());
-  return <FrameContext.Provider value={frameRefs}>{children}</FrameContext.Provider>;
+  const [highlighter, setHighlighter] = useState<Highlighter | null>(null);
+
+  return (
+    <FrameContext.Provider value={{ frameRefs, highlighter, setHighlighter }}>
+      {children}
+    </FrameContext.Provider>
+  );
 };
 
-export default FrameContextProvider;
+export const useFrameContext = () => {
+  const ctx = useContext(FrameContext);
+  if (!ctx) throw new Error("useFrameContext must be used within a FrameContextProvider");
+  return ctx;
+};

@@ -1,9 +1,12 @@
+"use client";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
 import { PlusIcon, RouteIcon } from "lucide-react";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import { useRouter } from "next/navigation";
 
 export default function Particle() {
+  const router = useRouter();
   return (
     <div className={cn("h-screen flex flex-col")}>
       <main className="layout-fill">
@@ -17,12 +20,12 @@ export default function Particle() {
           </EmptyHeader>
           <EmptyContent>
             <div className="flex gap-2">
-              <Button size="sm">
+              <Button size="sm" onClick={() => router.push("/")}>
                 <PlusIcon className="mr-1 h-4 w-4" />
                 Create snippet
               </Button>
 
-              <Button size="sm" variant="outline">
+              <Button size="sm" variant="outline" onClick={() => router.push("/community")}>
                 Explore community
               </Button>
             </div>

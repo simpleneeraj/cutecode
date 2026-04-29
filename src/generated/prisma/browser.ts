@@ -23,6 +23,11 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
+ * Model UserFollows
+ * 
+ */
+export type UserFollows = Prisma.UserFollowsModel
+/**
  * Model Subscription
  * 
  */
@@ -62,3 +67,38 @@ export type IdempotencyKey = Prisma.IdempotencyKeyModel
  * 
  */
 export type Snippet = Prisma.SnippetModel
+/**
+ * Model Presentation
+ * 
+ */
+export type Presentation = Prisma.PresentationModel
+/**
+ * Model ShareLink
+ * 
+ */
+export type ShareLink = Prisma.ShareLinkModel
+/**
+ * Model ShareLinkView
+ * 
+ */
+export type ShareLinkView = Prisma.ShareLinkViewModel
+/**
+ * Model ShareLinkAccess
+ * 
+ */
+export type ShareLinkAccess = Prisma.ShareLinkAccessModel
+/**
+ * Model SnippetComment
+ * 
+ */
+export type SnippetComment = Prisma.SnippetCommentModel
+/**
+ * Model SnippetUpvote
+ * 
+ */
+export type SnippetUpvote = Prisma.SnippetUpvoteModel
+/**
+ * Model SnippetBookmark
+ * 
+ */
+export type SnippetBookmark = Prisma.SnippetBookmarkModel

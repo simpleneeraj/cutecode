@@ -1,14 +1,8 @@
 import { atom } from "jotai";
-import { atomWithStorage, unwrap } from "jotai/utils";
-import { InitialValues } from "@/typings/editor";
-import { createStorage } from "../storage";
-import { editorAtom } from "./core";
+import { atomWithStorage } from "jotai/utils";
 import { StoreKey } from "./keys";
-
-const selectionStorage = createStorage<string | null>({
-  name: StoreKey.SELECTION_STORE,
-  version: 1,
-});
+import { editorAtom } from "./core";
+import { InitialValues } from "@/typings/editor";
 
 /*
  * Active slide ID — persisted across reloads.
@@ -16,7 +10,6 @@ const selectionStorage = createStorage<string | null>({
 export const currentSlideIdAtom = atomWithStorage<string | null>(
   StoreKey.CURRENT_SLIDE_ID,
   InitialValues.SLIDE_ID,
-  selectionStorage,
 );
 
 /*
@@ -25,13 +18,12 @@ export const currentSlideIdAtom = atomWithStorage<string | null>(
 export const currentElementIdAtom = atomWithStorage<string | null>(
   StoreKey.CURRENT_ELEMENT_ID,
   InitialValues.ELEMENT_ID,
-  selectionStorage,
 );
 
 /*
  * Selects a slide and auto-selects its first element.
  */
-export const selectSlideAtom = atom(null, async (get, set, slideId: string | null) => {
+export const selectSlideAtom = atom(null, (get, set, slideId: string | null) => {
   set(currentSlideIdAtom, slideId);
 
   if (!slideId) {
@@ -39,7 +31,7 @@ export const selectSlideAtom = atom(null, async (get, set, slideId: string | nul
     return;
   }
 
-  const state = await get(editorAtom);
+  const state = get(editorAtom);
   const firstElementId = state.slideElements[slideId]?.[0] ?? null;
   set(currentElementIdAtom, firstElementId);
 });
@@ -54,39 +46,29 @@ export const selectElementAtom = atom(null, (_get, set, elementId: string | null
 /*
  * Resolved element object for the current selection.
  */
-export const currentElementAtom = unwrap(
-  atom(async (get) => {
-    const [state, elementId] = await Promise.all([get(editorAtom), get(currentElementIdAtom)]);
-    if (!elementId) return null;
-    return state.elements?.[elementId] ?? null;
-  }),
-  (prev) => prev ?? null,
-);
+export const currentElementAtom = atom((get) => {
+  const state = get(editorAtom);
+  const elementId = get(currentElementIdAtom);
+  if (!elementId) return null;
+  return state.elements?.[elementId] ?? null;
+});
 
 /*
  * Resolved slide object for the current selection.
  */
-export const currentSlideAtom = unwrap(
-  atom(async (get) => {
-    const [state, slideId] = await Promise.all([get(editorAtom), get(currentSlideIdAtom)]);
-    if (!slideId) return null;
-    return state.slides[slideId] ?? null;
-  }),
-  (prev) => prev ?? null,
-);
+export const currentSlideAtom = atom((get) => {
+  const state = get(editorAtom);
+  const slideId = get(currentSlideIdAtom);
+  if (!slideId) return null;
+  return state.slides[slideId] ?? null;
+});
 
 /*
  * Style subset of the current element.
  */
-export const currentElementStyleAtom = atom(async (get) => {
-  const element = get(currentElementAtom);
-  return element?.style ?? null;
-});
+export const currentElementStyleAtom = atom((get) => get(currentElementAtom)?.style ?? null);
 
 /*
  * Properties subset of the current element.
  */
-export const currentElementPropertiesAtom = atom(async (get) => {
-  const element = get(currentElementAtom);
-  return element?.properties ?? null;
-});
+export const currentElementPropertiesAtom = atom((get) => get(currentElementAtom)?.properties ?? null);

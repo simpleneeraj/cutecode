@@ -1,74 +1,170 @@
 "use client";
 
-import React from "react";
+import { useCallback, useRef, useState } from "react";
 import View from "@/components/view";
-import { ArrowBigUpDash, Blend, BookmarkIcon, EllipsisVerticalIcon, MessageCircle, Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { wallpaperOptions } from "./share/config";
-import MaskWallpaper from "@/plugings/mask-wallpaper";
-import PreviewLayout from "@/components/layouts/preview";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { Card, CardFooter, CardHeader, CardPanel, CardTitle } from "@/components/ui/card";
-import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Accordion, AccordionItem, AccordionPanel, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { MaskWallpaperOptions } from "@/plugings/mask-wallpaper/types";
-import { COLORS } from "./share/colors";
-import { PATTERNS } from "./share/patterns";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { Slider, SliderValue } from "@/components/ui/slider";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { BaseFrameProps } from "@/app/(navigation)/(create)/components/presets/index";
-import RosesFrame from "@/app/(navigation)/(create)/components/presets/RosesFrame";
+import { format } from "date-fns";
+import PreviewLayout from "@/components/layouts/preview";
+import { toast } from "@/components/toast";
+import { wallpaperOptions } from "./share/config";
 
-const frameworkOptions = [
-  { label: "Next.js", value: "next" },
-  { label: "Vite", value: "vite" },
-  { label: "Remix", value: "remix" },
-  { label: "Astro", value: "astro" },
-];
+// ── tRPC hooks ────────────────────────────────────────────────────────────────
+import { useShareLinkPreview } from "@/hooks/useShareLink";
+import { useSnippetMutations } from "@/hooks/useSnippet";
+import { useUserProfile } from "@/hooks/useUser";
 
-type ShareWidgetProps = object;
+// ── Sub-components ────────────────────────────────────────────────────────────
+import { PasscodeGate } from "./components/passcode-gate";
+import { SnippetFrame } from "./components/snippet-frame";
+import { SnippetCard } from "./components/snippet-card";
+import { Spinner } from "@/components/ui/spinner";
 
-const PreviewSnippetClient: React.FC<ShareWidgetProps> = ({}) => {
-  const [options, setOptions] = React.useState(wallpaperOptions);
+// ─────────────────────────────────────────────────────────────────────────────
 
-  const updateOptions = (newOptions: MaskWallpaperOptions) => {
-    setOptions(newOptions);
+type PreviewSnippetClientProps = { slug: string };
+
+export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps) {
+  const [passcode, setPasscode] = useState("");
+  const [submittedPasscode, setSubmittedPasscode] = useState("");
+
+  const { data, isLoading, error, mutate } = useShareLinkPreview(slug, {
+    passcode: submittedPasscode || undefined,
+  });
+
+  const snippetId = data?.snippet?.id ?? "";
+  const authorId = data?.snippet?.user?.id ?? "";
+
+  const { toggleUpvote, toggleBookmark } = useSnippetMutations();
+  const { data: profile } = useUserProfile(authorId || null);
+
+  // ── Optimistic toggle ───────────────────────────────────────────────────────
+
+  const pendingAction = useRef(false);
+
+  const withOptimisticToggle = useCallback(
+    async (optimisticData: unknown, action: () => Promise<unknown>, errorMessage: string) => {
+      if (pendingAction.current) return;
+      pendingAction.current = true;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      mutate(optimisticData as any, false);
+      try {
+        await action();
+        mutate();
+      } catch {
+        toast.error(errorMessage);
+        mutate();
+      } finally {
+        pendingAction.current = false;
+      }
+    },
+    [mutate],
+  );
+
+  const handleUpvote = async () => {
+    if (!data?.currentUserId) {
+      toast.error("Sign in to upvote.");
+      return;
+    }
+    if (!snippetId) return;
+    await withOptimisticToggle(
+      {
+        ...data,
+        userUpvoted: !data.userUpvoted,
+        snippet: {
+          ...data.snippet,
+          _count: {
+            ...data.snippet._count,
+            upvotes: (data.snippet._count?.upvotes ?? 0) + (!data.userUpvoted ? 1 : -1),
+          },
+        },
+      },
+      () => toggleUpvote(snippetId),
+      "Failed to upvote.",
+    );
   };
 
-  const embedProps1: BaseFrameProps = {
-    padding: 32,
-    darkMode: true,
-    transparent: true,
-    themeBackground: "",
-    fileName: "hello-world.ts",
-    selectedLanguage: { name: "TypeScript", value: "typescript" },
-    flashShown: false,
-    windowWidth: 800,
-    code: "console.log('Hello from embed!');",
-    exportSize: 2,
-    themeId: "roses",
-    onFileNameChange: () => {},
+  const handleBookmark = async () => {
+    if (!data?.currentUserId) {
+      toast.error("Sign in to bookmark.");
+      return;
+    }
+    if (!snippetId) return;
+    await withOptimisticToggle(
+      {
+        ...data,
+        userBookmarked: !data.userBookmarked,
+        snippet: {
+          ...data.snippet,
+          _count: {
+            ...data.snippet._count,
+            bookmarks: (data.snippet._count?.bookmarks ?? 0) + (!data.userBookmarked ? 1 : -1),
+          },
+        },
+      },
+      () => toggleBookmark(snippetId),
+      "Failed to bookmark.",
+    );
   };
 
-  const embedProps2: BaseFrameProps = {
-    ...embedProps1,
-    darkMode: false,
-    padding: 16,
-    fileName: "light-mode-example.js",
-  };
+  // ── Guards ──────────────────────────────────────────────────────────────────
+
+  if (isLoading) {
+    return (
+      <View className="layout-fill flex items-center justify-center">
+        <Spinner className="size-20" />
+      </View>
+    );
+  }
+
+  const trpcError = error as { data?: { code?: string } } | null;
+  const requiresPasscode = trpcError?.data?.code === "FORBIDDEN";
+
+  if (requiresPasscode) {
+    return (
+      <PasscodeGate
+        passcode={passcode}
+        invalidPasscode={!!submittedPasscode}
+        onChange={setPasscode}
+        onSubmit={() => setSubmittedPasscode(passcode)}
+      />
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <View className="layout-fill flex items-center justify-center">
+        <p className="text-muted-foreground">Snippet not found.</p>
+      </View>
+    );
+  }
+
+  // ── Data ────────────────────────────────────────────────────────────────────
+
+  const { snippet, userUpvoted, userBookmarked, isFollowing, currentUserId } = data;
+
+  // Prisma Json fields — intermediate `any` avoids TS2589 recursive type error
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rawPresentation: any = snippet.presentation;
+  const elements: Record<string, unknown> | undefined = rawPresentation?.elements;
+  const slideElements: Record<string, string[]> | undefined = rawPresentation?.slideElements;
+
+  const elementIds: string[] = slideElements
+    ? (Object.values(slideElements).flat() as string[])
+    : Object.keys(elements ?? {});
+
+  const followerCount = profile?._count?.followers ?? 0;
+  const followingCount = profile?._count?.following ?? 0;
+
+  // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
-    <View className="layout-fill relative flex-1 bg-transparent border">
-      <MaskWallpaper options={options} className={"absolute top-0 left-0 w-full h-full z-0"} />
-      <PreviewLayout />
+    <View className="layout-fill relative flex-1 bg-transparent">
+      <PreviewLayout options={wallpaperOptions} />
 
-      <View className="layout-scroll flex-2 gap-3 border">
-        <View className={"flex flex-row gap-3 z-10 max-w-4xl mx-auto w-full p-2 relative"}>
+      <View className="layout-scroll flex-2 gap-3">
+        <View className="flex flex-row gap-3 z-10 max-w-4xl mx-auto w-full p-2 relative">
           <View className="flex flex-col flex-2 gap-3 relative">
+            {/* Date badges */}
             <View className="flex items-center justify-center">
               <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
                 Snippet Created
@@ -76,243 +172,45 @@ const PreviewSnippetClient: React.FC<ShareWidgetProps> = ({}) => {
             </View>
             <View className="flex items-center justify-center">
               <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
-                February 2, 2024
+                {format(new Date(snippet.createdAt), "MMMM d, yyyy")}
               </Badge>
             </View>
-            <Particle>
-              <RosesFrame {...embedProps1} />
-            </Particle>
-            <View className="flex items-center justify-center">
-              <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
-                February 4, 2024
-              </Badge>
-            </View>
-            <Particle>
-              <RosesFrame {...embedProps2} />
-            </Particle>
-          </View>
-          {/* Widget Section with Ads and sponsorship */}
-          <View className="flex flex-col gap-3 flex-1 sticky top-2 self-start z-10">
-            <Particle />
-            <Card className="w-full bg-background/50 backdrop-blur-lg">
-              <CardPanel className="px-4 py-0">
-                <Accordion className="w-full" defaultValue={["3"]}>
-                  <AccordionItem value={"Theme Customization"}>
-                    <AccordionTrigger>Theme</AccordionTrigger>
-                    <AccordionPanel className={"flex flex-col gap-2"}>
-                      <Label>
-                        <Checkbox />
-                        Animate the wallpaper
-                      </Label>
-                      <Field>
-                        <FieldLabel>Colors</FieldLabel>
-                        <Select
-                          items={COLORS.map(({ text, colors }) => ({
-                            label: text,
-                            value: colors.join(","),
-                          }))}
-                          value={COLORS.find((color) => color.colors.join(",") === options.colors.join(","))?.text}
-                          onValueChange={(value) => {
-                            updateOptions({
-                              ...options,
-                              colors: value?.split(",") || [],
-                            });
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectPopup>
-                            {COLORS.map(({ text, colors }) => (
-                              <SelectItem key={text} value={colors.join(",")}>
-                                {text}
-                              </SelectItem>
-                            ))}
-                          </SelectPopup>
-                        </Select>
-                      </Field>
-                      <Field>
-                        <FieldLabel>Patterns</FieldLabel>
-                        <Select
-                          items={PATTERNS.map(({ text, path }) => ({
-                            label: text,
-                            value: path,
-                          }))}
-                          value={options?.pattern?.image}
-                          onValueChange={(value) => {
-                            updateOptions({
-                              ...options,
-                              pattern: {
-                                ...options.pattern,
-                                image: value!,
-                              },
-                            });
-                          }}
-                        >
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectPopup>
-                            {PATTERNS.map(({ text, path }) => (
-                              <SelectItem key={text} value={path}>
-                                {text}
-                              </SelectItem>
-                            ))}
-                          </SelectPopup>
-                        </Select>
-                      </Field>
-                      <Field>
-                        <Slider defaultValue={50}>
-                          <div className="mb-2 flex items-center justify-between gap-1">
-                            <FieldLabel className="font-medium text-sm">Pattern Size</FieldLabel>
-                            <SliderValue />
-                          </div>
-                        </Slider>
-                      </Field>
-                      <Field>
-                        <Slider defaultValue={50}>
-                          <div className="mb-2 flex items-center justify-between gap-1">
-                            <FieldLabel className="font-medium text-sm">Opacity</FieldLabel>
-                            <SliderValue />
-                          </div>
-                        </Slider>
-                      </Field>
-                    </AccordionPanel>
-                  </AccordionItem>
-                </Accordion>
-              </CardPanel>
-            </Card>
+
+            {/* Main card */}
+            <SnippetCard
+              author={snippet.user ?? undefined}
+              description={snippet.description}
+              commentCount={snippet._count?.comments ?? 0}
+              upvoted={userUpvoted}
+              upvoteCount={snippet._count?.upvotes ?? 0}
+              bookmarked={userBookmarked}
+              bookmarkCount={snippet._count?.bookmarks ?? 0}
+              isFollowing={isFollowing}
+              followerCount={followerCount}
+              followingCount={followingCount}
+              currentUserId={currentUserId}
+              onUpvote={handleUpvote}
+              onBookmark={handleBookmark}
+            >
+              {/* Rendered code frames */}
+              <View className="flex flex-col gap-6">
+                {elementIds.map((elId) => {
+                  const element = elements?.[elId] as Record<string, unknown> | undefined;
+                  if (!element) return null;
+                  return (
+                    <SnippetFrame
+                      key={elId}
+                      elementId={elId}
+                      element={element}
+                      windowWidth={rawPresentation?.width ?? 800}
+                    />
+                  );
+                })}
+              </View>
+            </SnippetCard>
           </View>
         </View>
       </View>
     </View>
-  );
-};
-
-export default PreviewSnippetClient;
-
-function Particle({ children }: { children?: React.ReactNode }) {
-  return (
-    <Card className="w-full bg-background/50 backdrop-blur-lg">
-      <CardHeader>
-        <CardTitle>
-          <View className="flex items-center justify-between">
-            <View className="flex items-center gap-2">
-              <div className="relative">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback>SC</AvatarFallback>
-                </Avatar>
-              </div>
-              <div className="text-left flex-1">
-                <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 tracking-tight leading-tight">
-                  Neeraj Ji
-                </div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 tracking-tight leading-tight">@simple</div>
-              </div>
-            </View>
-            <View>
-              <Button variant={"outline"}>
-                <EllipsisVerticalIcon />
-              </Button>
-            </View>
-          </View>
-        </CardTitle>
-        {/* <CardDescription>Deploy your new project in one-click.</CardDescription> */}
-      </CardHeader>
-      <CardPanel>
-        <View className="flex flex-col gap-2">
-          <article className="prose prose-sm">
-            <h1>Garlic bread with cheese: What the science tells us</h1>
-            <p>
-              For years parents have espoused the health benefits of eating garlic bread with cheese to their children,
-              with the food earning such an iconic status in our culture that kids will often dress up as warm, cheesy
-              loaf for Halloween.
-            </p>
-            <p>
-              But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases springing
-              up around the country.
-            </p>
-            <blockquote>Hello</blockquote>
-          </article>
-          <View className="flex flex-col gap-2 rounded-lg overflow-hidden">{children}</View>
-        </View>
-      </CardPanel>
-      <CardFooter>
-        <div className="flex gap-2 justify-between">
-          {/* Upvote */}
-          <View className="flex items-center gap-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button variant="outline" className="gap-2">
-                      <ArrowBigUpDash className="size-4 shrink-0" />
-                      <span>124 </span>
-                    </Button>
-                  }
-                />
-                <TooltipPopup>Upvote</TooltipPopup>
-              </Tooltip>
-
-              {/* Comment */}
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button variant="outline" className="gap-2">
-                      <MessageCircle className="size-4 shrink-0" />
-                      <span>12</span>
-                    </Button>
-                  }
-                />
-                <TooltipPopup>Comments</TooltipPopup>
-              </Tooltip>
-            </TooltipProvider>
-          </View>
-          <View className="flex items-center gap-2">
-            <TooltipProvider>
-              {/* Save */}
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button variant="outline" className="gap-2">
-                      <BookmarkIcon className="size-4 shrink-0" />
-                      <span>45</span>
-                    </Button>
-                  }
-                />
-                <TooltipPopup>Save</TooltipPopup>
-              </Tooltip>
-
-              {/* Remix */}
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button variant="outline" className="gap-2">
-                      <Blend className="size-4 shrink-0" />
-                      <span>8</span>
-                    </Button>
-                  }
-                />
-                <TooltipPopup>Remix</TooltipPopup>
-              </Tooltip>
-
-              {/* Share */}
-              <Tooltip>
-                <TooltipTrigger
-                  render={
-                    <Button variant="outline" className="gap-2">
-                      <Share2 className="size-4 shrink-0" />
-                      <span>6</span>
-                    </Button>
-                  }
-                />
-                <TooltipPopup>Share</TooltipPopup>
-              </Tooltip>
-            </TooltipProvider>
-          </View>
-        </div>
-      </CardFooter>
-    </Card>
   );
 }

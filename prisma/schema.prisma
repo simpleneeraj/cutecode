@@ -69,21 +69,42 @@ enum AuditAction {
   TRIAL_ENDED
 }
 
+enum ShareTarget {
+  SNIPPET
+  PRESENTATION
+  COLLECTION
+}
+
+enum ShareVisibility {
+  PUBLIC
+  UNLISTED
+  PASSCODE
+  PRIVATE
+}
+
 model User {
   id      String  @id @default(cuid())
   clerkId String  @unique
   email   String  @unique
   name    String?
   role    Role    @default(USER)
+  plan    Plan    @default(FREE)
 
-  plan Plan @default(FREE)
+  subscription     Subscription?
+  snippets         Snippet[]
+  payments         Payment[]
+  usageEvents      UsageEvent[]
+  auditLogs        AuditLog[]
+  dunningAttempts  DunningAttempt[]
+  presentations    Presentation[]
+  shareLinks       ShareLink[]
+  shareAccess      ShareLinkAccess[]
+  snippetComments  SnippetComment[]
+  snippetUpvotes   SnippetUpvote[]
+  snippetBookmarks SnippetBookmark[]
 
-  subscription    Subscription?
-  snippets        Snippet[]
-  payments        Payment[]
-  usageEvents     UsageEvent[]
-  auditLogs       AuditLog[]
-  dunningAttempts DunningAttempt[]
+  followers UserFollows[] @relation("UserFollowedBy")
+  following UserFollows[] @relation("UserFollows")
 
   usageMonth Int      @default(0)
   usageReset DateTime @default(now())
@@ -97,6 +118,19 @@ model User {
 
   @@index([email])
   @@index([clerkId])
+}
+
+model UserFollows {
+  followerId  String
+  follower    User   @relation("UserFollows", fields: [followerId], references: [id], onDelete: Cascade)
+  followingId String
+  following   User   @relation("UserFollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }
 
 model Subscription {
@@ -146,8 +180,7 @@ model Payment {
   subscriptionId String?
   subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
 
-  dodoPaymentId String @unique
-
+  dodoPaymentId  String @unique
   idempotencyKey String @unique
 
   amount   Int
@@ -164,7 +197,6 @@ model Payment {
 
   periodStart DateTime?
   periodEnd   DateTime?
-
   description String?
 
   createdAt DateTime @default(now())
@@ -201,13 +233,11 @@ model UsageEvent {
 
   quantity Int @default(1)
 
-  occurredAt DateTime
-
+  occurredAt    DateTime
   billingWindow String
 
   idempotencyKey String? @unique
-
-  isBackdated Boolean @default(false)
+  isBackdated    Boolean @default(false)
 
   createdAt DateTime @default(now())
 
@@ -238,10 +268,8 @@ model DunningAttempt {
   attemptNumber Int
   scheduledAt   DateTime
   sentAt        DateTime?
-
-  emailType String
-
-  succeeded Boolean @default(false)
+  emailType     String
+  succeeded     Boolean   @default(false)
 
   createdAt DateTime @default(now())
 
@@ -264,16 +292,172 @@ model IdempotencyKey {
 }
 
 model Snippet {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  title     String?
-  code      String
-  language  String
-  theme     String
-  isPublic  Boolean  @default(false)
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  presentationId String
+  presentation   Presentation @relation(fields: [presentationId], references: [id], onDelete: Cascade)
+
+  // ID of the element inside Presentation.elements Json
+  elementId String
+
+  title       String?
+  description String?
+  isPublic    Boolean @default(false)
+
+  // E2E — content is inside the element blob, flag lives here for fast filtering
+  isE2EEncrypted Boolean @default(false)
+  encryptionHint String?
+
+  shareLinks ShareLink[]
+  comments   SnippetComment[]
+  upvotes    SnippetUpvote[]
+  bookmarks  SnippetBookmark[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([userId])
+  @@index([presentationId])
+}
+
+// ─────────────────────────────────────────────
+// Presentation editor
+// ─────────────────────────────────────────────
+
+model Presentation {
+  id           String  @id @default(cuid())
+  name         String
+  width        Int     @default(680)
+  isPublic     Boolean @default(false)
+  thumbnailUrl String?
+
+  slides        Json
+  elements      Json
+  slideElements Json
+
+  snippets   Snippet[]
+  shareLinks ShareLink[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// ─────────────────────────────────────────────
+// Share links
+// ─────────────────────────────────────────────
+
+model ShareLink {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  slug           String          @unique
+  targetType     ShareTarget
+  targetId       String
+  snippetId      String?
+  snippet        Snippet?        @relation(fields: [snippetId], references: [id], onDelete: SetNull)
+  presentationId String?
+  presentation   Presentation?   @relation(fields: [presentationId], references: [id], onDelete: SetNull)
+  visibility     ShareVisibility @default(PUBLIC)
+  passcodeHash   String?
+  isE2EEncrypted Boolean         @default(false)
+  encryptionHint String?
+  maxViews       Int?
+  viewCount      Int             @default(0)
+  expiresAt      DateTime?
+  allowDownload  Boolean         @default(true)
+  allowCopy      Boolean         @default(true)
+  indexable      Boolean         @default(false)
+
+  views   ShareLinkView[]
+  granted ShareLinkAccess[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([slug])
+  @@index([userId])
+  @@index([targetType, targetId])
+  @@index([expiresAt])
+}
+
+// Analytics — one row per view event
+model ShareLinkView {
+  id          String    @id @default(cuid())
+  shareLinkId String
+  shareLink   ShareLink @relation(fields: [shareLinkId], references: [id], onDelete: Cascade)
+
+  // Hashed IP — no raw PII stored
+  ipHash    String?
+  userAgent String?
+  referer   String?
+
+  // Was a passcode successfully used for this view?
+  passcodeUsed Boolean @default(false)
+
+  viewedAt DateTime @default(now())
+
+  @@index([shareLinkId, viewedAt])
+}
+
+// Explicit user-to-user access grants (for PRIVATE links shared with specific users)
+model ShareLinkAccess {
+  id          String    @id @default(cuid())
+  shareLinkId String
+  shareLink   ShareLink @relation(fields: [shareLinkId], references: [id], onDelete: Cascade)
+
+  grantedToUserId String
+  grantedTo       User   @relation(fields: [grantedToUserId], references: [id], onDelete: Cascade)
+
+  grantedAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  @@unique([shareLinkId, grantedToUserId])
+  @@index([grantedToUserId])
+}
+
+model SnippetComment {
+  id        String   @id @default(cuid())
+  snippetId String
+  snippet   Snippet  @relation(fields: [snippetId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([snippetId, createdAt])
+  @@index([userId])
+}
+
+model SnippetUpvote {
+  id        String   @id @default(cuid())
+  snippetId String
+  snippet   Snippet  @relation(fields: [snippetId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([snippetId, userId])
+  @@index([snippetId])
+}
+
+model SnippetBookmark {
+  id        String   @id @default(cuid())
+  snippetId String
+  snippet   Snippet  @relation(fields: [snippetId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([snippetId, userId])
+  @@index([snippetId])
   @@index([userId])
 }

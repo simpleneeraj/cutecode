@@ -16,6 +16,7 @@ import {
 import { useSetAtom } from "jotai";
 import { flashShownAtom } from "../../store/flash";
 import { BaseFrameProps, getFrameConfig } from "./config";
+export type { BaseFrameProps };
 
 type PresetsProps = {
   id: string;

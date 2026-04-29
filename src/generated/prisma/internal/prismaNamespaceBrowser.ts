@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  UserFollows: 'UserFollows',
   Subscription: 'Subscription',
   Payment: 'Payment',
   WebhookEvent: 'WebhookEvent',
@@ -59,7 +60,14 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   DunningAttempt: 'DunningAttempt',
   IdempotencyKey: 'IdempotencyKey',
-  Snippet: 'Snippet'
+  Snippet: 'Snippet',
+  Presentation: 'Presentation',
+  ShareLink: 'ShareLink',
+  ShareLinkView: 'ShareLinkView',
+  ShareLinkAccess: 'ShareLinkAccess',
+  SnippetComment: 'SnippetComment',
+  SnippetUpvote: 'SnippetUpvote',
+  SnippetBookmark: 'SnippetBookmark'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -95,6 +103,15 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserFollowsScalarFieldEnum = {
+  followerId: 'followerId',
+  followingId: 'followingId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserFollowsScalarFieldEnum = (typeof UserFollowsScalarFieldEnum)[keyof typeof UserFollowsScalarFieldEnum]
 
 
 export const SubscriptionScalarFieldEnum = {
@@ -220,16 +237,116 @@ export type IdempotencyKeyScalarFieldEnum = (typeof IdempotencyKeyScalarFieldEnu
 export const SnippetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  presentationId: 'presentationId',
+  elementId: 'elementId',
   title: 'title',
-  code: 'code',
-  language: 'language',
-  theme: 'theme',
+  description: 'description',
   isPublic: 'isPublic',
+  isE2EEncrypted: 'isE2EEncrypted',
+  encryptionHint: 'encryptionHint',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SnippetScalarFieldEnum = (typeof SnippetScalarFieldEnum)[keyof typeof SnippetScalarFieldEnum]
+
+
+export const PresentationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  width: 'width',
+  isPublic: 'isPublic',
+  thumbnailUrl: 'thumbnailUrl',
+  slides: 'slides',
+  elements: 'elements',
+  slideElements: 'slideElements',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type PresentationScalarFieldEnum = (typeof PresentationScalarFieldEnum)[keyof typeof PresentationScalarFieldEnum]
+
+
+export const ShareLinkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  slug: 'slug',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  snippetId: 'snippetId',
+  presentationId: 'presentationId',
+  visibility: 'visibility',
+  passcodeHash: 'passcodeHash',
+  isE2EEncrypted: 'isE2EEncrypted',
+  encryptionHint: 'encryptionHint',
+  maxViews: 'maxViews',
+  viewCount: 'viewCount',
+  expiresAt: 'expiresAt',
+  allowDownload: 'allowDownload',
+  allowCopy: 'allowCopy',
+  indexable: 'indexable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShareLinkScalarFieldEnum = (typeof ShareLinkScalarFieldEnum)[keyof typeof ShareLinkScalarFieldEnum]
+
+
+export const ShareLinkViewScalarFieldEnum = {
+  id: 'id',
+  shareLinkId: 'shareLinkId',
+  ipHash: 'ipHash',
+  userAgent: 'userAgent',
+  referer: 'referer',
+  passcodeUsed: 'passcodeUsed',
+  viewedAt: 'viewedAt'
+} as const
+
+export type ShareLinkViewScalarFieldEnum = (typeof ShareLinkViewScalarFieldEnum)[keyof typeof ShareLinkViewScalarFieldEnum]
+
+
+export const ShareLinkAccessScalarFieldEnum = {
+  id: 'id',
+  shareLinkId: 'shareLinkId',
+  grantedToUserId: 'grantedToUserId',
+  grantedAt: 'grantedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ShareLinkAccessScalarFieldEnum = (typeof ShareLinkAccessScalarFieldEnum)[keyof typeof ShareLinkAccessScalarFieldEnum]
+
+
+export const SnippetCommentScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SnippetCommentScalarFieldEnum = (typeof SnippetCommentScalarFieldEnum)[keyof typeof SnippetCommentScalarFieldEnum]
+
+
+export const SnippetUpvoteScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type SnippetUpvoteScalarFieldEnum = (typeof SnippetUpvoteScalarFieldEnum)[keyof typeof SnippetUpvoteScalarFieldEnum]
+
+
+export const SnippetBookmarkScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type SnippetBookmarkScalarFieldEnum = (typeof SnippetBookmarkScalarFieldEnum)[keyof typeof SnippetBookmarkScalarFieldEnum]
 
 
 export const SortOrder = {

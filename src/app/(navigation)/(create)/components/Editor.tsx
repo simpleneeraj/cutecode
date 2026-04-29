@@ -13,6 +13,8 @@ import useHotkeys from "../../../../utils/useHotkeys";
 import HighlightedCode from "./HighlightedCode";
 import { derivedFlashMessageAtom } from "../store/flash";
 import { LANGUAGES } from "../util/languages";
+import { PreviewEditorContext } from "./PreviewEditorContext";
+import { THEMES } from "../constants/themes";
 import {
   elementContentAtom,
   elementFontFamilyAtom,
@@ -265,7 +267,7 @@ function handleBlockCommentToggle(textarea: HTMLTextAreaElement) {
 /* Component                       */
 /* ------------------------------- */
 
-function Editor() {
+function JotaiEditor() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const themeCSS = useAtomValue(themeCSSAtom);
   const selectedLanguage = useAtomValue(selectedLanguageAtom);
@@ -480,4 +482,54 @@ function Editor() {
   );
 }
 
-export default Editor;
+function PreviewEditor({ previewData }: { previewData: any }) {
+  const code = previewData.content || "";
+  const languageName = previewData.properties?.language || "typescript";
+  const selectedLanguage = Object.values(LANGUAGES).find((l) => l.name === languageName) || LANGUAGES.typescript;
+  const fontFamily = previewData.style?.fontFamily || "";
+  const currentFont = fonts.find((f) => f.name === fontFamily) ?? null;
+  const showLineNumbers = previewData.properties?.showLineNumbers ?? false;
+  const numberOfLines = (code?.match(/\n/g) || []).length;
+  
+  const themeId = previewData.properties?.theme;
+  const theme = themeId && THEMES[themeId] ? THEMES[themeId] : THEMES.candy;
+  const hasLight = !!theme.syntax.light;
+  const hasDark = !!theme.syntax.dark;
+  
+  let isDark = previewData.properties?.darkMode ?? false;
+  if (hasDark && !hasLight) isDark = true;
+  if (hasLight && !hasDark) isDark = false;
+
+  const themeCSS = (isDark ? theme.syntax.dark : theme.syntax.light) ?? theme.syntax.light ?? theme.syntax.dark ?? {};
+
+  return (
+    <div
+      className={cn(
+        styles.editor,
+        showLineNumbers &&
+          selectedLanguage.name !== LANGUAGES.plaintext.name && [
+            styles.showLineNumbers,
+            numberOfLines > 8 && styles.showLineNumbersLarge,
+          ],
+      )}
+      style={
+        {
+          "--editor-padding": "16px",
+          ...themeCSS,
+          fontFamily: `var(${currentFont?.variable})`,
+        } as React.CSSProperties
+      }
+      data-value={code}
+    >
+      <HighlightedCode code={code} selectedLanguage={selectedLanguage} />
+    </div>
+  );
+}
+
+export default function Editor() {
+  const previewData = React.useContext(PreviewEditorContext);
+  if (previewData) {
+    return <PreviewEditor previewData={previewData} />;
+  }
+  return <JotaiEditor />;
+}

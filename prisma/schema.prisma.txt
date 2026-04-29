@@ -1,0 +1,279 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Plan {
+  FREE
+  PRO
+  ELITE
+  ULTIMATE
+}
+
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  UNPAID
+  CANCELED
+  EXPIRED
+  INCOMPLETE
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+  DISPUTED
+  CHARGEBACK
+}
+
+enum WebhookEventStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  FAILED
+  SKIPPED
+}
+
+enum AuditAction {
+  SUBSCRIPTION_CREATED
+  SUBSCRIPTION_UPDATED
+  SUBSCRIPTION_CANCELED
+  SUBSCRIPTION_REACTIVATED
+  PLAN_UPGRADED
+  PLAN_DOWNGRADED
+  PLAN_DOWNGRADE_SCHEDULED
+  PAYMENT_SUCCEEDED
+  PAYMENT_FAILED
+  PAYMENT_REFUNDED
+  CHARGEBACK_OPENED
+  ACCESS_GRANTED
+  ACCESS_REVOKED
+  GRACE_PERIOD_STARTED
+  DUNNING_EMAIL_SENT
+  WEBHOOK_RECEIVED
+  IDEMPOTENCY_HIT
+  TRIAL_STARTED
+  TRIAL_ENDED
+}
+
+model User {
+  id      String  @id @default(cuid())
+  clerkId String  @unique
+  email   String  @unique
+  name    String?
+  role    Role    @default(USER)
+
+  plan Plan @default(FREE)
+
+  subscription    Subscription?
+  snippets        Snippet[]
+  payments        Payment[]
+  usageEvents     UsageEvent[]
+  auditLogs       AuditLog[]
+  dunningAttempts DunningAttempt[]
+
+  usageMonth Int      @default(0)
+  usageReset DateTime @default(now())
+
+  lastIpHash String?
+  deviceFp   String?
+  trialUsed  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([clerkId])
+}
+
+model Subscription {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  dodoSubscriptionId String  @unique
+  dodoCustomerId     String?
+
+  plan   Plan
+  status SubscriptionStatus @default(INCOMPLETE)
+
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+
+  gracePeriodEnd    DateTime?
+  cancelAtPeriodEnd Boolean   @default(false)
+  canceledAt        DateTime?
+
+  scheduledPlan   Plan?
+  scheduledPlanAt DateTime?
+
+  trialStart DateTime?
+  trialEnd   DateTime?
+
+  lastEventSeq Int       @default(0)
+  lastEventAt  DateTime?
+
+  payments        Payment[]
+  dunningAttempts DunningAttempt[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([currentPeriodEnd])
+  @@index([gracePeriodEnd])
+  @@index([scheduledPlanAt])
+}
+
+model Payment {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  subscriptionId String?
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+
+  dodoPaymentId String @unique
+
+  idempotencyKey String @unique
+
+  amount   Int
+  currency String        @default("USD")
+  status   PaymentStatus
+
+  refundedAmount Int       @default(0)
+  refundedAt     DateTime?
+  refundReason   String?
+
+  disputedAt   DateTime?
+  disputeId    String?
+  chargebackAt DateTime?
+
+  periodStart DateTime?
+  periodEnd   DateTime?
+
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([subscriptionId])
+  @@index([status])
+}
+
+model WebhookEvent {
+  id         String             @id
+  type       String
+  status     WebhookEventStatus @default(PENDING)
+  rawPayload Json
+
+  attempts      Int       @default(0)
+  lastAttemptAt DateTime?
+  processedAt   DateTime?
+  errorMessage  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+}
+
+model UsageEvent {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feature String
+
+  quantity Int @default(1)
+
+  occurredAt DateTime
+
+  billingWindow String
+
+  idempotencyKey String? @unique
+
+  isBackdated Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, billingWindow])
+  @@index([userId, feature])
+}
+
+model AuditLog {
+  id        String      @id @default(cuid())
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id])
+  action    AuditAction
+  metadata  Json?
+  ipHash    String?
+  createdAt DateTime    @default(now())
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+}
+
+model DunningAttempt {
+  id             String       @id
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  subscriptionId String
+  subscription   Subscription @relation(fields: [subscriptionId], references: [id])
+
+  attemptNumber Int
+  scheduledAt   DateTime
+  sentAt        DateTime?
+
+  emailType String
+
+  succeeded Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([subscriptionId])
+  @@index([scheduledAt])
+  @@index([sentAt])
+}
+
+model IdempotencyKey {
+  id         String   @id
+  action     String
+  userId     String
+  resultCode Int?
+  resultBody Json?
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Snippet {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String?
+  code      String
+  language  String
+  theme     String
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}

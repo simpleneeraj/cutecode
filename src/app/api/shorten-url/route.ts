@@ -47,7 +47,9 @@ export async function GET(req: NextRequest) {
   if (
     url.hostname.endsWith("ray.so") ||
     url.hostname.includes("raycastapp.vercel.app") ||
-    url.hostname === "localhost"
+    url.hostname === "localhost" ||
+    url.hostname.endsWith("cutecode.com") ||
+    (process.env.NEXT_PUBLIC_VERCEL_URL && url.hostname.includes(process.env.NEXT_PUBLIC_VERCEL_URL))
   ) {
     const link = await dub.links.create({
       url: url.href,

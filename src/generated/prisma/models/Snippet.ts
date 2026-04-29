@@ -27,11 +27,13 @@ export type AggregateSnippet = {
 export type SnippetMinAggregateOutputType = {
   id: string | null
   userId: string | null
+  presentationId: string | null
+  elementId: string | null
   title: string | null
-  code: string | null
-  language: string | null
-  theme: string | null
+  description: string | null
   isPublic: boolean | null
+  isE2EEncrypted: boolean | null
+  encryptionHint: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -39,11 +41,13 @@ export type SnippetMinAggregateOutputType = {
 export type SnippetMaxAggregateOutputType = {
   id: string | null
   userId: string | null
+  presentationId: string | null
+  elementId: string | null
   title: string | null
-  code: string | null
-  language: string | null
-  theme: string | null
+  description: string | null
   isPublic: boolean | null
+  isE2EEncrypted: boolean | null
+  encryptionHint: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,11 +55,13 @@ export type SnippetMaxAggregateOutputType = {
 export type SnippetCountAggregateOutputType = {
   id: number
   userId: number
+  presentationId: number
+  elementId: number
   title: number
-  code: number
-  language: number
-  theme: number
+  description: number
   isPublic: number
+  isE2EEncrypted: number
+  encryptionHint: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -65,11 +71,13 @@ export type SnippetCountAggregateOutputType = {
 export type SnippetMinAggregateInputType = {
   id?: true
   userId?: true
+  presentationId?: true
+  elementId?: true
   title?: true
-  code?: true
-  language?: true
-  theme?: true
+  description?: true
   isPublic?: true
+  isE2EEncrypted?: true
+  encryptionHint?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,11 +85,13 @@ export type SnippetMinAggregateInputType = {
 export type SnippetMaxAggregateInputType = {
   id?: true
   userId?: true
+  presentationId?: true
+  elementId?: true
   title?: true
-  code?: true
-  language?: true
-  theme?: true
+  description?: true
   isPublic?: true
+  isE2EEncrypted?: true
+  encryptionHint?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -89,11 +99,13 @@ export type SnippetMaxAggregateInputType = {
 export type SnippetCountAggregateInputType = {
   id?: true
   userId?: true
+  presentationId?: true
+  elementId?: true
   title?: true
-  code?: true
-  language?: true
-  theme?: true
+  description?: true
   isPublic?: true
+  isE2EEncrypted?: true
+  encryptionHint?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -174,11 +186,13 @@ export type SnippetGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type SnippetGroupByOutputType = {
   id: string
   userId: string
+  presentationId: string
+  elementId: string
   title: string | null
-  code: string
-  language: string
-  theme: string
+  description: string | null
   isPublic: boolean
+  isE2EEncrypted: boolean
+  encryptionHint: string | null
   createdAt: Date
   updatedAt: Date
   _count: SnippetCountAggregateOutputType | null
@@ -207,27 +221,41 @@ export type SnippetWhereInput = {
   NOT?: Prisma.SnippetWhereInput | Prisma.SnippetWhereInput[]
   id?: Prisma.StringFilter<"Snippet"> | string
   userId?: Prisma.StringFilter<"Snippet"> | string
+  presentationId?: Prisma.StringFilter<"Snippet"> | string
+  elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
-  code?: Prisma.StringFilter<"Snippet"> | string
-  language?: Prisma.StringFilter<"Snippet"> | string
-  theme?: Prisma.StringFilter<"Snippet"> | string
+  description?: Prisma.StringNullableFilter<"Snippet"> | string | null
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
+  isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
+  encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  presentation?: Prisma.XOR<Prisma.PresentationScalarRelationFilter, Prisma.PresentationWhereInput>
+  shareLinks?: Prisma.ShareLinkListRelationFilter
+  comments?: Prisma.SnippetCommentListRelationFilter
+  upvotes?: Prisma.SnippetUpvoteListRelationFilter
+  bookmarks?: Prisma.SnippetBookmarkListRelationFilter
 }
 
 export type SnippetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  presentationId?: Prisma.SortOrder
+  elementId?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
-  code?: Prisma.SortOrder
-  language?: Prisma.SortOrder
-  theme?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isE2EEncrypted?: Prisma.SortOrder
+  encryptionHint?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  presentation?: Prisma.PresentationOrderByWithRelationInput
+  shareLinks?: Prisma.ShareLinkOrderByRelationAggregateInput
+  comments?: Prisma.SnippetCommentOrderByRelationAggregateInput
+  upvotes?: Prisma.SnippetUpvoteOrderByRelationAggregateInput
+  bookmarks?: Prisma.SnippetBookmarkOrderByRelationAggregateInput
 }
 
 export type SnippetWhereUniqueInput = Prisma.AtLeast<{
@@ -236,24 +264,33 @@ export type SnippetWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.SnippetWhereInput[]
   NOT?: Prisma.SnippetWhereInput | Prisma.SnippetWhereInput[]
   userId?: Prisma.StringFilter<"Snippet"> | string
+  presentationId?: Prisma.StringFilter<"Snippet"> | string
+  elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
-  code?: Prisma.StringFilter<"Snippet"> | string
-  language?: Prisma.StringFilter<"Snippet"> | string
-  theme?: Prisma.StringFilter<"Snippet"> | string
+  description?: Prisma.StringNullableFilter<"Snippet"> | string | null
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
+  isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
+  encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  presentation?: Prisma.XOR<Prisma.PresentationScalarRelationFilter, Prisma.PresentationWhereInput>
+  shareLinks?: Prisma.ShareLinkListRelationFilter
+  comments?: Prisma.SnippetCommentListRelationFilter
+  upvotes?: Prisma.SnippetUpvoteListRelationFilter
+  bookmarks?: Prisma.SnippetBookmarkListRelationFilter
 }, "id">
 
 export type SnippetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  presentationId?: Prisma.SortOrder
+  elementId?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
-  code?: Prisma.SortOrder
-  language?: Prisma.SortOrder
-  theme?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isE2EEncrypted?: Prisma.SortOrder
+  encryptionHint?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.SnippetCountOrderByAggregateInput
@@ -267,82 +304,111 @@ export type SnippetScalarWhereWithAggregatesInput = {
   NOT?: Prisma.SnippetScalarWhereWithAggregatesInput | Prisma.SnippetScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
+  presentationId?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
+  elementId?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
   title?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
-  code?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
-  language?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
-  theme?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
   isPublic?: Prisma.BoolWithAggregatesFilter<"Snippet"> | boolean
+  isE2EEncrypted?: Prisma.BoolWithAggregatesFilter<"Snippet"> | boolean
+  encryptionHint?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Snippet"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Snippet"> | Date | string
 }
 
 export type SnippetCreateInput = {
   id?: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
 }
 
 export type SnippetUncheckedCreateInput = {
   id?: string
   userId: string
+  presentationId: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
 }
 
 export type SnippetUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
 }
 
 export type SnippetUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
 }
 
 export type SnippetCreateManyInput = {
   id?: string
   userId: string
+  presentationId: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SnippetUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -350,11 +416,13 @@ export type SnippetUpdateManyMutationInput = {
 export type SnippetUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -372,11 +440,13 @@ export type SnippetOrderByRelationAggregateInput = {
 export type SnippetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  presentationId?: Prisma.SortOrder
+  elementId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  language?: Prisma.SortOrder
-  theme?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isE2EEncrypted?: Prisma.SortOrder
+  encryptionHint?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -384,11 +454,13 @@ export type SnippetCountOrderByAggregateInput = {
 export type SnippetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  presentationId?: Prisma.SortOrder
+  elementId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  language?: Prisma.SortOrder
-  theme?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isE2EEncrypted?: Prisma.SortOrder
+  encryptionHint?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -396,13 +468,25 @@ export type SnippetMaxOrderByAggregateInput = {
 export type SnippetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+  presentationId?: Prisma.SortOrder
+  elementId?: Prisma.SortOrder
   title?: Prisma.SortOrder
-  code?: Prisma.SortOrder
-  language?: Prisma.SortOrder
-  theme?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
+  isE2EEncrypted?: Prisma.SortOrder
+  encryptionHint?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type SnippetNullableScalarRelationFilter = {
+  is?: Prisma.SnippetWhereInput | null
+  isNot?: Prisma.SnippetWhereInput | null
+}
+
+export type SnippetScalarRelationFilter = {
+  is?: Prisma.SnippetWhereInput
+  isNot?: Prisma.SnippetWhereInput
 }
 
 export type SnippetCreateNestedManyWithoutUserInput = {
@@ -447,26 +531,138 @@ export type SnippetUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.SnippetScalarWhereInput | Prisma.SnippetScalarWhereInput[]
 }
 
+export type SnippetCreateNestedManyWithoutPresentationInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput> | Prisma.SnippetCreateWithoutPresentationInput[] | Prisma.SnippetUncheckedCreateWithoutPresentationInput[]
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutPresentationInput | Prisma.SnippetCreateOrConnectWithoutPresentationInput[]
+  createMany?: Prisma.SnippetCreateManyPresentationInputEnvelope
+  connect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+}
+
+export type SnippetUncheckedCreateNestedManyWithoutPresentationInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput> | Prisma.SnippetCreateWithoutPresentationInput[] | Prisma.SnippetUncheckedCreateWithoutPresentationInput[]
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutPresentationInput | Prisma.SnippetCreateOrConnectWithoutPresentationInput[]
+  createMany?: Prisma.SnippetCreateManyPresentationInputEnvelope
+  connect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+}
+
+export type SnippetUpdateManyWithoutPresentationNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput> | Prisma.SnippetCreateWithoutPresentationInput[] | Prisma.SnippetUncheckedCreateWithoutPresentationInput[]
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutPresentationInput | Prisma.SnippetCreateOrConnectWithoutPresentationInput[]
+  upsert?: Prisma.SnippetUpsertWithWhereUniqueWithoutPresentationInput | Prisma.SnippetUpsertWithWhereUniqueWithoutPresentationInput[]
+  createMany?: Prisma.SnippetCreateManyPresentationInputEnvelope
+  set?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  disconnect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  delete?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  connect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  update?: Prisma.SnippetUpdateWithWhereUniqueWithoutPresentationInput | Prisma.SnippetUpdateWithWhereUniqueWithoutPresentationInput[]
+  updateMany?: Prisma.SnippetUpdateManyWithWhereWithoutPresentationInput | Prisma.SnippetUpdateManyWithWhereWithoutPresentationInput[]
+  deleteMany?: Prisma.SnippetScalarWhereInput | Prisma.SnippetScalarWhereInput[]
+}
+
+export type SnippetUncheckedUpdateManyWithoutPresentationNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput> | Prisma.SnippetCreateWithoutPresentationInput[] | Prisma.SnippetUncheckedCreateWithoutPresentationInput[]
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutPresentationInput | Prisma.SnippetCreateOrConnectWithoutPresentationInput[]
+  upsert?: Prisma.SnippetUpsertWithWhereUniqueWithoutPresentationInput | Prisma.SnippetUpsertWithWhereUniqueWithoutPresentationInput[]
+  createMany?: Prisma.SnippetCreateManyPresentationInputEnvelope
+  set?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  disconnect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  delete?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  connect?: Prisma.SnippetWhereUniqueInput | Prisma.SnippetWhereUniqueInput[]
+  update?: Prisma.SnippetUpdateWithWhereUniqueWithoutPresentationInput | Prisma.SnippetUpdateWithWhereUniqueWithoutPresentationInput[]
+  updateMany?: Prisma.SnippetUpdateManyWithWhereWithoutPresentationInput | Prisma.SnippetUpdateManyWithWhereWithoutPresentationInput[]
+  deleteMany?: Prisma.SnippetScalarWhereInput | Prisma.SnippetScalarWhereInput[]
+}
+
+export type SnippetCreateNestedOneWithoutShareLinksInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutShareLinksInput, Prisma.SnippetUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutShareLinksInput
+  connect?: Prisma.SnippetWhereUniqueInput
+}
+
+export type SnippetUpdateOneWithoutShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutShareLinksInput, Prisma.SnippetUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutShareLinksInput
+  upsert?: Prisma.SnippetUpsertWithoutShareLinksInput
+  disconnect?: Prisma.SnippetWhereInput | boolean
+  delete?: Prisma.SnippetWhereInput | boolean
+  connect?: Prisma.SnippetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SnippetUpdateToOneWithWhereWithoutShareLinksInput, Prisma.SnippetUpdateWithoutShareLinksInput>, Prisma.SnippetUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type SnippetCreateNestedOneWithoutCommentsInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutCommentsInput, Prisma.SnippetUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutCommentsInput
+  connect?: Prisma.SnippetWhereUniqueInput
+}
+
+export type SnippetUpdateOneRequiredWithoutCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutCommentsInput, Prisma.SnippetUncheckedCreateWithoutCommentsInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutCommentsInput
+  upsert?: Prisma.SnippetUpsertWithoutCommentsInput
+  connect?: Prisma.SnippetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SnippetUpdateToOneWithWhereWithoutCommentsInput, Prisma.SnippetUpdateWithoutCommentsInput>, Prisma.SnippetUncheckedUpdateWithoutCommentsInput>
+}
+
+export type SnippetCreateNestedOneWithoutUpvotesInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutUpvotesInput, Prisma.SnippetUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutUpvotesInput
+  connect?: Prisma.SnippetWhereUniqueInput
+}
+
+export type SnippetUpdateOneRequiredWithoutUpvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutUpvotesInput, Prisma.SnippetUncheckedCreateWithoutUpvotesInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutUpvotesInput
+  upsert?: Prisma.SnippetUpsertWithoutUpvotesInput
+  connect?: Prisma.SnippetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SnippetUpdateToOneWithWhereWithoutUpvotesInput, Prisma.SnippetUpdateWithoutUpvotesInput>, Prisma.SnippetUncheckedUpdateWithoutUpvotesInput>
+}
+
+export type SnippetCreateNestedOneWithoutBookmarksInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutBookmarksInput, Prisma.SnippetUncheckedCreateWithoutBookmarksInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutBookmarksInput
+  connect?: Prisma.SnippetWhereUniqueInput
+}
+
+export type SnippetUpdateOneRequiredWithoutBookmarksNestedInput = {
+  create?: Prisma.XOR<Prisma.SnippetCreateWithoutBookmarksInput, Prisma.SnippetUncheckedCreateWithoutBookmarksInput>
+  connectOrCreate?: Prisma.SnippetCreateOrConnectWithoutBookmarksInput
+  upsert?: Prisma.SnippetUpsertWithoutBookmarksInput
+  connect?: Prisma.SnippetWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SnippetUpdateToOneWithWhereWithoutBookmarksInput, Prisma.SnippetUpdateWithoutBookmarksInput>, Prisma.SnippetUncheckedUpdateWithoutBookmarksInput>
+}
+
 export type SnippetCreateWithoutUserInput = {
   id?: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
 }
 
 export type SnippetUncheckedCreateWithoutUserInput = {
   id?: string
+  presentationId: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
 }
 
 export type SnippetCreateOrConnectWithoutUserInput = {
@@ -501,136 +697,697 @@ export type SnippetScalarWhereInput = {
   NOT?: Prisma.SnippetScalarWhereInput | Prisma.SnippetScalarWhereInput[]
   id?: Prisma.StringFilter<"Snippet"> | string
   userId?: Prisma.StringFilter<"Snippet"> | string
+  presentationId?: Prisma.StringFilter<"Snippet"> | string
+  elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
-  code?: Prisma.StringFilter<"Snippet"> | string
-  language?: Prisma.StringFilter<"Snippet"> | string
-  theme?: Prisma.StringFilter<"Snippet"> | string
+  description?: Prisma.StringNullableFilter<"Snippet"> | string | null
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
+  isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
+  encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Snippet"> | Date | string
 }
 
+export type SnippetCreateWithoutPresentationInput = {
+  id?: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetUncheckedCreateWithoutPresentationInput = {
+  id?: string
+  userId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetCreateOrConnectWithoutPresentationInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput>
+}
+
+export type SnippetCreateManyPresentationInputEnvelope = {
+  data: Prisma.SnippetCreateManyPresentationInput | Prisma.SnippetCreateManyPresentationInput[]
+  skipDuplicates?: boolean
+}
+
+export type SnippetUpsertWithWhereUniqueWithoutPresentationInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  update: Prisma.XOR<Prisma.SnippetUpdateWithoutPresentationInput, Prisma.SnippetUncheckedUpdateWithoutPresentationInput>
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutPresentationInput, Prisma.SnippetUncheckedCreateWithoutPresentationInput>
+}
+
+export type SnippetUpdateWithWhereUniqueWithoutPresentationInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  data: Prisma.XOR<Prisma.SnippetUpdateWithoutPresentationInput, Prisma.SnippetUncheckedUpdateWithoutPresentationInput>
+}
+
+export type SnippetUpdateManyWithWhereWithoutPresentationInput = {
+  where: Prisma.SnippetScalarWhereInput
+  data: Prisma.XOR<Prisma.SnippetUpdateManyMutationInput, Prisma.SnippetUncheckedUpdateManyWithoutPresentationInput>
+}
+
+export type SnippetCreateWithoutShareLinksInput = {
+  id?: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetUncheckedCreateWithoutShareLinksInput = {
+  id?: string
+  userId: string
+  presentationId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetCreateOrConnectWithoutShareLinksInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutShareLinksInput, Prisma.SnippetUncheckedCreateWithoutShareLinksInput>
+}
+
+export type SnippetUpsertWithoutShareLinksInput = {
+  update: Prisma.XOR<Prisma.SnippetUpdateWithoutShareLinksInput, Prisma.SnippetUncheckedUpdateWithoutShareLinksInput>
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutShareLinksInput, Prisma.SnippetUncheckedCreateWithoutShareLinksInput>
+  where?: Prisma.SnippetWhereInput
+}
+
+export type SnippetUpdateToOneWithWhereWithoutShareLinksInput = {
+  where?: Prisma.SnippetWhereInput
+  data: Prisma.XOR<Prisma.SnippetUpdateWithoutShareLinksInput, Prisma.SnippetUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type SnippetUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetCreateWithoutCommentsInput = {
+  id?: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetUncheckedCreateWithoutCommentsInput = {
+  id?: string
+  userId: string
+  presentationId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetCreateOrConnectWithoutCommentsInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutCommentsInput, Prisma.SnippetUncheckedCreateWithoutCommentsInput>
+}
+
+export type SnippetUpsertWithoutCommentsInput = {
+  update: Prisma.XOR<Prisma.SnippetUpdateWithoutCommentsInput, Prisma.SnippetUncheckedUpdateWithoutCommentsInput>
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutCommentsInput, Prisma.SnippetUncheckedCreateWithoutCommentsInput>
+  where?: Prisma.SnippetWhereInput
+}
+
+export type SnippetUpdateToOneWithWhereWithoutCommentsInput = {
+  where?: Prisma.SnippetWhereInput
+  data: Prisma.XOR<Prisma.SnippetUpdateWithoutCommentsInput, Prisma.SnippetUncheckedUpdateWithoutCommentsInput>
+}
+
+export type SnippetUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateWithoutCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetCreateWithoutUpvotesInput = {
+  id?: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetUncheckedCreateWithoutUpvotesInput = {
+  id?: string
+  userId: string
+  presentationId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetCreateOrConnectWithoutUpvotesInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutUpvotesInput, Prisma.SnippetUncheckedCreateWithoutUpvotesInput>
+}
+
+export type SnippetUpsertWithoutUpvotesInput = {
+  update: Prisma.XOR<Prisma.SnippetUpdateWithoutUpvotesInput, Prisma.SnippetUncheckedUpdateWithoutUpvotesInput>
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutUpvotesInput, Prisma.SnippetUncheckedCreateWithoutUpvotesInput>
+  where?: Prisma.SnippetWhereInput
+}
+
+export type SnippetUpdateToOneWithWhereWithoutUpvotesInput = {
+  where?: Prisma.SnippetWhereInput
+  data: Prisma.XOR<Prisma.SnippetUpdateWithoutUpvotesInput, Prisma.SnippetUncheckedUpdateWithoutUpvotesInput>
+}
+
+export type SnippetUpdateWithoutUpvotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateWithoutUpvotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetCreateWithoutBookmarksInput = {
+  id?: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSnippetsInput
+  presentation: Prisma.PresentationCreateNestedOneWithoutSnippetsInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetUncheckedCreateWithoutBookmarksInput = {
+  id?: string
+  userId: string
+  presentationId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutSnippetInput
+  comments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutSnippetInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutSnippetInput
+}
+
+export type SnippetCreateOrConnectWithoutBookmarksInput = {
+  where: Prisma.SnippetWhereUniqueInput
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutBookmarksInput, Prisma.SnippetUncheckedCreateWithoutBookmarksInput>
+}
+
+export type SnippetUpsertWithoutBookmarksInput = {
+  update: Prisma.XOR<Prisma.SnippetUpdateWithoutBookmarksInput, Prisma.SnippetUncheckedUpdateWithoutBookmarksInput>
+  create: Prisma.XOR<Prisma.SnippetCreateWithoutBookmarksInput, Prisma.SnippetUncheckedCreateWithoutBookmarksInput>
+  where?: Prisma.SnippetWhereInput
+}
+
+export type SnippetUpdateToOneWithWhereWithoutBookmarksInput = {
+  where?: Prisma.SnippetWhereInput
+  data: Prisma.XOR<Prisma.SnippetUpdateWithoutBookmarksInput, Prisma.SnippetUncheckedUpdateWithoutBookmarksInput>
+}
+
+export type SnippetUpdateWithoutBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateWithoutBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+}
+
 export type SnippetCreateManyUserInput = {
   id?: string
+  presentationId: string
+  elementId: string
   title?: string | null
-  code: string
-  language: string
-  theme: string
+  description?: string | null
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type SnippetUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  presentation?: Prisma.PresentationUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
 }
 
 export type SnippetUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
 }
 
 export type SnippetUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  presentationId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  code?: Prisma.StringFieldUpdateOperationsInput | string
-  language?: Prisma.StringFieldUpdateOperationsInput | string
-  theme?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type SnippetCreateManyPresentationInput = {
+  id?: string
+  userId: string
+  elementId: string
+  title?: string | null
+  description?: string | null
+  isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type SnippetUpdateWithoutPresentationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSnippetsNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateWithoutPresentationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutSnippetNestedInput
+  comments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutSnippetNestedInput
+  upvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutSnippetNestedInput
+  bookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutSnippetNestedInput
+}
+
+export type SnippetUncheckedUpdateManyWithoutPresentationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  elementId?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type SnippetCountOutputType
+ */
+
+export type SnippetCountOutputType = {
+  shareLinks: number
+  comments: number
+  upvotes: number
+  bookmarks: number
+}
+
+export type SnippetCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shareLinks?: boolean | SnippetCountOutputTypeCountShareLinksArgs
+  comments?: boolean | SnippetCountOutputTypeCountCommentsArgs
+  upvotes?: boolean | SnippetCountOutputTypeCountUpvotesArgs
+  bookmarks?: boolean | SnippetCountOutputTypeCountBookmarksArgs
+}
+
+/**
+ * SnippetCountOutputType without action
+ */
+export type SnippetCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetCountOutputType
+   */
+  select?: Prisma.SnippetCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * SnippetCountOutputType without action
+ */
+export type SnippetCountOutputTypeCountShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShareLinkWhereInput
+}
+
+/**
+ * SnippetCountOutputType without action
+ */
+export type SnippetCountOutputTypeCountCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetCommentWhereInput
+}
+
+/**
+ * SnippetCountOutputType without action
+ */
+export type SnippetCountOutputTypeCountUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetUpvoteWhereInput
+}
+
+/**
+ * SnippetCountOutputType without action
+ */
+export type SnippetCountOutputTypeCountBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetBookmarkWhereInput
+}
 
 
 export type SnippetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  presentationId?: boolean
+  elementId?: boolean
   title?: boolean
-  code?: boolean
-  language?: boolean
-  theme?: boolean
+  description?: boolean
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.Snippet$shareLinksArgs<ExtArgs>
+  comments?: boolean | Prisma.Snippet$commentsArgs<ExtArgs>
+  upvotes?: boolean | Prisma.Snippet$upvotesArgs<ExtArgs>
+  bookmarks?: boolean | Prisma.Snippet$bookmarksArgs<ExtArgs>
+  _count?: boolean | Prisma.SnippetCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["snippet"]>
 
 export type SnippetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  presentationId?: boolean
+  elementId?: boolean
   title?: boolean
-  code?: boolean
-  language?: boolean
-  theme?: boolean
+  description?: boolean
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["snippet"]>
 
 export type SnippetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
+  presentationId?: boolean
+  elementId?: boolean
   title?: boolean
-  code?: boolean
-  language?: boolean
-  theme?: boolean
+  description?: boolean
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["snippet"]>
 
 export type SnippetSelectScalar = {
   id?: boolean
   userId?: boolean
+  presentationId?: boolean
+  elementId?: boolean
   title?: boolean
-  code?: boolean
-  language?: boolean
-  theme?: boolean
+  description?: boolean
   isPublic?: boolean
+  isE2EEncrypted?: boolean
+  encryptionHint?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SnippetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "title" | "code" | "language" | "theme" | "isPublic" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
+export type SnippetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "presentationId" | "elementId" | "title" | "description" | "isPublic" | "isE2EEncrypted" | "encryptionHint" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
 export type SnippetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.Snippet$shareLinksArgs<ExtArgs>
+  comments?: boolean | Prisma.Snippet$commentsArgs<ExtArgs>
+  upvotes?: boolean | Prisma.Snippet$upvotesArgs<ExtArgs>
+  bookmarks?: boolean | Prisma.Snippet$bookmarksArgs<ExtArgs>
+  _count?: boolean | Prisma.SnippetCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SnippetIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
 }
 export type SnippetIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
 }
 
 export type $SnippetPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Snippet"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    presentation: Prisma.$PresentationPayload<ExtArgs>
+    shareLinks: Prisma.$ShareLinkPayload<ExtArgs>[]
+    comments: Prisma.$SnippetCommentPayload<ExtArgs>[]
+    upvotes: Prisma.$SnippetUpvotePayload<ExtArgs>[]
+    bookmarks: Prisma.$SnippetBookmarkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
+    presentationId: string
+    elementId: string
     title: string | null
-    code: string
-    language: string
-    theme: string
+    description: string | null
     isPublic: boolean
+    isE2EEncrypted: boolean
+    encryptionHint: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["snippet"]>
@@ -1028,6 +1785,11 @@ readonly fields: SnippetFieldRefs;
 export interface Prisma__SnippetClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  presentation<T extends Prisma.PresentationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PresentationDefaultArgs<ExtArgs>>): Prisma.Prisma__PresentationClient<runtime.Types.Result.GetResult<Prisma.$PresentationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  shareLinks<T extends Prisma.Snippet$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Snippet$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  comments<T extends Prisma.Snippet$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Snippet$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  upvotes<T extends Prisma.Snippet$upvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Snippet$upvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookmarks<T extends Prisma.Snippet$bookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Snippet$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1059,11 +1821,13 @@ export interface Prisma__SnippetClient<T, Null = never, ExtArgs extends runtime.
 export interface SnippetFieldRefs {
   readonly id: Prisma.FieldRef<"Snippet", 'String'>
   readonly userId: Prisma.FieldRef<"Snippet", 'String'>
+  readonly presentationId: Prisma.FieldRef<"Snippet", 'String'>
+  readonly elementId: Prisma.FieldRef<"Snippet", 'String'>
   readonly title: Prisma.FieldRef<"Snippet", 'String'>
-  readonly code: Prisma.FieldRef<"Snippet", 'String'>
-  readonly language: Prisma.FieldRef<"Snippet", 'String'>
-  readonly theme: Prisma.FieldRef<"Snippet", 'String'>
+  readonly description: Prisma.FieldRef<"Snippet", 'String'>
   readonly isPublic: Prisma.FieldRef<"Snippet", 'Boolean'>
+  readonly isE2EEncrypted: Prisma.FieldRef<"Snippet", 'Boolean'>
+  readonly encryptionHint: Prisma.FieldRef<"Snippet", 'String'>
   readonly createdAt: Prisma.FieldRef<"Snippet", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Snippet", 'DateTime'>
 }
@@ -1464,6 +2228,102 @@ export type SnippetDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Snippets to delete.
    */
   limit?: number
+}
+
+/**
+ * Snippet.shareLinks
+ */
+export type Snippet$shareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShareLink
+   */
+  select?: Prisma.ShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShareLink
+   */
+  omit?: Prisma.ShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShareLinkInclude<ExtArgs> | null
+  where?: Prisma.ShareLinkWhereInput
+  orderBy?: Prisma.ShareLinkOrderByWithRelationInput | Prisma.ShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShareLinkScalarFieldEnum | Prisma.ShareLinkScalarFieldEnum[]
+}
+
+/**
+ * Snippet.comments
+ */
+export type Snippet$commentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetComment
+   */
+  select?: Prisma.SnippetCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetComment
+   */
+  omit?: Prisma.SnippetCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetCommentInclude<ExtArgs> | null
+  where?: Prisma.SnippetCommentWhereInput
+  orderBy?: Prisma.SnippetCommentOrderByWithRelationInput | Prisma.SnippetCommentOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetCommentScalarFieldEnum | Prisma.SnippetCommentScalarFieldEnum[]
+}
+
+/**
+ * Snippet.upvotes
+ */
+export type Snippet$upvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetUpvote
+   */
+  select?: Prisma.SnippetUpvoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetUpvote
+   */
+  omit?: Prisma.SnippetUpvoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetUpvoteInclude<ExtArgs> | null
+  where?: Prisma.SnippetUpvoteWhereInput
+  orderBy?: Prisma.SnippetUpvoteOrderByWithRelationInput | Prisma.SnippetUpvoteOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetUpvoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetUpvoteScalarFieldEnum | Prisma.SnippetUpvoteScalarFieldEnum[]
+}
+
+/**
+ * Snippet.bookmarks
+ */
+export type Snippet$bookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetBookmark
+   */
+  select?: Prisma.SnippetBookmarkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetBookmark
+   */
+  omit?: Prisma.SnippetBookmarkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetBookmarkInclude<ExtArgs> | null
+  where?: Prisma.SnippetBookmarkWhereInput
+  orderBy?: Prisma.SnippetBookmarkOrderByWithRelationInput | Prisma.SnippetBookmarkOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetBookmarkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetBookmarkScalarFieldEnum | Prisma.SnippetBookmarkScalarFieldEnum[]
 }
 
 /**

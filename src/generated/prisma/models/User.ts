@@ -286,6 +286,14 @@ export type UserWhereInput = {
   usageEvents?: Prisma.UsageEventListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   dunningAttempts?: Prisma.DunningAttemptListRelationFilter
+  presentations?: Prisma.PresentationListRelationFilter
+  shareLinks?: Prisma.ShareLinkListRelationFilter
+  shareAccess?: Prisma.ShareLinkAccessListRelationFilter
+  snippetComments?: Prisma.SnippetCommentListRelationFilter
+  snippetUpvotes?: Prisma.SnippetUpvoteListRelationFilter
+  snippetBookmarks?: Prisma.SnippetBookmarkListRelationFilter
+  followers?: Prisma.UserFollowsListRelationFilter
+  following?: Prisma.UserFollowsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -308,6 +316,14 @@ export type UserOrderByWithRelationInput = {
   usageEvents?: Prisma.UsageEventOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   dunningAttempts?: Prisma.DunningAttemptOrderByRelationAggregateInput
+  presentations?: Prisma.PresentationOrderByRelationAggregateInput
+  shareLinks?: Prisma.ShareLinkOrderByRelationAggregateInput
+  shareAccess?: Prisma.ShareLinkAccessOrderByRelationAggregateInput
+  snippetComments?: Prisma.SnippetCommentOrderByRelationAggregateInput
+  snippetUpvotes?: Prisma.SnippetUpvoteOrderByRelationAggregateInput
+  snippetBookmarks?: Prisma.SnippetBookmarkOrderByRelationAggregateInput
+  followers?: Prisma.UserFollowsOrderByRelationAggregateInput
+  following?: Prisma.UserFollowsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -333,6 +349,14 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   usageEvents?: Prisma.UsageEventListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   dunningAttempts?: Prisma.DunningAttemptListRelationFilter
+  presentations?: Prisma.PresentationListRelationFilter
+  shareLinks?: Prisma.ShareLinkListRelationFilter
+  shareAccess?: Prisma.ShareLinkAccessListRelationFilter
+  snippetComments?: Prisma.SnippetCommentListRelationFilter
+  snippetUpvotes?: Prisma.SnippetUpvoteListRelationFilter
+  snippetBookmarks?: Prisma.SnippetBookmarkListRelationFilter
+  followers?: Prisma.UserFollowsListRelationFilter
+  following?: Prisma.UserFollowsListRelationFilter
 }, "id" | "clerkId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -395,6 +419,14 @@ export type UserCreateInput = {
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -417,6 +449,14 @@ export type UserUncheckedCreateInput = {
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUpdateInput = {
@@ -439,6 +479,14 @@ export type UserUpdateInput = {
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -461,6 +509,14 @@ export type UserUncheckedUpdateInput = {
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -609,6 +665,34 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type UserCreateNestedOneWithoutFollowingInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutFollowersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutFollowingNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowingInput
+  upsert?: Prisma.UserUpsertWithoutFollowingInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowingInput, Prisma.UserUpdateWithoutFollowingInput>, Prisma.UserUncheckedUpdateWithoutFollowingInput>
+}
+
+export type UserUpdateOneRequiredWithoutFollowersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFollowersInput
+  upsert?: Prisma.UserUpsertWithoutFollowersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFollowersInput, Prisma.UserUpdateWithoutFollowersInput>, Prisma.UserUncheckedUpdateWithoutFollowersInput>
+}
+
 export type UserCreateNestedOneWithoutSubscriptionInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionInput, Prisma.UserUncheckedCreateWithoutSubscriptionInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubscriptionInput
@@ -695,6 +779,354 @@ export type UserUpdateOneRequiredWithoutSnippetsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSnippetsInput, Prisma.UserUpdateWithoutSnippetsInput>, Prisma.UserUncheckedUpdateWithoutSnippetsInput>
 }
 
+export type UserCreateNestedOneWithoutPresentationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPresentationsInput, Prisma.UserUncheckedCreateWithoutPresentationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPresentationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPresentationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPresentationsInput, Prisma.UserUncheckedCreateWithoutPresentationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPresentationsInput
+  upsert?: Prisma.UserUpsertWithoutPresentationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPresentationsInput, Prisma.UserUpdateWithoutPresentationsInput>, Prisma.UserUncheckedUpdateWithoutPresentationsInput>
+}
+
+export type UserCreateNestedOneWithoutShareLinksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShareLinksInput, Prisma.UserUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShareLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShareLinksInput, Prisma.UserUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShareLinksInput
+  upsert?: Prisma.UserUpsertWithoutShareLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShareLinksInput, Prisma.UserUpdateWithoutShareLinksInput>, Prisma.UserUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type UserCreateNestedOneWithoutShareAccessInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShareAccessInput, Prisma.UserUncheckedCreateWithoutShareAccessInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShareAccessInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutShareAccessNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutShareAccessInput, Prisma.UserUncheckedCreateWithoutShareAccessInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShareAccessInput
+  upsert?: Prisma.UserUpsertWithoutShareAccessInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShareAccessInput, Prisma.UserUpdateWithoutShareAccessInput>, Prisma.UserUncheckedUpdateWithoutShareAccessInput>
+}
+
+export type UserCreateNestedOneWithoutSnippetCommentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetCommentsInput, Prisma.UserUncheckedCreateWithoutSnippetCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSnippetCommentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetCommentsInput, Prisma.UserUncheckedCreateWithoutSnippetCommentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetCommentsInput
+  upsert?: Prisma.UserUpsertWithoutSnippetCommentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSnippetCommentsInput, Prisma.UserUpdateWithoutSnippetCommentsInput>, Prisma.UserUncheckedUpdateWithoutSnippetCommentsInput>
+}
+
+export type UserCreateNestedOneWithoutSnippetUpvotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetUpvotesInput, Prisma.UserUncheckedCreateWithoutSnippetUpvotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetUpvotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSnippetUpvotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetUpvotesInput, Prisma.UserUncheckedCreateWithoutSnippetUpvotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetUpvotesInput
+  upsert?: Prisma.UserUpsertWithoutSnippetUpvotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSnippetUpvotesInput, Prisma.UserUpdateWithoutSnippetUpvotesInput>, Prisma.UserUncheckedUpdateWithoutSnippetUpvotesInput>
+}
+
+export type UserCreateNestedOneWithoutSnippetBookmarksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetBookmarksInput, Prisma.UserUncheckedCreateWithoutSnippetBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSnippetBookmarksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSnippetBookmarksInput, Prisma.UserUncheckedCreateWithoutSnippetBookmarksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSnippetBookmarksInput
+  upsert?: Prisma.UserUpsertWithoutSnippetBookmarksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSnippetBookmarksInput, Prisma.UserUpdateWithoutSnippetBookmarksInput>, Prisma.UserUncheckedUpdateWithoutSnippetBookmarksInput>
+}
+
+export type UserCreateWithoutFollowingInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+}
+
+export type UserUncheckedCreateWithoutFollowingInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+}
+
+export type UserCreateOrConnectWithoutFollowingInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
+}
+
+export type UserCreateWithoutFollowersInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutFollowersInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutFollowersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
+}
+
+export type UserUpsertWithoutFollowingInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowingInput, Prisma.UserUncheckedUpdateWithoutFollowingInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowingInput, Prisma.UserUncheckedCreateWithoutFollowingInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFollowingInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowingInput, Prisma.UserUncheckedUpdateWithoutFollowingInput>
+}
+
+export type UserUpdateWithoutFollowingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+}
+
+export type UserUpsertWithoutFollowersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFollowersInput, Prisma.UserUncheckedUpdateWithoutFollowersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFollowersInput, Prisma.UserUncheckedCreateWithoutFollowersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFollowersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFollowersInput, Prisma.UserUncheckedUpdateWithoutFollowersInput>
+}
+
+export type UserUpdateWithoutFollowersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFollowersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
 export type UserCreateWithoutSubscriptionInput = {
   id?: string
   clerkId: string
@@ -714,6 +1146,14 @@ export type UserCreateWithoutSubscriptionInput = {
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionInput = {
@@ -735,6 +1175,14 @@ export type UserUncheckedCreateWithoutSubscriptionInput = {
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionInput = {
@@ -772,6 +1220,14 @@ export type UserUpdateWithoutSubscriptionInput = {
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionInput = {
@@ -793,6 +1249,14 @@ export type UserUncheckedUpdateWithoutSubscriptionInput = {
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -814,6 +1278,14 @@ export type UserCreateWithoutPaymentsInput = {
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -835,6 +1307,14 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -872,6 +1352,14 @@ export type UserUpdateWithoutPaymentsInput = {
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -893,6 +1381,14 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateWithoutUsageEventsInput = {
@@ -914,6 +1410,14 @@ export type UserCreateWithoutUsageEventsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutUsageEventsInput = {
@@ -935,6 +1439,14 @@ export type UserUncheckedCreateWithoutUsageEventsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutUsageEventsInput = {
@@ -972,6 +1484,14 @@ export type UserUpdateWithoutUsageEventsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUsageEventsInput = {
@@ -993,6 +1513,14 @@ export type UserUncheckedUpdateWithoutUsageEventsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -1014,6 +1542,14 @@ export type UserCreateWithoutAuditLogsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -1035,6 +1571,14 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1072,6 +1616,14 @@ export type UserUpdateWithoutAuditLogsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1093,6 +1645,14 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateWithoutDunningAttemptsInput = {
@@ -1114,6 +1674,14 @@ export type UserCreateWithoutDunningAttemptsInput = {
   payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutDunningAttemptsInput = {
@@ -1135,6 +1703,14 @@ export type UserUncheckedCreateWithoutDunningAttemptsInput = {
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutDunningAttemptsInput = {
@@ -1172,6 +1748,14 @@ export type UserUpdateWithoutDunningAttemptsInput = {
   payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDunningAttemptsInput = {
@@ -1193,6 +1777,14 @@ export type UserUncheckedUpdateWithoutDunningAttemptsInput = {
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserCreateWithoutSnippetsInput = {
@@ -1214,6 +1806,14 @@ export type UserCreateWithoutSnippetsInput = {
   usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
 }
 
 export type UserUncheckedCreateWithoutSnippetsInput = {
@@ -1235,6 +1835,14 @@ export type UserUncheckedCreateWithoutSnippetsInput = {
   usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
 }
 
 export type UserCreateOrConnectWithoutSnippetsInput = {
@@ -1272,6 +1880,14 @@ export type UserUpdateWithoutSnippetsInput = {
   usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSnippetsInput = {
@@ -1293,6 +1909,806 @@ export type UserUncheckedUpdateWithoutSnippetsInput = {
   usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutPresentationsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutPresentationsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutPresentationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPresentationsInput, Prisma.UserUncheckedCreateWithoutPresentationsInput>
+}
+
+export type UserUpsertWithoutPresentationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPresentationsInput, Prisma.UserUncheckedUpdateWithoutPresentationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPresentationsInput, Prisma.UserUncheckedCreateWithoutPresentationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPresentationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPresentationsInput, Prisma.UserUncheckedUpdateWithoutPresentationsInput>
+}
+
+export type UserUpdateWithoutPresentationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPresentationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutShareLinksInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutShareLinksInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutShareLinksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShareLinksInput, Prisma.UserUncheckedCreateWithoutShareLinksInput>
+}
+
+export type UserUpsertWithoutShareLinksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShareLinksInput, Prisma.UserUncheckedUpdateWithoutShareLinksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShareLinksInput, Prisma.UserUncheckedCreateWithoutShareLinksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShareLinksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShareLinksInput, Prisma.UserUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type UserUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutShareAccessInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutShareAccessInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutShareAccessInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutShareAccessInput, Prisma.UserUncheckedCreateWithoutShareAccessInput>
+}
+
+export type UserUpsertWithoutShareAccessInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutShareAccessInput, Prisma.UserUncheckedUpdateWithoutShareAccessInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutShareAccessInput, Prisma.UserUncheckedCreateWithoutShareAccessInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutShareAccessInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutShareAccessInput, Prisma.UserUncheckedUpdateWithoutShareAccessInput>
+}
+
+export type UserUpdateWithoutShareAccessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutShareAccessInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutSnippetCommentsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutSnippetCommentsInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutSnippetCommentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetCommentsInput, Prisma.UserUncheckedCreateWithoutSnippetCommentsInput>
+}
+
+export type UserUpsertWithoutSnippetCommentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSnippetCommentsInput, Prisma.UserUncheckedUpdateWithoutSnippetCommentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetCommentsInput, Prisma.UserUncheckedCreateWithoutSnippetCommentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSnippetCommentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSnippetCommentsInput, Prisma.UserUncheckedUpdateWithoutSnippetCommentsInput>
+}
+
+export type UserUpdateWithoutSnippetCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSnippetCommentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutSnippetUpvotesInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutSnippetUpvotesInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutSnippetUpvotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetUpvotesInput, Prisma.UserUncheckedCreateWithoutSnippetUpvotesInput>
+}
+
+export type UserUpsertWithoutSnippetUpvotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSnippetUpvotesInput, Prisma.UserUncheckedUpdateWithoutSnippetUpvotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetUpvotesInput, Prisma.UserUncheckedCreateWithoutSnippetUpvotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSnippetUpvotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSnippetUpvotesInput, Prisma.UserUncheckedUpdateWithoutSnippetUpvotesInput>
+}
+
+export type UserUpdateWithoutSnippetUpvotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSnippetUpvotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserCreateWithoutSnippetBookmarksInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
+}
+
+export type UserUncheckedCreateWithoutSnippetBookmarksInput = {
+  id?: string
+  clerkId: string
+  email: string
+  name?: string | null
+  role?: $Enums.Role
+  plan?: $Enums.Plan
+  usageMonth?: number
+  usageReset?: Date | string
+  lastIpHash?: string | null
+  deviceFp?: string | null
+  trialUsed?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
+  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
+  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
+  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
+  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
+  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
+  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
+}
+
+export type UserCreateOrConnectWithoutSnippetBookmarksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetBookmarksInput, Prisma.UserUncheckedCreateWithoutSnippetBookmarksInput>
+}
+
+export type UserUpsertWithoutSnippetBookmarksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSnippetBookmarksInput, Prisma.UserUncheckedUpdateWithoutSnippetBookmarksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSnippetBookmarksInput, Prisma.UserUncheckedCreateWithoutSnippetBookmarksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSnippetBookmarksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSnippetBookmarksInput, Prisma.UserUncheckedUpdateWithoutSnippetBookmarksInput>
+}
+
+export type UserUpdateWithoutSnippetBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSnippetBookmarksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
+  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
+  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
+  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
+  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
+  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
+  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
+  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
+  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
+  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
+  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
 }
 
 
@@ -1306,6 +2722,14 @@ export type UserCountOutputType = {
   usageEvents: number
   auditLogs: number
   dunningAttempts: number
+  presentations: number
+  shareLinks: number
+  shareAccess: number
+  snippetComments: number
+  snippetUpvotes: number
+  snippetBookmarks: number
+  followers: number
+  following: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1314,6 +2738,14 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   usageEvents?: boolean | UserCountOutputTypeCountUsageEventsArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   dunningAttempts?: boolean | UserCountOutputTypeCountDunningAttemptsArgs
+  presentations?: boolean | UserCountOutputTypeCountPresentationsArgs
+  shareLinks?: boolean | UserCountOutputTypeCountShareLinksArgs
+  shareAccess?: boolean | UserCountOutputTypeCountShareAccessArgs
+  snippetComments?: boolean | UserCountOutputTypeCountSnippetCommentsArgs
+  snippetUpvotes?: boolean | UserCountOutputTypeCountSnippetUpvotesArgs
+  snippetBookmarks?: boolean | UserCountOutputTypeCountSnippetBookmarksArgs
+  followers?: boolean | UserCountOutputTypeCountFollowersArgs
+  following?: boolean | UserCountOutputTypeCountFollowingArgs
 }
 
 /**
@@ -1361,6 +2793,62 @@ export type UserCountOutputTypeCountDunningAttemptsArgs<ExtArgs extends runtime.
   where?: Prisma.DunningAttemptWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPresentationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PresentationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShareLinkWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountShareAccessArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ShareLinkAccessWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSnippetCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetCommentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSnippetUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetUpvoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSnippetBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SnippetBookmarkWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFollowersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserFollowsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFollowingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserFollowsWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1382,6 +2870,14 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
+  presentations?: boolean | Prisma.User$presentationsArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.User$shareLinksArgs<ExtArgs>
+  shareAccess?: boolean | Prisma.User$shareAccessArgs<ExtArgs>
+  snippetComments?: boolean | Prisma.User$snippetCommentsArgs<ExtArgs>
+  snippetUpvotes?: boolean | Prisma.User$snippetUpvotesArgs<ExtArgs>
+  snippetBookmarks?: boolean | Prisma.User$snippetBookmarksArgs<ExtArgs>
+  followers?: boolean | Prisma.User$followersArgs<ExtArgs>
+  following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1441,6 +2937,14 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
+  presentations?: boolean | Prisma.User$presentationsArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.User$shareLinksArgs<ExtArgs>
+  shareAccess?: boolean | Prisma.User$shareAccessArgs<ExtArgs>
+  snippetComments?: boolean | Prisma.User$snippetCommentsArgs<ExtArgs>
+  snippetUpvotes?: boolean | Prisma.User$snippetUpvotesArgs<ExtArgs>
+  snippetBookmarks?: boolean | Prisma.User$snippetBookmarksArgs<ExtArgs>
+  followers?: boolean | Prisma.User$followersArgs<ExtArgs>
+  following?: boolean | Prisma.User$followingArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1455,6 +2959,14 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     usageEvents: Prisma.$UsageEventPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     dunningAttempts: Prisma.$DunningAttemptPayload<ExtArgs>[]
+    presentations: Prisma.$PresentationPayload<ExtArgs>[]
+    shareLinks: Prisma.$ShareLinkPayload<ExtArgs>[]
+    shareAccess: Prisma.$ShareLinkAccessPayload<ExtArgs>[]
+    snippetComments: Prisma.$SnippetCommentPayload<ExtArgs>[]
+    snippetUpvotes: Prisma.$SnippetUpvotePayload<ExtArgs>[]
+    snippetBookmarks: Prisma.$SnippetBookmarkPayload<ExtArgs>[]
+    followers: Prisma.$UserFollowsPayload<ExtArgs>[]
+    following: Prisma.$UserFollowsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1870,6 +3382,14 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   usageEvents<T extends Prisma.User$usageEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usageEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsageEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dunningAttempts<T extends Prisma.User$dunningAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dunningAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DunningAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  presentations<T extends Prisma.User$presentationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$presentationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresentationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shareLinks<T extends Prisma.User$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shareAccess<T extends Prisma.User$shareAccessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shareAccessArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  snippetComments<T extends Prisma.User$snippetCommentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$snippetCommentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetCommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  snippetUpvotes<T extends Prisma.User$snippetUpvotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$snippetUpvotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetUpvotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  snippetBookmarks<T extends Prisma.User$snippetBookmarksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$snippetBookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetBookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFollowsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  following<T extends Prisma.User$followingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFollowsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2441,6 +3961,198 @@ export type User$dunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.DunningAttemptScalarFieldEnum | Prisma.DunningAttemptScalarFieldEnum[]
+}
+
+/**
+ * User.presentations
+ */
+export type User$presentationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Presentation
+   */
+  select?: Prisma.PresentationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Presentation
+   */
+  omit?: Prisma.PresentationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PresentationInclude<ExtArgs> | null
+  where?: Prisma.PresentationWhereInput
+  orderBy?: Prisma.PresentationOrderByWithRelationInput | Prisma.PresentationOrderByWithRelationInput[]
+  cursor?: Prisma.PresentationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PresentationScalarFieldEnum | Prisma.PresentationScalarFieldEnum[]
+}
+
+/**
+ * User.shareLinks
+ */
+export type User$shareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShareLink
+   */
+  select?: Prisma.ShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShareLink
+   */
+  omit?: Prisma.ShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShareLinkInclude<ExtArgs> | null
+  where?: Prisma.ShareLinkWhereInput
+  orderBy?: Prisma.ShareLinkOrderByWithRelationInput | Prisma.ShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShareLinkScalarFieldEnum | Prisma.ShareLinkScalarFieldEnum[]
+}
+
+/**
+ * User.shareAccess
+ */
+export type User$shareAccessArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShareLinkAccess
+   */
+  select?: Prisma.ShareLinkAccessSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShareLinkAccess
+   */
+  omit?: Prisma.ShareLinkAccessOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShareLinkAccessInclude<ExtArgs> | null
+  where?: Prisma.ShareLinkAccessWhereInput
+  orderBy?: Prisma.ShareLinkAccessOrderByWithRelationInput | Prisma.ShareLinkAccessOrderByWithRelationInput[]
+  cursor?: Prisma.ShareLinkAccessWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ShareLinkAccessScalarFieldEnum | Prisma.ShareLinkAccessScalarFieldEnum[]
+}
+
+/**
+ * User.snippetComments
+ */
+export type User$snippetCommentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetComment
+   */
+  select?: Prisma.SnippetCommentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetComment
+   */
+  omit?: Prisma.SnippetCommentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetCommentInclude<ExtArgs> | null
+  where?: Prisma.SnippetCommentWhereInput
+  orderBy?: Prisma.SnippetCommentOrderByWithRelationInput | Prisma.SnippetCommentOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetCommentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetCommentScalarFieldEnum | Prisma.SnippetCommentScalarFieldEnum[]
+}
+
+/**
+ * User.snippetUpvotes
+ */
+export type User$snippetUpvotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetUpvote
+   */
+  select?: Prisma.SnippetUpvoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetUpvote
+   */
+  omit?: Prisma.SnippetUpvoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetUpvoteInclude<ExtArgs> | null
+  where?: Prisma.SnippetUpvoteWhereInput
+  orderBy?: Prisma.SnippetUpvoteOrderByWithRelationInput | Prisma.SnippetUpvoteOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetUpvoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetUpvoteScalarFieldEnum | Prisma.SnippetUpvoteScalarFieldEnum[]
+}
+
+/**
+ * User.snippetBookmarks
+ */
+export type User$snippetBookmarksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SnippetBookmark
+   */
+  select?: Prisma.SnippetBookmarkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SnippetBookmark
+   */
+  omit?: Prisma.SnippetBookmarkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SnippetBookmarkInclude<ExtArgs> | null
+  where?: Prisma.SnippetBookmarkWhereInput
+  orderBy?: Prisma.SnippetBookmarkOrderByWithRelationInput | Prisma.SnippetBookmarkOrderByWithRelationInput[]
+  cursor?: Prisma.SnippetBookmarkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SnippetBookmarkScalarFieldEnum | Prisma.SnippetBookmarkScalarFieldEnum[]
+}
+
+/**
+ * User.followers
+ */
+export type User$followersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserFollows
+   */
+  select?: Prisma.UserFollowsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserFollows
+   */
+  omit?: Prisma.UserFollowsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserFollowsInclude<ExtArgs> | null
+  where?: Prisma.UserFollowsWhereInput
+  orderBy?: Prisma.UserFollowsOrderByWithRelationInput | Prisma.UserFollowsOrderByWithRelationInput[]
+  cursor?: Prisma.UserFollowsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserFollowsScalarFieldEnum | Prisma.UserFollowsScalarFieldEnum[]
+}
+
+/**
+ * User.following
+ */
+export type User$followingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserFollows
+   */
+  select?: Prisma.UserFollowsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserFollows
+   */
+  omit?: Prisma.UserFollowsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserFollowsInclude<ExtArgs> | null
+  where?: Prisma.UserFollowsWhereInput
+  orderBy?: Prisma.UserFollowsOrderByWithRelationInput | Prisma.UserFollowsOrderByWithRelationInput[]
+  cursor?: Prisma.UserFollowsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserFollowsScalarFieldEnum | Prisma.UserFollowsScalarFieldEnum[]
 }
 
 /**

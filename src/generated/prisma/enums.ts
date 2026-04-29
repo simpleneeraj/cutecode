@@ -87,3 +87,22 @@ export const AuditAction = {
 } as const
 
 export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
+
+
+export const ShareTarget = {
+  SNIPPET: 'SNIPPET',
+  PRESENTATION: 'PRESENTATION',
+  COLLECTION: 'COLLECTION'
+} as const
+
+export type ShareTarget = (typeof ShareTarget)[keyof typeof ShareTarget]
+
+
+export const ShareVisibility = {
+  PUBLIC: 'PUBLIC',
+  UNLISTED: 'UNLISTED',
+  PASSCODE: 'PASSCODE',
+  PRIVATE: 'PRIVATE'
+} as const
+
+export type ShareVisibility = (typeof ShareVisibility)[keyof typeof ShareVisibility]

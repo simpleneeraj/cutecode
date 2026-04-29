@@ -1,4 +1,4 @@
-import { refProps } from "@/app/api/shorten-url/route";
+export type refProps = "snippets" | "share-links" | string;
 
 export const BASE_URL = {
   development: "http://localhost:3000",

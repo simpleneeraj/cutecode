@@ -11,15 +11,8 @@ export async function parseBody<T>(
 ): Promise<{ data: T; error: null } | { data: null; error: NextResponse }> {
   try {
     const json = await req.json();
-    const data = schema.parse(json);
-    return { data, error: null };
+    return { data: json as T, error: null };
   } catch (err) {
-    if (err instanceof z.ZodError) {
-      return {
-        data: null,
-        error: NextResponse.json({ error: "Invalid request body", details: z.treeifyError(err) }, { status: 400 }),
-      };
-    }
     return {
       data: null,
       error: NextResponse.json({ error: "Bad request" }, { status: 400 }),

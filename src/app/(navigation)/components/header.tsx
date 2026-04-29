@@ -6,7 +6,7 @@ import { AnimatePresence, motion, Transition } from "motion/react";
 import ThemeSwitch from "@/components/theme-switch";
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs";
 import FormatButton from "../(create)/components/FormatCodeButton";
-import ExportButton from "../(create)/components/ExportButton";
+import ExportButton from "../(create)/components/export";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
 import { AuthControls } from "./controls";

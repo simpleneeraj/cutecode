@@ -423,6 +423,40 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
+export type EnumShareTargetFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareTarget | Prisma.EnumShareTargetFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareTargetFilter<$PrismaModel> | $Enums.ShareTarget
+}
+
+export type EnumShareVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareVisibility | Prisma.EnumShareVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel> | $Enums.ShareVisibility
+}
+
+export type EnumShareTargetWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareTarget | Prisma.EnumShareTargetFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareTargetWithAggregatesFilter<$PrismaModel> | $Enums.ShareTarget
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareTargetFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareTargetFilter<$PrismaModel>
+}
+
+export type EnumShareVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareVisibility | Prisma.EnumShareVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ShareVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -789,6 +823,40 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type NestedEnumShareTargetFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareTarget | Prisma.EnumShareTargetFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareTargetFilter<$PrismaModel> | $Enums.ShareTarget
+}
+
+export type NestedEnumShareVisibilityFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareVisibility | Prisma.EnumShareVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel> | $Enums.ShareVisibility
+}
+
+export type NestedEnumShareTargetWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareTarget | Prisma.EnumShareTargetFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareTarget[] | Prisma.ListEnumShareTargetFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareTargetWithAggregatesFilter<$PrismaModel> | $Enums.ShareTarget
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareTargetFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareTargetFilter<$PrismaModel>
+}
+
+export type NestedEnumShareVisibilityWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareVisibility | Prisma.EnumShareVisibilityFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareVisibility[] | Prisma.ListEnumShareVisibilityFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareVisibilityWithAggregatesFilter<$PrismaModel> | $Enums.ShareVisibility
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareVisibilityFilter<$PrismaModel>
 }
 
 

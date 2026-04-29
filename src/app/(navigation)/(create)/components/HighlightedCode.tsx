@@ -4,7 +4,9 @@ import { Language, LANGUAGES } from "../util/languages";
 
 import styles from "./Editor.module.css";
 import { useAtomValue, useSetAtom } from "jotai";
-import { elementHighlightedLinesAtom, elementThemeAtom, themeDarkModeAtom, highlighterAtom, loadingLanguageAtom } from "../store/editor";
+import { PreviewEditorContext } from "./PreviewEditorContext";
+import { elementHighlightedLinesAtom, elementThemeAtom, themeDarkModeAtom, loadingLanguageAtom } from "../store/editor";
+import { useFrameContext } from "../store/context/frame";
 
 type PropTypes = {
   selectedLanguage: Language | null;
@@ -12,12 +14,19 @@ type PropTypes = {
 };
 
 const HighlightedCode: React.FC<PropTypes> = ({ selectedLanguage, code }) => {
+  const previewData = React.useContext(PreviewEditorContext);
   const [highlightedHtml, setHighlightedHtml] = useState("");
-  const highlighter = useAtomValue(highlighterAtom);
+  const { highlighter } = useFrameContext();
   const setIsLoadingLanguage = useSetAtom(loadingLanguageAtom);
-  const highlightedLines = useAtomValue(elementHighlightedLinesAtom);
-  const darkMode = useAtomValue(themeDarkModeAtom);
-  const themeId = useAtomValue(elementThemeAtom);
+  
+  // Use preview data if available, else Jotai
+  const jotaiHighlightedLines = useAtomValue(elementHighlightedLinesAtom);
+  const jotaiDarkMode = useAtomValue(themeDarkModeAtom);
+  const jotaiThemeId = useAtomValue(elementThemeAtom);
+
+  const highlightedLines = previewData ? (previewData.properties?.highlightedLines || []) : jotaiHighlightedLines;
+  const darkMode = previewData ? (previewData.properties?.darkMode ?? true) : jotaiDarkMode;
+  const themeId = previewData ? (previewData.properties?.theme || "default") : jotaiThemeId;
 
   const themeName = themeId === "tailwind" ? (darkMode ? "tailwind-dark" : "tailwind-light") : "css-variables";
 

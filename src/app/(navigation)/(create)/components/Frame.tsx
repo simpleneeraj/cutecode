@@ -32,7 +32,7 @@ const frameInnerVariants: Variants = {
 };
 
 const Frame = () => {
-  const frameRefs = useContext(FrameContext);
+  const { frameRefs } = useContext(FrameContext);
 
   const elementState = useAtomValue(currentElementAtom);
   const themeId = elementState?.properties?.theme!;

@@ -1,4 +1,3 @@
-import { Log } from "./log";
 import "@/app/styles/globals.css";
 import { Viewport } from "next";
 import { BASE_URL } from "@/utils/common";
@@ -39,7 +38,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className="relative">
           <ThemeProvider>
             <TooltipProvider>
-              <Log />
               <div className="isolate relative flex flex-col">{children}</div>
               <Toaster position="top-center" offset={70} duration={2000} />
             </TooltipProvider>

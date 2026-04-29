@@ -8,13 +8,13 @@ import { currentSlideIdAtom, currentElementIdAtom } from "./selection";
 /*
  * Inserts a new slide with a default element and selects it.
  */
-export const createSlideAtom = atom(null, async (get, set, slide: SlideTypes) => {
-  const [prev, element] = [await get(editorAtom), createDefaultElement()];
+export const createSlideAtom = atom(null, (get, set, slide: SlideTypes) => {
+  const element = createDefaultElement();
   const elementId = element.id as string;
 
   set(
     editorAtom,
-    produce(prev, (draft) => {
+    produce(get(editorAtom), (draft) => {
       draft.slides[slide.id] = slide;
       draft.elements[elementId] = element;
       draft.slideElements[slide.id] = [elementId];
@@ -28,14 +28,13 @@ export const createSlideAtom = atom(null, async (get, set, slide: SlideTypes) =>
 /*
  * Merges a partial patch into the current slide.
  */
-export const updateSlideAtom = atom(null, async (get, set, patch: Partial<Omit<SlideTypes, "id" | "elements">>) => {
-  const slideId = await get(currentSlideIdAtom);
+export const updateSlideAtom = atom(null, (get, set, patch: Partial<Omit<SlideTypes, "id" | "elements">>) => {
+  const slideId = get(currentSlideIdAtom);
   if (!slideId) return;
 
-  const prev = await get(editorAtom);
   set(
     editorAtom,
-    produce(prev, (draft) => {
+    produce(get(editorAtom), (draft) => {
       const slide = draft.slides[slideId];
       if (slide) Object.assign(slide, patch);
     }),
@@ -45,11 +44,11 @@ export const updateSlideAtom = atom(null, async (get, set, patch: Partial<Omit<S
 /*
  * Deletes the current slide and selects the next available one.
  */
-export const deleteSlideAtom = atom(null, async (get, set) => {
-  const slideId = await get(currentSlideIdAtom);
+export const deleteSlideAtom = atom(null, (get, set) => {
+  const slideId = get(currentSlideIdAtom);
   if (!slideId) return;
 
-  const prev = await get(editorAtom);
+  const prev = get(editorAtom);
   const nextSlide = Object.values(prev.slides).find((s) => s.id !== slideId) ?? null;
   const nextElementId = nextSlide ? (prev.slideElements[nextSlide.id]?.[0] ?? null) : null;
 
@@ -70,16 +69,15 @@ export const deleteSlideAtom = atom(null, async (get, set) => {
 /*
  * Deep-clones the current slide with all its elements under new UUIDs.
  */
-export const duplicateSlideAtom = atom(null, async (get, set) => {
-  const slideId = await get(currentSlideIdAtom);
+export const duplicateSlideAtom = atom(null, (get, set) => {
+  const slideId = get(currentSlideIdAtom);
   if (!slideId) return;
 
-  const prev = await get(editorAtom);
   const newSlideId = crypto.randomUUID();
 
   set(
     editorAtom,
-    produce(prev, (draft) => {
+    produce(get(editorAtom), (draft) => {
       const slide = draft.slides[slideId];
       if (!slide) return;
 
@@ -93,6 +91,6 @@ export const duplicateSlideAtom = atom(null, async (get, set) => {
   );
 
   set(currentSlideIdAtom, newSlideId);
-  const newFirstElementId = (await get(editorAtom)).slideElements[newSlideId]?.[0] ?? null;
+  const newFirstElementId = get(editorAtom).slideElements[newSlideId]?.[0] ?? null;
   set(currentElementIdAtom, newFirstElementId);
 });

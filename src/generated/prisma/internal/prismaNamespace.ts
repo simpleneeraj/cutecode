@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
+  UserFollows: 'UserFollows',
   Subscription: 'Subscription',
   Payment: 'Payment',
   WebhookEvent: 'WebhookEvent',
@@ -392,7 +393,14 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   DunningAttempt: 'DunningAttempt',
   IdempotencyKey: 'IdempotencyKey',
-  Snippet: 'Snippet'
+  Snippet: 'Snippet',
+  Presentation: 'Presentation',
+  ShareLink: 'ShareLink',
+  ShareLinkView: 'ShareLinkView',
+  ShareLinkAccess: 'ShareLinkAccess',
+  SnippetComment: 'SnippetComment',
+  SnippetUpvote: 'SnippetUpvote',
+  SnippetBookmark: 'SnippetBookmark'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -408,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "subscription" | "payment" | "webhookEvent" | "usageEvent" | "auditLog" | "dunningAttempt" | "idempotencyKey" | "snippet"
+    modelProps: "user" | "userFollows" | "subscription" | "payment" | "webhookEvent" | "usageEvent" | "auditLog" | "dunningAttempt" | "idempotencyKey" | "snippet" | "presentation" | "shareLink" | "shareLinkView" | "shareLinkAccess" | "snippetComment" | "snippetUpvote" | "snippetBookmark"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -483,6 +491,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.UserCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.UserCountAggregateOutputType> | number
+        }
+      }
+    }
+    UserFollows: {
+      payload: Prisma.$UserFollowsPayload<ExtArgs>
+      fields: Prisma.UserFollowsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserFollowsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserFollowsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        findFirst: {
+          args: Prisma.UserFollowsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserFollowsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        findMany: {
+          args: Prisma.UserFollowsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>[]
+        }
+        create: {
+          args: Prisma.UserFollowsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        createMany: {
+          args: Prisma.UserFollowsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserFollowsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>[]
+        }
+        delete: {
+          args: Prisma.UserFollowsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        update: {
+          args: Prisma.UserFollowsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserFollowsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserFollowsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserFollowsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserFollowsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserFollowsPayload>
+        }
+        aggregate: {
+          args: Prisma.UserFollowsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserFollows>
+        }
+        groupBy: {
+          args: Prisma.UserFollowsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFollowsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserFollowsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserFollowsCountAggregateOutputType> | number
         }
       }
     }
@@ -1078,6 +1160,524 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Presentation: {
+      payload: Prisma.$PresentationPayload<ExtArgs>
+      fields: Prisma.PresentationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PresentationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PresentationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        findFirst: {
+          args: Prisma.PresentationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PresentationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        findMany: {
+          args: Prisma.PresentationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>[]
+        }
+        create: {
+          args: Prisma.PresentationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        createMany: {
+          args: Prisma.PresentationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PresentationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>[]
+        }
+        delete: {
+          args: Prisma.PresentationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        update: {
+          args: Prisma.PresentationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        deleteMany: {
+          args: Prisma.PresentationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PresentationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PresentationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>[]
+        }
+        upsert: {
+          args: Prisma.PresentationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PresentationPayload>
+        }
+        aggregate: {
+          args: Prisma.PresentationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePresentation>
+        }
+        groupBy: {
+          args: Prisma.PresentationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresentationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PresentationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PresentationCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShareLink: {
+      payload: Prisma.$ShareLinkPayload<ExtArgs>
+      fields: Prisma.ShareLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShareLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShareLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.ShareLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShareLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        findMany: {
+          args: Prisma.ShareLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>[]
+        }
+        create: {
+          args: Prisma.ShareLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        createMany: {
+          args: Prisma.ShareLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShareLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.ShareLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        update: {
+          args: Prisma.ShareLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShareLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShareLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShareLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShareLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.ShareLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShareLink>
+        }
+        groupBy: {
+          args: Prisma.ShareLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShareLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShareLinkView: {
+      payload: Prisma.$ShareLinkViewPayload<ExtArgs>
+      fields: Prisma.ShareLinkViewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShareLinkViewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShareLinkViewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        findFirst: {
+          args: Prisma.ShareLinkViewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShareLinkViewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        findMany: {
+          args: Prisma.ShareLinkViewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>[]
+        }
+        create: {
+          args: Prisma.ShareLinkViewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        createMany: {
+          args: Prisma.ShareLinkViewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShareLinkViewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>[]
+        }
+        delete: {
+          args: Prisma.ShareLinkViewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        update: {
+          args: Prisma.ShareLinkViewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShareLinkViewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShareLinkViewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShareLinkViewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShareLinkViewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkViewPayload>
+        }
+        aggregate: {
+          args: Prisma.ShareLinkViewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShareLinkView>
+        }
+        groupBy: {
+          args: Prisma.ShareLinkViewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkViewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShareLinkViewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkViewCountAggregateOutputType> | number
+        }
+      }
+    }
+    ShareLinkAccess: {
+      payload: Prisma.$ShareLinkAccessPayload<ExtArgs>
+      fields: Prisma.ShareLinkAccessFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShareLinkAccessFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShareLinkAccessFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        findFirst: {
+          args: Prisma.ShareLinkAccessFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShareLinkAccessFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        findMany: {
+          args: Prisma.ShareLinkAccessFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>[]
+        }
+        create: {
+          args: Prisma.ShareLinkAccessCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        createMany: {
+          args: Prisma.ShareLinkAccessCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShareLinkAccessCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>[]
+        }
+        delete: {
+          args: Prisma.ShareLinkAccessDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        update: {
+          args: Prisma.ShareLinkAccessUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShareLinkAccessDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShareLinkAccessUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShareLinkAccessUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShareLinkAccessUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShareLinkAccessPayload>
+        }
+        aggregate: {
+          args: Prisma.ShareLinkAccessAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShareLinkAccess>
+        }
+        groupBy: {
+          args: Prisma.ShareLinkAccessGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkAccessGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShareLinkAccessCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShareLinkAccessCountAggregateOutputType> | number
+        }
+      }
+    }
+    SnippetComment: {
+      payload: Prisma.$SnippetCommentPayload<ExtArgs>
+      fields: Prisma.SnippetCommentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SnippetCommentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SnippetCommentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        findFirst: {
+          args: Prisma.SnippetCommentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SnippetCommentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        findMany: {
+          args: Prisma.SnippetCommentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>[]
+        }
+        create: {
+          args: Prisma.SnippetCommentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        createMany: {
+          args: Prisma.SnippetCommentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SnippetCommentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>[]
+        }
+        delete: {
+          args: Prisma.SnippetCommentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        update: {
+          args: Prisma.SnippetCommentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        deleteMany: {
+          args: Prisma.SnippetCommentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SnippetCommentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SnippetCommentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>[]
+        }
+        upsert: {
+          args: Prisma.SnippetCommentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetCommentPayload>
+        }
+        aggregate: {
+          args: Prisma.SnippetCommentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSnippetComment>
+        }
+        groupBy: {
+          args: Prisma.SnippetCommentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetCommentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SnippetCommentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetCommentCountAggregateOutputType> | number
+        }
+      }
+    }
+    SnippetUpvote: {
+      payload: Prisma.$SnippetUpvotePayload<ExtArgs>
+      fields: Prisma.SnippetUpvoteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SnippetUpvoteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SnippetUpvoteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        findFirst: {
+          args: Prisma.SnippetUpvoteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SnippetUpvoteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        findMany: {
+          args: Prisma.SnippetUpvoteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>[]
+        }
+        create: {
+          args: Prisma.SnippetUpvoteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        createMany: {
+          args: Prisma.SnippetUpvoteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SnippetUpvoteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>[]
+        }
+        delete: {
+          args: Prisma.SnippetUpvoteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        update: {
+          args: Prisma.SnippetUpvoteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        deleteMany: {
+          args: Prisma.SnippetUpvoteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SnippetUpvoteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SnippetUpvoteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>[]
+        }
+        upsert: {
+          args: Prisma.SnippetUpvoteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetUpvotePayload>
+        }
+        aggregate: {
+          args: Prisma.SnippetUpvoteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSnippetUpvote>
+        }
+        groupBy: {
+          args: Prisma.SnippetUpvoteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetUpvoteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SnippetUpvoteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetUpvoteCountAggregateOutputType> | number
+        }
+      }
+    }
+    SnippetBookmark: {
+      payload: Prisma.$SnippetBookmarkPayload<ExtArgs>
+      fields: Prisma.SnippetBookmarkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SnippetBookmarkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SnippetBookmarkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        findFirst: {
+          args: Prisma.SnippetBookmarkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SnippetBookmarkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        findMany: {
+          args: Prisma.SnippetBookmarkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>[]
+        }
+        create: {
+          args: Prisma.SnippetBookmarkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        createMany: {
+          args: Prisma.SnippetBookmarkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SnippetBookmarkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>[]
+        }
+        delete: {
+          args: Prisma.SnippetBookmarkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        update: {
+          args: Prisma.SnippetBookmarkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        deleteMany: {
+          args: Prisma.SnippetBookmarkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SnippetBookmarkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SnippetBookmarkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>[]
+        }
+        upsert: {
+          args: Prisma.SnippetBookmarkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SnippetBookmarkPayload>
+        }
+        aggregate: {
+          args: Prisma.SnippetBookmarkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSnippetBookmark>
+        }
+        groupBy: {
+          args: Prisma.SnippetBookmarkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetBookmarkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SnippetBookmarkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SnippetBookmarkCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1134,6 +1734,15 @@ export const UserScalarFieldEnum = {
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const UserFollowsScalarFieldEnum = {
+  followerId: 'followerId',
+  followingId: 'followingId',
+  createdAt: 'createdAt'
+} as const
+
+export type UserFollowsScalarFieldEnum = (typeof UserFollowsScalarFieldEnum)[keyof typeof UserFollowsScalarFieldEnum]
 
 
 export const SubscriptionScalarFieldEnum = {
@@ -1259,16 +1868,116 @@ export type IdempotencyKeyScalarFieldEnum = (typeof IdempotencyKeyScalarFieldEnu
 export const SnippetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  presentationId: 'presentationId',
+  elementId: 'elementId',
   title: 'title',
-  code: 'code',
-  language: 'language',
-  theme: 'theme',
+  description: 'description',
   isPublic: 'isPublic',
+  isE2EEncrypted: 'isE2EEncrypted',
+  encryptionHint: 'encryptionHint',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type SnippetScalarFieldEnum = (typeof SnippetScalarFieldEnum)[keyof typeof SnippetScalarFieldEnum]
+
+
+export const PresentationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  width: 'width',
+  isPublic: 'isPublic',
+  thumbnailUrl: 'thumbnailUrl',
+  slides: 'slides',
+  elements: 'elements',
+  slideElements: 'slideElements',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId'
+} as const
+
+export type PresentationScalarFieldEnum = (typeof PresentationScalarFieldEnum)[keyof typeof PresentationScalarFieldEnum]
+
+
+export const ShareLinkScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  slug: 'slug',
+  targetType: 'targetType',
+  targetId: 'targetId',
+  snippetId: 'snippetId',
+  presentationId: 'presentationId',
+  visibility: 'visibility',
+  passcodeHash: 'passcodeHash',
+  isE2EEncrypted: 'isE2EEncrypted',
+  encryptionHint: 'encryptionHint',
+  maxViews: 'maxViews',
+  viewCount: 'viewCount',
+  expiresAt: 'expiresAt',
+  allowDownload: 'allowDownload',
+  allowCopy: 'allowCopy',
+  indexable: 'indexable',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShareLinkScalarFieldEnum = (typeof ShareLinkScalarFieldEnum)[keyof typeof ShareLinkScalarFieldEnum]
+
+
+export const ShareLinkViewScalarFieldEnum = {
+  id: 'id',
+  shareLinkId: 'shareLinkId',
+  ipHash: 'ipHash',
+  userAgent: 'userAgent',
+  referer: 'referer',
+  passcodeUsed: 'passcodeUsed',
+  viewedAt: 'viewedAt'
+} as const
+
+export type ShareLinkViewScalarFieldEnum = (typeof ShareLinkViewScalarFieldEnum)[keyof typeof ShareLinkViewScalarFieldEnum]
+
+
+export const ShareLinkAccessScalarFieldEnum = {
+  id: 'id',
+  shareLinkId: 'shareLinkId',
+  grantedToUserId: 'grantedToUserId',
+  grantedAt: 'grantedAt',
+  revokedAt: 'revokedAt'
+} as const
+
+export type ShareLinkAccessScalarFieldEnum = (typeof ShareLinkAccessScalarFieldEnum)[keyof typeof ShareLinkAccessScalarFieldEnum]
+
+
+export const SnippetCommentScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  content: 'content',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SnippetCommentScalarFieldEnum = (typeof SnippetCommentScalarFieldEnum)[keyof typeof SnippetCommentScalarFieldEnum]
+
+
+export const SnippetUpvoteScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type SnippetUpvoteScalarFieldEnum = (typeof SnippetUpvoteScalarFieldEnum)[keyof typeof SnippetUpvoteScalarFieldEnum]
+
+
+export const SnippetBookmarkScalarFieldEnum = {
+  id: 'id',
+  snippetId: 'snippetId',
+  userId: 'userId',
+  createdAt: 'createdAt'
+} as const
+
+export type SnippetBookmarkScalarFieldEnum = (typeof SnippetBookmarkScalarFieldEnum)[keyof typeof SnippetBookmarkScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1473,6 +2182,34 @@ export type ListEnumAuditActionFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
+ * Reference to a field of type 'ShareTarget'
+ */
+export type EnumShareTargetFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareTarget'>
+    
+
+
+/**
+ * Reference to a field of type 'ShareTarget[]'
+ */
+export type ListEnumShareTargetFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareTarget[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ShareVisibility'
+ */
+export type EnumShareVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareVisibility'>
+    
+
+
+/**
+ * Reference to a field of type 'ShareVisibility[]'
+ */
+export type ListEnumShareVisibilityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareVisibility[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1581,6 +2318,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
+  userFollows?: Prisma.UserFollowsOmit
   subscription?: Prisma.SubscriptionOmit
   payment?: Prisma.PaymentOmit
   webhookEvent?: Prisma.WebhookEventOmit
@@ -1589,6 +2327,13 @@ export type GlobalOmitConfig = {
   dunningAttempt?: Prisma.DunningAttemptOmit
   idempotencyKey?: Prisma.IdempotencyKeyOmit
   snippet?: Prisma.SnippetOmit
+  presentation?: Prisma.PresentationOmit
+  shareLink?: Prisma.ShareLinkOmit
+  shareLinkView?: Prisma.ShareLinkViewOmit
+  shareLinkAccess?: Prisma.ShareLinkAccessOmit
+  snippetComment?: Prisma.SnippetCommentOmit
+  snippetUpvote?: Prisma.SnippetUpvoteOmit
+  snippetBookmark?: Prisma.SnippetBookmarkOmit
 }
 
 /* Types for Logging */
