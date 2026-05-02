@@ -51,10 +51,8 @@ export function SnippetCard({
   onUpvote,
   onBookmark,
 }: SnippetCardProps) {
-  const authorId  = author?.id ?? "";
-  const avatarUrl = author?.clerkId
-    ? `https://img.clerk.com/preview.png?size=80&seed=${author.clerkId}`
-    : undefined;
+  const authorId = author?.id ?? "";
+  const avatarUrl = author?.clerkId ? `https://img.clerk.com/preview.png?size=80&seed=${author.clerkId}` : undefined;
 
   const handle = `@${author?.name?.replace(/\s+/g, "").toLowerCase() || "user"}`;
 
@@ -75,9 +73,7 @@ export function SnippetCard({
               <div className="text-left">
                 {/* Name + plan badge */}
                 <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-semibold leading-tight">
-                    {author?.name || "Anonymous"}
-                  </span>
+                  <span className="text-sm font-semibold leading-tight">{author?.name || "Anonymous"}</span>
                   {author?.plan && author.plan !== "FREE" && (
                     <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4">
                       {author.plan}
@@ -98,16 +94,12 @@ export function SnippetCard({
                   >
                     <button className="flex items-center gap-2 mt-0.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
                       <span>
-                        <strong className="text-foreground tabular-nums">
-                          {followerCount.toLocaleString()}
-                        </strong>{" "}
+                        <strong className="text-foreground tabular-nums">{followerCount.toLocaleString()}</strong>{" "}
                         {followerCount === 1 ? "follower" : "followers"}
                       </span>
                       <span className="text-border">·</span>
                       <span>
-                        <strong className="text-foreground tabular-nums">
-                          {followingCount.toLocaleString()}
-                        </strong>{" "}
+                        <strong className="text-foreground tabular-nums">{followingCount.toLocaleString()}</strong>{" "}
                         following
                       </span>
                     </button>
@@ -140,9 +132,7 @@ export function SnippetCard({
               <p>{description}</p>
             </article>
           )}
-          <View className="flex flex-col gap-2 rounded-lg overflow-hidden">
-            {children}
-          </View>
+          <View className="flex flex-col gap-2 rounded-lg overflow-hidden">{children}</View>
         </View>
       </CardPanel>
 

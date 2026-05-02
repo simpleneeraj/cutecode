@@ -1,9 +1,7 @@
 import { SparklesIcon, UploadIcon } from "lucide-react";
-
-import AppToggle from "@/components/navbar-components/app-toggle";
-import TeamSwitcher from "@/components/navbar-components/team-switcher";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTab } from "../ui/tabs";
+import TeamSwitcher from "@/components/layouts/team-switcher";
 
 const teams = ["Acme Inc.", "coss.com", "Junon"];
 

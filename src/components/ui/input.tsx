@@ -11,7 +11,7 @@ type InputProps = Omit<InputPrimitive.Props & React.RefAttributes<HTMLInputEleme
   nativeInput?: boolean;
 };
 
-function Input({ className, size = "default", unstyled = false, nativeInput = false, ...props }: InputProps) {
+function Input({ className, size = "default", unstyled = false, nativeInput = false, style, ...props }: InputProps) {
   const inputClassName = cn(
     "h-8.5 w-full min-w-0 rounded-[inherit] px-[calc(--spacing(3)-1px)] leading-8.5 outline-none placeholder:text-muted-foreground/72 sm:h-7.5 sm:leading-7.5 [transition:background-color_5000000s_ease-in-out_0s]",
     size === "sm" && "h-7.5 px-[calc(--spacing(2.5)-1px)] leading-7.5 sm:h-6.5 sm:leading-6.5",
@@ -39,13 +39,15 @@ function Input({ className, size = "default", unstyled = false, nativeInput = fa
           className={inputClassName}
           data-slot="input"
           size={typeof size === "number" ? size : undefined}
-          {...props}
+          style={typeof style === "function" ? undefined : style}
+          {...(props as React.InputHTMLAttributes<HTMLInputElement>)}
         />
       ) : (
         <InputPrimitive
           className={inputClassName}
           data-slot="input"
           size={typeof size === "number" ? size : undefined}
+          style={style}
           {...props}
         />
       )}

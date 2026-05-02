@@ -18,6 +18,7 @@ import { PasscodeGate } from "./components/passcode-gate";
 import { SnippetFrame } from "./components/snippet-frame";
 import { SnippetCard } from "./components/snippet-card";
 import { Spinner } from "@/components/ui/spinner";
+import BlackHoleLoader from "@/components/loader/black-hole";
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -111,7 +112,7 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
   if (isLoading) {
     return (
       <View className="layout-fill flex items-center justify-center">
-        <Spinner className="size-20" />
+        <BlackHoleLoader />
       </View>
     );
   }

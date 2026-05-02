@@ -1,14 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogPopup,
-  DialogHeader,
-  DialogTitle,
-  DialogPanel,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogPopup, DialogHeader, DialogTitle, DialogPanel } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
@@ -19,9 +12,7 @@ import { Badge } from "@/components/ui/badge";
 // ─── User Row ─────────────────────────────────────────────────────────────────
 
 function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: string }) {
-  const avatarUrl = user.clerkId
-    ? `https://img.clerk.com/preview.png?size=64&seed=${user.clerkId}`
-    : undefined;
+  const avatarUrl = user.clerkId ? `https://img.clerk.com/preview.png?size=64&seed=${user.clerkId}` : undefined;
 
   const handle = user.name?.replace(/\s+/g, "").toLowerCase() || "user";
 
@@ -29,9 +20,7 @@ function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: st
     <div className="flex items-center gap-3 py-3 border-b border-border/50 last:border-0">
       <Avatar className="size-10 shrink-0">
         <AvatarImage src={avatarUrl} />
-        <AvatarFallback className="text-sm font-medium">
-          {user.name?.[0]?.toUpperCase() || "U"}
-        </AvatarFallback>
+        <AvatarFallback className="text-sm font-medium">{user.name?.[0]?.toUpperCase() || "U"}</AvatarFallback>
       </Avatar>
 
       <div className="flex-1 min-w-0">
@@ -61,13 +50,7 @@ function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: st
 
 // ─── Followers List ────────────────────────────────────────────────────────────
 
-function FollowersList({
-  userId,
-  currentUserId,
-}: {
-  userId: string;
-  currentUserId?: string;
-}) {
+function FollowersList({ userId, currentUserId }: { userId: string; currentUserId?: string }) {
   const [cursor, setCursor] = useState<string | undefined>();
   const [allUsers, setAllUsers] = useState<FollowUser[]>([]);
   const [localNextCursor, setLocalNextCursor] = useState<string | null>(null);
@@ -92,9 +75,7 @@ function FollowersList({
   }
 
   if (!isLoading && allUsers.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground text-center py-8">No followers yet.</p>
-    );
+    return <p className="text-sm text-muted-foreground text-center py-8">No followers yet.</p>;
   }
 
   return (
@@ -119,13 +100,7 @@ function FollowersList({
 
 // ─── Following List ────────────────────────────────────────────────────────────
 
-function FollowingList({
-  userId,
-  currentUserId,
-}: {
-  userId: string;
-  currentUserId?: string;
-}) {
+function FollowingList({ userId, currentUserId }: { userId: string; currentUserId?: string }) {
   const [cursor, setCursor] = useState<string | undefined>();
   const [allUsers, setAllUsers] = useState<FollowUser[]>([]);
   const [localNextCursor, setLocalNextCursor] = useState<string | null>(null);
@@ -150,9 +125,7 @@ function FollowingList({
   }
 
   if (!isLoading && allUsers.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground text-center py-8">Not following anyone yet.</p>
-    );
+    return <p className="text-sm text-muted-foreground text-center py-8">Not following anyone yet.</p>;
   }
 
   return (
