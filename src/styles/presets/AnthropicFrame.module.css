@@ -1,0 +1,132 @@
+/* ── Anthropic Frame ── */
+
+.frame {
+  background: #1C1B19;
+}
+
+/* Light: warm cream / off-white editorial */
+.frameLightMode {
+  background: radial-gradient(ellipse at 25% 15%, #f5ede4 0%, #edddd0 55%, #e4d0be 100%);
+}
+
+.noBackground {
+  background: none;
+
+  [data-grid="true"],
+  [data-dot="true"] {
+    display: none;
+  }
+}
+
+/* ── Ambient layer ── */
+.ambientLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambientIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* ── Window card ── */
+.window {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 200ms ease;
+}
+
+.darkWindow {
+  background: #22211E;
+  box-shadow:
+    0 0 0 1px #33322D,
+    0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.lightWindow {
+  /* background & blur handled by SvgBlurBackdrop — no backdrop-filter */
+  box-shadow:
+    0 0 0 1px rgba(192, 96, 64, 0.18),
+    0 0 0 2px rgba(210, 150, 120, 0.10),
+    0 8px 40px rgba(80, 40, 20, 0.10),
+    0 2px 8px rgba(180, 90, 60, 0.06),
+    inset 0 1px 0 rgba(255, 240, 230, 0.7);
+}
+
+/* ── Header ── */
+.header {
+  position: relative;
+  display: grid;
+  grid-template-columns: 60px 1fr 60px;
+  align-items: center;
+  padding: 10px 14px 9px;
+  border-bottom: 1px solid #3E3B38;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.dot {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Warm terracotta / clay palette for dots */
+.dotA {
+  background: #B04431;
+}
+
+.dotB {
+  background: #E08579;
+}
+
+.dotC {
+  background: #CCA199;
+}
+
+/* Center label */
+.headerCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.headerLabel {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  .darkWindow & {
+    color: #DFDCD8;
+  }
+
+  .lightWindow & {
+    color: rgba(120, 65, 35, 0.55);
+  }
+}
+
+/* Right accent */
+.headerRight {
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0.60;
+}
+
+/* ── Editor area ── */
+.editor {
+  position: relative;
+}

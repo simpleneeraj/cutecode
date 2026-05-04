@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import { BaseFrameProps, getFrameConfig } from "@/app/(navigation)/(create)/components/presets/config";
-import UnifiedFrame from "@/app/(navigation)/(create)/components/presets/UnifiedFrame";
-import DefaultFrame from "@/app/(navigation)/(create)/components/presets/DefaultFrame";
-import { PreviewEditorContext } from "@/app/(navigation)/(create)/components/PreviewEditorContext";
+import { BaseFrameProps } from "@/typings/presets";
+import { PresetFrame } from "@/components/editor/presets";
+import { PreviewEditorContext } from "@/components/editor/PreviewEditorContext";
 
 type RawElement = Record<string, unknown>;
 
@@ -38,21 +37,9 @@ export function SnippetFrame({ elementId, element, windowWidth }: SnippetFramePr
     onFileNameChange: () => {},
   };
 
-  const frameConfig = getFrameConfig(themeId);
-
-  let FrameNode: React.ReactNode;
-  if (frameConfig.Component) {
-    const Comp = frameConfig.Component;
-    FrameNode = <Comp {...frameProps} />;
-  } else if (frameConfig.styles) {
-    FrameNode = <UnifiedFrame themeStyles={frameConfig.styles} {...frameProps} />;
-  } else {
-    FrameNode = <DefaultFrame {...frameProps} />;
-  }
-
   return (
     <PreviewEditorContext.Provider key={elementId} value={element}>
-      {FrameNode}
+      <PresetFrame {...frameProps} />
     </PreviewEditorContext.Provider>
   );
 }

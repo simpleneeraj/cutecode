@@ -8,9 +8,8 @@ import { Button } from "@/components/ui/button";
 import { useSubscription } from "@/hooks/use-subscription";
 import { Spinner } from "@/components/ui/spinner";
 import { getRedirectUrlWithParam } from "@/utils/url";
-
-import UserMenu from "../(create)/components/UserMenu";
-import PlansDialog from "../(create)/components/PlansDialog";
+import UserMenu from "@/components/editor/UserMenu";
+import PlansDialog from "@/components/editor/dialogs/plans";
 
 const fadeSlide = {
   initial: { opacity: 0, x: 8, filter: "blur(4px)" },
@@ -59,7 +58,7 @@ export function AuthControls() {
           </div>
         ) : stateKey === AuthState.SIGNED_OUT ? (
           <>
-            <SignInButton mode="modal" forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}>
+            <SignInButton mode="redirect" forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}>
               <Button variant="outline">
                 <LogIn className="size-3.5" />
                 Sign in

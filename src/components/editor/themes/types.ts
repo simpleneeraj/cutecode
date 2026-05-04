@@ -1,0 +1,20 @@
+export type ShikiSyntaxObject = {
+  foreground: string;
+  constant?: string;
+  string?: string;
+  comment?: string;
+  keyword?: string;
+  parameter?: string;
+  function?: string;
+  stringExpression?: string;
+  punctuation?: string;
+  link?: string;
+  number?: string;
+  property?: string;
+  objectLiteral?: string;
+  highlight?: string;
+  highlightBorder?: string;
+  highlightHover?: string;
+  diffDeleted?: string;
+  diffInserted?: string;
+};

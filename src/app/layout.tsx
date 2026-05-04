@@ -1,4 +1,4 @@
-import "@/app/styles/globals.css";
+import "@/styles/globals.css";
 import { Viewport } from "next";
 import { BASE_URL } from "@/utils/common";
 import { Toaster } from "@/components/toast";
@@ -32,9 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ClerkThemeProvider>
       <html lang="en" suppressHydrationWarning>
-        <head>
+        {/* <head>
           <Analytics />
-        </head>
+        </head> */}
         <body className="relative">
           <ThemeProvider>
             <TooltipProvider>
