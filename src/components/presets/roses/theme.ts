@@ -1,0 +1,52 @@
+import { Theme } from "@/typings/editor";
+import { convertToShikiTheme } from "../shared";
+
+export const roses: Theme = {
+  id: "roses",
+  name: "Roses",
+  background: {
+    from: "#3d0d18",
+    to: "#0e0305",
+  },
+  group: "Defaults",
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#5c1a26",
+      constant: "#a63050",
+      string: "#7a2a3a",
+      comment: "#b08090",
+      keyword: "#c0304a",
+      parameter: "#8b2040",
+      function: "#b5294e",
+      stringExpression: "#7a2a3a",
+      punctuation: "#9a3050",
+      link: "#c0304a",
+      number: "#a63050",
+      property: "#c0304a",
+      highlight: "rgba(192, 48, 74, 0.10)",
+      highlightBorder: "#c0304a",
+      highlightHover: "rgba(192, 48, 74, 0.05)",
+      diffInserted: "#6ab04c",
+      diffDeleted: "#c0304a",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#f2c0c8",
+      constant: "#f08098",
+      string: "#e8a0b0",
+      comment: "#6e3040",
+      keyword: "#ff6e88",
+      parameter: "#f0b0c0",
+      function: "#ff8fa3",
+      stringExpression: "#e8a0b0",
+      punctuation: "#e06070",
+      link: "#ff6e88",
+      number: "#f08098",
+      property: "#f08098",
+      highlight: "rgba(255, 110, 136, 0.12)",
+      highlightBorder: "#ff6e88",
+      highlightHover: "rgba(255, 110, 136, 0.07)",
+      diffInserted: "#8ed16a",
+      diffDeleted: "#ff6e88",
+    }),
+  },
+};

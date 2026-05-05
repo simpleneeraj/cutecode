@@ -1,0 +1,53 @@
+import { Theme } from "@/typings/editor";
+import { convertToShikiTheme } from "../shared";
+
+export const valentine: Theme = {
+  id: "valentine",
+  name: "Valentine",
+  background: {
+    from: "#120608",
+    to: "#1c0a0f",
+  },
+  group: "Romantic",
+  font: "fira-code",
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#3b0a18",
+      constant: "#be123c",
+      string: "#15803d",
+      comment: "#e4b0c0",
+      keyword: "#be123c",
+      parameter: "#be185d",
+      function: "#e11d48",
+      stringExpression: "#15803d",
+      punctuation: "#e8a0b0",
+      link: "#e11d48",
+      number: "#15803d",
+      property: "#be185d",
+      highlight: "rgba(244, 63, 94, 0.08)",
+      highlightBorder: "#f43f5e",
+      highlightHover: "rgba(244, 63, 94, 0.04)",
+      diffInserted: "#15803d",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#f1c4cd",
+      constant: "#fb7185",
+      string: "#86efac",
+      comment: "#5a2535",
+      keyword: "#fb7185",
+      parameter: "#fca5a5",
+      function: "#ff6b9d",
+      stringExpression: "#86efac",
+      punctuation: "#4a2030",
+      link: "#ff6b9d",
+      number: "#86efac",
+      property: "#fca5a5",
+      highlight: "rgba(244, 63, 94, 0.1)",
+      highlightBorder: "#f43f5e",
+      highlightHover: "rgba(244, 63, 94, 0.05)",
+      diffInserted: "#86efac",
+      diffDeleted: "#fb7185",
+    }),
+  },
+};

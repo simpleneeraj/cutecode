@@ -1,0 +1,52 @@
+import { Theme } from "@/typings/editor";
+import { convertToShikiTheme } from "../shared";
+
+export const ice: Theme = {
+  id: "ice",
+  name: "Ice",
+  background: {
+    from: "#fff",
+    to: "#80deea",
+  },
+  group: "Defaults",
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#1C1B29",
+      constant: "#00B0E9",
+      string: "#6ABAD8",
+      comment: "#BDC0C1",
+      keyword: "#81909D",
+      parameter: "#1E3C78",
+      function: "#1E3C78",
+      stringExpression: "#7BBCD8",
+      punctuation: "#1E3C78",
+      link: "#1E3C78",
+      number: "#00B0E9",
+      property: "#00B0E9",
+      highlight: "rgba(0,167,219,0.1)",
+      highlightBorder: "#00B0E9",
+      highlightHover: "rgba(0,167,219,0.05)",
+      diffInserted: "#00B0E9",
+      diffDeleted: "#FF605E",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#FFFFFF",
+      constant: "#92DEF6",
+      string: "#92DEF6",
+      comment: "#5C6A70",
+      keyword: "#BFC4C9",
+      parameter: "#778CB6",
+      function: "#778CB6",
+      stringExpression: "#89C3DC",
+      punctuation: "#778CB6",
+      link: "#778CB6",
+      number: "#00B0E9",
+      property: "#00B0E9",
+      highlight: "rgba(146,222,246,0.14)",
+      highlightBorder: "#92DEF6",
+      highlightHover: "rgba(146,222,246,0.09)",
+      diffInserted: "#00B0E9",
+      diffDeleted: "#FF605E",
+    }),
+  },
+};

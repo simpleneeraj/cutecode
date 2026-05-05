@@ -14,7 +14,7 @@ import HighlightedCode from "./highlighted-code";
 import { derivedFlashMessageAtom } from "@/store/editor/flash";
 import { LANGUAGES } from "../util/languages";
 import { PreviewEditorContext } from "../PreviewEditorContext";
-import { themes } from "../themes";
+import { themes } from "../../presets/themes";
 import {
   elementContentAtom,
   elementFontFamilyAtom,

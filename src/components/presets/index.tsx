@@ -1,0 +1,101 @@
+import { useAtomValue, useSetAtom } from "jotai";
+import UnifiedFrame from "./UnifiedFrame";
+import DefaultFrame from "./default";
+import { presetsAtom, updateSlideElementAtom } from "@/store/editor/editor";
+import { BaseFrameProps } from "@/typings/presets";
+
+import VercelFrame from "./vercel";
+import ClerkFrame from "./clerk";
+import TailwindFrame from "./tailwind";
+import NuxtFrame from "./nuxt";
+import RosesFrame from "./roses";
+import PrismaFrame from "./prisma";
+import CloudflareFrame from "./cloudflare";
+import FirecrawlFrame from "./firecrawl";
+import ClaudeFrame from "./claude";
+import GeminiFrame from "./gemini";
+import MintlifyFrame from "./mintlify";
+import ElevenLabsFrame from "./eleven-labs";
+import ResendFrame from "./resend";
+import StripeFrame from "./stripe";
+import BrowserbaseFrame from "./browserbase";
+import TriggerdevFrame from "./triggerdev";
+import RetroMacFrame from "./retro-mac";
+
+import openAiStyles from "@/styles/presets/OpenAIFrame.module.css";
+import supabaseStyles from "@/styles/presets/SupabaseFrame.module.css";
+import LoveFrame from "./love";
+import { themes } from "./themes";
+import Editor from "../editor/textarea";
+import ValentineFrame from "./valentine";
+
+export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
+  switch (themeId) {
+    case themes.vercel.id:
+    case themes.rabbit.id:
+      return <VercelFrame themeId={themeId} {...props} />;
+    case themes.supabase.id:
+      return <UnifiedFrame themeId={themeId} themeStyles={supabaseStyles} {...props} />;
+    case themes.tailwind.id:
+      return <TailwindFrame themeId={themeId} {...props} />;
+    case themes.clerk.id:
+      return <ClerkFrame themeId={themeId} {...props} />;
+    case themes.mintlify.id:
+      return <MintlifyFrame themeId={themeId} {...props} />;
+    case themes.openai.id:
+      return <UnifiedFrame themeId={themeId} themeStyles={openAiStyles} {...props} />;
+    case themes.triggerdev.id:
+      return <TriggerdevFrame themeId={themeId} {...props} />;
+    case themes.prisma.id:
+      return <PrismaFrame themeId={themeId} {...props} />;
+    case themes.elevenlabs.id:
+      return <ElevenLabsFrame themeId={themeId} {...props} />;
+    case themes.resend.id:
+      return <ResendFrame themeId={themeId} {...props} />;
+    case themes.browserbase.id:
+      return <BrowserbaseFrame themeId={themeId} {...props} />;
+    case themes.nuxt.id:
+      return <NuxtFrame themeId={themeId} {...props} />;
+    case themes.gemini.id:
+      return <GeminiFrame themeId={themeId} {...props} />;
+    case themes.cloudflare.id:
+      return <CloudflareFrame themeId={themeId} {...props} />;
+    case themes.stripe.id:
+      return <StripeFrame themeId={themeId} {...props} />;
+    case themes.firecrawl.id:
+      return <FirecrawlFrame themeId={themeId} {...props} />;
+    case themes.roses.id:
+      return <RosesFrame themeId={themeId} {...props} />;
+    case themes.claude.id:
+      return <ClaudeFrame themeId={themeId} {...props} />;
+    case themes["retro-mac"].id:
+      return <RetroMacFrame themeId={themeId} {...props} />;
+    case themes.love.id:
+      return <LoveFrame themeId={themeId} {...props} />;
+    case themes.valentine.id:
+      return <ValentineFrame themeId={themeId} {...props} />;
+    default:
+      return <DefaultFrame themeId={themeId} {...props} />;
+  }
+}
+
+type PresetsProps = {
+  id: string;
+};
+
+function Presets({ id }: PresetsProps) {
+  const frame = useAtomValue(presetsAtom);
+  const updateElement = useSetAtom(updateSlideElementAtom);
+
+  return (
+    <PresetFrame
+      {...frame}
+      themeId={id}
+      onFileNameChange={(name: string) => updateElement({ header: { properties: { title: { text: name } } } })}
+    >
+      <Editor />
+    </PresetFrame>
+  );
+}
+
+export default Presets;

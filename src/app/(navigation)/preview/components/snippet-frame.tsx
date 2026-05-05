@@ -2,7 +2,7 @@
 
 import React from "react";
 import { BaseFrameProps } from "@/typings/presets";
-import { PresetFrame } from "@/components/editor/presets";
+import { PresetFrame } from "@/components/presets";
 import { PreviewEditorContext } from "@/components/editor/PreviewEditorContext";
 
 type RawElement = Record<string, unknown>;

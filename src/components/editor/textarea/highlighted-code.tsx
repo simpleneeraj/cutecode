@@ -12,7 +12,7 @@ import {
   elementHighlightedLinesAtom,
 } from "@/store/editor/editor";
 import { useEditorContext } from "@/store/editor/context/editor";
-import { themes } from "@/components/editor/themes";
+import { themes } from "@/components/presets/themes";
 
 type PropTypes = {
   selectedLanguage: Language | null;

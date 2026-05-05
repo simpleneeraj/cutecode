@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import View from "@/components/view";
 import ThemeControl from "./themes";
@@ -21,7 +22,7 @@ const Controls: React.FC = () => {
           <CardPanel className="flex flex-row gap-3 p-3">
             <ThemeControl />
             <PaddingControl />
-            <BackgroundImageControl />
+            {/* <BackgroundImageControl /> */}
             <LanguageControl />
             <FontFaceControl />
             <OptionsControl />

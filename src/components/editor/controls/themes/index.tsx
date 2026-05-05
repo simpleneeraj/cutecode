@@ -37,10 +37,12 @@ import {
 } from "@/components/ui/combobox";
 import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
 import { Theme } from "@/typings/editor";
-import { groupThemes, themes as allAvailableThemes } from "../../themes";
+import { groupThemes, themes as allAvailableThemes } from "../../../presets/themes";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { elementThemeAtom, updateSlideElementAtom } from "@/store/editor/editor";
 import { Button } from "@/components/ui/button";
+import View from "@/components/view";
+import { cn } from "@/utils/cn";
 
 const ThemeControl: React.FC = () => {
   const update = useSetAtom(updateSlideElementAtom);
@@ -89,7 +91,20 @@ const ThemeControl: React.FC = () => {
                   <ComboboxCollection>
                     {(theme) => (
                       <ComboboxItem key={theme.id} value={theme}>
-                        {theme.name}
+                        <View className="flex flex-row items-center gap-2 text-start">
+                          {/* if no icon they have backdround image */}
+                          {theme.icon ? (
+                            <img src={String(theme.icon)} alt={theme.name} className="size-3.5 rounded-full" />
+                          ) : (
+                            <div
+                              className="size-3.5 rounded-full"
+                              style={{
+                                backgroundImage: `linear-gradient(140deg, ${theme?.background?.from}, ${theme?.background?.to})`,
+                              }}
+                            />
+                          )}
+                          {theme.name}
+                        </View>
                       </ComboboxItem>
                     )}
                   </ComboboxCollection>

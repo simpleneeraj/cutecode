@@ -1,4 +1,4 @@
-import Presets from "./presets";
+import Presets from "../presets";
 import { cn } from "@/utils/cn";
 import { useContext } from "react";
 import { useAtomValue } from "jotai";

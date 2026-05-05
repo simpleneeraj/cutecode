@@ -1,0 +1,53 @@
+import { Theme } from "@/typings/editor";
+import { convertToShikiTheme } from "../shared";
+
+export const claude: Theme = {
+  id: "claude",
+  name: "Claude AI",
+  background: {
+    from: "#1B1A18",
+    to: "#1B1A18",
+  },
+  group: "AI",
+  font: "soehne-mono",
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#1f1d1a",
+      constant: "#8a584e",
+      string: "#2d7045",
+      comment: "#85817c",
+      keyword: "#8a584e",
+      parameter: "#8a584e",
+      function: "#b04431",
+      stringExpression: "#2d7045",
+      punctuation: "#85817c",
+      link: "#b04431",
+      number: "#2d7045",
+      property: "#8a584e",
+      highlight: "rgba(176, 68, 49, 0.12)",
+      highlightBorder: "#b04431",
+      highlightHover: "rgba(176, 68, 49, 0.06)",
+      diffInserted: "#2d7045",
+      diffDeleted: "#b04431",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#DFDCD8",
+      constant: "#CCA199",
+      string: "#79C091",
+      comment: "#7B7975",
+      keyword: "#CCA199",
+      parameter: "#CCA199",
+      function: "#E08579",
+      stringExpression: "#79C091",
+      punctuation: "#7B7975",
+      link: "#E08579",
+      number: "#79C091",
+      property: "#CCA199",
+      highlight: "rgba(224, 133, 121, 0.15)",
+      highlightBorder: "#E08579",
+      highlightHover: "rgba(224, 133, 121, 0.08)",
+      diffInserted: "#79C091",
+      diffDeleted: "#E08579",
+    }),
+  },
+};

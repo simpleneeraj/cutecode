@@ -217,7 +217,6 @@ export type Theme = {
   };
 
   icon?: string;
-  iconUrl?: string;
   font?: string;
 
   group: string;

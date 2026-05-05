@@ -5,7 +5,7 @@ import { currentElementAtom } from "./selection";
 import { atomWithStorage, selectAtom } from "jotai/utils";
 import { elementDarkModeAtom, elementShowLineNumbersAtom } from "./selectors";
 import { StoreKey } from "./keys";
-import { themes } from "@/components/editor/themes";
+import { themes } from "@/components/presets/themes";
 
 /*
  * Theme object derived from the active element's theme property.
