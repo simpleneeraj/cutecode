@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const rabbit: Theme = {
   id: "rabbit",
@@ -8,7 +8,7 @@ export const rabbit: Theme = {
     from: "#000000",
     to: "#000000",
   },
-  icon: "/editor/assets/rabbit.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/rabbit/logo.svg" },
   font: "geist-mono",
   partner: true,
   group: "Brands",

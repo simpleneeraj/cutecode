@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const valentine: Theme = {
   id: "valentine",
@@ -8,8 +8,13 @@ export const valentine: Theme = {
     from: "#120608",
     to: "#1c0a0f",
   },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "noto:revolving-hearts",
+  },
   group: "Romantic",
   font: "fira-code",
+  tags: [BadgeVariant.PREMIUM],
   syntax: {
     light: convertToShikiTheme({
       foreground: "#3b0a18",

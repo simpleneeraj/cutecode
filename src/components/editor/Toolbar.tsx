@@ -6,6 +6,7 @@ import { Toolbar, ToolbarButton, ToolbarGroup } from "@/components/ui/toolbar";
 import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAtomValue, useSetAtom } from "jotai";
 import { createSlideAtom, deleteSlideAtom, duplicateSlideAtom, slidesAtom } from "@/store/editor/editor";
+import { Separator } from "../ui/separator";
 
 export default function ToolbarParticle() {
   const slides = useAtomValue(slidesAtom);
@@ -25,37 +26,7 @@ export default function ToolbarParticle() {
     <TooltipProvider>
       <Toolbar>
         <ToolbarGroup>
-          {/* Delete */}
-          {slides?.length > 1 && (
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <ToolbarButton
-                    aria-label="Delete slide"
-                    render={<Button size="icon-sm" variant="ghost" onClick={deleteSlide} />}
-                  >
-                    <Trash2 className="text-accent-foreground" />
-                  </ToolbarButton>
-                }
-              />
-              <TooltipPopup sideOffset={8}>Delete</TooltipPopup>
-            </Tooltip>
-          )}
-          {/* Duplicate */}
-          <Tooltip>
-            <TooltipTrigger
-              render={
-                <ToolbarButton
-                  aria-label="Duplicate slide"
-                  render={<Button size="icon-sm" variant="ghost" onClick={duplicateSlide} />}
-                >
-                  <CopyPlus className="text-accent-foreground" />
-                </ToolbarButton>
-              }
-            />
-            <TooltipPopup sideOffset={8}>Duplicate</TooltipPopup>
-          </Tooltip>
-
+          {" "}
           {/* Add Slide */}
           <Tooltip>
             <TooltipTrigger
@@ -70,6 +41,39 @@ export default function ToolbarParticle() {
             />
             <TooltipPopup sideOffset={8}>Add Slide</TooltipPopup>
           </Tooltip>
+          {/* Duplicate */}
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToolbarButton
+                  aria-label="Duplicate slide"
+                  render={<Button size="icon-sm" variant="ghost" onClick={duplicateSlide} />}
+                >
+                  <CopyPlus className="text-accent-foreground" />
+                </ToolbarButton>
+              }
+            />
+            <TooltipPopup sideOffset={8}>Duplicate</TooltipPopup>
+          </Tooltip>
+          {slides?.length > 1 && <Separator orientation="vertical" />}
+          {/* Delete */}
+          {slides?.length > 1 && (
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <ToolbarButton
+                    aria-label="Delete slide"
+                    render={
+                      <Button size="icon-sm" variant="ghost" className="text-destructive" onClick={deleteSlide} />
+                    }
+                  >
+                    <Trash2 />
+                  </ToolbarButton>
+                }
+              />
+              <TooltipPopup sideOffset={8}>Delete</TooltipPopup>
+            </Tooltip>
+          )}
         </ToolbarGroup>
       </Toolbar>
     </TooltipProvider>

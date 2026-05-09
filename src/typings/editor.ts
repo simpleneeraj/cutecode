@@ -10,6 +10,15 @@ export type AnyRecord = Record<string, unknown>;
 /* Enums */
 /* ---------------------------------- */
 
+export enum BadgeVariant {
+  NEW = "New",
+  UPDATED = "Updated",
+  HOT = "Hot",
+  FEATURED = "Featured",
+  POPULAR = "Popular",
+  PREMIUM = "Premium",
+}
+
 export enum InitialValues {
   SLIDE_ID = "initial_slide_id",
   ELEMENT_ID = "initial_element_id",
@@ -43,6 +52,11 @@ export enum HeaderInputType {
   INPUT = "input",
   ICON_AND_INPUT = "icon_input",
   NONE = "none",
+}
+
+export enum IconType {
+  IMAGE = "image",
+  ICONIFY = "iconify",
 }
 
 /* ---------------------------------- */
@@ -216,7 +230,10 @@ export type Theme = {
     to: string;
   };
 
-  icon?: string;
+  icon?: {
+    type: IconType;
+    source: string;
+  };
   font?: string;
 
   group: string;
@@ -232,4 +249,5 @@ export type Theme = {
   lineNumbersToggleable?: boolean;
 
   syntax: { light: CSSProperties; dark?: CSSProperties } | { light?: CSSProperties; dark: CSSProperties };
+  tags?: string[];
 };

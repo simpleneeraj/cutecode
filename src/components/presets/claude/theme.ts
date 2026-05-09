@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const claude: Theme = {
   id: "claude",
@@ -8,8 +8,10 @@ export const claude: Theme = {
     from: "#1B1A18",
     to: "#1B1A18",
   },
-  group: "AI",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/claude/logo.svg" },
+  group: "Brands",
   font: "soehne-mono",
+  tags: [BadgeVariant.NEW],
   syntax: {
     light: convertToShikiTheme({
       foreground: "#1f1d1a",

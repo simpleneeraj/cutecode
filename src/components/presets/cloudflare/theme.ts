@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const cloudflare: Theme = {
   id: "cloudflare",
@@ -8,7 +8,7 @@ export const cloudflare: Theme = {
     from: "#0C0C0C",
     to: "#0C0C0C",
   },
-  icon: "/editor/assets/cloudflare.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/cloudflare/logo.svg" },
   font: "ibm-plex-mono",
   partner: true,
   group: "Brands",

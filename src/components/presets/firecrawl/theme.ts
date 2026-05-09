@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const firecrawl: Theme = {
   id: "firecrawl",
@@ -9,7 +9,7 @@ export const firecrawl: Theme = {
     to: "#000",
   },
   group: "AI",
-  icon: "/editor/assets/firecrawl/logo.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/firecrawl/logo.svg" },
   font: "geist-mono",
   partner: true,
   syntax: {

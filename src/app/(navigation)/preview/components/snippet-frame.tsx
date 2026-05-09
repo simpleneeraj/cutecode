@@ -3,7 +3,7 @@
 import React from "react";
 import { BaseFrameProps } from "@/typings/presets";
 import { PresetFrame } from "@/components/presets";
-import { PreviewEditorContext } from "@/components/editor/PreviewEditorContext";
+import Editor from "@/components/editor/textarea";
 
 type RawElement = Record<string, unknown>;
 
@@ -38,8 +38,8 @@ export function SnippetFrame({ elementId, element, windowWidth }: SnippetFramePr
   };
 
   return (
-    <PreviewEditorContext.Provider key={elementId} value={element}>
-      <PresetFrame {...frameProps} />
-    </PreviewEditorContext.Provider>
+    <PresetFrame key={elementId} {...frameProps}>
+      <Editor previewData={element} />
+    </PresetFrame>
   );
 }

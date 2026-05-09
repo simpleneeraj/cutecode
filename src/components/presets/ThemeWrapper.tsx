@@ -1,7 +1,7 @@
 import React from "react";
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
+import styles from "./default/default.module.css";
 import { BaseFrameProps } from "@/typings/presets";
-import sharedStyles from "./default/default.module.css";
 
 export interface ThemeWrapperProps extends Pick<BaseFrameProps, "padding" | "darkMode" | "transparent"> {
   children: React.ReactNode;
@@ -25,17 +25,15 @@ const ThemeWrapper = ({
   return (
     <div
       className={classNames(
-        sharedStyles.frame,
-        showBackground && themeStyles.frame,
-        !darkMode && themeStyles.frameLightMode,
-        !showBackground && sharedStyles.noBackground,
-        !showBackground && themeStyles.noBackground,
+        styles.frame,
+        showBackground && themeStyles?.frame,
+        !darkMode && themeStyles?.frameLightMode,
+        !showBackground && styles.noBackground,
+        !showBackground && themeStyles?.noBackground,
       )}
       style={{ padding, "--padding": `${padding}px` } as React.CSSProperties}
     >
-      {!showBackground && !suppressPattern && (
-        <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>
-      )}
+      {!showBackground && !suppressPattern && <div data-ignore-in-export className={styles.transparentPattern}></div>}
       {children}
     </div>
   );

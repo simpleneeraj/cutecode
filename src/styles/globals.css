@@ -275,10 +275,10 @@ select {
   }
 }
 
-svg {
+/* svg {
   width: 16px;
   height: 16px;
-}
+} */
 
 .selection-area {
   border: 1px solid #56c2ff;

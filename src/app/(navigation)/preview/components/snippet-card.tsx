@@ -19,6 +19,7 @@ type SnippetAuthor = {
 };
 
 type SnippetCardProps = {
+  slug: string;
   children: React.ReactNode;
   author?: SnippetAuthor;
   description?: string | null;
@@ -36,6 +37,7 @@ type SnippetCardProps = {
 };
 
 export function SnippetCard({
+  slug,
   children,
   author,
   description,
@@ -139,6 +141,7 @@ export function SnippetCard({
       {/* ── Footer: actions ─────────────────────────────────────── */}
       <CardFooter>
         <SnippetActions
+          slug={slug}
           upvoted={upvoted}
           upvoteCount={upvoteCount}
           bookmarked={bookmarked}

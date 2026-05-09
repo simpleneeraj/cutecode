@@ -1,6 +1,6 @@
-import classNames from "classnames";
-import { BaseFrameProps } from "@/typings/presets";
 import styles from "./vercel.module.css";
+import { cn as classNames } from "@/utils/cn";
+import { BaseFrameProps } from "@/typings/presets";
 import sharedStyles from "../default/default.module.css";
 
 const VercelFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps) => {

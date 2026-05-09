@@ -1,10 +1,9 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import React, { useEffect, useState } from "react";
 import { Language, LANGUAGES } from "../util/languages";
 
 import styles from "@/styles/editor/Editor.module.css";
 import { useAtomValue, useSetAtom } from "jotai";
-import { PreviewEditorContext } from "../PreviewEditorContext";
 import {
   elementThemeAtom,
   themeDarkModeAtom,
@@ -17,10 +16,10 @@ import { themes } from "@/components/presets/themes";
 type PropTypes = {
   selectedLanguage: Language | null;
   code: string;
+  previewData?: any;
 };
 
-const HighlightedCode: React.FC<PropTypes> = ({ selectedLanguage, code }) => {
-  const previewData = React.useContext(PreviewEditorContext);
+const HighlightedCode: React.FC<PropTypes> = ({ selectedLanguage, code, previewData }) => {
   const [highlightedHtml, setHighlightedHtml] = useState("");
   const { highlighter } = useEditorContext();
   const setIsLoadingLanguage = useSetAtom(loadingLanguageAtom);

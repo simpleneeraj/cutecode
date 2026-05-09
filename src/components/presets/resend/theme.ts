@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const resend: Theme = {
   id: "resend",
@@ -8,7 +8,7 @@ export const resend: Theme = {
     from: "#B1B1B1",
     to: "#181818",
   },
-  icon: "/editor/assets/resend.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/resend/logo.svg" },
   font: "commit-mono",
   partner: true,
   group: "Brands",

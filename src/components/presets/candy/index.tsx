@@ -1,8 +1,8 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./candy.module.css";
 import sharedStyles from "../default/default.module.css";
-import { SvgBlurBackdrop } from "../BlurBackdrop";
+import { BlurBackdrop } from "../BlurBackdrop";
 
 /* Deterministic soda bubbles for SSR safety */
 const BUBBLES = [
@@ -66,7 +66,7 @@ const CandyFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
         })}
       >
         {/* SVG-based blur backdrop — replaces CSS backdrop-filter for html-to-image */}
-        <SvgBlurBackdrop
+        <BlurBackdrop
           backgroundImage={
             darkMode
               ? "linear-gradient(135deg, #7b1fa2 0%, #4a148c 50%, #1a237e 100%)"

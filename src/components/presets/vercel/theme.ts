@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const vercel: Theme = {
   id: "vercel",
@@ -8,7 +8,7 @@ export const vercel: Theme = {
     from: "#232323",
     to: "#1F1F1F",
   },
-  icon: "/editor/assets/vercel.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/vercel/logo.svg" },
   font: "geist-mono",
   partner: true,
   group: "Brands",

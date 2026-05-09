@@ -1,10 +1,10 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./roses.module.css";
 import { HugeiconsIcon } from "@hugeicons/react";
 import sharedStyles from "../default/default.module.css";
 import { Flower, Heart, Leaf01Icon, Sparkles } from "@hugeicons/core-free-icons";
-import { SvgBlurBackdrop } from "../BlurBackdrop";
+import { BlurBackdrop } from "../BlurBackdrop";
 
 /* ── Deterministic scattered icon layout — SSR-safe (no Math.random) ── */
 const SCATTERED_ICONS = [
@@ -69,7 +69,7 @@ const RosesFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
         })}
       >
         {/* SVG-based blur backdrop — replaces CSS backdrop-filter for html-to-image */}
-        <SvgBlurBackdrop
+        <BlurBackdrop
           backgroundImage={
             darkMode
               ? "radial-gradient(ellipse at 30% 20%, #3d0d18 0%, #1a0608 55%, #0e0305 100%)"

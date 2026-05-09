@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { windowWidthAtom } from "@//store/editor/editor";
 import { motion, AnimatePresence } from "framer-motion";
 import { MAX_SLIDE_WIDTH, MIN_SLIDE_WIDTH } from "@/store/editor/editor/state";
-import { XmarkIcon } from "@raycast/icons";
+import { Icon } from "@iconify/react";
 
 type Handle = "right" | "left";
 
@@ -98,7 +98,7 @@ const ResizableFrame: React.FC<PropsWithChildren> = ({ children }) => {
                 setWindowWidth(null);
               }}
             >
-              <XmarkIcon />
+              <Icon icon="solar:close-circle-bold" className="size-5 opacity-75" />
               Set to auto width
             </a>
           </motion.div>

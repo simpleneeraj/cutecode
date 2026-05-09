@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const love: Theme = {
   id: "love",
@@ -8,8 +8,10 @@ export const love: Theme = {
     from: "#0f0a14",
     to: "#17101f",
   },
+  icon: { type: IconType.ICONIFY, source: "streamline-stickies-color:love" },
   group: "Romantic",
   font: "fira-code",
+  tags: [BadgeVariant.PREMIUM],
   syntax: {
     light: convertToShikiTheme({
       foreground: "#2d1f3d",

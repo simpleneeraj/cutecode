@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const clerk: Theme = {
   id: "clerk",
@@ -8,7 +8,7 @@ export const clerk: Theme = {
     from: "#000000",
     to: "#000000",
   },
-  icon: "/editor/assets/clerk.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/clerk/logo.svg" },
   partner: true,
   group: "Brands",
   lineNumbers: true,

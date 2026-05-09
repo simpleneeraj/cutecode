@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const supabase: Theme = {
   id: "supabase",
@@ -8,7 +8,7 @@ export const supabase: Theme = {
     from: "#121212",
     to: "#121212",
   },
-  icon: "/editor/assets/supabase.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/supabase/logo.svg" },
   partner: true,
   group: "Brands",
   lineNumbers: true,

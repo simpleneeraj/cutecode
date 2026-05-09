@@ -1,8 +1,7 @@
-import classNames from "classnames";
-import { BaseFrameProps } from "@/typings/presets";
 import styles from "./resend.module.css";
+import { cn as classNames } from "@/utils/cn";
+import { BaseFrameProps } from "@/typings/presets";
 import sharedStyles from "../default/default.module.css";
-import { SvgBlurBackdrop } from "../BlurBackdrop";
 
 const ResendFrame = ({
   padding,
@@ -27,19 +26,6 @@ const ResendFrame = ({
     >
       {!showBackground && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
       <div className={styles.window}>
-        {/* SVG-based blur backdrop — replaces CSS backdrop-filter for html-to-image.
-             Only shown when background (transparent) is active. */}
-        {showBackground && (
-          <SvgBlurBackdrop
-            backgroundImage={
-              darkMode
-                ? `url("/editor/assets/resend/resend-pattern-dark.png")`
-                : `url("/editor/assets/resend/resend-pattern-light.png")`
-            }
-            blurAmount={3}
-            tintColor={darkMode ? "hsla(0,0%,0%,0.88)" : "hsla(0,0%,100%,0.72)"}
-          />
-        )}
         <div className={styles.header}>
           <div className={classNames(sharedStyles.fileName, styles.fileName)} data-value={fileName}>
             <input

@@ -1,11 +1,10 @@
 import Presets from "../presets";
 import { cn } from "@/utils/cn";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useAtomValue } from "jotai";
-import styles from "@/styles/editor/Frame.module.css";
 import ToolbarParticle from "./Toolbar";
-import FlashMessage from "./FlashMessage";
 import ResizableFrame from "./ResizableFrame";
+import styles from "@/styles/editor/Frame.module.css";
 import { EditorContext } from "@/store/editor/context/editor";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { currentElementAtom, currentSlideAtom } from "@/store/editor/editor";
@@ -40,8 +39,16 @@ const Frame = () => {
 
   const slide = useAtomValue(currentSlideAtom);
 
+  const refCallback = React.useCallback(
+    (el: HTMLDivElement) => {
+      if (!slide) return;
+      frameRefs.current.set(slide.id, el);
+    },
+    [slide],
+  );
+
   return (
-    <div className={cn(styles.frameContainer)} data-theme={darkMode ? "dark" : "light"}>
+    <div className={cn(styles.frameContainer, "sm:py-24")} data-theme={darkMode ? "dark" : "light"}>
       <AnimatePresence mode="wait">
         {slide && (
           <motion.div
@@ -54,17 +61,9 @@ const Frame = () => {
             <motion.div className="flex items-center justify-center mb-4" variants={toolbarVariants}>
               <ToolbarParticle />
             </motion.div>
-
             <motion.div variants={frameInnerVariants}>
               <ResizableFrame>
-                {/* <FlashMessage /> */}
-                <div
-                  id="frame"
-                  className={styles.outerFrame}
-                  ref={(el) => {
-                    frameRefs.current.set(slide.id, el);
-                  }}
-                >
+                <div id="frame" className={styles.outerFrame} ref={refCallback}>
                   <Presets id={themeId} />
                 </div>
               </ResizableFrame>

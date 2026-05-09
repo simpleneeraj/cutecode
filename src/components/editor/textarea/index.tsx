@@ -13,7 +13,6 @@ import useHotkeys from "../../../utils/useHotkeys";
 import HighlightedCode from "./highlighted-code";
 import { derivedFlashMessageAtom } from "@/store/editor/flash";
 import { LANGUAGES } from "../util/languages";
-import { PreviewEditorContext } from "../PreviewEditorContext";
 import { themes } from "../../presets/themes";
 import {
   elementContentAtom,
@@ -520,13 +519,12 @@ function PreviewEditor({ previewData }: { previewData: any }) {
       }
       data-value={code}
     >
-      <HighlightedCode code={code} selectedLanguage={selectedLanguage} />
+      <HighlightedCode code={code} selectedLanguage={selectedLanguage} previewData={previewData} />
     </div>
   );
 }
 
-export default function Editor() {
-  const previewData = React.useContext(PreviewEditorContext);
+export default function Editor({ previewData }: { previewData?: any } = {}) {
   if (previewData) {
     return <PreviewEditor previewData={previewData} />;
   }

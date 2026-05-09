@@ -6,8 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "@/components/ui/select";
 import View from "@/components/view";
 import React from "react";
-import { COLORS } from "./share/colors";
-import { PATTERNS } from "./share/patterns";
+import { COLORS } from "../share/colors";
+import { PATTERNS } from "../share/patterns";
 import { Slider, SliderValue } from "@/components/ui/slider";
 import { MaskWallpaperOptions } from "@/plugings/mask-wallpaper/types";
 

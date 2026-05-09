@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const coffeeDate: Theme = {
+  id: "coffee-date",
+  name: "Coffee Date",
+  background: {
+    from: "#1e130c",
+    to: "#2a1b16",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "catppuccin:coffeescript",
+  },
+  group: "Aesthetic",
+  font: "fira-code",
+  tags: [BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#3d2616",
+      constant: "#bc5a45",
+      string: "#738b4d",
+      comment: "#a68a76",
+      keyword: "#8b5a2b",
+      parameter: "#c18c5d",
+      function: "#bc5a45",
+      stringExpression: "#738b4d",
+      punctuation: "#b39c8d",
+      link: "#bc5a45",
+      number: "#c18c5d",
+      property: "#8b5a2b",
+      highlight: "rgba(139, 90, 43, 0.06)",
+      highlightBorder: "#e07a5f",
+      highlightHover: "rgba(139, 90, 43, 0.04)",
+      diffInserted: "#738b4d",
+      diffDeleted: "#bc5a45",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#f4e8d3",
+      constant: "#e07a5f",
+      string: "#a3b18a",
+      comment: "#8a7362",
+      keyword: "#d4a373",
+      parameter: "#e6ccb2",
+      function: "#e07a5f",
+      stringExpression: "#a3b18a",
+      punctuation: "#7b6154",
+      link: "#e07a5f",
+      number: "#e6ccb2",
+      property: "#d4a373",
+      highlight: "rgba(224, 122, 95, 0.08)",
+      highlightBorder: "#e07a5f",
+      highlightHover: "rgba(212, 163, 115, 0.05)",
+      diffInserted: "#a3b18a",
+      diffDeleted: "#e07a5f",
+    }),
+  },
+};

@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" fill="#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" >
+  <style>
+    path { fill: #000; }
+    @media (prefers-color-scheme: dark) {
+      path { fill: #fff; }
+    }
+  </style>
+
   <path
     d="M16 21a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM25.01 27.838c.425.426.382 1.13-.118 1.465A15.925 15.925 0 0 1 16 32c-3.29 0-6.35-.994-8.893-2.697-.5-.335-.542-1.04-.117-1.465l3.654-3.653c.33-.33.843-.383 1.258-.17 1.23.63 2.622.985 4.098.985a8.961 8.961 0 0 0 4.098-.985c.416-.213.928-.16 1.258.17l3.654 3.654Z" />
   <path fill-opacity=".5"

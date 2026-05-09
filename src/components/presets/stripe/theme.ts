@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const stripe: Theme = {
   id: "stripe",
@@ -8,7 +8,7 @@ export const stripe: Theme = {
     from: "#0a2540",
     to: "#0a2540",
   },
-  icon: "/editor/assets/stripe/logo.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/stripe/logo.svg" },
   partner: true,
   group: "Brands",
   font: "source-code-pro",

@@ -37,8 +37,8 @@
   z-index: 1;
   border: 0.5px solid var(--frame-border);
   border-radius: var(--frame-border-radius);
-  /* background & blur handled by SvgBlurBackdrop — no backdrop-filter */
   background: var(--frame-background);
+  backdrop-filter: blur(10px) saturate(1.1);
 }
 
 .header {

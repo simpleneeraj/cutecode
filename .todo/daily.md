@@ -59,3 +59,17 @@ Neeraj#Prince@2026
 # To Do
 
 - embedable snippet
+
+# TO DO
+
+- Create Good Themes (at least 10 good themes)
+  name them like
+
+- love at first sight
+- date
+- valentine
+
+- TODO
+  [-] - Fix the icon
+  [] - Just refactor the code
+  [] - Favicon and logo finalize

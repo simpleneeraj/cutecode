@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import PreviewLayout from "@/components/layouts/preview";
 import { toast } from "@/components/toast";
-import { wallpaperOptions } from "./share/config";
+import { wallpaperOptions } from "../share/config";
 
 // ── tRPC hooks ────────────────────────────────────────────────────────────────
 import { useShareLinkPreview } from "@/hooks/useShareLink";
@@ -14,9 +14,9 @@ import { useSnippetMutations } from "@/hooks/useSnippet";
 import { useUserProfile } from "@/hooks/useUser";
 
 // ── Sub-components ────────────────────────────────────────────────────────────
-import { PasscodeGate } from "./components/passcode-gate";
-import { SnippetFrame } from "./components/snippet-frame";
-import { SnippetCard } from "./components/snippet-card";
+import { PasscodeGate } from "../components/passcode-gate";
+import { SnippetFrame } from "../components/snippet-frame";
+import { SnippetCard } from "../components/snippet-card";
 import { Spinner } from "@/components/ui/spinner";
 import BlackHoleLoader from "@/components/loader/black-hole";
 
@@ -29,7 +29,7 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
   const [submittedPasscode, setSubmittedPasscode] = useState("");
 
   const { data, isLoading, error, mutate } = useShareLinkPreview(slug, {
-    passcode: submittedPasscode || undefined,
+    passcode: submittedPasscode,
   });
 
   const snippetId = data?.snippet?.id ?? "";
@@ -179,6 +179,7 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
 
             {/* Main card */}
             <SnippetCard
+              slug={slug}
               author={snippet.user ?? undefined}
               description={snippet.description}
               commentCount={snippet._count?.comments ?? 0}

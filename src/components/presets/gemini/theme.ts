@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const gemini: Theme = {
   id: "gemini",
@@ -8,10 +8,10 @@ export const gemini: Theme = {
     from: "#16181d",
     to: "#16181d",
   },
-  icon: "/editor/assets/gemini.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/gemini/logo.svg" },
   font: "google-sans-code",
   partner: true,
-  group: "AI",
+  group: "Brands",
   syntax: {
     light: convertToShikiTheme({
       foreground: "#37474f",

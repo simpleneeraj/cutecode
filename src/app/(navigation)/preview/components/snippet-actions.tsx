@@ -14,7 +14,10 @@ import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/compon
 import { toast } from "@/components/toast";
 import { shortenUrl } from "@/utils/common";
 
+import { EmbedDialog } from "./embed-dialog";
+
 type SnippetActionsProps = {
+  slug: string;
   upvoted?: boolean;
   upvoteCount: number;
   bookmarked?: boolean;
@@ -25,6 +28,7 @@ type SnippetActionsProps = {
 };
 
 export function SnippetActions({
+  slug,
   upvoted,
   upvoteCount,
   bookmarked,
@@ -45,7 +49,6 @@ export function SnippetActions({
   };
 
   const handleRemix = () => {
-    const slug = window.location.pathname.split("/preview/")[1] || "";
     window.location.href = `/?remix=${slug}`;
   };
 
@@ -86,7 +89,7 @@ export function SnippetActions({
         </TooltipProvider>
       </View>
 
-      {/* ── Right: bookmark + remix + share ─────────────────────── */}
+      {/* ── Right: bookmark + remix + embed + share ─────────────────── */}
       <View className="flex items-center gap-2">
         <TooltipProvider>
           <Tooltip>
@@ -118,6 +121,8 @@ export function SnippetActions({
             />
             <TooltipPopup>Remix in Editor</TooltipPopup>
           </Tooltip>
+
+          <EmbedDialog slug={slug} />
 
           <Tooltip>
             <TooltipTrigger

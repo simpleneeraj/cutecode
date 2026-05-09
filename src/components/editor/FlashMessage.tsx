@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import styles from "@/styles/editor/FlashMessage.module.css";
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";

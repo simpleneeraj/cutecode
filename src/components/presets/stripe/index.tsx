@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import useIsSafari from "../../editor/util/useIsSafari";
 import { BaseFrameProps } from "@/typings/presets";
 import React, { useEffect, useRef, useState } from "react";

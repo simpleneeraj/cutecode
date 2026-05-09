@@ -32,7 +32,9 @@ export default function FontFaceControl() {
 
   return (
     <Field>
-      <FieldLabel>Font Face</FieldLabel>
+      <FieldLabel>
+        <span className="text-muted-foreground text-xs">Font Face</span>
+      </FieldLabel>
       <Combobox<FontFaceItem>
         value={currentFont}
         onValueChange={(item) => {

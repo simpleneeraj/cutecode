@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./love.module.css";
-import sharedStyles from "../default/default.module.css";
 
 /* ─────────────────────────────────────────
    Ambient floating icons — romantic set
@@ -71,7 +70,7 @@ export default function LoveFrame({ padding, darkMode, transparent, children }: 
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
+      {!transparent && <div data-ignore-in-export className={styles.transparentPattern} />}
 
       {/* Background blobs */}
       {transparent && (

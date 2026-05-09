@@ -25,9 +25,31 @@ import RetroMacFrame from "./retro-mac";
 import openAiStyles from "@/styles/presets/OpenAIFrame.module.css";
 import supabaseStyles from "@/styles/presets/SupabaseFrame.module.css";
 import LoveFrame from "./love";
-import { themes } from "./themes";
 import Editor from "../editor/textarea";
 import ValentineFrame from "./valentine";
+import CottonCandyFrame from "./cotton-candy";
+import CoffeeDateFrame from "./coffee-date";
+import SunsetChillFrame from "./sunset-chill";
+import { themes } from "./themes";
+import PS6Frame from "./ps6";
+import MacOSTerminalFrame from "./terminals/mac-os";
+
+type PresetsProps = {
+  id: string;
+};
+
+export default function Presets({ id }: PresetsProps) {
+  const frame = useAtomValue(presetsAtom);
+  const updateElement = useSetAtom(updateSlideElementAtom);
+
+  const onFileNameChange = (name: string) => updateElement({ header: { properties: { title: { text: name } } } });
+
+  return (
+    <PresetFrame {...frame} themeId={id} onFileNameChange={onFileNameChange}>
+      <Editor />
+    </PresetFrame>
+  );
+}
 
 export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
   switch (themeId) {
@@ -62,8 +84,8 @@ export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
       return <CloudflareFrame themeId={themeId} {...props} />;
     case themes.stripe.id:
       return <StripeFrame themeId={themeId} {...props} />;
-    case themes.firecrawl.id:
-      return <FirecrawlFrame themeId={themeId} {...props} />;
+    // case themes.firecrawl.id:
+    //   return <FirecrawlFrame themeId={themeId} {...props} />;
     case themes.roses.id:
       return <RosesFrame themeId={themeId} {...props} />;
     case themes.claude.id:
@@ -74,28 +96,18 @@ export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
       return <LoveFrame themeId={themeId} {...props} />;
     case themes.valentine.id:
       return <ValentineFrame themeId={themeId} {...props} />;
+    case themes["cotton-candy"].id:
+      return <CottonCandyFrame themeId={themeId} {...props} />;
+    case themes["coffee-date"].id:
+      return <CoffeeDateFrame themeId={themeId} {...props} />;
+    case themes["sunset-chill"].id:
+      return <SunsetChillFrame themeId={themeId} {...props} />;
+
+    case themes.ps6.id:
+      return <PS6Frame themeId={themeId} {...props} />;
+    // case themes["macos-terminal"].id:
+    //   return <MacOSTerminalFrame themeId={themeId} {...props} />;
     default:
       return <DefaultFrame themeId={themeId} {...props} />;
   }
 }
-
-type PresetsProps = {
-  id: string;
-};
-
-function Presets({ id }: PresetsProps) {
-  const frame = useAtomValue(presetsAtom);
-  const updateElement = useSetAtom(updateSlideElementAtom);
-
-  return (
-    <PresetFrame
-      {...frame}
-      themeId={id}
-      onFileNameChange={(name: string) => updateElement({ header: { properties: { title: { text: name } } } })}
-    >
-      <Editor />
-    </PresetFrame>
-  );
-}
-
-export default Presets;

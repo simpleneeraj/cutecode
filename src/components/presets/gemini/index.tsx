@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./gemini.module.css";
 import sharedStyles from "../default/default.module.css";

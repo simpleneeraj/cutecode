@@ -1,10 +1,10 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./mintlify.module.css";
 import sharedStyles from "../default/default.module.css";
 
-const MINTLIFY_PATTERN_DARK = "/editor/assets/mintlify-pattern-dark.svg";
-const MINTLIFY_PATTERN_LIGHT = "/editor/assets/mintlify-pattern-light.svg";
+const MINTLIFY_PATTERN_DARK = "/editor/assets/mintlify/pattern-dark.svg";
+const MINTLIFY_PATTERN_LIGHT = "/editor/assets/mintlify/pattern-light.svg";
 
 const MintlifyFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange, children }: BaseFrameProps) => {
   const showBackground = transparent;

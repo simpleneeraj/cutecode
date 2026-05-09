@@ -11,7 +11,6 @@ const RetroMacFrame = ({
   onFileNameChange,
   children,
 }: BaseFrameProps) => {
-  // Colors extracted pixel-by-pixel from image 2
   const cardBg = darkMode ? "#2A1E12" : "#D4AE80";
   const cardBorder = darkMode ? "#1A110A" : "#B8956A";
   const titleBarBorder = darkMode ? "rgba(255,255,255,0.07)" : "rgba(90,55,20,0.25)";

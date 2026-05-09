@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";
 import { useEffect, useRef, useState } from "react";
 import styles from "./eleven-labs.module.css";

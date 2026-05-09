@@ -8,7 +8,6 @@ import LanguageControl from "./language";
 import OptionsControl from "./options";
 import FontFaceControl from "./font-face";
 import SliderControl from "./slide-control";
-import BackgroundImageControl from "./background-image";
 import { Card, CardPanel } from "@/components/ui/card";
 
 const Controls: React.FC = () => {
@@ -22,7 +21,6 @@ const Controls: React.FC = () => {
           <CardPanel className="flex flex-row gap-3 p-3">
             <ThemeControl />
             <PaddingControl />
-            {/* <BackgroundImageControl /> */}
             <LanguageControl />
             <FontFaceControl />
             <OptionsControl />

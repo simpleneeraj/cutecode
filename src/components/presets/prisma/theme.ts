@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const prisma: Theme = {
   id: "prisma",
@@ -8,7 +8,7 @@ export const prisma: Theme = {
     from: "#000",
     to: "#000",
   },
-  icon: "/editor/assets/prisma.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/prisma/logo.svg" },
   partner: true,
   group: "Brands",
   lineNumbers: false,

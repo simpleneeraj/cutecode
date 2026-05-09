@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const tailwind: Theme = {
   id: "tailwind",
@@ -8,7 +8,7 @@ export const tailwind: Theme = {
     from: "#36B6F0",
     to: "#36B6F0",
   },
-  icon: "/editor/assets/tailwind.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/tailwind/logo.svg" },
   partner: true,
   group: "Brands",
   lineNumbers: true,

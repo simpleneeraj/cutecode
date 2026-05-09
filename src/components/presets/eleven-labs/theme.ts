@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const elevenlabs: Theme = {
   id: "elevenlabs",
@@ -8,10 +8,10 @@ export const elevenlabs: Theme = {
     from: "#000",
     to: "#000",
   },
-  icon: "/editor/assets/elevenlabs.svg",
+  icon: { type: IconType.ICONIFY, source: "simple-icons:elevenlabs" },
   font: "roboto-mono",
   partner: true,
-  group: "AI",
+  group: "Brands",
   syntax: {
     light: convertToShikiTheme({
       foreground: "#1c1c1c",

@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const sunsetChill: Theme = {
+  id: "sunset-chill",
+  name: "Sunset Chill",
+  background: {
+    from: "#1E1233",
+    to: "#251640",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji-flat:sun-with-face",
+  },
+  group: "Aesthetic",
+  font: "fira-code",
+  tags: [BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#2A1B38",
+      constant: "#D35400",
+      string: "#C0392B",
+      comment: "#8874A3",
+      keyword: "#8E44AD",
+      parameter: "#E74C3C",
+      function: "#D35400",
+      stringExpression: "#C0392B",
+      punctuation: "#99738E",
+      link: "#D35400",
+      number: "#C0392B",
+      property: "#8E44AD",
+      highlight: "rgba(201, 82, 40, 0.07)",
+      highlightBorder: "#C95228",
+      highlightHover: "rgba(201, 82, 40, 0.05)",
+      diffInserted: "#C0392B",
+      diffDeleted: "#E74C3C",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#FDE8E9",
+      constant: "#FFA62B",
+      string: "#FF7E67",
+      comment: "#6C5B7B",
+      keyword: "#C06C84",
+      parameter: "#F67280",
+      function: "#FFA62B",
+      stringExpression: "#FF7E67",
+      punctuation: "#A88CAD",
+      link: "#FFA62B",
+      number: "#FF7E67",
+      property: "#C06C84",
+      highlight: "rgba(255, 166, 43, 0.08)",
+      highlightBorder: "#FFA62B",
+      highlightHover: "rgba(255, 166, 43, 0.06)",
+      diffInserted: "#FF7E67",
+      diffDeleted: "#F67280",
+    }),
+  },
+};

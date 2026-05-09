@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const mintlify: Theme = {
   id: "mintlify",
@@ -8,7 +8,7 @@ export const mintlify: Theme = {
     from: "#000",
     to: "#000",
   },
-  icon: "/editor/assets/mintlify.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/mintlify/logo.svg" },
   partner: true,
   group: "Brands",
   syntax: {

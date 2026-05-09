@@ -85,7 +85,7 @@ function findBackgroundAncestor(el: HTMLElement | null): HTMLElement | null {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export function SvgBlurBackdrop({
+export function BlurBackdrop({
   backgroundImage,
   backgroundSize = "cover",
   blurAmount = 18,

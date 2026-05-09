@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const retroMac: Theme = {
   id: "retro-mac",
@@ -8,10 +8,14 @@ export const retroMac: Theme = {
     from: "#2C2117",
     to: "#15100B",
   },
-  group: "Defaults",
+  group: "Aesthetic",
+  icon: {
+    type: IconType.ICONIFY,
+    source: "emojione-v1:old-personal-computer",
+  },
+  tags: [BadgeVariant.PREMIUM],
   font: "fira-code",
   syntax: {
-    // Light = the parchment card — warm sepia tones from image 2
     light: convertToShikiTheme({
       foreground: "#3D2810",
       constant: "#B56A2E",

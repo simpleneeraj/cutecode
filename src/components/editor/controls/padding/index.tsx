@@ -28,7 +28,9 @@ const PaddingControl: React.FC = () => {
 
   return (
     <Field>
-      <FieldLabel>Padding</FieldLabel>
+      <FieldLabel>
+        <span className="text-muted-foreground text-xs">Padding</span>
+      </FieldLabel>
       <Select
         aria-label="Padding size"
         items={PADDING_OPTIONS}

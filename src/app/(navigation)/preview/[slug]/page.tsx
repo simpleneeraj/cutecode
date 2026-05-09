@@ -1,4 +1,4 @@
-import PreviewSnippetClient from "../client";
+import PreviewSnippetClient from "./page.client";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

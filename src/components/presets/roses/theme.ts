@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const roses: Theme = {
   id: "roses",
@@ -8,7 +8,12 @@ export const roses: Theme = {
     from: "#3d0d18",
     to: "#0e0305",
   },
-  group: "Defaults",
+  group: "Romantic",
+  icon: {
+    type: IconType.ICONIFY,
+    source: "emojione:rosette",
+  },
+  tags: [BadgeVariant.PREMIUM],
   syntax: {
     light: convertToShikiTheme({
       foreground: "#5c1a26",

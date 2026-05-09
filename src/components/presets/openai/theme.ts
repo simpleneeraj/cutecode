@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const openai: Theme = {
   id: "openai",
@@ -8,9 +8,9 @@ export const openai: Theme = {
     from: "#000",
     to: "#000",
   },
-  icon: "/editor/assets/openai.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/openai/logo.svg" },
   partner: true,
-  group: "AI",
+  group: "Brands",
   font: "soehne-mono",
   lineNumbers: true,
   syntax: {

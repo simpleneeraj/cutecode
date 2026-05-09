@@ -1,5 +1,5 @@
-import { Theme } from "@/typings/editor";
-import { convertToShikiTheme } from "../shared";
+import { Theme, IconType } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
 
 export const nuxt: Theme = {
   id: "nuxt",
@@ -8,7 +8,7 @@ export const nuxt: Theme = {
     from: "#292D3E",
     to: "#292D3E",
   },
-  icon: "/editor/assets/nuxt.svg",
+  icon: { type: IconType.IMAGE, source: "/editor/assets/nuxt/logo.svg" },
   font: "geist-mono",
   partner: true,
   group: "Brands",

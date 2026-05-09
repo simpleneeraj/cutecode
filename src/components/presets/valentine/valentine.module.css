@@ -6,11 +6,6 @@
 /* ── Scene ── */
 .scene {
   position: relative;
-  width: 680px;
-  height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 24px;
   overflow: hidden;
   isolation: isolate;
@@ -112,24 +107,6 @@
   bottom: -8px;
   border-radius: 50%;
   opacity: 0;
-  animation: petalRise linear infinite;
-}
-
-@keyframes petalRise {
-  0% {
-    transform: translateY(0) rotate(0deg) scale(1);
-    opacity: 0;
-  }
-  8% {
-    opacity: 0.55;
-  }
-  88% {
-    opacity: 0.2;
-  }
-  100% {
-    transform: translateY(-580px) rotate(180deg) scale(0.5);
-    opacity: 0;
-  }
 }
 
 /* ── Ambient layer ── */
@@ -162,7 +139,6 @@
 ══════════════════════════════════════════ */
 .window {
   position: relative;
-  width: 568px;
   border-radius: 20px;
   overflow: hidden;
   z-index: 10;
@@ -425,7 +401,6 @@
 
 /* ── EDITOR ── */
 .editor {
-  padding: 18px 22px 22px 18px;
   position: relative;
 }
 
@@ -568,22 +543,10 @@
   vertical-align: middle;
   border-radius: 1px;
   background: #f43f5e;
-  animation: vBlink 1.3s ease-in-out infinite;
 }
 
 .dark .cursor {
   box-shadow: 0 0 8px rgba(244, 63, 94, 0.7);
-}
-
-@keyframes vBlink {
-  0%,
-  44% {
-    opacity: 1;
-  }
-  56%,
-  100% {
-    opacity: 0;
-  }
 }
 
 /* ── STATUS BAR ── */

@@ -72,7 +72,7 @@ const initialState: EditorState = {
       id: InitialValues.SLIDE_ID,
       name: "Crystal Slide",
       background: {
-        type: BACKGROUND_TYPE.IMAGE,
+        type: BACKGROUND_TYPE.GRADIENT,
         style: { width: 450, height: 450, size: "cover", position: "center", repeat: "no-repeat", aspectRatio: "1:1" },
         properties: {
           image: "https://cdn.pixabay.com/photo/2022/01/28/18/32/leaves-6975462_1280.png",

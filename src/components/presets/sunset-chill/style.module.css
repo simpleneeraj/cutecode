@@ -1,0 +1,345 @@
+/* ═══════════════════════════════════════════════════════════
+   sunset-chill-frame.module.css
+
+   Palette
+   ───────
+   Purple      #2B1B4A → #8E44AD
+   Pink        #C06C84 → #EA526F
+   Orange      #C95228 → #FF8A5B
+   Yellow      #FFE28A → #F1C40F
+   Dark bg     #150B24
+═══════════════════════════════════════════════════════════ */
+
+/* ── Scene wrapper ── */
+.scene {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Dark mode — deep sunset dusk */
+.dark {
+  background: #150B24;
+}
+
+/* Light mode — golden hour */
+.light {
+  background: radial-gradient(ellipse at 35% 25%, #FFF5E1 0%, #FFDAB9 40%, #FFB6C1 100%);
+}
+
+.transparent {
+  background: transparent;
+}
+
+/* ── Atmospheric blobs ── */
+.blobPurple,
+.blobPink,
+.blobOrange {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+/* dark blobs */
+.dark .blobPurple {
+  width: 300px;
+  height: 300px;
+  background: #2B1B4A;
+  top: -80px;
+  left: -60px;
+  opacity: 0.6;
+}
+.dark .blobPink {
+  width: 240px;
+  height: 240px;
+  background: #962D59;
+  bottom: -60px;
+  right: -40px;
+  opacity: 0.5;
+}
+.dark .blobOrange {
+  width: 200px;
+  height: 200px;
+  background: #C95228;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.4;
+}
+
+/* light blobs */
+.light .blobPurple {
+  width: 320px;
+  height: 320px;
+  background: #FFB6C1;
+  top: -90px;
+  left: -70px;
+  opacity: 0.5;
+}
+.light .blobPink {
+  width: 260px;
+  height: 260px;
+  background: #FF8A5B;
+  bottom: -70px;
+  right: -50px;
+  opacity: 0.4;
+}
+.light .blobOrange {
+  width: 220px;
+  height: 220px;
+  background: #FFE28A;
+  top: 40%;
+  left: 20%;
+  opacity: 0.6;
+}
+
+/* ── Glowing fireflies / embers ── */
+.particleLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 6px currentcolor;
+}
+
+
+
+/* ── Ambient floating icons ── */
+.ambientLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 24px;
+}
+
+.ambientIcon {
+  position: absolute;
+  display: flex;
+  line-height: 0;
+}
+
+.dark .ambientIcon {
+  opacity: 0.4;
+  filter: drop-shadow(0 0 8px rgba(201, 82, 40, 0.4));
+}
+.light .ambientIcon {
+  opacity: 0.5;
+  filter: drop-shadow(0 0 6px rgba(255, 138, 91, 0.3));
+}
+
+/* ══════════════════════════════════════════════════════════
+   WINDOW CARD
+══════════════════════════════════════════════════════════ */
+.window {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dark .window {
+  background: #1E1233;
+  box-shadow:
+    0 0 0 1px rgba(201, 82, 40, 0.2),
+    0 0 60px rgba(150, 45, 89, 0.15),
+    0 24px 64px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 166, 43, 0.08);
+}
+
+.light .window {
+  background: rgba(255, 250, 240, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(255, 138, 91, 0.2),
+    0 8px 40px rgba(234, 82, 111, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* ── Header ── */
+.header {
+  display: grid;
+  grid-template-columns: 70px 1fr 70px;
+  align-items: center;
+  padding: 12px 16px 11px;
+  position: relative;
+}
+
+.dark .header {
+  background: #251640;
+  border-bottom: 1px solid rgba(201, 82, 40, 0.15);
+}
+.light .header {
+  background: rgba(255, 235, 215, 0.7);
+  border-bottom: 1px solid rgba(255, 138, 91, 0.15);
+}
+
+/* Header divider rule */
+.headerRule {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 82, 40, 0.4) 20%,
+    rgba(150, 45, 89, 0.4) 50%,
+    rgba(255, 166, 43, 0.4) 80%,
+    transparent 100%
+  );
+}
+
+/* Traffic-light dots — sunset set */
+.dots {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  position: relative;
+  cursor: default;
+  transition: transform 0.15s ease;
+}
+
+.dot:hover {
+  transform: scale(1.18);
+}
+
+.dot::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.dotA {
+  background: radial-gradient(circle at 35% 35%, #FF8A5B, #C95228);
+  box-shadow: 0 1px 4px rgba(201, 82, 40, 0.5);
+}
+.dotB {
+  background: radial-gradient(circle at 35% 35%, #FFE28A, #F1C40F);
+  box-shadow: 0 1px 4px rgba(241, 196, 15, 0.4);
+}
+.dotC {
+  background: radial-gradient(circle at 35% 35%, #EA526F, #962D59);
+  box-shadow: 0 1px 4px rgba(150, 45, 89, 0.5);
+}
+
+/* Center wordmark */
+.headerCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.headerLabel {
+  font-family: "Courier New", "Fira Code", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+}
+
+.dark .headerLabel {
+  color: #FFA62B;
+}
+.light .headerLabel {
+  color: #C95228;
+}
+
+.headerRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0.6;
+}
+
+/* ── Editor area ── */
+.editor {
+  position: relative;
+}
+
+.dark .editor {
+  background: #180D2A;
+}
+.light .editor {
+  background: rgba(255, 252, 248, 0.95);
+}
+
+/* ── Code block ── */
+.codeBlock {
+  font-family: "Fira Code", "Cascadia Code", "Courier New", monospace;
+  font-size: 13.5px;
+  line-height: 1;
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 28px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.dark .codeLine:hover {
+  background: rgba(255, 166, 43, 0.06);
+}
+.light .codeLine:hover {
+  background: rgba(201, 82, 40, 0.05);
+}
+
+/* Active line highlight */
+.codeLineActive {
+  border-left: 2px solid #FFA62B;
+  padding-left: 6px;
+  margin-left: -8px;
+}
+
+.dark .codeLineActive {
+  background: rgba(255, 166, 43, 0.08) !important;
+}
+.light .codeLineActive {
+  background: rgba(201, 82, 40, 0.07) !important;
+}
+
+/* Line numbers */
+.lineNum {
+  min-width: 22px;
+  text-align: right;
+  font-size: 11px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.dark .lineNum {
+  color: #6C5B7B;
+}
+.light .lineNum {
+  color: #8874A3;
+}
+
+.lineCode {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
