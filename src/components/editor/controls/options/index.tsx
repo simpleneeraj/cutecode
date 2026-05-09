@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { Menu, MenuCheckboxItem, MenuPopup, MenuTrigger } from "@/components/ui/menu";
+import { Menu, MenuCheckboxItem, MenuItem, MenuPopup, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
 import { Settings2, Moon, Hash, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -9,11 +9,18 @@ import {
   elementShowLineNumbersAtom,
   elementTransparentAtom,
   updateSlideElementAtom,
+  resetEditorAtom,
 } from "@/store/editor/editor";
 import useHotkeys from "@/utils/useHotkeys";
+import { Icon } from "@iconify/react";
 
 const OptionsControl: React.FC = () => {
   const updateSlideElement = useSetAtom(updateSlideElementAtom);
+  const resetEditor = useSetAtom(resetEditorAtom);
+
+  const handleReset = useCallback(() => {
+    resetEditor();
+  }, [resetEditor]);
 
   const darkMode = useAtomValue(elementDarkModeAtom);
   const transparent = useAtomValue(elementTransparentAtom);
@@ -98,6 +105,18 @@ const OptionsControl: React.FC = () => {
               <span>Line Numbers</span>
             </div>
           </MenuCheckboxItem>
+
+          <MenuSeparator />
+
+          {/* Reset Storage */}
+          <MenuItem
+            onClick={handleReset}
+            className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-destructive data-highlighted:bg-destructive/10 data-highlighted:text-destructive"
+          >
+            <Icon icon={"solar:trash-bin-trash-bold"} />
+            <span>Reset Storage</span>
+            <code>12KB</code>
+          </MenuItem>
         </MenuPopup>
       </Menu>
     </Field>

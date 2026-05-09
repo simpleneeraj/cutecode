@@ -59,8 +59,8 @@ export function Header() {
           <FormatButton />
           <ExportButton />
           <ThemeSwitch />
-          <Separator orientation="vertical" className="h-5" />
-          <AuthControls />
+          {/* <Separator orientation="vertical" className="h-5" /> */}
+          {/* <AuthControls /> */}
         </div>
       </div>
     </header>
