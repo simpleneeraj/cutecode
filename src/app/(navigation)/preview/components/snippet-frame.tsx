@@ -29,7 +29,6 @@ export function SnippetFrame({ elementId, element, windowWidth }: SnippetFramePr
       name: (props?.language as string) || "TypeScript",
       value: (props?.language as string)?.toLowerCase() || "typescript",
     },
-    flashShown: false,
     windowWidth,
     code: (element.content as string) || "",
     exportSize: 2,
