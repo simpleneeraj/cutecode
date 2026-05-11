@@ -7,7 +7,6 @@ export interface BaseFrameProps {
   fileName: string;
   onFileNameChange: (name: string) => void;
   selectedLanguage: { name?: string; value?: string } | null;
-  flashShown: boolean;
   windowWidth: number | null;
   code: string;
   exportSize: number | null;

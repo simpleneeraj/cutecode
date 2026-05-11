@@ -27,7 +27,7 @@ import {
   fileNameAtom,
   windowWidthAtom,
 } from "@/store/editor/editor";
-import { derivedFlashMessageAtom } from "@/store/editor/flash";
+import { toast } from "@/components/toast";
 import { useAuth } from "@clerk/nextjs";
 import React, { useState } from "react";
 import SuccessDialog from "./success-dialog";
@@ -71,7 +71,6 @@ const PublishSnippet: React.FC = () => {
   const { description, visibility, passcode, isSuccessOpen, publishedUrl } = useAtomValue(publishSnippetAtom);
 
   const dispatch = useSetAtom(dispatchPublishSnippetAtom);
-  const setFlashMessage = useSetAtom(derivedFlashMessageAtom);
 
   const slideId = useAtomValue(currentSlideIdAtom);
   const elementId = useAtomValue(currentElementIdAtom);
@@ -96,15 +95,15 @@ const PublishSnippet: React.FC = () => {
 
   const publishSnippet = async () => {
     if (!isSignedIn) {
-      setFlashMessage({ message: "Please sign in to publish.", timeout: 3000 });
+      toast.error("Please sign in to publish.");
       return;
     }
     if (!slideId || !elementId) {
-      setFlashMessage({ message: "No element selected to publish.", timeout: 3000 });
+      toast.error("No element selected to publish.");
       return;
     }
     if (!editorState) {
-      setFlashMessage({ message: "Editor is still loading, please try again.", timeout: 3000 });
+      toast.error("Editor is still loading, please try again.");
       return;
     }
 
@@ -127,7 +126,7 @@ const PublishSnippet: React.FC = () => {
       dispatch({ publishedUrl: url, isSuccessOpen: true });
       await navigator.clipboard.writeText(url).catch(() => {});
     } catch {
-      setFlashMessage({ message: "Failed to publish snippet.", timeout: 3000 });
+      toast.error("Failed to publish snippet.");
     } finally {
       setIsPending(false);
     }

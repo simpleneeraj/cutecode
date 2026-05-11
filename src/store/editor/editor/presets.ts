@@ -3,7 +3,6 @@ import { currentElementAtom } from "./selection";
 import { themeBackgroundAtom } from "./theme";
 import { selectedLanguageAtom } from "./language";
 import { windowWidthAtom, exportSizeAtom } from "./ui";
-import { flashShownAtom } from "@/store/editor/flash";
 import { backgroundImageAtom } from "./slides";
 
 /*
@@ -39,7 +38,5 @@ export const presetsAtom = atom((get) => {
     windowWidth: get(windowWidthAtom),
     exportSize: get(exportSizeAtom),
 
-    // Flash slice
-    flashShown: get(flashShownAtom),
   };
 });

@@ -13,7 +13,6 @@ const TriggerdevFrame = ({
   fileName,
   onFileNameChange,
   selectedLanguage,
-  flashShown,
   children,
 }: BaseFrameProps) => {
   const showBackground = transparent;
@@ -53,7 +52,7 @@ const TriggerdevFrame = ({
             </div>
             <span className={styles.language}>{selectedLanguage?.name}</span>
           </div>
-        ) : flashShown ? null : (
+        ) : (
           <div className={styles.header} data-ignore-in-export>
             <div className={classNames(sharedStyles.fileName, styles.fileName)} data-value={fileName}>
               <input

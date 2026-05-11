@@ -9,8 +9,7 @@ import {
   DialogPopup,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useSetAtom } from "jotai";
-import { derivedFlashMessageAtom } from "@/store/editor/flash";
+import { toast } from "@/components/toast";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Icon } from "@iconify/react";
@@ -24,13 +23,12 @@ export default function SuccessDialog({
   setIsSuccessOpen: (open: boolean) => void;
   publishedUrl?: string;
 }) {
-  const setFlashMessage = useSetAtom(derivedFlashMessageAtom);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(publishedUrl ?? "").catch(() => {});
     setCopied(true);
-    setFlashMessage({ icon: <Icon icon="solar:copy-bold" />, message: "Copied!", timeout: 1500 });
+    toast.success("Copied to clipboard!");
     setTimeout(() => setCopied(false), 2000);
   };
 

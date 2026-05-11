@@ -10,7 +10,6 @@ const CloudflareFrame = ({
   fileName,
   onFileNameChange,
   selectedLanguage,
-  flashShown,
   children,
 }: BaseFrameProps) => {
   const showBackground = transparent;
@@ -44,7 +43,7 @@ const CloudflareFrame = ({
             </div>
             <span className={styles.language}>{selectedLanguage?.name}</span>
           </div>
-        ) : flashShown ? null : (
+        ) : (
           <div className={styles.header} data-ignore-in-export>
             <div className={classNames(sharedStyles.fileName, styles.fileName)} data-value={fileName}>
               <input

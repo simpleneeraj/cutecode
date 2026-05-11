@@ -13,7 +13,7 @@ import { Kbd, Kbds } from "@/components/kbd";
 import { Popover, PopoverDescription, PopoverPopup, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Group } from "@/components/ui/group";
-import { ChevronDownIcon, ClipboardIcon, ImageIcon, SparklesIcon } from "lucide-react";
+import { ChevronDownIcon, SparklesIcon } from "lucide-react";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Download02Icon } from "@hugeicons/core-free-icons";
 import PublishSnippet from "./publish-snippet";
 import { useEditorContext } from "@/store/editor/context/editor";
-import { derivedFlashMessageAtom, flashShownAtom } from "@/store/editor/flash";
+import { toast } from "@/components/toast";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { AccessLevel } from "@/typings/enums";
 import { Icon } from "@iconify/react";
@@ -43,10 +43,8 @@ const ExportButton: React.FC = () => {
   };
 
   const pngClipboardSupported = usePngClipboardSupported();
-  const setFlashShown = useSetAtom(flashShownAtom);
   const customFileName = useAtomValue(fileNameAtom);
   const setCustomFileName = useSetAtom(fileNameAtom);
-  const setFlashMessage = useSetAtom(derivedFlashMessageAtom);
   const exportSize = useAtomValue(exportSizeAtom);
   const setExportSize = useSetAtom(exportSizeAtom);
   const { checkAccess, withAccess } = usePremiumAccess();
@@ -58,15 +56,15 @@ const ExportButton: React.FC = () => {
 
   const savePng = async () => {
     const frame = getCurrentFrame();
-    setFlashMessage({ icon: <ImageIcon />, message: "Exporting PNG" });
+    const toastId = toast.loading("Exporting PNG…");
     const dataUrl = await toPng(frame, { pixelRatio: exportSize });
     download(dataUrl, `${fileName}.png`);
-    setFlashShown(false);
+    toast.dismiss(toastId);
   };
 
   const copyPng = async () => {
     const frame = getCurrentFrame();
-    setFlashMessage({ icon: <ClipboardIcon />, message: "Copying PNG" });
+    const toastId = toast.loading("Copying PNG…");
     const clipboardItem = new ClipboardItem({
       "image/png": toBlob(frame, { pixelRatio: exportSize }).then((blob) => {
         if (!blob) throw new Error("expected toBlob to return a blob");
@@ -74,15 +72,15 @@ const ExportButton: React.FC = () => {
       }),
     });
     await navigator.clipboard.write([clipboardItem]);
-    setFlashMessage({ icon: <ClipboardIcon />, message: "PNG Copied to clipboard!", timeout: 2000 });
+    toast.success("PNG copied to clipboard!", { id: toastId });
   };
 
   const saveSvg = async () => {
     const frame = getCurrentFrame();
-    setFlashMessage({ icon: <ImageIcon />, message: "Exporting SVG" });
+    const toastId = toast.loading("Exporting SVG…");
     const dataUrl = await toSvg(frame);
     download(dataUrl, `${fileName}.svg`);
-    setFlashShown(false);
+    toast.dismiss(toastId);
   };
 
   const handleExportClick: MouseEventHandler = (event) => {

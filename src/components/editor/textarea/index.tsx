@@ -11,7 +11,7 @@ import styles from "@/styles/editor/Editor.module.css";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import useHotkeys from "../../../utils/useHotkeys";
 import HighlightedCode from "./highlighted-code";
-import { derivedFlashMessageAtom } from "@/store/editor/flash";
+
 import { LANGUAGES } from "../util/languages";
 import { themes } from "../../presets/themes";
 import {
@@ -277,7 +277,6 @@ function JotaiEditor() {
 
   const [isCodeExample] = useAtom(isCodeExampleAtom);
   const updateSlideElement = useSetAtom(updateSlideElementAtom);
-  const setFlashMessage = useSetAtom(derivedFlashMessageAtom);
 
   const [isHighlightingLines, setIsHighlightingLines] = useState(false);
   const [showLineNumbers] = useAtom(themeLineNumbersAtom);

@@ -10,7 +10,6 @@ const GeminiFrame = ({
   transparent,
   fileName,
   onFileNameChange,
-  flashShown,
   children,
 }: BaseFrameProps) => {
   const showBackground = transparent;
@@ -44,7 +43,7 @@ const GeminiFrame = ({
               />
             </div>
           </div>
-        ) : flashShown ? null : (
+        ) : (
           <div className={styles.header} data-ignore-in-export>
             <div className={classNames(sharedStyles.fileName, styles.fileName)} data-value={fileName}>
               <input
