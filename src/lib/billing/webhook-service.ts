@@ -184,6 +184,17 @@ export class WebhookService {
         status: PaymentStatus.SUCCEEDED,
         subscriptionId: data.subscription_id ?? null,
       });
+    } else if (type === "payment.processing") {
+      const userId = await WebhookService.resolveUserId(data.customer.email);
+      await BillingService.recordPayment({
+        userId,
+        dodoPaymentId: data.payment_id,
+        idempotencyKey: `processing_${data.payment_id}`,
+        amount: data.amount ?? 0,
+        currency: data.currency ?? "USD",
+        status: PaymentStatus.PENDING,
+        subscriptionId: data.subscription_id ?? null,
+      });
     } else if (type === "payment.failed" || type === "payment.cancelled") {
       const userId = await WebhookService.resolveUserId(data.customer.email);
       await BillingService.recordPayment({
