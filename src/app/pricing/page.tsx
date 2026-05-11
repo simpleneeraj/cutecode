@@ -3,8 +3,9 @@ import { PLANS } from "@/lib/billing/plans";
 import { Plan } from "@/generated/prisma/client";
 
 export const metadata = {
-  title: "Pricing — CuteCode",
-  description: "Simple, transparent pricing for everyone.",
+  title: "Pricing — Affordable Plans for Every Developer",
+  description:
+    "CuteCode offers a free plan plus affordable Pro, Elite, and Ultimate tiers. Unlimited HD code screenshots, premium themes, and watermark-free exports.",
 };
 
 const PLAN_KEYS = [Plan.FREE, Plan.PRO, Plan.ELITE, Plan.ULTIMATE] as const;

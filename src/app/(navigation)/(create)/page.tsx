@@ -1,41 +1,49 @@
 import type { Metadata } from "next";
 
 import PageClient from "./page.client";
-import { BASE_URL } from "@/utils/common";
 
-const title = "Create beautiful images of your code";
+const SITE_URL = "https://www.cutecode.app";
+const OG_IMAGE = `${SITE_URL}/og-image.png`;
+
+// ── H1 copy: "Free Code Screenshot Tool — Create Beautiful Code Images"
+// Keep in sync with the heading on PageClient if you have one
+const title = "Free Code Screenshot Tool — Create Beautiful Code Images";
 const description =
-  "Turn your code into beautiful images. Choose from a range of syntax colors, hide or show the background, and toggle between a dark and light window.";
+  "CuteCode is a free online code screenshot tool. Paste your code, pick a theme, and export a stunning image in seconds. The best ray.so & carbon alternative.";
 
 export const metadata: Metadata = {
-  title: title,
-  description: description,
+  title,
+  description,
+  alternates: {
+    canonical: SITE_URL,
+  },
+  keywords: [
+    "code screenshot tool",
+    "code image generator",
+    "beautiful code screenshots",
+    "ray.so alternative",
+    "carbon alternative",
+    "code snippet to image",
+    "syntax highlighting screenshot",
+  ],
   openGraph: {
-    url: BASE_URL,
-    title: title,
-    description: description,
-    // images: [
-    //   {
-    //     url: ogUrl,
-    //     width: 1200,
-    //     height: 630,
-    //     alt: title,
-    //   },
-    // ],
+    url: SITE_URL,
+    title,
+    description,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: "CuteCode — Free Code Screenshot Tool",
+      },
+    ],
   },
   twitter: {
-    title: title,
-    description: description,
-    // images: [
-    //   {
-    //     url: ogUrl,
-    //     width: 1200,
-    //     height: 630,
-    //     alt: title,
-    //   },
-    // ],
+    title,
+    description,
+    images: [OG_IMAGE],
   },
-  keywords: "generate, create, convert, source, code, snippet, image, picture, share, export",
 };
 
 export default function Page() {

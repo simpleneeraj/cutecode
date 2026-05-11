@@ -4,8 +4,9 @@ import { TelescopeIcon } from "lucide-react";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 
 export const metadata: Metadata = {
-  title: "Explore | CuteCode",
-  description: "Explore the best code snippets and tools crafted for CuteCode.",
+  title: "Explore Code Screenshots — Discover Beautiful Code Snippets",
+  description:
+    "Browse beautiful code screenshots created by the CuteCode community. Get inspired by stunning code images across Python, JS, TypeScript, Rust, and more.",
 };
 
 export default function ExplorePage() {

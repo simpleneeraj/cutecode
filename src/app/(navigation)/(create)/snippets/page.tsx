@@ -4,8 +4,9 @@ import { CodeIcon } from "lucide-react";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 
 export const metadata: Metadata = {
-  title: "Snippets | CuteCode",
-  description: "Browse and discover awesome code snippets shared by the community.",
+  title: "My Snippets — Save & Share Code Screenshots",
+  description:
+    "Save, manage, and share your code screenshots in one place. Access your CuteCode snippets any time, from any device.",
 };
 
 export default function SnippetsPage() {
