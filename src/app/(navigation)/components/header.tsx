@@ -2,14 +2,12 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, Transition } from "motion/react";
-
-import ThemeSwitch from "@/components/theme-switch";
 import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs";
-import FormatButton from "@/components/editor/FormatCodeButton";
 import ExportButton from "@/components/editor/export";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
-import { AuthControls } from "./controls";
+import AuthControls from "./controls";
+import ThemeSwitch from "@/components/theme-switch";
 
 const tabs = [
   { label: "Create", value: "create", href: "/" },
@@ -56,11 +54,13 @@ export function Header() {
         </Tabs>
 
         <div className="flex flex-1 items-center justify-end gap-1.5">
-          <FormatButton />
           <ExportButton />
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
+          <Separator orientation="vertical" className="h-5" />
           {/* <Separator orientation="vertical" className="h-5" /> */}
           {/* <AuthControls /> */}
+
+          <AuthControls />
         </div>
       </div>
     </header>

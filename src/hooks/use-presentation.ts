@@ -1,5 +1,4 @@
 /**
- * hooks/usePresentation.ts
  *
  * SWR-backed hooks for all presentation procedures.
  * Components must NEVER call `trpc` directly — always use these hooks.
@@ -26,11 +25,9 @@ export type PresentationGetOutput = RouterOutput["presentation"]["get"];
 // ─────────────────────────────────────────────
 
 export function usePresentationList({ page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
-  return useSWR(
-    ["presentation.list", page, limit] as const,
-    () => trpc.presentation.list.query({ page, limit }),
-    { keepPreviousData: true }
-  );
+  return useSWR(["presentation.list", page, limit] as const, () => trpc.presentation.list.query({ page, limit }), {
+    keepPreviousData: true,
+  });
 }
 
 // ─────────────────────────────────────────────
@@ -38,10 +35,7 @@ export function usePresentationList({ page = 1, limit = 20 }: { page?: number; l
 // ─────────────────────────────────────────────
 
 export function usePresentation(id: string | null) {
-  return useSWR(
-    id ? (["presentation.get", id] as const) : null,
-    () => trpc.presentation.get.query({ id: id! })
-  );
+  return useSWR(id ? (["presentation.get", id] as const) : null, () => trpc.presentation.get.query({ id: id! }));
 }
 
 // ─────────────────────────────────────────────
@@ -77,7 +71,7 @@ export function usePresentationMutations() {
       slides?: Record<string, unknown>;
       elements?: Record<string, unknown>;
       slideElements?: Record<string, string[]>;
-    }
+    },
   ) => {
     const result = await trpc.presentation.sync.mutate({
       id,

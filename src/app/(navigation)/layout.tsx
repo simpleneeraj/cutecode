@@ -5,6 +5,7 @@ import editorFonts from "@/fonts/editor";
 import globalFonts from "@/fonts/global";
 import EditorProvider from "@/store/editor/providers/editor";
 import { EditorContextProvider } from "@/store/editor/context/editor";
+import PlansDialog from "@/components/editor/dialogs/plans";
 
 export default function NavigationLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export default function NavigationLayout({ children }: { children: React.ReactNo
       <EditorContextProvider>
         <View className={cn("h-screen flex flex-col", globalFonts, editorFonts)}>
           <main className="layout-fill">{children}</main>
+          <PlansDialog />
         </View>
       </EditorContextProvider>
     </EditorProvider>

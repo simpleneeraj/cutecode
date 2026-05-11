@@ -23,6 +23,14 @@ import { Download02Icon } from "@hugeicons/core-free-icons";
 import PublishSnippet from "./publish-snippet";
 import { useEditorContext } from "@/store/editor/context/editor";
 import { derivedFlashMessageAtom, flashShownAtom } from "@/store/editor/flash";
+import { usePremiumAccess } from "@/hooks/use-premium-access";
+import { AccessLevel } from "@/typings/enums";
+import { Icon } from "@iconify/react";
+import View from "@/components/view";
+import { Badge } from "@/components/ui/badge";
+import { BadgeVariant } from "@/typings/editor";
+
+const PREMIUM_SIZE_VALUES = [4, 6];
 
 const ExportButton: React.FC = () => {
   const { frameRefs } = useEditorContext();
@@ -41,14 +49,12 @@ const ExportButton: React.FC = () => {
   const setFlashMessage = useSetAtom(derivedFlashMessageAtom);
   const exportSize = useAtomValue(exportSizeAtom);
   const setExportSize = useSetAtom(exportSizeAtom);
+  const { checkAccess, withAccess } = usePremiumAccess();
 
   const fileName = customFileName.replaceAll(" ", "-") || "cutecode-export";
   const randomNameGenerator = () => {
     return "SNIPPET" + "-" + new Date().toISOString().split("T")[0];
   };
-
-  // ─── Image expor
-  // t helpers ──────────────────────────────────────────────────
 
   const savePng = async () => {
     const frame = getCurrentFrame();
@@ -84,6 +90,13 @@ const ExportButton: React.FC = () => {
     savePng();
   };
 
+  const onValueChange = (value: string | null) => {
+    const numValue = Number(value);
+    const isPremium = PREMIUM_SIZE_VALUES.includes(numValue);
+    const access = checkAccess(isPremium);
+    withAccess(access, () => setExportSize(numValue));
+  };
+
   useHotkeys("ctrl+s,cmd+s", (event) => {
     event.preventDefault();
     savePng();
@@ -94,7 +107,6 @@ const ExportButton: React.FC = () => {
       copyPng();
     }
   });
-
   useHotkeys("ctrl+shift+c,cmd+shift+c", (event) => {
     event.preventDefault();
   });
@@ -110,6 +122,7 @@ const ExportButton: React.FC = () => {
           <HugeiconsIcon icon={Download02Icon} />
           Export
         </Button>
+        <Separator orientation="vertical" />
         <Popover>
           <PopoverTrigger render={<Button aria-label="Export options" size="icon" variant="outline" />}>
             <ChevronDownIcon aria-hidden="true" />
@@ -137,46 +150,75 @@ const ExportButton: React.FC = () => {
                 </Group>
                 <FieldDescription>The name of the file that will be downloaded.</FieldDescription>
               </Field>
+
               <Field>
                 <FieldLabel>Size</FieldLabel>
+                <Select items={EXPORT_SIZE_OPTIONS} value={exportSize.toString()} onValueChange={onValueChange}>
+                  <SelectTrigger>
+                    {(() => {
+                      const current = EXPORT_SIZE_OPTIONS.find((s) => s.value === exportSize);
+                      const isPremium = PREMIUM_SIZE_VALUES.includes(exportSize);
+                      const access = checkAccess(isPremium);
 
-                <Select
-                  items={EXPORT_SIZE_OPTIONS}
-                  value={exportSize.toString()}
-                  onValueChange={(value) => setExportSize(Number(value))}
-                >
-                  <SelectTrigger>{EXPORT_SIZE_OPTIONS.find((size) => size.value === exportSize)?.label}</SelectTrigger>
+                      return (
+                        <span className="flex items-center gap-2">
+                          {current?.label}
+                          {isPremium && (
+                            <Badge
+                              size="sm"
+                              variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
+                              title={BadgeVariant.PREMIUM}
+                            >
+                              <Icon icon="solar:crown-bold" className="size-3" />
+                            </Badge>
+                          )}
+                        </span>
+                      );
+                    })()}
+                  </SelectTrigger>
                   <SelectPopup>
-                    {EXPORT_SIZE_OPTIONS.map((size) => (
-                      <SelectItem key={size.value} value={size.value.toString()}>
-                        {size.label}
-                      </SelectItem>
-                    ))}
+                    {EXPORT_SIZE_OPTIONS.map((size) => {
+                      const isPremium = PREMIUM_SIZE_VALUES.includes(size.value);
+                      const access = checkAccess(isPremium);
+                      const isLocked = access !== AccessLevel.ALLOWED;
+
+                      return (
+                        <SelectItem key={size.value} value={size.value.toString()}>
+                          <View className="flex items-center justify-between w-full">
+                            <span>{size.label}</span>
+                            {isPremium && (
+                              <Badge
+                                size="sm"
+                                variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
+                                title={BadgeVariant.PREMIUM}
+                              >
+                                <Icon icon={"solar:crown-bold"} className="size-3" />
+                              </Badge>
+                            )}
+                          </View>
+                        </SelectItem>
+                      );
+                    })}
                   </SelectPopup>
                 </Select>
                 <FieldDescription>The size of the image that will be downloaded.</FieldDescription>
               </Field>
+
               <Separator />
+
               <Button variant="ghost" onClick={savePng}>
-                <ImageIcon /> Save PNG
+                <Icon icon="solar:gallery-download-bold" className="size-4" />
+                Save PNG
                 <Kbds>
                   <Kbd>⌘</Kbd>
                   <Kbd>S</Kbd>
                 </Kbds>
               </Button>
 
-              {/* <Button variant="ghost" onClick={saveSvg}>
-                <ImageIcon /> Save SVG
-                <Kbds>
-                  <Kbd>⌘</Kbd>
-                  <Kbd>⇧</Kbd>
-                  <Kbd>S</Kbd>
-                </Kbds>
-              </Button> */}
-
               {pngClipboardSupported && (
                 <Button variant="ghost" onClick={copyPng}>
-                  <ClipboardIcon /> Copy Image
+                  <Icon icon="solar:copy-bold" className="size-4" />
+                  Copy Image
                   <Kbds>
                     <Kbd>⌘</Kbd>
                     <Kbd>C</Kbd>

@@ -1,14 +1,9 @@
 "use client";
 
-import React from "react";
-
+import { motion, AnimatePresence } from "motion/react";
 import { useUser } from "@clerk/nextjs";
 import { SignInButton } from "@clerk/nextjs";
-import { Fingerprint, CrownIcon, Loader2 } from "lucide-react";
-import { motion } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Crown03Icon } from "@hugeicons/core-free-icons";
-
+import { Fingerprint, Loader2, Zap, ImageIcon, Palette, Bookmark, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -18,203 +13,202 @@ import {
   DialogPopup,
   DialogTitle,
   DialogDescription,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { useSubscription } from "@/hooks/use-subscription";
-import { Plan } from "@/generated/prisma/enums";
+import { useAtom } from "jotai";
+import { Icon } from "@iconify/react";
 import { PLANS } from "@/lib/billing/plans";
 import useBilling from "@/hooks/use-billing";
-import { getRedirectUrlWithParam, removeSearchParam, hasSearchParam } from "@/utils/url";
-import { useAtom } from "jotai";
-import { locationAtom, plansDialogOpenAtom } from "@/store/editor/plans-dialog";
+import { Plan } from "@/generated/prisma/enums";
+import { getRedirectUrlWithParam } from "@/utils/url";
+import { useSubscription } from "@/hooks/use-subscription";
+import { plansDialogOpenAtom } from "@/store/editor/plans-dialog";
 
 const PRO_PRODUCT_ID = process.env.NEXT_PUBLIC_DODO_PRODUCT_PRO;
 
-function PriceTag({ price, discountedPrice }: { price: number; discountedPrice: number }) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-baseline gap-2">
-        <span className="text-4xl font-bold bg-linear-to-br from-zinc-900 to-zinc-700 bg-clip-text text-transparent dark:from-white dark:to-zinc-300">
-          ${discountedPrice}
-        </span>
-        <span className="text-lg line-through text-zinc-400">${price}</span>
-      </div>
-
-      <div className="flex flex-col text-right">
-        <span className="text-sm font-medium">per month</span>
-        <span className="text-xs text-zinc-500">Cancel anytime</span>
-      </div>
-    </div>
-  );
+interface Props {
+  trigger?: React.ReactNode;
 }
 
-function ProFeatureList() {
-  const features = [
-    { icon: "✓", label: "Unlimited code exports" },
-    { icon: "✓", label: "HD image quality" },
-    { icon: "✓", label: "All premium themes" },
-    { icon: "✓", label: "No watermark" },
-    { icon: "✓", label: "Unlimited saved snippets" },
-  ];
-
-  return (
-    <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
-      {features.map((f) => (
-        <li key={f.label} className="flex items-center gap-2">
-          <span className="text-emerald-500 font-bold">{f.icon}</span>
-          {f.label}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-export default function PlansDialog() {
+export default function PlansDialog({ trigger }: Props) {
   const { isSignedIn, isLoaded } = useUser();
-  const { plan, isPro, isLoaded: subLoaded } = useSubscription();
-  const { openBilling, openPortal, isLoading } = useBilling();
+  const { isLoaded: subLoaded } = useSubscription();
+  const { openBilling, isLoading } = useBilling();
 
   const proPlan = PLANS[Plan.PRO];
-  // Global open state
   const [open, setOpen] = useAtom(plansDialogOpenAtom);
 
-  // Auto-open after sign-in via ?upgrade=true
-  const [loc, setLoc] = useAtom(locationAtom);
-
-  React.useEffect(() => {
-    if (!isLoaded || !isSignedIn) return;
-    if (hasSearchParam(loc.searchParams, "upgrade", "true")) {
-      setOpen(true);
-      // Clean ?upgrade=true from URL without adding a history entry
-      setLoc((prev) => ({
-        ...prev,
-        searchParams: removeSearchParam(prev.searchParams, "upgrade"),
-      }));
-    }
-  }, [isLoaded, isSignedIn, loc.searchParams, setOpen, setLoc]);
-
-  async function handleUpgradeClick() {
+  async function onUpgradePlan() {
     await openBilling(PRO_PRODUCT_ID);
   }
 
   const loading = !isLoaded || !subLoaded || isLoading;
 
-  if (isLoaded && isPro) {
-    return (
-      <Button variant="outline" size="sm" onClick={openPortal} className="gap-1.5">
-        <HugeiconsIcon icon={Crown03Icon} className="size-4 text-amber-500" />
-        {plan} Plan
-      </Button>
-    );
-  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button />} className="gap-1.5">
-        <HugeiconsIcon icon={Crown03Icon} />
-        Upgrade to Pro
-      </DialogTrigger>
+      {trigger}
+      <DialogPopup className="sm:max-w-md rounded-2xl overflow-hidden">
+        {/* Ambient glow strip at top */}
+        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-500/60 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-amber-500/8 to-transparent pointer-events-none" />
 
-      <DialogPopup className="sm:max-w-md rounded-2xl">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-xl">
-            <CrownIcon className="size-18 text-amber-500" />
+        <DialogHeader className="relative">
+          <DialogTitle className="flex items-center gap-2.5 text-xl">
+            <motion.div
+              className="flex size-8 items-center justify-center rounded-xl bg-linear-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/30"
+              animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
+              transition={{ duration: 3, repeat: Infinity, repeatDelay: 5, ease: "easeInOut" }}
+            >
+              <Icon icon="solar:crown-star-bold" className="size-4 text-white" />
+            </motion.div>
             Upgrade to Pro
           </DialogTitle>
-
           <DialogDescription>
             Unlock premium features and export high-quality code images without limits.
           </DialogDescription>
         </DialogHeader>
 
-        <DialogPanel className="space-y-6">
+        <DialogPanel className="space-y-5 relative">
           <PriceTag price={proPlan.price * 2} discountedPrice={proPlan.price} />
+          <div className="h-px bg-border" />
           <ProFeatureList />
         </DialogPanel>
 
-        <DialogFooter className="flex-1">
-          <div className="flex-1 flex flex-col gap-3">
+        <DialogFooter className="flex-1 relative">
+          <div className="flex-1 flex flex-col gap-2">
             {!isSignedIn ? (
-              <SignInButton mode="modal" forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}>
-                <button
+              <SignInButton forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}>
+                <Button
                   type="button"
-                  className="group relative inline-flex h-10 w-full items-center justify-center overflow-hidden rounded-xl bg-linear-to-r from-rose-500 to-pink-500 font-semibold text-sm text-white tracking-wide shadow-lg shadow-rose-500/20 transition-all duration-500 hover:from-rose-600 hover:to-pink-600 hover:shadow-rose-500/30 hover:shadow-xl dark:from-rose-600 dark:to-pink-600 dark:hover:from-rose-500 dark:hover:to-pink-500"
+                  className="w-full relative overflow-hidden bg-linear-to-r from-amber-500 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:from-amber-400 hover:to-orange-400 transition-shadow"
                 >
                   <motion.span
-                    className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
-                    transition={{ duration: 1.5, ease: "easeInOut", repeat: 0 }}
+                    className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/25 to-transparent"
                     whileHover={{ x: ["-200%", "200%"] }}
+                    transition={{ duration: 1.2, ease: "easeInOut" }}
                   />
                   <motion.div
+                    className="relative flex items-center gap-2 tracking-tight"
                     animate={{ opacity: 1 }}
-                    className="relative flex items-center gap-2 tracking-tighter"
                     initial={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
                   >
                     Sign in to upgrade
                     <motion.div
                       animate={{ rotate: [0, 15, -15, 0], y: [0, -2, 2, 0] }}
-                      transition={{ duration: 2, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY, repeatDelay: 1 }}
+                      transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
                     >
-                      <Fingerprint className="h-4 w-4" />
+                      <Fingerprint className="size-4" />
                     </motion.div>
                   </motion.div>
-                </button>
+                </Button>
               </SignInButton>
             ) : (
-              <button
+              <Button
                 type="button"
                 disabled={loading}
-                onClick={handleUpgradeClick}
-                className="group relative inline-flex h-10 w-full items-center justify-center overflow-hidden rounded-xl bg-linear-to-r from-rose-500 to-pink-500 font-semibold text-sm text-white tracking-wide shadow-lg shadow-rose-500/20 transition-all duration-500 hover:from-rose-600 hover:to-pink-600 hover:shadow-rose-500/30 hover:shadow-xl dark:from-rose-600 dark:to-pink-600 dark:hover:from-rose-500 dark:hover:to-pink-500 disabled:opacity-60 disabled:cursor-not-allowed"
+                onClick={onUpgradePlan}
+                className="w-full relative overflow-hidden bg-linear-to-r from-amber-500 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:from-amber-400 hover:to-orange-400 transition-shadow"
               >
-                {loading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <>
+                <AnimatePresence mode="wait">
+                  {loading ? (
                     <motion.span
-                      className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
-                      transition={{ duration: 1.5, ease: "easeInOut", repeat: 0 }}
-                      whileHover={{ x: ["-200%", "200%"] }}
-                    />
-                    <motion.div
-                      animate={{ opacity: 1 }}
-                      className="relative flex items-center gap-2 tracking-tighter"
+                      key="loading"
                       initial={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15 }}
                     >
+                      <Loader2 className="size-4 animate-spin" />
+                    </motion.span>
+                  ) : (
+                    <motion.div
+                      key="cta"
+                      className="relative flex items-center gap-2 tracking-tight"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.15 }}
+                    >
+                      <motion.span
+                        className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/25 to-transparent"
+                        whileHover={{ x: ["-200%", "200%"] }}
+                        transition={{ duration: 1.2, ease: "easeInOut" }}
+                      />
                       Subscribe now
                       <motion.div
                         animate={{ rotate: [0, 15, -15, 0], y: [0, -2, 2, 0] }}
-                        transition={{
-                          duration: 2,
-                          ease: "easeInOut",
-                          repeat: Number.POSITIVE_INFINITY,
-                          repeatDelay: 1,
-                        }}
+                        transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
                       >
-                        <Fingerprint className="h-4 w-4" />
+                        <Fingerprint className="size-4" />
                       </motion.div>
                     </motion.div>
-                  </>
-                )}
-              </button>
+                  )}
+                </AnimatePresence>
+              </Button>
             )}
 
-            <Button
-              variant="link"
-              onClick={() => {
-                setOpen(false);
-                setLoc((prev) => ({
-                  ...prev,
-                  searchParams: removeSearchParam(prev.searchParams, "upgrade"),
-                }));
-              }}
-            >
+            <Button variant="link" className="text-muted-foreground text-xs" onClick={() => setOpen(false)}>
               Maybe later
             </Button>
           </div>
         </DialogFooter>
       </DialogPopup>
     </Dialog>
+  );
+}
+
+// ─── Price Tag ────────────────────────────────────────────────────────────────
+
+function PriceTag({ price, discountedPrice }: { price: number; discountedPrice: number }) {
+  return (
+    <div className="flex items-center justify-between gap-4 rounded-xl bg-muted/50 border border-border px-4 py-3">
+      <div className="flex items-baseline gap-2">
+        <span className="text-4xl font-bold tracking-tighter bg-linear-to-br from-zinc-900 to-zinc-600 bg-clip-text text-transparent dark:from-white dark:to-zinc-300">
+          ${discountedPrice}
+        </span>
+        <span className="text-base line-through text-muted-foreground">${price}</span>
+      </div>
+      <div className="flex flex-col items-end gap-1">
+        <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-500">
+          50% off
+        </span>
+        <span className="text-xs text-muted-foreground">per month · cancel anytime</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── Feature List ─────────────────────────────────────────────────────────────
+
+const features = [
+  { icon: Zap, label: "Unlimited code exports", sub: "No daily limits, ever" },
+  { icon: ImageIcon, label: "HD & Ultra HD quality", sub: "Up to 6× resolution" },
+  { icon: Palette, label: "All premium themes & fonts", sub: "Exclusive editor styles" },
+  { icon: Bookmark, label: "Unlimited saved snippets", sub: "Never lose your work" },
+  { icon: Sparkles, label: "No watermark", sub: "Clean, professional exports" },
+];
+
+function ProFeatureList() {
+  return (
+    <ul className="space-y-1">
+      {features.map((f, i) => (
+        <motion.li
+          key={f.label}
+          className="flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-muted/50"
+          initial={{ opacity: 0, x: -6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.04 * i, duration: 0.25 }}
+        >
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-amber-500/10">
+            <f.icon className="size-3.5 text-amber-500" />
+          </span>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium leading-none">{f.label}</p>
+            <p className="mt-0.5 text-xs text-muted-foreground">{f.sub}</p>
+          </div>
+          <Icon icon="solar:check-circle-bold" className="size-4 shrink-0 text-emerald-500" />
+        </motion.li>
+      ))}
+    </ul>
   );
 }

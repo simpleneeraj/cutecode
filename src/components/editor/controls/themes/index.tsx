@@ -1,4 +1,4 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import React, { useMemo } from "react";
 import { Icon } from "@iconify/react";
 import {
@@ -19,22 +19,21 @@ import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
 import { Theme, IconType, BadgeVariant } from "@/typings/editor";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { elementThemeAtom, updateSlideElementAtom } from "@/store/editor/editor";
-import { Button } from "@/components/ui/button";
-import View from "@/components/view";
-import { groupThemes } from "@/components/presets/themes/shared";
-import { themes } from "@/components/presets/themes";
 import { cn } from "@/utils/cn";
+import { useSetAtom } from "jotai";
+import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { themes } from "@/components/presets/themes";
+import { usePremiumAccess } from "@/hooks/use-premium-access";
+import { groupThemes } from "@/components/presets/themes/shared";
+import { AccessLevel } from "@/typings/enums";
 
 interface ThemeIconProps {
   theme: Theme;
   className?: string;
 }
 
-/**
- * Enterprise-grade component to render theme icons.
- * Uses the strictly typed `icon` object to render the appropriate component.
- */
 function ThemeIcon({ theme, className }: ThemeIconProps) {
   if (!theme.icon) {
     return (
@@ -46,15 +45,13 @@ function ThemeIcon({ theme, className }: ThemeIconProps) {
       />
     );
   }
-
   if (theme.icon.type === IconType.IMAGE) {
     return <img src={theme.icon.source} alt={`${theme.name} icon`} className={className} />;
   }
-
   return <Icon icon={theme.icon.source} className={className} />;
 }
 
-function Badges({ tags }: { tags?: Theme["tags"] }) {
+function Badges({ tags, access }: { tags?: Theme["tags"]; access: AccessLevel }) {
   return (
     <>
       {tags?.includes(BadgeVariant.NEW) && (
@@ -69,8 +66,8 @@ function Badges({ tags }: { tags?: Theme["tags"] }) {
         </Badge>
       )}
       {tags?.includes(BadgeVariant.PREMIUM) && (
-        <Badge title={BadgeVariant.PREMIUM} className="text-xs" size="sm" variant="warning">
-          <Icon icon="solar:crown-bold" className="size-3" />
+        <Badge size="sm" variant={access === AccessLevel.ALLOWED ? "outline" : "warning"} title={BadgeVariant.PREMIUM}>
+          <Icon icon={"solar:crown-bold"} className="size-3" />
         </Badge>
       )}
     </>
@@ -82,13 +79,17 @@ const ThemeControl: React.FC = () => {
   const themeId = useAtomValue(elementThemeAtom);
 
   const groupedThemes = useMemo(() => groupThemes(themes), []);
-
   const allThemes = useMemo(() => Object.values(themes), []);
+  const currentTheme = useMemo(() => allThemes.find((t) => t.id === themeId) ?? allThemes[0], [themeId, allThemes]);
 
-  const currentTheme = useMemo(() => {
-    return allThemes.find((t) => t.id === themeId) ?? allThemes[0];
-  }, [themeId, allThemes]);
+  const { checkAccess, withAccess } = usePremiumAccess();
 
+  const onValueChange = (theme: Theme | null) => {
+    if (!theme) return;
+    const isPremium = theme.tags?.includes(BadgeVariant.PREMIUM) ?? false;
+    const access = checkAccess(isPremium);
+    withAccess(access, () => update({ properties: { theme: theme.id } }));
+  };
   return (
     <Field>
       <FieldLabel>
@@ -97,7 +98,7 @@ const ThemeControl: React.FC = () => {
       <Combobox<Theme>
         items={groupedThemes}
         value={currentTheme}
-        onValueChange={(theme) => update({ properties: { theme: theme?.id } })}
+        onValueChange={onValueChange}
         itemToStringLabel={(theme) => theme?.name ?? ""}
         isItemEqualToValue={(item, selected) => item.id === selected.id}
       >
@@ -131,15 +132,18 @@ const ThemeControl: React.FC = () => {
                 <ComboboxGroup items={group.items}>
                   <ComboboxGroupLabel>{group.value}</ComboboxGroupLabel>
                   <ComboboxCollection>
-                    {(theme) => (
-                      <ComboboxItem key={theme.id} value={theme}>
-                        <View className="flex flex-row items-center gap-2 text-start">
-                          <ThemeIcon theme={theme} className="size-3.5" />
-                          {theme.name}
-                          <Badges tags={theme?.tags} />
-                        </View>
-                      </ComboboxItem>
-                    )}
+                    {(theme) => {
+                      const isPremium = theme.tags?.includes(BadgeVariant.PREMIUM) ?? false;
+                      return (
+                        <ComboboxItem key={theme.id} value={theme}>
+                          <View className="flex flex-row items-center gap-2 text-start">
+                            <ThemeIcon theme={theme} className="size-3.5" />
+                            {theme.name}
+                            <Badges tags={theme?.tags} access={checkAccess(isPremium)} />
+                          </View>
+                        </ComboboxItem>
+                      );
+                    }}
                   </ComboboxCollection>
                   {group?.separator && <ComboboxSeparator />}
                 </ComboboxGroup>

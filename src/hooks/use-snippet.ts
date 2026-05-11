@@ -1,5 +1,4 @@
 /**
- * hooks/useSnippet.ts
  *
  * SWR-backed hooks for all snippet procedures.
  * Components must NEVER call `trpc` directly — always use these hooks.
@@ -31,11 +30,9 @@ export type SnippetAddCommentOutput = RouterOutput["snippet"]["addComment"];
 // ─────────────────────────────────────────────
 
 export function useSnippetList({ page = 1, limit = 20 }: { page?: number; limit?: number } = {}) {
-  return useSWR(
-    ["snippet.list", page, limit] as const,
-    () => trpc.snippet.list.query({ page, limit }),
-    { keepPreviousData: true }
-  );
+  return useSWR(["snippet.list", page, limit] as const, () => trpc.snippet.list.query({ page, limit }), {
+    keepPreviousData: true,
+  });
 }
 
 // ─────────────────────────────────────────────
@@ -43,10 +40,7 @@ export function useSnippetList({ page = 1, limit = 20 }: { page?: number; limit?
 // ─────────────────────────────────────────────
 
 export function useSnippet(id: string | null) {
-  return useSWR(
-    id ? (["snippet.get", id] as const) : null,
-    () => trpc.snippet.get.query({ id: id! })
-  );
+  return useSWR(id ? (["snippet.get", id] as const) : null, () => trpc.snippet.get.query({ id: id! }));
 }
 
 // ─────────────────────────────────────────────
@@ -54,9 +48,8 @@ export function useSnippet(id: string | null) {
 // ─────────────────────────────────────────────
 
 export function useSnippetComments(snippetId: string | null, cursor?: string) {
-  return useSWR(
-    snippetId ? (["snippet.comments", snippetId, cursor ?? null] as const) : null,
-    () => trpc.snippet.listComments.query({ snippetId: snippetId!, cursor })
+  return useSWR(snippetId ? (["snippet.comments", snippetId, cursor ?? null] as const) : null, () =>
+    trpc.snippet.listComments.query({ snippetId: snippetId!, cursor }),
   );
 }
 

@@ -1,5 +1,4 @@
 /**
- * hooks/useShareLink.ts
  *
  * SWR-backed hooks for all share-link procedures.
  * Components must NEVER call `trpc` directly — always use these hooks.
@@ -35,9 +34,8 @@ export function useShareLinkList({
   snippetId?: string;
   presentationId?: string;
 } = {}) {
-  return useSWR(
-    ["shareLink.list", snippetId ?? null, presentationId ?? null] as const,
-    () => trpc.shareLink.list.query({ snippetId, presentationId })
+  return useSWR(["shareLink.list", snippetId ?? null, presentationId ?? null] as const, () =>
+    trpc.shareLink.list.query({ snippetId, presentationId }),
   );
 }
 
@@ -45,10 +43,7 @@ export function useShareLinkList({
 // useShareLinkPreview
 // ─────────────────────────────────────────────
 
-export function useShareLinkPreview(
-  slug: string | null,
-  { passcode, ip }: { passcode?: string; ip?: string } = {}
-) {
+export function useShareLinkPreview(slug: string | null, { passcode, ip }: { passcode?: string; ip?: string } = {}) {
   return useSWR(
     slug ? (["shareLink.preview", slug, passcode ?? null] as const) : null,
     () => trpc.shareLink.preview.query({ slug: slug!, passcode, ip }),
@@ -56,7 +51,7 @@ export function useShareLinkPreview(
       refreshInterval: 30_000,
       revalidateOnFocus: false,
       dedupingInterval: 5_000,
-    }
+    },
   );
 }
 
@@ -65,10 +60,7 @@ export function useShareLinkPreview(
 // ─────────────────────────────────────────────
 
 export function useShareLinkAnalytics(id: string | null) {
-  return useSWR(
-    id ? (["shareLink.analytics", id] as const) : null,
-    () => trpc.shareLink.analytics.query({ id: id! })
-  );
+  return useSWR(id ? (["shareLink.analytics", id] as const) : null, () => trpc.shareLink.analytics.query({ id: id! }));
 }
 
 // ─────────────────────────────────────────────

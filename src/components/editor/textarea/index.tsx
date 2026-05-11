@@ -25,7 +25,7 @@ import {
   updateSlideElementAtom,
 } from "@/store/editor/editor";
 import { cn } from "@/utils/cn";
-import fonts from "@/fonts/editor/fonts.json";
+import fonts from "@/fonts/editor/fonts";
 
 /* ------------------------------- */
 /* Native insert (no execCommand)  */

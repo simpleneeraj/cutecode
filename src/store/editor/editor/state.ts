@@ -50,7 +50,7 @@ export const createDefaultElement = (): ElementType => ({
         { name: "Green", hex: "#21d854" },
       ],
       title: {
-        text: "app.swift",
+        text: "CuteCode.swift",
         icon: "https://raw.githubusercontent.com/simpleneeraj/vscode-material-icon-theme/main/icons/swift.svg",
       },
     },

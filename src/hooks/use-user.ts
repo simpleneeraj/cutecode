@@ -1,5 +1,4 @@
 /**
- * hooks/useUser.ts
  *
  * SWR-backed hooks for all user/social procedures.
  * Components must NEVER call `trpc` directly — always use these hooks.
@@ -32,7 +31,7 @@ export function useUserProfile(userId: string | null | undefined, ip?: string) {
   return useSWR(
     userId ? (["user.profile", userId, ip ?? null] as const) : null,
     () => trpc.user.profile.query({ userId: userId!, ip }),
-    { revalidateOnFocus: false, dedupingInterval: 10_000 }
+    { revalidateOnFocus: false, dedupingInterval: 10_000 },
   );
 }
 
@@ -44,7 +43,7 @@ export function useUserFollowers(userId: string | null | undefined, cursor?: str
   return useSWR(
     userId ? (["user.followers", userId, cursor ?? null] as const) : null,
     () => trpc.user.followers.query({ userId: userId!, cursor, ip }),
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false },
   );
 }
 
@@ -56,7 +55,7 @@ export function useUserFollowing(userId: string | null | undefined, cursor?: str
   return useSWR(
     userId ? (["user.following", userId, cursor ?? null] as const) : null,
     () => trpc.user.following.query({ userId: userId!, cursor, ip }),
-    { revalidateOnFocus: false }
+    { revalidateOnFocus: false },
   );
 }
 
@@ -70,9 +69,7 @@ export function useUserMutations() {
   const toggleFollow = async (targetUserId: string) => {
     const result = await trpc.user.toggleFollow.mutate({ targetUserId });
     // Revalidate profile cache for both parties
-    await mutate((key) =>
-      Array.isArray(key) && key[0] === "user.profile" && (key[1] === targetUserId)
-    );
+    await mutate((key) => Array.isArray(key) && key[0] === "user.profile" && key[1] === targetUserId);
     return result;
   };
 

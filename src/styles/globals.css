@@ -237,10 +237,6 @@ a {
   text-decoration: none;
 }
 
-button {
-  @apply cursor-default;
-}
-
 main {
   min-height: calc(100% - 50px);
 

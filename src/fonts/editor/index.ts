@@ -42,11 +42,11 @@ const commitMono = localFont({
   display: "swap",
 });
 
-const soehneMono = localFont({
-  src: "./soehne-mono-buch.woff2",
-  variable: "--font-soehne-mono",
-  display: "swap",
-});
+// const soehneMono = localFont({
+//   src: "./soehne-mono-buch.woff2",
+//   variable: "--font-soehne-mono",
+//   display: "swap",
+// });
 
 const cascadiaCode = localFont({
   src: "./cascadia-code/cascadia-code.woff2",
@@ -236,7 +236,7 @@ const fontVariables = cn(
   spaceMono.variable,
   dmMono.variable,
   commitMono.variable,
-  soehneMono.variable,
+  // soehneMono.variable,
   majorMonoDisplay.variable,
   googleSansCode.variable,
 );

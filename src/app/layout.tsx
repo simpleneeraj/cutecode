@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { Viewport } from "next";
 import { BASE_URL } from "@/utils/common";
 import { Toaster } from "@/components/toast";
-import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/tooltip";
 import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";

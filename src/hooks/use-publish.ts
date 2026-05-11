@@ -1,5 +1,4 @@
 /**
- * hooks/usePublish.ts
  *
  * SWR-backed hook for the publish procedure.
  * Components must NEVER call `trpc` directly — always use this hook.

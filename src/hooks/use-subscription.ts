@@ -23,16 +23,18 @@ export function useSubscription() {
 
   const planRank = PLAN_ORDER[plan] ?? 0;
 
-  const isPro = planRank >= PLAN_ORDER[Plan.PRO];
-  const isElite = planRank >= PLAN_ORDER[Plan.ELITE];
-  const isUltimate = plan === Plan.ULTIMATE;
-  const isFree = plan === Plan.FREE;
-
   /** True when payment has failed but the user is still in the grace window. */
   const isPastDue = subscriptionStatus === "PAST_DUE";
 
   /** True when the grace period has expired — access should be treated as FREE. */
   const isExpired = subscriptionStatus === "EXPIRED" || subscriptionStatus === "UNPAID";
+
+  // An expired subscription means the user has lost access even if plan metadata
+  // still says PRO — webhook may not have synced yet on the client.
+  const isPro = planRank >= PLAN_ORDER[Plan.PRO] && !isExpired;
+  const isElite = planRank >= PLAN_ORDER[Plan.ELITE] && !isExpired;
+  const isUltimate = plan === Plan.ULTIMATE && !isExpired;
+  const isFree = plan === Plan.FREE || isExpired;
 
   /**
    * Whether to show a "payment required" banner in the UI.

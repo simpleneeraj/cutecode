@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import View from "@/components/view";
-import { useShareLinkPreview } from "@/hooks/useShareLink";
+import { useShareLinkPreview } from "@/hooks/use-share-link";
 import { PasscodeGate } from "../../preview/components/passcode-gate";
 import { SnippetFrame } from "../../preview/components/snippet-frame";
 import BlackHoleLoader from "@/components/loader/black-hole";
@@ -33,7 +33,7 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
   if (requiresPasscode) {
     return (
       <View className="flex items-center justify-center p-4 bg-background border rounded-lg">
-         <PasscodeGate
+        <PasscodeGate
           passcode={passcode}
           invalidPasscode={!!submittedPasscode}
           onChange={setPasscode}
@@ -68,20 +68,15 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
           const element = elements?.[elId] as Record<string, unknown> | undefined;
           if (!element) return null;
           return (
-            <SnippetFrame
-              key={elId}
-              elementId={elId}
-              element={element}
-              windowWidth={rawPresentation?.width ?? 800}
-            />
+            <SnippetFrame key={elId} elementId={elId} element={element} windowWidth={rawPresentation?.width ?? 800} />
           );
         })}
       </View>
 
       <View className="flex items-center justify-end px-2 pt-2 border-t mt-4">
-        <Link 
-          href="/" 
-          target="_blank" 
+        <Link
+          href="/"
+          target="_blank"
           className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity"
         >
           <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Powered by</span>

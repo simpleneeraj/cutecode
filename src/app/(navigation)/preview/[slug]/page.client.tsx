@@ -9,9 +9,9 @@ import { toast } from "@/components/toast";
 import { wallpaperOptions } from "../share/config";
 
 // ── tRPC hooks ────────────────────────────────────────────────────────────────
-import { useShareLinkPreview } from "@/hooks/useShareLink";
-import { useSnippetMutations } from "@/hooks/useSnippet";
-import { useUserProfile } from "@/hooks/useUser";
+import { useShareLinkPreview } from "@/hooks/use-share-link";
+import { useSnippetMutations } from "@/hooks/use-snippet";
+import { useUserProfile } from "@/hooks/use-user";
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 import { PasscodeGate } from "../components/passcode-gate";

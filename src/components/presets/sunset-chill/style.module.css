@@ -13,9 +13,6 @@
 /* ── Scene wrapper ── */
 .scene {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 24px;
   overflow: hidden;
   isolation: isolate;
@@ -23,12 +20,12 @@
 
 /* Dark mode — deep sunset dusk */
 .dark {
-  background: #150B24;
+  background: #150b24;
 }
 
 /* Light mode — golden hour */
 .light {
-  background: radial-gradient(ellipse at 35% 25%, #FFF5E1 0%, #FFDAB9 40%, #FFB6C1 100%);
+  background: radial-gradient(ellipse at 35% 25%, #fff5e1 0%, #ffdab9 40%, #ffb6c1 100%);
 }
 
 .transparent {
@@ -49,7 +46,7 @@
 .dark .blobPurple {
   width: 300px;
   height: 300px;
-  background: #2B1B4A;
+  background: #2b1b4a;
   top: -80px;
   left: -60px;
   opacity: 0.6;
@@ -57,7 +54,7 @@
 .dark .blobPink {
   width: 240px;
   height: 240px;
-  background: #962D59;
+  background: #962d59;
   bottom: -60px;
   right: -40px;
   opacity: 0.5;
@@ -65,7 +62,7 @@
 .dark .blobOrange {
   width: 200px;
   height: 200px;
-  background: #C95228;
+  background: #c95228;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -76,7 +73,7 @@
 .light .blobPurple {
   width: 320px;
   height: 320px;
-  background: #FFB6C1;
+  background: #ffb6c1;
   top: -90px;
   left: -70px;
   opacity: 0.5;
@@ -84,7 +81,7 @@
 .light .blobPink {
   width: 260px;
   height: 260px;
-  background: #FF8A5B;
+  background: #ff8a5b;
   bottom: -70px;
   right: -50px;
   opacity: 0.4;
@@ -92,7 +89,7 @@
 .light .blobOrange {
   width: 220px;
   height: 220px;
-  background: #FFE28A;
+  background: #ffe28a;
   top: 40%;
   left: 20%;
   opacity: 0.6;
@@ -114,8 +111,6 @@
   opacity: 0;
   box-shadow: 0 0 6px currentcolor;
 }
-
-
 
 /* ── Ambient floating icons ── */
 .ambientLayer {
@@ -152,7 +147,7 @@
 }
 
 .dark .window {
-  background: #1E1233;
+  background: #1e1233;
   box-shadow:
     0 0 0 1px rgba(201, 82, 40, 0.2),
     0 0 60px rgba(150, 45, 89, 0.15),
@@ -212,7 +207,6 @@
   border-radius: 50%;
   position: relative;
   cursor: default;
-  transition: transform 0.15s ease;
 }
 
 .dot:hover {
@@ -231,15 +225,15 @@
 }
 
 .dotA {
-  background: radial-gradient(circle at 35% 35%, #FF8A5B, #C95228);
+  background: radial-gradient(circle at 35% 35%, #ff8a5b, #c95228);
   box-shadow: 0 1px 4px rgba(201, 82, 40, 0.5);
 }
 .dotB {
-  background: radial-gradient(circle at 35% 35%, #FFE28A, #F1C40F);
+  background: radial-gradient(circle at 35% 35%, #ffe28a, #f1c40f);
   box-shadow: 0 1px 4px rgba(241, 196, 15, 0.4);
 }
 .dotC {
-  background: radial-gradient(circle at 35% 35%, #EA526F, #962D59);
+  background: radial-gradient(circle at 35% 35%, #ea526f, #962d59);
   box-shadow: 0 1px 4px rgba(150, 45, 89, 0.5);
 }
 
@@ -260,10 +254,10 @@
 }
 
 .dark .headerLabel {
-  color: #FFA62B;
+  color: #ffa62b;
 }
 .light .headerLabel {
-  color: #C95228;
+  color: #c95228;
 }
 
 .headerRight {
@@ -279,7 +273,7 @@
 }
 
 .dark .editor {
-  background: #180D2A;
+  background: #180d2a;
 }
 .light .editor {
   background: rgba(255, 252, 248, 0.95);
@@ -298,7 +292,6 @@
   gap: 16px;
   height: 28px;
   border-radius: 4px;
-  transition: background 0.15s ease;
 }
 
 .dark .codeLine:hover {
@@ -310,7 +303,7 @@
 
 /* Active line highlight */
 .codeLineActive {
-  border-left: 2px solid #FFA62B;
+  border-left: 2px solid #ffa62b;
   padding-left: 6px;
   margin-left: -8px;
 }
@@ -332,10 +325,10 @@
 }
 
 .dark .lineNum {
-  color: #6C5B7B;
+  color: #6c5b7b;
 }
 .light .lineNum {
-  color: #8874A3;
+  color: #8874a3;
 }
 
 .lineCode {
