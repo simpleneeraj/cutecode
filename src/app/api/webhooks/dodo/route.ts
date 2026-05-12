@@ -1,4 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
 import { Webhooks } from "@dodopayments/nextjs";
 import { WebhookService } from "@/lib/billing/webhook-service";
 import { AuditLogger } from "@/lib/billing/audit";
@@ -15,11 +14,14 @@ async function processWebhookEvent(payload: any) {
   const data = payload.data || payload;
 
   // Extract event ID and Type securely
+  // Build a STABLE fallback event ID — never include Date.now() or any
+  // timestamp here.  A timestamp would make every Dodo retry look like a
+  // brand-new event, defeating idempotency and bypassing the cron retry queue.
   const eventId =
     data.event_id ??
     payload.id ??
     payload.eventId ??
-    `fallback_${data.subscription_id ?? data.payment_id ?? "unknown"}_${Date.now()}`;
+    `fallback_${data.payment_id ?? data.subscription_id ?? "unknown"}`;
 
   const eventType = payload.type ?? payload.event_type ?? data.type ?? "unknown";
 

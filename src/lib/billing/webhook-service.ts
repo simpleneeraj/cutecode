@@ -250,8 +250,21 @@ export class WebhookService {
       where: { dodoSubscriptionId },
       select: { id: true },
     });
-    // Throw to leverage webhook retry mechanism if payment arrives before subscription
-    if (!sub) throw new Error(`[WebhookService] Subscription ${dodoSubscriptionId} not found. Deferring payment processing.`);
+    if (!sub) {
+      // This is a known race condition: a payment.* event can arrive before
+      // the subscription.active webhook is processed, so the Subscription row
+      // doesn't exist yet.  Throwing here causes process() to store an
+      // errorMessage, which the retryFailed() cron will pick up after backoff.
+      // The stable fallback event ID in route.ts ensures Dodo's own retries
+      // are also idempotent and do NOT create duplicate webhookEvent rows.
+      logger.warn(
+        { dodoSubscriptionId },
+        `[WebhookService] Subscription ${dodoSubscriptionId} not found — payment event will be retried by cron after subscription lands`,
+      );
+      throw new Error(
+        `[WebhookService] Subscription ${dodoSubscriptionId} not found. Deferring payment processing.`,
+      );
+    }
     return sub.id;
   }
 }
