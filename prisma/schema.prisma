@@ -248,7 +248,7 @@ model UsageEvent {
 model AuditLog {
   id        String      @id @default(cuid())
   userId    String?
-  user      User?       @relation(fields: [userId], references: [id])
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
   action    AuditAction
   metadata  Json?
   ipHash    String?
@@ -261,7 +261,7 @@ model AuditLog {
 model DunningAttempt {
   id             String       @id
   userId         String
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   subscriptionId String
   subscription   Subscription @relation(fields: [subscriptionId], references: [id])
 

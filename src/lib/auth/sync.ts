@@ -25,8 +25,8 @@ export async function syncClerkUser(params: { clerkId: string; email: string; na
  * Subscription and snippets are cascade-deleted by Prisma.
  */
 export async function deleteClerkUser(clerkId: string) {
-  return prisma.user.delete({ where: { clerkId } }).catch(() => {
-    // Ignore if already deleted
+  return prisma.user.delete({ where: { clerkId } }).catch((error) => {
+    console.error(`Failed to delete user ${clerkId} from DB:`, error);
   });
 }
 
