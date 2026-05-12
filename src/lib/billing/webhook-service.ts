@@ -175,6 +175,7 @@ export class WebhookService {
       });
     } else if (type === "payment.succeeded") {
       const userId = await WebhookService.resolveUserId(data.customer.email);
+      const subscriptionId = await WebhookService.resolveSubscriptionId(data.subscription_id);
       await BillingService.recordPayment({
         userId,
         dodoPaymentId: data.payment_id,
@@ -182,10 +183,11 @@ export class WebhookService {
         amount: data.amount ?? 0,
         currency: data.currency ?? "USD",
         status: PaymentStatus.SUCCEEDED,
-        subscriptionId: data.subscription_id ?? null,
+        subscriptionId,
       });
     } else if (type === "payment.processing") {
       const userId = await WebhookService.resolveUserId(data.customer.email);
+      const subscriptionId = await WebhookService.resolveSubscriptionId(data.subscription_id);
       await BillingService.recordPayment({
         userId,
         dodoPaymentId: data.payment_id,
@@ -193,10 +195,11 @@ export class WebhookService {
         amount: data.amount ?? 0,
         currency: data.currency ?? "USD",
         status: PaymentStatus.PENDING,
-        subscriptionId: data.subscription_id ?? null,
+        subscriptionId,
       });
     } else if (type === "payment.failed" || type === "payment.cancelled") {
       const userId = await WebhookService.resolveUserId(data.customer.email);
+      const subscriptionId = await WebhookService.resolveSubscriptionId(data.subscription_id);
       await BillingService.recordPayment({
         userId,
         dodoPaymentId: data.payment_id,
@@ -204,7 +207,7 @@ export class WebhookService {
         amount: data.amount ?? 0,
         currency: data.currency ?? "USD",
         status: PaymentStatus.FAILED,
-        subscriptionId: data.subscription_id ?? null,
+        subscriptionId,
       });
     } else if (type === "refund.succeeded") {
       await BillingService.applyRefund({
@@ -239,5 +242,16 @@ export class WebhookService {
     });
     if (!user) throw new Error(`[WebhookService] No user for email: ${email}`);
     return user.id;
+  }
+
+  private static async resolveSubscriptionId(dodoSubscriptionId?: string | null): Promise<string | null> {
+    if (!dodoSubscriptionId) return null;
+    const sub = await prisma.subscription.findUnique({
+      where: { dodoSubscriptionId },
+      select: { id: true },
+    });
+    // Throw to leverage webhook retry mechanism if payment arrives before subscription
+    if (!sub) throw new Error(`[WebhookService] Subscription ${dodoSubscriptionId} not found. Deferring payment processing.`);
+    return sub.id;
   }
 }
