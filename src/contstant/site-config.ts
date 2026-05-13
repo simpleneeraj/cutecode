@@ -1,5 +1,5 @@
 const siteConfig = {
-  name: "cutecode",
+  name: "CuteCode",
 };
 
 export default siteConfig;

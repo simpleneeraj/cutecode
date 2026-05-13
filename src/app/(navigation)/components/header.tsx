@@ -7,12 +7,12 @@ import ExportButton from "@/components/editor/export";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
 import AuthControls from "./controls";
-import ThemeSwitch from "@/components/theme-switch";
+import { track } from "@vercel/analytics";
 
 const tabs = [
-  { label: "Create", value: "create", href: "/" },
-  { label: "Explore", value: "explore", href: "/explore" },
-  { label: "Snippets", value: "snippets", href: "/snippets" },
+  { label: "Create", value: "Create", href: "/" },
+  { label: "Explore", value: "Explore", href: "/explore" },
+  { label: "Snippets", value: "Snippets", href: "/snippets" },
 ] as const;
 
 const transition: Transition = { duration: 0.2, ease: "easeOut" };
@@ -35,7 +35,7 @@ export function Header() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 6 }}
                 transition={transition}
-                className="text-muted-foreground/60 lowercase font-heading text-xl sm:text-[1.625em] leading-none"
+                className="text-muted-foreground/60 font-heading text-xl sm:text-[1.625em] leading-none"
               >
                 {activeTab.label}
               </motion.span>

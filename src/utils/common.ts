@@ -3,7 +3,7 @@ export type refProps = "snippets" | "share-links" | string;
 export const BASE_URL = {
   development: "http://localhost:3000",
   preview: `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`,
-  production: "https://cutecode.com",
+  production: "https://www.cutecode.app",
 }[process.env.NEXT_PUBLIC_VERCEL_ENV || "development"] as string;
 
 export async function shortenUrl(url: string, ref: refProps) {

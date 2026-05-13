@@ -5,7 +5,9 @@ import { Dialog, DialogTrigger, DialogPopup, DialogHeader, DialogTitle, DialogPa
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { useFollowers, useFollowing, type FollowUser } from "@/services/snippet";
+import { useUserFollowers, useUserFollowing, type UserFollowersOutput } from "@/hooks/use-user";
+
+export type FollowUser = UserFollowersOutput["users"][number];
 import FollowButton from "@/components/follow-button";
 import { Badge } from "@/components/ui/badge";
 
@@ -54,7 +56,7 @@ function FollowersList({ userId, currentUserId }: { userId: string; currentUserI
   const [cursor, setCursor] = useState<string | undefined>();
   const [allUsers, setAllUsers] = useState<FollowUser[]>([]);
   const [localNextCursor, setLocalNextCursor] = useState<string | null>(null);
-  const { data, isLoading } = useFollowers(userId, cursor);
+  const { data, isLoading } = useUserFollowers(userId, cursor);
 
   React.useEffect(() => {
     if (!data) return;
@@ -104,7 +106,7 @@ function FollowingList({ userId, currentUserId }: { userId: string; currentUserI
   const [cursor, setCursor] = useState<string | undefined>();
   const [allUsers, setAllUsers] = useState<FollowUser[]>([]);
   const [localNextCursor, setLocalNextCursor] = useState<string | null>(null);
-  const { data, isLoading } = useFollowing(userId, cursor);
+  const { data, isLoading } = useUserFollowing(userId, cursor);
 
   React.useEffect(() => {
     if (!data) return;

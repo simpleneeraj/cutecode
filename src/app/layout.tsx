@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/tooltip";
 import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";
 import JsonLd from "@/components/seo/json-ld";
+import { Analytics } from "@vercel/analytics/next";
 
 const title = "CuteCode — Free Code Screenshot & Image Generator Tool";
 const description =
@@ -13,16 +14,11 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-
-  // ── Title template: child pages get " | CuteCode" appended automatically
   title: {
     default: title,
     template: "%s | CuteCode",
   },
-
   description,
-
-  // ── Canonical & robots
   alternates: {
     canonical: BASE_URL,
   },
@@ -37,8 +33,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
-  // ── Keywords (Google doesn't weight these heavily, but Bing & others do)
   keywords: [
     "code screenshot tool",
     "code image generator",
@@ -53,8 +47,6 @@ export const metadata: Metadata = {
     "share code as image",
     "online code editor screenshot",
   ],
-
-  // ── Open Graph (shared links on Slack, Twitter, LinkedIn, etc.)
   openGraph: {
     type: "website",
     url: BASE_URL,
@@ -71,8 +63,6 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
   },
-
-  // ── Twitter / X card
   twitter: {
     card: "summary_large_image",
     site: "@cutecodeapp",
@@ -81,13 +71,10 @@ export const metadata: Metadata = {
     description,
     images: [`${BASE_URL}/og-image.png`],
   },
-
-  // ── App metadata
   applicationName: "CuteCode",
   category: "Developer Tools",
   creator: "CuteCode",
   publisher: "CuteCode",
-
   // ── Verification (add your tokens here once you verify ownership)
   // verification: {
   //   google: "YOUR_GOOGLE_SEARCH_CONSOLE_TOKEN",
@@ -115,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <TooltipProvider>
               <div className="isolate relative flex flex-col">{children}</div>
               <Toaster position="top-center" offset={70} duration={2000} />
+              <Analytics />
             </TooltipProvider>
           </ThemeProvider>
         </body>

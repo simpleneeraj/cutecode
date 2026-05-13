@@ -1,6 +1,5 @@
+import { BASE_URL } from "@/utils/common";
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://www.cutecode.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

@@ -3,9 +3,9 @@
 import React, { useState } from "react";
 import { Loader2, UserCheck, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useUserMutation, useUserProfile } from "@/services/snippet";
 import { toast } from "@/components/toast";
 import { cn } from "@/utils/cn";
+import { useUserMutations, useUserProfile } from "@/hooks/use-user";
 
 interface FollowButtonProps {
   /** DB user ID of the person to follow */
@@ -43,7 +43,9 @@ export function FollowButton({
   const [followerCount, setFollowerCount] = useState(initialFollowerCount);
   const [isHovering, setIsHovering] = useState(false);
 
-  const { toggleFollow, isFollowPending } = useUserMutation(targetUserId);
+  const [isFollowPending, setIsFollowPending] = useState(false);
+
+  const { toggleFollow } = useUserMutations();
   // Revalidate the public profile in the background after toggle
   const { mutate: mutateProfile } = useUserProfile(targetUserId);
 
@@ -55,7 +57,6 @@ export function FollowButton({
     e.stopPropagation();
     e.preventDefault();
 
-    console.log({ currentUserId });
     if (!currentUserId) {
       toast.error("Sign in to follow users.");
       return;
@@ -67,9 +68,10 @@ export function FollowButton({
     const next = !isFollowing;
     setIsFollowing(next);
     setFollowerCount((c) => c + (next ? 1 : -1));
+    setIsFollowPending(true);
 
     try {
-      const res = await toggleFollow();
+      const res = await toggleFollow(targetUserId);
       // Sync with server truth
       if (typeof res?.followerCount === "number") setFollowerCount(res.followerCount);
       setIsFollowing(res?.following ?? next);
@@ -79,6 +81,7 @@ export function FollowButton({
       setFollowerCount((c) => c + (!next ? 1 : -1));
       toast.error(next ? "Could not follow user." : "Could not unfollow user.");
     } finally {
+      setIsFollowPending(false);
       mutateProfile(); // refresh profile counts
     }
   };
