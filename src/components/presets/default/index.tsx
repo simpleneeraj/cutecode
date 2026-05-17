@@ -26,7 +26,7 @@ const DefaultFrame = ({
       )}
       style={{
         padding,
-        backgroundImage: transparent ? (backgroundImage ? `url("${backgroundImage}")` : themeBackground) : "",
+        backgroundImage: transparent ? themeBackground : "",
         backgroundSize: backgroundImage ? "cover" : undefined,
         backgroundPosition: backgroundImage ? "center" : undefined,
       }}

@@ -9,22 +9,6 @@ import { BaseFrameProps } from "@/typings/presets";
    Vibe     → golden hour, lo-fi beats, warm evening breezes
 ───────────────────────────────────────────────────────────── */
 
-/* ── Ambient icons — sunset aesthetic set ── */
-const AMBIENT_ICONS = [
-  { icon: "fluent-emoji:sunset", x: 6, y: 12, size: 24, dur: 11, delay: 0 },
-  { icon: "fluent-emoji:palm-tree", x: 86, y: 10, size: 22, dur: 13, delay: -2 },
-  { icon: "fluent-emoji:sun", x: 78, y: 80, size: 20, dur: 10, delay: -5 },
-  { icon: "fluent-emoji:glowing-star", x: 8, y: 70, size: 16, dur: 9, delay: -1 },
-  { icon: "fluent-emoji:tropical-drink", x: 45, y: 5, size: 18, dur: 12, delay: -7 },
-  { icon: "fluent-emoji:sparkles", x: 90, y: 45, size: 16, dur: 8, delay: -4 },
-  { icon: "fluent-emoji:crescent-moon", x: 4, y: 40, size: 20, dur: 14, delay: -3 },
-  { icon: "fluent-emoji:star", x: 55, y: 90, size: 14, dur: 9, delay: -6 },
-  { icon: "fluent-emoji:glowing-star", x: 22, y: 88, size: 16, dur: 11, delay: -2.5 },
-  { icon: "fluent-emoji:butterfly", x: 80, y: 25, size: 18, dur: 10, delay: -8 },
-  { icon: "fluent-emoji:sun-with-face", x: 38, y: 92, size: 18, dur: 12, delay: -4.5 },
-  { icon: "fluent-emoji:sparkles", x: 15, y: 22, size: 16, dur: 13, delay: -1.5 },
-] as const;
-
 /* ── Floating fireflies / embers ── */
 const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
   id: i,
@@ -38,7 +22,9 @@ const PARTICLES = Array.from({ length: 18 }, (_, i) => ({
 export default function SunsetChillFrame({ padding, darkMode, transparent, children }: BaseFrameProps) {
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(" ")}
+      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+        " ",
+      )}
       style={{ padding }}
     >
       {/* ── Atmospheric blobs ── */}
@@ -62,30 +48,6 @@ export default function SunsetChillFrame({ padding, darkMode, transparent, child
               animationDelay: `${p.delay}s`,
             }}
           />
-        ))}
-      </div>
-
-      {/* ── Floating ambient icons ── */}
-      <div className={styles.ambientLayer} aria-hidden>
-        {AMBIENT_ICONS.map((a, i) => (
-          <motion.span
-            key={i}
-            className={styles.ambientIcon}
-            style={{ left: `${a.x}%`, top: `${a.y}%` }}
-            animate={{
-              y: [0, -15, 0],
-              rotate: [0, i % 2 === 0 ? 10 : -10, 0],
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: a.dur,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: a.delay,
-            }}
-          >
-            <Icon icon={a.icon} width={a.size} height={a.size} />
-          </motion.span>
         ))}
       </div>
 

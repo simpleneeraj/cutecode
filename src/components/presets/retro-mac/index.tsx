@@ -23,7 +23,7 @@ const RetroMacFrame = ({
       className="relative transition-[padding] duration-200"
       style={{
         padding,
-        backgroundImage: transparent ? (backgroundImage ? `url("${backgroundImage}")` : themeBackground) : undefined,
+        backgroundImage: transparent ? themeBackground : undefined,
         backgroundSize: backgroundImage ? "cover" : undefined,
         backgroundPosition: backgroundImage ? "center" : undefined,
       }}
@@ -83,7 +83,7 @@ const RetroMacFrame = ({
               onChange={(e) => onFileNameChange(e.target.value)}
               spellCheck={false}
               tabIndex={-1}
-              className="border-none bg-transparent text-center text-[12.5px] font-[600] tracking-[0.15px] outline-none"
+              className="border-none bg-transparent text-center text-[12.5px] font-semibold tracking-[0.15px] outline-none"
               style={{
                 color: titleColor,
                 fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
@@ -92,7 +92,7 @@ const RetroMacFrame = ({
             {fileName.length === 0 && (
               <span
                 data-ignore-in-export
-                className="pointer-events-none absolute text-[12.5px] font-[600] tracking-[0.15px] opacity-60"
+                className="pointer-events-none absolute text-[12.5px] font-semibold tracking-[0.15px] opacity-60"
                 style={{
                   color: titleColor,
                   fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
