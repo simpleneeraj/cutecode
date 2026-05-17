@@ -17,10 +17,10 @@ import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "@/c
 import { Slider, SliderValue } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { PaletteIcon } from "lucide-react";
-import { COLORS } from "../../../../features/share/colors";
-import { PATTERNS, PATTERN_SIZE } from "../../../../features/share/patterns";
-import { useWallpaperOptions } from "../hooks/use-wallpaper-options";
+import { COLORS } from "@/features/share/colors";
+import { PATTERNS, PATTERN_SIZE } from "@/features/share/patterns";
 import View from "@/components/view";
+import { useWallpaperOptions } from "../../(view)/preview/hooks/use-wallpaper-options";
 
 export function ThemeCustomizationDrawer() {
   const { wallpaperOptions, updateWallpaperOptions, updatePatternOptions } = useWallpaperOptions();
