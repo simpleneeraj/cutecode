@@ -18,6 +18,7 @@ export function PreviewSnippetHeader({ title, children }: PreviewSnippetHeaderPr
     <header className="border-b bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60 z-50">
       <div className="flex h-16 items-center justify-between gap-4 px-4 md:px-6 max-w-3xl mx-auto w-full">
         <div className="flex flex-1 shrink-0 items-center gap-1.5">
+          <img src={siteConfig.logo} alt="" className="size-7" />
           <span className="font-heading text-xl sm:text-[1.625em] leading-none">{siteConfig.name}</span>
           <AnimatePresence mode="wait" initial={false}>
             <motion.span

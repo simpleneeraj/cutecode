@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const PreviewSnippetLayout = async ({ children }: React.PropsWithChildren) => {
   return (
     <View className="layout-fill relative flex-1 bg-transparent">
-      <PreviewSnippetHeader />
+      <PreviewSnippetHeader title="Preview" />
       {children}
     </View>
   );
