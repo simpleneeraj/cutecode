@@ -1,4 +1,5 @@
 import React, { MouseEventHandler } from "react";
+import { trackExport } from "@/lib/analytics";
 
 import download from "../util/download";
 import { toPng, toSvg, toBlob } from "../lib/image";
@@ -60,6 +61,7 @@ const ExportButton: React.FC = () => {
     const dataUrl = await toPng(frame, { pixelRatio: exportSize });
     download(dataUrl, `${fileName}.png`);
     toast.dismiss(toastId);
+    trackExport.pngSaved(fileName, exportSize);
   };
 
   const copyPng = async () => {
@@ -73,6 +75,7 @@ const ExportButton: React.FC = () => {
     });
     await navigator.clipboard.write([clipboardItem]);
     toast.success("PNG copied to clipboard!", { id: toastId });
+    trackExport.pngCopied(exportSize);
   };
 
   const saveSvg = async () => {
@@ -81,6 +84,7 @@ const ExportButton: React.FC = () => {
     const dataUrl = await toSvg(frame);
     download(dataUrl, `${fileName}.svg`);
     toast.dismiss(toastId);
+    trackExport.svgSaved(fileName);
   };
 
   const handleExportClick: MouseEventHandler = (event) => {
@@ -92,7 +96,10 @@ const ExportButton: React.FC = () => {
     const numValue = Number(value);
     const isPremium = PREMIUM_SIZE_VALUES.includes(numValue);
     const access = checkAccess(isPremium);
-    withAccess(access, () => setExportSize(numValue));
+    withAccess(access, () => {
+      setExportSize(numValue);
+      trackExport.sizeChanged(numValue, isPremium);
+    });
   };
 
   useHotkeys("ctrl+s,cmd+s", (event) => {

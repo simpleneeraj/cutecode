@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 import Frame from "@/components/editor/Frame";
 import Controls from "@/components/editor/controls";
 
-function PageClient() {
+export default function PageClient() {
   return (
     <div className={cn("app-code", "layout-scroll")}>
       <Frame />
@@ -12,5 +12,3 @@ function PageClient() {
     </div>
   );
 }
-
-export default PageClient;

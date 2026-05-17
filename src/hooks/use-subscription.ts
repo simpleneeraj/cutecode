@@ -1,8 +1,8 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Plan } from "@/generated/prisma/enums";
 import { PLAN_ORDER } from "@/lib/billing/plans";
+import { Plan, SubscriptionStatus } from "@/generated/prisma/enums";
 
 /**
  * Client-side subscription hook.
@@ -24,10 +24,11 @@ export function useSubscription() {
   const planRank = PLAN_ORDER[plan] ?? 0;
 
   /** True when payment has failed but the user is still in the grace window. */
-  const isPastDue = subscriptionStatus === "PAST_DUE";
+  const isPastDue = subscriptionStatus === SubscriptionStatus.PAST_DUE;
 
   /** True when the grace period has expired — access should be treated as FREE. */
-  const isExpired = subscriptionStatus === "EXPIRED" || subscriptionStatus === "UNPAID";
+  const isExpired =
+    subscriptionStatus === SubscriptionStatus.EXPIRED || subscriptionStatus === SubscriptionStatus.UNPAID;
 
   // An expired subscription means the user has lost access even if plan metadata
   // still says PRO — webhook may not have synced yet on the client.

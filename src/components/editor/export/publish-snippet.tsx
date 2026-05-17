@@ -13,8 +13,9 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Select, SelectItem, SelectPopup, SelectTrigger } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { OTPField, OTPFieldInput } from "@/components/ui/otp-field";
-import { Loader2 } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { dispatchPublishSnippetAtom, publishSnippetAtom } from "./store";
 import { Visibility } from "./types";
@@ -35,7 +36,8 @@ import { Icon } from "@iconify/react";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { AccessLevel } from "@/typings/enums";
 import { cn } from "@/utils/cn";
-import PremiumBadge from "@/app/(navigation)/preview/components/premium-badge";
+import PremiumBadge from "@/app/(navigation)/(view)/preview/components/premium-badge";
+import { trackSnippet } from "@/lib/analytics";
 
 const OTP_LENGTH = 6;
 const OTP_SLOTS = Array.from({ length: OTP_LENGTH }, (_, i) => `otp-slot-${i}`);
@@ -68,7 +70,8 @@ const PublishSnippet: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
-  const { description, visibility, passcode, isSuccessOpen, publishedUrl } = useAtomValue(publishSnippetAtom);
+  const { title, tags, description, visibility, passcode, isSuccessOpen, publishedUrl } =
+    useAtomValue(publishSnippetAtom);
 
   const dispatch = useSetAtom(dispatchPublishSnippetAtom);
 
@@ -90,6 +93,7 @@ const PublishSnippet: React.FC = () => {
       withAccess(access, () => {});
       return;
     }
+    trackSnippet.publishDialogOpened();
     setOpen(true);
   };
 
@@ -116,8 +120,9 @@ const PublishSnippet: React.FC = () => {
         elements: editorState.elements,
         slideElements: editorState.slideElements,
         elementId,
-        title: fileName || undefined,
+        title: title || fileName || undefined,
         description: description || undefined,
+        tags,
         visibility,
         passcode: visibility === Visibility.PASSCODE ? passcode : undefined,
       });
@@ -125,6 +130,7 @@ const PublishSnippet: React.FC = () => {
       const url = `${window.location.origin}/preview/${slug}`;
       dispatch({ publishedUrl: url, isSuccessOpen: true });
       await navigator.clipboard.writeText(url).catch(() => {});
+      trackSnippet.published(visibility, Boolean(description?.trim()));
     } catch {
       toast.error("Failed to publish snippet.");
     } finally {
@@ -172,6 +178,17 @@ const PublishSnippet: React.FC = () => {
         </DialogHeader>
 
         <DialogPanel className="flex flex-col gap-4 px-5">
+          {/* Title */}
+          <Field>
+            <FieldLabel className="text-xs text-muted-foreground">Title</FieldLabel>
+            <Input
+              placeholder={fileName || "Untitled Snippet"}
+              value={title}
+              onChange={(e) => dispatch({ title: e.target.value })}
+              className="text-sm"
+            />
+          </Field>
+
           {/* Description */}
           <Field>
             <FieldLabel className="text-xs text-muted-foreground">Description</FieldLabel>
@@ -182,6 +199,44 @@ const PublishSnippet: React.FC = () => {
               rows={3}
               className="resize-none text-sm"
             />
+          </Field>
+
+          {/* Tags */}
+          <Field>
+            <FieldLabel className="text-xs text-muted-foreground">Tags</FieldLabel>
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-md"
+                  >
+                    {tag}
+                    <button
+                      type="button"
+                      onClick={() => dispatch({ tags: tags.filter((t) => t !== tag) })}
+                      className="hover:text-destructive focus:outline-none"
+                    >
+                      <X className="size-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <Input
+                placeholder="Add tags (press Enter or comma)"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === ",") {
+                    e.preventDefault();
+                    const val = e.currentTarget.value.trim();
+                    if (val && !tags.includes(val) && tags.length < 10) {
+                      dispatch({ tags: [...tags, val] });
+                      e.currentTarget.value = "";
+                    }
+                  }
+                }}
+                className="text-sm"
+              />
+            </div>
           </Field>
 
           {/* Visibility */}

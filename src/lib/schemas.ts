@@ -17,11 +17,13 @@ export const createSnippetSchema = z.object({
   presentationId: z.string().min(1),
   elementId: z.string().min(1),
   title: z.string().max(120).optional(),
+  tags: z.array(z.string()).max(10).optional(),
   isPublic: z.boolean().default(false),
 });
 
 export const updateSnippetSchema = z.object({
   title: z.string().max(120).optional(),
+  tags: z.array(z.string()).max(10).optional(),
   isPublic: z.boolean().optional(),
 });
 

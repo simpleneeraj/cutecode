@@ -59,6 +59,7 @@ export type SnippetCountAggregateOutputType = {
   elementId: number
   title: number
   description: number
+  tags: number
   isPublic: number
   isE2EEncrypted: number
   encryptionHint: number
@@ -103,6 +104,7 @@ export type SnippetCountAggregateInputType = {
   elementId?: true
   title?: true
   description?: true
+  tags?: true
   isPublic?: true
   isE2EEncrypted?: true
   encryptionHint?: true
@@ -190,6 +192,7 @@ export type SnippetGroupByOutputType = {
   elementId: string
   title: string | null
   description: string | null
+  tags: string[]
   isPublic: boolean
   isE2EEncrypted: boolean
   encryptionHint: string | null
@@ -225,6 +228,7 @@ export type SnippetWhereInput = {
   elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
   description?: Prisma.StringNullableFilter<"Snippet"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Snippet">
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
   isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
   encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
@@ -245,6 +249,7 @@ export type SnippetOrderByWithRelationInput = {
   elementId?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isE2EEncrypted?: Prisma.SortOrder
   encryptionHint?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -268,6 +273,7 @@ export type SnippetWhereUniqueInput = Prisma.AtLeast<{
   elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
   description?: Prisma.StringNullableFilter<"Snippet"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Snippet">
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
   isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
   encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
@@ -288,6 +294,7 @@ export type SnippetOrderByWithAggregationInput = {
   elementId?: Prisma.SortOrder
   title?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  tags?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isE2EEncrypted?: Prisma.SortOrder
   encryptionHint?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -308,6 +315,7 @@ export type SnippetScalarWhereWithAggregatesInput = {
   elementId?: Prisma.StringWithAggregatesFilter<"Snippet"> | string
   title?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
   description?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Snippet">
   isPublic?: Prisma.BoolWithAggregatesFilter<"Snippet"> | boolean
   isE2EEncrypted?: Prisma.BoolWithAggregatesFilter<"Snippet"> | boolean
   encryptionHint?: Prisma.StringNullableWithAggregatesFilter<"Snippet"> | string | null
@@ -320,6 +328,7 @@ export type SnippetCreateInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -340,6 +349,7 @@ export type SnippetUncheckedCreateInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -356,6 +366,7 @@ export type SnippetUpdateInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -376,6 +387,7 @@ export type SnippetUncheckedUpdateInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -394,6 +406,7 @@ export type SnippetCreateManyInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -406,6 +419,7 @@ export type SnippetUpdateManyMutationInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -420,6 +434,7 @@ export type SnippetUncheckedUpdateManyInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -437,6 +452,14 @@ export type SnippetOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type SnippetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -444,6 +467,7 @@ export type SnippetCountOrderByAggregateInput = {
   elementId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  tags?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
   isE2EEncrypted?: Prisma.SortOrder
   encryptionHint?: Prisma.SortOrder
@@ -529,6 +553,15 @@ export type SnippetUncheckedUpdateManyWithoutUserNestedInput = {
   update?: Prisma.SnippetUpdateWithWhereUniqueWithoutUserInput | Prisma.SnippetUpdateWithWhereUniqueWithoutUserInput[]
   updateMany?: Prisma.SnippetUpdateManyWithWhereWithoutUserInput | Prisma.SnippetUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.SnippetScalarWhereInput | Prisma.SnippetScalarWhereInput[]
+}
+
+export type SnippetCreatetagsInput = {
+  set: string[]
+}
+
+export type SnippetUpdatetagsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type SnippetCreateNestedManyWithoutPresentationInput = {
@@ -636,6 +669,7 @@ export type SnippetCreateWithoutUserInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -654,6 +688,7 @@ export type SnippetUncheckedCreateWithoutUserInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -701,6 +736,7 @@ export type SnippetScalarWhereInput = {
   elementId?: Prisma.StringFilter<"Snippet"> | string
   title?: Prisma.StringNullableFilter<"Snippet"> | string | null
   description?: Prisma.StringNullableFilter<"Snippet"> | string | null
+  tags?: Prisma.StringNullableListFilter<"Snippet">
   isPublic?: Prisma.BoolFilter<"Snippet"> | boolean
   isE2EEncrypted?: Prisma.BoolFilter<"Snippet"> | boolean
   encryptionHint?: Prisma.StringNullableFilter<"Snippet"> | string | null
@@ -713,6 +749,7 @@ export type SnippetCreateWithoutPresentationInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -731,6 +768,7 @@ export type SnippetUncheckedCreateWithoutPresentationInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -773,6 +811,7 @@ export type SnippetCreateWithoutShareLinksInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -792,6 +831,7 @@ export type SnippetUncheckedCreateWithoutShareLinksInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -823,6 +863,7 @@ export type SnippetUpdateWithoutShareLinksInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -842,6 +883,7 @@ export type SnippetUncheckedUpdateWithoutShareLinksInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -857,6 +899,7 @@ export type SnippetCreateWithoutCommentsInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -876,6 +919,7 @@ export type SnippetUncheckedCreateWithoutCommentsInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -907,6 +951,7 @@ export type SnippetUpdateWithoutCommentsInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -926,6 +971,7 @@ export type SnippetUncheckedUpdateWithoutCommentsInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -941,6 +987,7 @@ export type SnippetCreateWithoutUpvotesInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -960,6 +1007,7 @@ export type SnippetUncheckedCreateWithoutUpvotesInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -991,6 +1039,7 @@ export type SnippetUpdateWithoutUpvotesInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1010,6 +1059,7 @@ export type SnippetUncheckedUpdateWithoutUpvotesInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1025,6 +1075,7 @@ export type SnippetCreateWithoutBookmarksInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -1044,6 +1095,7 @@ export type SnippetUncheckedCreateWithoutBookmarksInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -1075,6 +1127,7 @@ export type SnippetUpdateWithoutBookmarksInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1094,6 +1147,7 @@ export type SnippetUncheckedUpdateWithoutBookmarksInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1110,6 +1164,7 @@ export type SnippetCreateManyUserInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -1122,6 +1177,7 @@ export type SnippetUpdateWithoutUserInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1140,6 +1196,7 @@ export type SnippetUncheckedUpdateWithoutUserInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1157,6 +1214,7 @@ export type SnippetUncheckedUpdateManyWithoutUserInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1170,6 +1228,7 @@ export type SnippetCreateManyPresentationInput = {
   elementId: string
   title?: string | null
   description?: string | null
+  tags?: Prisma.SnippetCreatetagsInput | string[]
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: string | null
@@ -1182,6 +1241,7 @@ export type SnippetUpdateWithoutPresentationInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1200,6 +1260,7 @@ export type SnippetUncheckedUpdateWithoutPresentationInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1217,6 +1278,7 @@ export type SnippetUncheckedUpdateManyWithoutPresentationInput = {
   elementId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tags?: Prisma.SnippetUpdatetagsInput | string[]
   isPublic?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isE2EEncrypted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   encryptionHint?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1289,6 +1351,7 @@ export type SnippetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   elementId?: boolean
   title?: boolean
   description?: boolean
+  tags?: boolean
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: boolean
@@ -1310,6 +1373,7 @@ export type SnippetSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   elementId?: boolean
   title?: boolean
   description?: boolean
+  tags?: boolean
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: boolean
@@ -1326,6 +1390,7 @@ export type SnippetSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   elementId?: boolean
   title?: boolean
   description?: boolean
+  tags?: boolean
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: boolean
@@ -1342,6 +1407,7 @@ export type SnippetSelectScalar = {
   elementId?: boolean
   title?: boolean
   description?: boolean
+  tags?: boolean
   isPublic?: boolean
   isE2EEncrypted?: boolean
   encryptionHint?: boolean
@@ -1349,7 +1415,7 @@ export type SnippetSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SnippetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "presentationId" | "elementId" | "title" | "description" | "isPublic" | "isE2EEncrypted" | "encryptionHint" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
+export type SnippetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "presentationId" | "elementId" | "title" | "description" | "tags" | "isPublic" | "isE2EEncrypted" | "encryptionHint" | "createdAt" | "updatedAt", ExtArgs["result"]["snippet"]>
 export type SnippetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   presentation?: boolean | Prisma.PresentationDefaultArgs<ExtArgs>
@@ -1385,6 +1451,7 @@ export type $SnippetPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     elementId: string
     title: string | null
     description: string | null
+    tags: string[]
     isPublic: boolean
     isE2EEncrypted: boolean
     encryptionHint: string | null
@@ -1825,6 +1892,7 @@ export interface SnippetFieldRefs {
   readonly elementId: Prisma.FieldRef<"Snippet", 'String'>
   readonly title: Prisma.FieldRef<"Snippet", 'String'>
   readonly description: Prisma.FieldRef<"Snippet", 'String'>
+  readonly tags: Prisma.FieldRef<"Snippet", 'String[]'>
   readonly isPublic: Prisma.FieldRef<"Snippet", 'Boolean'>
   readonly isE2EEncrypted: Prisma.FieldRef<"Snippet", 'Boolean'>
   readonly encryptionHint: Prisma.FieldRef<"Snippet", 'String'>

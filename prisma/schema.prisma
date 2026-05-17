@@ -305,6 +305,7 @@ model Snippet {
 
   title       String?
   description String?
+  tags        String[] @default([])
   isPublic    Boolean @default(false)
 
   // E2E — content is inside the element blob, flag lives here for fast filtering

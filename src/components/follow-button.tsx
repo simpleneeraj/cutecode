@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { Loader2, UserCheck, UserPlus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { toast } from "@/components/toast";
 import { cn } from "@/utils/cn";
+import React, { useState } from "react";
+import { toast } from "@/components/toast";
+import { Button } from "@/components/ui/button";
+import { Loader2, UserCheck, UserPlus } from "lucide-react";
 import { useUserMutations, useUserProfile } from "@/hooks/use-user";
 
 interface FollowButtonProps {

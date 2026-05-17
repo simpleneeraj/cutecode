@@ -75,7 +75,7 @@ export const themes: { [index: string]: Theme } = {
   "retro-mac": retroMac,
   love,
   valentine,
-  "cotton-candy": cottonCandy,
+  // "cotton-candy": cottonCandy,
   "coffee-date": coffeeDate,
   "sunset-chill": sunsetChill,
   ps6,

@@ -23,6 +23,7 @@ export type PublishInput = {
   elementId: string;
   title?: string;
   description?: string;
+  tags?: string[];
   visibility?: "PUBLIC" | "UNLISTED" | "PASSCODE" | "PRIVATE";
   passcode?: string;
 };

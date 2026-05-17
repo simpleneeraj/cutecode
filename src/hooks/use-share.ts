@@ -4,9 +4,9 @@
  * Components must NEVER call `trpc` directly — always use these hooks.
  *
  * Cache key convention:
- *   ['shareLink.list', snippetId?, presentationId?]
- *   ['shareLink.preview', slug, passcode?]
- *   ['shareLink.analytics', id]
+ *   ['share.list', snippetId?, presentationId?]
+ *   ['share.preview', slug, passcode?]
+ *   ['share.analytics', id]
  */
 
 "use client";
@@ -18,24 +18,24 @@ import type { AppRouter } from "@/server/types";
 
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
-export type ShareLinkListOutput = RouterOutput["shareLink"]["list"];
-export type ShareLinkPreviewOutput = RouterOutput["shareLink"]["preview"];
-export type ShareLinkAnalyticsOutput = RouterOutput["shareLink"]["analytics"];
-export type ShareLinkCreateOutput = RouterOutput["shareLink"]["create"];
+export type ShareListOutput = RouterOutput["share"]["list"];
+export type SharePreviewOutput = RouterOutput["share"]["preview"];
+export type ShareAnalyticsOutput = RouterOutput["share"]["analytics"];
+export type ShareCreateOutput = RouterOutput["share"]["create"];
 
 // ─────────────────────────────────────────────
 // useShareLinkList
 // ─────────────────────────────────────────────
 
-export function useShareLinkList({
+export function useShareList({
   snippetId,
   presentationId,
 }: {
   snippetId?: string;
   presentationId?: string;
 } = {}) {
-  return useSWR(["shareLink.list", snippetId ?? null, presentationId ?? null] as const, () =>
-    trpc.shareLink.list.query({ snippetId, presentationId }),
+  return useSWR(["share.list", snippetId ?? null, presentationId ?? null] as const, () =>
+    trpc.share.list.query({ snippetId, presentationId }),
   );
 }
 
@@ -43,14 +43,16 @@ export function useShareLinkList({
 // useShareLinkPreview
 // ─────────────────────────────────────────────
 
-export function useShareLinkPreview(slug: string | null, { passcode, ip }: { passcode?: string; ip?: string } = {}) {
+export function useSharePreview(slug: string | null, { passcode, ip }: { passcode?: string; ip?: string } = {}) {
   return useSWR(
-    slug ? (["shareLink.preview", slug, passcode ?? null] as const) : null,
-    () => trpc.shareLink.preview.query({ slug: slug!, passcode, ip }),
+    slug ? (["share.preview", slug, passcode ?? null] as const) : null,
+    () => trpc.share.preview.query({ slug: slug!, passcode, ip }),
     {
       refreshInterval: 30_000,
       revalidateOnFocus: false,
       dedupingInterval: 5_000,
+      // Don't retry on FORBIDDEN — it's intentional (passcode required / wrong passcode)
+      shouldRetryOnError: (err: any) => err?.data?.code !== "FORBIDDEN",
     },
   );
 }
@@ -59,15 +61,15 @@ export function useShareLinkPreview(slug: string | null, { passcode, ip }: { pas
 // useShareLinkAnalytics
 // ─────────────────────────────────────────────
 
-export function useShareLinkAnalytics(id: string | null) {
-  return useSWR(id ? (["shareLink.analytics", id] as const) : null, () => trpc.shareLink.analytics.query({ id: id! }));
+export function useShareAnalytics(id: string | null) {
+  return useSWR(id ? (["share.analytics", id] as const) : null, () => trpc.share.analytics.query({ id: id! }));
 }
 
 // ─────────────────────────────────────────────
 // useShareLinkMutations
 // ─────────────────────────────────────────────
 
-export type CreateShareLinkInput = {
+export type CreateShareInput = {
   snippetId?: string;
   presentationId?: string;
   visibility?: "PUBLIC" | "UNLISTED" | "PASSCODE" | "PRIVATE";
@@ -80,7 +82,7 @@ export type CreateShareLinkInput = {
   allowCopy?: boolean;
 };
 
-export type UpdateShareLinkInput = {
+export type UpdateShareInput = {
   visibility?: "PUBLIC" | "UNLISTED" | "PASSCODE" | "PRIVATE";
   passcode?: string;
   isE2EEncrypted?: boolean;
@@ -91,32 +93,32 @@ export type UpdateShareLinkInput = {
   allowCopy?: boolean;
 };
 
-export function useShareLinkMutations() {
+export function useShareMutations() {
   const { mutate } = useSWRConfig();
 
-  const createShareLink = async (input: CreateShareLinkInput) => {
-    const result = await trpc.shareLink.create.mutate({
+  const createShare = async (input: CreateShareInput) => {
+    const result = await trpc.share.create.mutate({
       ...input,
       visibility: input.visibility ?? "PUBLIC",
       isE2EEncrypted: input.isE2EEncrypted ?? false,
       allowDownload: input.allowDownload ?? true,
       allowCopy: input.allowCopy ?? true,
     });
-    await mutate((key) => Array.isArray(key) && key[0] === "shareLink.list");
+    await mutate((key) => Array.isArray(key) && key[0] === "share.list");
     return result;
   };
 
-  const updateShareLink = async (id: string, data: UpdateShareLinkInput) => {
-    const result = await trpc.shareLink.update.mutate({ id, data });
-    await mutate((key) => Array.isArray(key) && key[0] === "shareLink.list");
+  const updateShare = async (id: string, data: UpdateShareInput) => {
+    const result = await trpc.share.update.mutate({ id, data });
+    await mutate((key) => Array.isArray(key) && key[0] === "share.list");
     return result;
   };
 
-  const deleteShareLink = async (id: string) => {
-    const result = await trpc.shareLink.delete.mutate({ id });
-    await mutate((key) => Array.isArray(key) && key[0] === "shareLink.list");
+  const deleteShare = async (id: string) => {
+    const result = await trpc.share.delete.mutate({ id });
+    await mutate((key) => Array.isArray(key) && key[0] === "share.list");
     return result;
   };
 
-  return { createShareLink, updateShareLink, deleteShareLink };
+  return { createShare, updateShare, deleteShare };
 }

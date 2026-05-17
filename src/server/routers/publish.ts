@@ -7,16 +7,32 @@
  *   publish.publish — creates or updates presentation + snippet + shareLink in one transaction
  */
 
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { nanoid } from "nanoid";
-import { type Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/db";
+import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../init";
 import { publishRateLimit, checkRateLimit } from "@/lib/redis";
+import { ShareVisibility, type Prisma } from "@/generated/prisma/client";
 
 export const publishRouter = router({
+  /**
+   * Publish a presentation
+   * @param name - Presentation name
+   * @param width - Presentation width
+   * @param slides - Presentation slides
+   * @param elements - Presentation elements
+   * @param slideElements - Presentation slide elements
+   * @param elementId - Element id
+   * @param title - Presentation title
+   * @param description - Presentation description
+   * @param tags - Presentation tags
+   * @param visibility - Presentation visibility
+   * @param passcode - Presentation passcode
+   * @returns Published presentation
+   * @throws TRPCError
+   */
   publish: protectedProcedure
     .input(
       z.object({
@@ -28,9 +44,10 @@ export const publishRouter = router({
         elementId: z.string().min(1),
         title: z.string().max(200).optional(),
         description: z.string().max(2000).optional(),
-        visibility: z.enum(["PUBLIC", "UNLISTED", "PASSCODE", "PRIVATE"]).default("PUBLIC"),
+        tags: z.array(z.string()).max(10).optional(),
+        visibility: z.enum(ShareVisibility).default(ShareVisibility.PUBLIC),
         passcode: z.string().min(4).max(32).optional(),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const { success } = await checkRateLimit(publishRateLimit, `publish:${ctx.user.id}`);
@@ -38,22 +55,36 @@ export const publishRouter = router({
         throw new TRPCError({ code: "TOO_MANY_REQUESTS", message: "Too many publish requests. Please wait a minute." });
       }
 
-      const { name, width, slides, elements, slideElements, elementId, title, description, visibility, passcode } = input;
+      const {
+        name,
+        width,
+        slides,
+        elements,
+        slideElements,
+        elementId,
+        title,
+        description,
+        tags,
+        visibility,
+        passcode,
+      } = input;
 
       if (!elements[elementId]) {
         throw new TRPCError({ code: "BAD_REQUEST", message: "Missing required presentation elements." });
       }
 
-      if (visibility === "PASSCODE" && (!passcode || passcode.length < 4)) {
+      if (visibility === ShareVisibility.PASSCODE && (!passcode || passcode.length < 4)) {
         throw new TRPCError({ code: "BAD_REQUEST", message: "Passcode must be at least 4 characters." });
       }
 
-      const passcodeHash = visibility === "PASSCODE" && passcode ? await bcrypt.hash(passcode, 10) : null;
+      const passcodeHash = visibility === ShareVisibility.PASSCODE && passcode ? await bcrypt.hash(passcode, 10) : null;
 
       const safeName = (name || "Untitled").slice(0, 120);
       const safeWidth = Math.max(400, Math.min(width ?? 680, 1600));
 
-      // ── Idempotency: reuse existing share link for this elementId ──────────
+      /**
+       * Idempotency: reuse existing share link for this elementId
+       */
       const existingSnippet = await prisma.snippet.findFirst({
         where: { userId: ctx.user.id, elementId },
         include: { shareLinks: { select: { slug: true, id: true }, take: 1, orderBy: { createdAt: "asc" } } },
@@ -67,12 +98,12 @@ export const publishRouter = router({
           await tx.presentation.update({
             where: { id: existingSnippet.presentationId },
             data: {
-            name: safeName,
-            width: safeWidth,
-            slides: slides as Prisma.InputJsonValue,
-            elements: elements as Prisma.InputJsonValue,
-            slideElements: slideElements as Prisma.InputJsonValue,
-          },
+              name: safeName,
+              width: safeWidth,
+              slides: slides as Prisma.InputJsonValue,
+              elements: elements as Prisma.InputJsonValue,
+              slideElements: slideElements as Prisma.InputJsonValue,
+            },
           });
 
           await tx.snippet.update({
@@ -80,7 +111,8 @@ export const publishRouter = router({
             data: {
               title: title ?? undefined,
               description: description ?? undefined,
-              isPublic: visibility === "PUBLIC",
+              tags: tags ? { set: tags } : { set: [] },
+              isPublic: visibility === ShareVisibility.PUBLIC,
             },
           });
 
@@ -99,7 +131,9 @@ export const publishRouter = router({
         return { slug: existingSlug, updated: true };
       }
 
-      // ── First publish ─────────────────────────────────────────────────────
+      /**
+       * First publish
+       */
       const slug = nanoid(8);
 
       const shareLink = await prisma.$transaction(async (tx) => {
@@ -121,7 +155,8 @@ export const publishRouter = router({
             elementId,
             title: title ?? undefined,
             description: description ?? undefined,
-            isPublic: visibility === "PUBLIC",
+            tags: tags ? { set: tags } : { set: [] },
+            isPublic: visibility === ShareVisibility.PUBLIC,
           },
         });
 

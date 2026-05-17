@@ -20,87 +20,102 @@ import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { router, protectedProcedure, publicProcedure, paginationInput } from "../init";
 import { createSnippetSchema, updateSnippetSchema } from "@/lib/schemas";
-import {
-  socialRateLimit,
-  commentRateLimit,
-  checkRateLimit,
-  cacheDel,
-} from "@/lib/redis";
+import { socialRateLimit, commentRateLimit, checkRateLimit, cacheDel } from "@/lib/redis";
+import { ShareVisibility } from "@/generated/prisma/enums";
 
 export const snippetRouter = router({
-  // ── list ────────────────────────────────────────────────────────────────
-  list: protectedProcedure
-    .input(paginationInput)
-    .query(async ({ ctx, input }) => {
-      const { page, limit } = input;
-      const skip = (page - 1) * limit;
+  /**
+   * List all snippets of a user
+   * @param input
+   *
+   * @returns
+   */
+  list: protectedProcedure.input(paginationInput).query(async ({ ctx, input }) => {
+    const { page, limit } = input;
+    const skip = (page - 1) * limit;
 
-      const [snippets, total] = await prisma.$transaction([
-        prisma.snippet.findMany({
-          where: { userId: ctx.user.id },
-          include: { presentation: { select: { id: true, name: true } } },
-          orderBy: { createdAt: "desc" },
-          skip,
-          take: limit,
-        }),
-        prisma.snippet.count({ where: { userId: ctx.user.id } }),
-      ]);
-
-      return { snippets, total, page, limit };
-    }),
-
-  // ── get ─────────────────────────────────────────────────────────────────
-  get: protectedProcedure
-    .input(z.object({ id: z.string().min(1) }))
-    .query(async ({ ctx, input }) => {
-      const snippet = await prisma.snippet.findFirst({
-        where: { id: input.id, userId: ctx.user.id },
+    const [snippets, total] = await prisma.$transaction([
+      prisma.snippet.findMany({
+        where: { userId: ctx.user.id },
         include: {
-          presentation: {
-            select: { id: true, name: true, elements: true },
-          },
+          presentation: { select: { id: true, name: true } },
+          shareLinks: { select: { slug: true, visibility: true }, take: 1, orderBy: { createdAt: "asc" } },
+          _count: { select: { upvotes: true, bookmarks: true } },
         },
-      });
+        orderBy: { createdAt: "desc" },
+        skip,
+        take: limit,
+      }),
+      prisma.snippet.count({ where: { userId: ctx.user.id } }),
+    ]);
 
-      if (!snippet) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
-      }
+    return { snippets, total, page, limit };
+  }),
 
-      const elements = snippet.presentation.elements as Record<string, unknown>;
-      const element = elements[snippet.elementId] ?? null;
-
-      return { ...snippet, element };
-    }),
-
-  // ── create ──────────────────────────────────────────────────────────────
-  create: protectedProcedure
-    .input(createSnippetSchema)
-    .mutation(async ({ ctx, input }) => {
-      const presentation = await prisma.presentation.findFirst({
-        where: { id: input.presentationId, userId: ctx.user.id },
-      });
-
-      if (!presentation) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Presentation not found" });
-      }
-
-      const elements = presentation.elements as Record<string, unknown>;
-      if (!elements[input.elementId]) {
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Element not found in presentation" });
-      }
-
-      return prisma.snippet.create({
-        data: {
-          userId: ctx.user.id,
-          presentationId: input.presentationId,
-          elementId: input.elementId,
-          title: input.title,
-          isPublic: input.isPublic ?? false,
+  /**
+   * Get a snippet
+   * @param input
+   *
+   * @returns
+   */
+  get: protectedProcedure.input(z.object({ id: z.string().min(1) })).query(async ({ ctx, input }) => {
+    const snippet = await prisma.snippet.findFirst({
+      where: { id: input.id, userId: ctx.user.id },
+      include: {
+        presentation: {
+          select: { id: true, name: true, elements: true },
         },
-      });
-    }),
+      },
+    });
 
-  // ── update ──────────────────────────────────────────────────────────────
+    if (!snippet) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
+    }
+
+    const elements = snippet.presentation.elements as Record<string, unknown>;
+    const element = elements[snippet.elementId] ?? null;
+
+    return { ...snippet, element };
+  }),
+
+  /**
+   * Create a snippet
+   * @param input
+   *
+   * @returns
+   */
+  create: protectedProcedure.input(createSnippetSchema).mutation(async ({ ctx, input }) => {
+    const presentation = await prisma.presentation.findFirst({
+      where: { id: input.presentationId, userId: ctx.user.id },
+    });
+
+    if (!presentation) {
+      throw new TRPCError({ code: "BAD_REQUEST", message: "Presentation not found" });
+    }
+
+    const elements = presentation.elements as Record<string, unknown>;
+    if (!elements[input.elementId]) {
+      throw new TRPCError({ code: "BAD_REQUEST", message: "Element not found in presentation" });
+    }
+
+    return prisma.snippet.create({
+      data: {
+        userId: ctx.user.id,
+        presentationId: input.presentationId,
+        elementId: input.elementId,
+        title: input.title,
+        tags: input.tags ?? [],
+        isPublic: input.isPublic ?? false,
+      },
+    });
+  }),
+
+  /**
+   * Update a snippet
+   * @param input
+   *
+   * @returns
+   */
   update: protectedProcedure
     .input(z.object({ id: z.string().min(1), data: updateSnippetSchema }))
     .mutation(async ({ ctx, input }) => {
@@ -115,23 +130,31 @@ export const snippetRouter = router({
       return prisma.snippet.update({ where: { id: input.id }, data: input.data });
     }),
 
-  // ── delete ──────────────────────────────────────────────────────────────
-  delete: protectedProcedure
-    .input(z.object({ id: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      const existing = await prisma.snippet.findFirst({
-        where: { id: input.id, userId: ctx.user.id },
-      });
+  /**
+   * Delete a snippet
+   * @param input
+   *
+   * @returns
+   */
+  delete: protectedProcedure.input(z.object({ id: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+    const existing = await prisma.snippet.findFirst({
+      where: { id: input.id, userId: ctx.user.id },
+    });
 
-      if (!existing) {
-        throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
-      }
+    if (!existing) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
+    }
 
-      await prisma.snippet.delete({ where: { id: input.id } });
-      return { deleted: true, id: input.id };
-    }),
+    await prisma.snippet.delete({ where: { id: input.id } });
+    return { deleted: true, id: input.id };
+  }),
 
-  // ── toggleUpvote ─────────────────────────────────────────────────────────
+  /**
+   * Toggle upvote a snippet
+   * @param input
+   *
+   * @returns
+   */
   toggleUpvote: protectedProcedure
     .input(z.object({ snippetId: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -162,7 +185,12 @@ export const snippetRouter = router({
       return { upvoted: true, count };
     }),
 
-  // ── toggleBookmark ───────────────────────────────────────────────────────
+  /**
+   * Toggle bookmark a snippet
+   * @param input
+   *
+   * @returns
+   */
   toggleBookmark: protectedProcedure
     .input(z.object({ snippetId: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -193,13 +221,18 @@ export const snippetRouter = router({
       return { bookmarked: true, count };
     }),
 
-  // ── listComments ─────────────────────────────────────────────────────────
+  /**
+   * List comments on a snippet
+   * @param input
+   *
+   * @returns
+   */
   listComments: publicProcedure
     .input(
       z.object({
         snippetId: z.string().min(1),
         cursor: z.string().optional(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const take = 20;
@@ -215,13 +248,18 @@ export const snippetRouter = router({
       return { comments, nextCursor };
     }),
 
-  // ── addComment ───────────────────────────────────────────────────────────
+  /**
+   * Add a comment to a snippet
+   * @param input
+   *
+   * @returns
+   */
   addComment: protectedProcedure
     .input(
       z.object({
         snippetId: z.string().min(1),
         content: z.string().min(1).max(2000),
-      })
+      }),
     )
     .mutation(async ({ ctx, input }) => {
       const { success } = await checkRateLimit(commentRateLimit, `comment:${ctx.user.id}`);
@@ -237,4 +275,67 @@ export const snippetRouter = router({
         include: { user: { select: { id: true, name: true, clerkId: true } } },
       });
     }),
+
+  /**
+   * Remix a snippet
+   * @param input
+   *
+   * @returns
+   */
+  remix: protectedProcedure.input(z.object({ slug: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+    const shareLink = await prisma.shareLink.findUnique({
+      where: { slug: input.slug },
+      include: { snippet: { include: { presentation: true } } },
+    });
+
+    if (!shareLink || !shareLink.snippet) {
+      throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
+    }
+
+    if (shareLink.visibility !== ShareVisibility.PUBLIC) {
+      throw new TRPCError({ code: "FORBIDDEN", message: "Can only remix public snippets" });
+    }
+
+    const snippet = shareLink.snippet;
+    const presentation = snippet.presentation;
+
+    const newPresentation = await prisma.presentation.create({
+      data: {
+        userId: ctx.user.id,
+        name: `${presentation.name} (Remixed)`,
+        width: presentation.width,
+        slides: presentation.slides ?? {},
+        elements: presentation.elements ?? {},
+        slideElements: presentation.slideElements ?? {},
+      },
+    });
+
+    const newSnippet = await prisma.snippet.create({
+      data: {
+        userId: ctx.user.id,
+        presentationId: newPresentation.id,
+        elementId: snippet.elementId,
+        title: snippet.title ? `${snippet.title} (Remixed)` : undefined,
+        description: snippet.description,
+        tags: snippet.tags,
+        isPublic: true,
+      },
+    });
+
+    const { nanoid } = await import("nanoid");
+    const newSlug = nanoid(8);
+    await prisma.shareLink.create({
+      data: {
+        userId: ctx.user.id,
+        slug: newSlug,
+        targetType: "SNIPPET",
+        targetId: newSnippet.id,
+        snippetId: newSnippet.id,
+        presentationId: newPresentation.id,
+        visibility: ShareVisibility.PUBLIC,
+      },
+    });
+
+    return { slug: newSlug };
+  }),
 });

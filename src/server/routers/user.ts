@@ -10,29 +10,27 @@
  *   user.toggleFollow  — follow / unfollow (auth required)
  */
 
-import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
+import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure, publicProcedure } from "../init";
-import {
-  apiRateLimit,
-  socialRateLimit,
-  checkRateLimit,
-  cacheGet,
-  cacheSet,
-  cacheDel,
-} from "@/lib/redis";
+import { apiRateLimit, socialRateLimit, checkRateLimit, cacheGet, cacheSet, cacheDel } from "@/lib/redis";
 
 const PAGE_SIZE = 20;
 
 export const userRouter = router({
-  // ── profile ──────────────────────────────────────────────────────────────
+  /**
+   * Get user profile
+   * @param input
+   *
+   * @returns
+   */
   profile: publicProcedure
     .input(
       z.object({
         userId: z.string().min(1),
         ip: z.string().optional(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const { userId, ip = "anonymous" } = input;
@@ -72,7 +70,9 @@ export const userRouter = router({
         await cacheSet(cacheKey, profile, 60);
       }
 
-      // isFollowing / isOwnProfile are viewer-specific — never cache them
+      /**
+       * isFollowing / isOwnProfile are viewer-specific — never cache them
+       */
       let isFollowing = false;
       let isOwnProfile = false;
 
@@ -89,14 +89,18 @@ export const userRouter = router({
       return { ...profile, isFollowing, isOwnProfile };
     }),
 
-  // ── followers ────────────────────────────────────────────────────────────
+  /**
+   * Get user followers
+   * @param input
+   * @returns
+   */
   followers: publicProcedure
     .input(
       z.object({
         userId: z.string().min(1),
         cursor: z.string().optional(),
         ip: z.string().optional(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const { userId, cursor, ip = "anonymous" } = input;
@@ -120,8 +124,9 @@ export const userRouter = router({
           },
         },
       });
-
-      // Batch: is the viewer following each of these users?
+      /**
+       * Batch: is the viewer following each of these users?
+       */
       let viewerFollowingSet = new Set<string>();
       if (ctx.user && rows.length > 0) {
         const followerIds = rows.map((r) => r.follower.id);
@@ -143,14 +148,18 @@ export const userRouter = router({
       return { users, nextCursor, total: users.length };
     }),
 
-  // ── following ────────────────────────────────────────────────────────────
+  /**
+   * Get user following list
+   * @param input
+   * @returns
+   */
   following: publicProcedure
     .input(
       z.object({
         userId: z.string().min(1),
         cursor: z.string().optional(),
         ip: z.string().optional(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const { userId, cursor, ip = "anonymous" } = input;
@@ -196,7 +205,11 @@ export const userRouter = router({
       return { users, nextCursor, total: users.length };
     }),
 
-  // ── toggleFollow ─────────────────────────────────────────────────────────
+  /**
+   * Toggle follow
+   * @param input
+   * @returns
+   */
   toggleFollow: protectedProcedure
     .input(z.object({ targetUserId: z.string().min(1) }))
     .mutation(async ({ ctx, input }) => {
@@ -223,19 +236,13 @@ export const userRouter = router({
           where: { followerId_followingId: { followerId: ctx.user.id, followingId: targetUserId } },
         });
         const count = await prisma.userFollows.count({ where: { followingId: targetUserId } });
-        await Promise.all([
-          cacheDel(`user-profile:${targetUserId}`),
-          cacheDel(`user-profile:${ctx.user.id}`),
-        ]);
+        await Promise.all([cacheDel(`user-profile:${targetUserId}`), cacheDel(`user-profile:${ctx.user.id}`)]);
         return { following: false, followerCount: count };
       }
 
       await prisma.userFollows.create({ data: { followerId: ctx.user.id, followingId: targetUserId } });
       const count = await prisma.userFollows.count({ where: { followingId: targetUserId } });
-      await Promise.all([
-        cacheDel(`user-profile:${targetUserId}`),
-        cacheDel(`user-profile:${ctx.user.id}`),
-      ]);
+      await Promise.all([cacheDel(`user-profile:${targetUserId}`), cacheDel(`user-profile:${ctx.user.id}`)]);
       return { following: true, followerCount: count };
     }),
 });

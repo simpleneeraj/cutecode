@@ -96,8 +96,8 @@ export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
       return <LoveFrame themeId={themeId} {...props} />;
     case themes.valentine.id:
       return <ValentineFrame themeId={themeId} {...props} />;
-    case themes["cotton-candy"].id:
-      return <CottonCandyFrame themeId={themeId} {...props} />;
+    // case themes["cotton-candy"].id:
+    // return <CottonCandyFrame themeId={themeId} {...props} />;
     case themes["coffee-date"].id:
       return <CoffeeDateFrame themeId={themeId} {...props} />;
     case themes["sunset-chill"].id:

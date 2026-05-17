@@ -10,8 +10,9 @@ import { useUserFollowers, useUserFollowing, type UserFollowersOutput } from "@/
 export type FollowUser = UserFollowersOutput["users"][number];
 import FollowButton from "@/components/follow-button";
 import { Badge } from "@/components/ui/badge";
-
-// ─── User Row ─────────────────────────────────────────────────────────────────
+import View from "./view";
+import { Tabs, TabsList, TabsPanel, TabsTab } from "./ui/tabs";
+import { Plan } from "@/generated/prisma/enums";
 
 function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: string }) {
   const avatarUrl = user.clerkId ? `https://img.clerk.com/preview.png?size=64&seed=${user.clerkId}` : undefined;
@@ -28,7 +29,7 @@ function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: st
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <p className="text-sm font-medium truncate">{user.name || "Anonymous"}</p>
-          {user.plan !== "FREE" && (
+          {user.plan !== Plan.FREE && (
             <Badge variant="secondary" className="text-[10px] px-1 py-0 h-4 shrink-0">
               {user.plan}
             </Badge>
@@ -49,8 +50,6 @@ function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: st
     </div>
   );
 }
-
-// ─── Followers List ────────────────────────────────────────────────────────────
 
 function FollowersList({ userId, currentUserId }: { userId: string; currentUserId?: string }) {
   const [cursor, setCursor] = useState<string | undefined>();
@@ -152,71 +151,63 @@ function FollowingList({ userId, currentUserId }: { userId: string; currentUserI
 
 // ─── Main Export ───────────────────────────────────────────────────────────────
 
-type Tab = "followers" | "following";
+enum Tab {
+  Followers = "followers",
+  Following = "following",
+}
 
 interface FollowersDialogProps {
   userId: string;
   currentUserId?: string;
   followerCount: number;
   followingCount: number;
-  children: React.ReactNode; // trigger
 }
 
-export function FollowersDialog({
-  userId,
-  currentUserId,
-  followerCount,
-  followingCount,
-  children,
-}: FollowersDialogProps) {
-  const [tab, setTab] = useState<Tab>("followers");
+export function FollowersDialog({ userId, currentUserId, followerCount, followingCount }: FollowersDialogProps) {
+  const [tab, setTab] = useState<Tab>(Tab.Followers);
+  const [open, setOpen] = useState(false);
+
+  const onOpenTabs = (tab: Tab) => {
+    setOpen(true);
+    setTab(tab);
+  };
 
   return (
-    <Dialog>
-      <DialogTrigger render={<button className="text-left" />}>{children}</DialogTrigger>
-      <DialogPopup className="max-w-md w-full">
-        <DialogHeader>
-          <DialogTitle className="text-base font-semibold">Connections</DialogTitle>
-
-          {/* Tab bar */}
-          <div className="flex gap-1 mt-2 p-1 bg-muted rounded-lg">
-            <button
-              className={`flex-1 rounded-md py-1.5 text-sm font-medium transition-all ${
-                tab === "followers"
-                  ? "bg-background shadow text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              onClick={() => setTab("followers")}
-            >
-              Followers
-              <span className="ml-1.5 tabular-nums text-xs text-muted-foreground">
-                {followerCount.toLocaleString()}
-              </span>
-            </button>
-            <button
-              className={`flex-1 rounded-md py-1.5 text-sm font-medium transition-all ${
-                tab === "following"
-                  ? "bg-background shadow text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              onClick={() => setTab("following")}
-            >
-              Following
-              <span className="ml-1.5 tabular-nums text-xs text-muted-foreground">
-                {followingCount.toLocaleString()}
-              </span>
-            </button>
-          </div>
-        </DialogHeader>
-
-        <DialogPanel className="max-h-[60vh] overflow-y-auto pr-1">
-          {tab === "followers" ? (
-            <FollowersList userId={userId} currentUserId={currentUserId} />
-          ) : (
-            <FollowingList userId={userId} currentUserId={currentUserId} />
-          )}
-        </DialogPanel>
-      </DialogPopup>
+    <Dialog open={open} onOpenChange={setOpen}>
+      {/* <DialogTrigger> */}
+      <View className="flex">
+        <Button size={"xs"} variant={"ghost"} onClick={() => onOpenTabs(Tab.Followers)}>
+          <span>
+            <strong className="text-foreground tabular-nums">{followerCount.toLocaleString()}</strong>{" "}
+            {followerCount === 1 ? "follower" : "followers"}
+          </span>
+        </Button>
+        <Button size={"xs"} variant={"ghost"} onClick={() => onOpenTabs(Tab.Following)}>
+          <span>
+            <strong className="text-foreground tabular-nums">{followingCount.toLocaleString()}</strong> following
+          </span>
+        </Button>
+      </View>
+      {/* </DialogTrigger> */}
+      <Tabs value={tab} onValueChange={setTab}>
+        <DialogPopup className="max-w-md w-full">
+          <DialogHeader>
+            <DialogTitle className="text-base font-semibold">Connections</DialogTitle>
+            <TabsList>
+              <TabsTab value={Tab.Followers}>{Tab.Followers}</TabsTab>
+              <TabsTab value={Tab.Following}>{Tab.Following}</TabsTab>
+            </TabsList>
+          </DialogHeader>
+          <DialogPanel className="max-h-[60vh] overflow-y-auto pr-1">
+            <TabsPanel value={Tab.Followers}>
+              <FollowersList userId={userId} currentUserId={currentUserId} />
+            </TabsPanel>
+            <TabsPanel value={Tab.Following}>
+              <FollowingList userId={userId} currentUserId={currentUserId} />
+            </TabsPanel>
+          </DialogPanel>
+        </DialogPopup>
+      </Tabs>
     </Dialog>
   );
 }

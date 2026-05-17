@@ -8,7 +8,9 @@ export const isRedisConfigured = !!url && !!token;
 
 export const redis = new Redis({ url, token });
 
-// Publish: 10 per minute per user (strict)
+/**
+ * Publish: 10 per minute per user (strict)
+ */
 export const publishRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(10, "1 m"),
@@ -16,7 +18,9 @@ export const publishRateLimit = new Ratelimit({
   prefix: "ratelimit:publish",
 });
 
-// Social actions (upvote/bookmark/follow): 30 per minute per user
+/**
+ * Social actions (upvote/bookmark/follow): 30 per minute per user
+ */
 export const socialRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(30, "1 m"),
@@ -24,7 +28,9 @@ export const socialRateLimit = new Ratelimit({
   prefix: "ratelimit:social",
 });
 
-// General read API: 120 per minute per IP
+/**
+ * General read API: 120 per minute per IP
+ */
 export const apiRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(120, "1 m"),
@@ -32,7 +38,9 @@ export const apiRateLimit = new Ratelimit({
   prefix: "ratelimit:api",
 });
 
-// Comments: 20 per minute per user
+/**
+ * Comments: 20 per minute per user
+ */
 export const commentRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(20, "1 m"),
@@ -45,14 +53,16 @@ export const commentRateLimit = new Ratelimit({
  */
 export async function checkRateLimit(
   ratelimiter: Ratelimit,
-  identifier: string
+  identifier: string,
 ): Promise<{ success: boolean; limit?: number; remaining?: number; reset?: number }> {
   if (!isRedisConfigured) return { success: true };
 
   try {
     return await ratelimiter.limit(identifier);
   } catch {
-    // Fail open — Redis outage should never cause user-facing errors
+    /**
+     * Fail open — Redis outage should never cause user-facing errors
+     */
     return { success: true };
   }
 }
@@ -65,7 +75,9 @@ export async function cacheSet(key: string, value: unknown, ttlSeconds: number) 
   try {
     await redis.setex(key, ttlSeconds, JSON.stringify(value));
   } catch {
-    // Non-fatal
+    /**
+     * Non-fatal
+     */
   }
 }
 
@@ -91,6 +103,8 @@ export async function cacheDel(key: string) {
   try {
     await redis.del(key);
   } catch {
-    // Non-fatal
+    /**
+     * Non-fatal
+     */
   }
 }

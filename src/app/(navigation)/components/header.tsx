@@ -1,26 +1,19 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { AnimatePresence, motion, Transition } from "motion/react";
-import { Tabs, TabsList, TabsTab } from "@/components/ui/tabs";
-import ExportButton from "@/components/editor/export";
+import AuthControls from "./controls";
+import Navigations from "./naviagtions";
+import { usePathname } from "next/navigation";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
-import AuthControls from "./controls";
-import { track } from "@vercel/analytics";
-
-const tabs = [
-  { label: "Create", value: "Create", href: "/" },
-  { label: "Explore", value: "Explore", href: "/explore" },
-  { label: "Snippets", value: "Snippets", href: "/snippets" },
-] as const;
+import ExportButton from "@/components/editor/export";
+import { AnimatePresence, motion, Transition } from "motion/react";
+import InfoDialog from "@/components/editor/dialogs/info";
 
 const transition: Transition = { duration: 0.2, ease: "easeOut" };
 
 export function Header() {
-  const router = useRouter();
   const pathname = usePathname();
-  const activeTab = tabs.find(({ href }) => href === pathname);
+  const activeTab = siteConfig.tabs.find(({ href }) => href === pathname);
 
   return (
     <header className="border-b bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">
@@ -42,25 +35,14 @@ export function Header() {
             )}
           </AnimatePresence>
         </div>
-
-        <Tabs value={pathname} onValueChange={(href) => router.push(href)}>
-          <TabsList>
-            {tabs.map((tab) => (
-              <TabsTab key={tab.value} value={tab.href}>
-                {tab.label}
-              </TabsTab>
-            ))}
-          </TabsList>
-        </Tabs>
+        <Navigations />
 
         <div className="flex flex-1 items-center justify-end gap-1.5">
           <ExportButton />
-          {/* <ThemeSwitch /> */}
           <Separator orientation="vertical" className="h-5" />
-          {/* <Separator orientation="vertical" className="h-5" /> */}
-          {/* <AuthControls /> */}
-
           <AuthControls />
+          {/* <Separator orientation="vertical" className="h-5" />
+          <InfoDialog /> */}
         </div>
       </div>
     </header>

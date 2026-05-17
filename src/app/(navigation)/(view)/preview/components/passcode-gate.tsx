@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import View from "@/components/view";
-import { ShieldAlertIcon } from "lucide-react";
+import { ShieldAlertIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardPanel, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
@@ -17,11 +17,12 @@ const OTP_SLOT_KEYS = Array.from({ length: OTP_LENGTH }, (_, i) => `otp-slot-${i
 type PasscodeGateProps = {
   passcode: string;
   invalidPasscode: boolean;
+  isLoading?: boolean;
   onChange: (value: string) => void;
   onSubmit: () => void;
 };
 
-export function PasscodeGate({ passcode, invalidPasscode, onChange, onSubmit }: PasscodeGateProps) {
+export function PasscodeGate({ passcode, invalidPasscode, isLoading, onChange, onSubmit }: PasscodeGateProps) {
   const isComplete = passcode.length === OTP_LENGTH;
   const prevComplete = useRef(false);
 
@@ -116,8 +117,15 @@ export function PasscodeGate({ passcode, invalidPasscode, onChange, onSubmit }: 
               </AnimatePresence>
             </Field>
 
-            <Button className="w-full" onClick={onSubmit} disabled={!isComplete}>
-              Unlock
+            <Button className="w-full" onClick={onSubmit} disabled={!isComplete || isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="animate-spin -ml-1 mr-2" />
+                  Unlocking...
+                </>
+              ) : (
+                "Unlock"
+              )}
             </Button>
           </CardPanel>
 

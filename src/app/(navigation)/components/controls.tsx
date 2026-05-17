@@ -9,9 +9,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { useUser, SignInButton } from "@clerk/nextjs";
 import { getRedirectUrlWithParam } from "@/utils/url";
 import { useSubscription } from "@/hooks/use-subscription";
-import { plansDialogOpenAtom } from "@/store/editor/plans-dialog";
+import { plansDialogOpenAtom } from "@/store/editor/plans";
 import { AnimatePresence, motion, Transition } from "motion/react";
-import ProfileDropdown from "../preview/components/profile-dropdown";
+import ProfileDropdown from "../(view)/preview/components/profile-dropdown";
+import { trackAuth, trackUpgrade } from "@/lib/analytics";
 
 const fadeSlide = {
   initial: { opacity: 0, filter: "blur(4px)" },
@@ -62,7 +63,7 @@ export default function AuthControls() {
       case AuthState.SIGNED_OUT:
         return (
           <SignInButton mode="redirect" forceRedirectUrl={getRedirectUrlWithParam("ref", "header")}>
-            <Button variant="outline">
+            <Button variant="outline" onClick={() => trackAuth.signInClicked("header")}>
               <LogIn className="size-3.5" />
               Sign in
             </Button>
@@ -79,7 +80,10 @@ export default function AuthControls() {
             >
               <Button
                 variant="outline"
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  trackUpgrade.dialogOpened("header");
+                  setOpen(true);
+                }}
                 className="group relative overflow-hidden rounded-lg border-amber-500/40 bg-amber-500/8 text-xs hover:border-amber-400/70 hover:bg-amber-500/12 transition-all duration-200"
               >
                 {/* shimmer */}

@@ -21,7 +21,8 @@ import useBilling from "@/hooks/use-billing";
 import { Plan } from "@/generated/prisma/enums";
 import { getRedirectUrlWithParam } from "@/utils/url";
 import { useSubscription } from "@/hooks/use-subscription";
-import { plansDialogOpenAtom } from "@/store/editor/plans-dialog";
+import { plansDialogOpenAtom } from "@/store/editor/plans";
+import { trackUpgrade } from "@/lib/analytics";
 
 const PRO_PRODUCT_ID = process.env.NEXT_PUBLIC_DODO_PRODUCT_PRO;
 
@@ -38,6 +39,7 @@ export default function PlansDialog({ trigger }: Props) {
   const [open, setOpen] = useAtom(plansDialogOpenAtom);
 
   async function onUpgradePlan() {
+    trackUpgrade.ctaClicked(true);
     await openBilling(PRO_PRODUCT_ID);
   }
 
@@ -79,6 +81,7 @@ export default function PlansDialog({ trigger }: Props) {
               <SignInButton forceRedirectUrl={getRedirectUrlWithParam("upgrade", "true")}>
                 <Button
                   type="button"
+                  onClick={() => trackUpgrade.ctaClicked(false)}
                   className="w-full relative overflow-hidden bg-linear-to-r from-amber-500 to-orange-500 text-white border-0 shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 hover:from-amber-400 hover:to-orange-400 transition-shadow"
                 >
                   <motion.span
@@ -147,7 +150,14 @@ export default function PlansDialog({ trigger }: Props) {
               </Button>
             )}
 
-            <Button variant="link" className="text-muted-foreground text-xs" onClick={() => setOpen(false)}>
+            <Button
+              variant="link"
+              className="text-muted-foreground text-xs"
+              onClick={() => {
+                trackUpgrade.dismissed();
+                setOpen(false);
+              }}
+            >
               Maybe later
             </Button>
           </div>
@@ -156,8 +166,6 @@ export default function PlansDialog({ trigger }: Props) {
     </Dialog>
   );
 }
-
-// ─── Price Tag ────────────────────────────────────────────────────────────────
 
 function PriceTag({ price, discountedPrice }: { price: number; discountedPrice: number }) {
   return (
@@ -177,8 +185,6 @@ function PriceTag({ price, discountedPrice }: { price: number; discountedPrice: 
     </div>
   );
 }
-
-// ─── Feature List ─────────────────────────────────────────────────────────────
 
 const features = [
   { icon: Zap, label: "Unlimited code exports", sub: "No daily limits, ever" },

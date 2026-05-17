@@ -1,16 +1,17 @@
 import "@/styles/globals.css";
-import type { Metadata, Viewport } from "next";
+
 import { BASE_URL } from "@/utils/common";
 import { Toaster } from "@/components/toast";
+import JsonLd from "@/components/seo/json-ld";
+import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/tooltip";
 import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";
-import JsonLd from "@/components/seo/json-ld";
-import { Analytics } from "@vercel/analytics/next";
 
-const title = "CuteCode — Free Code Screenshot & Image Generator Tool";
+const title = "CuteCode — Create beautiful images of your code";
 const description =
-  "Turn code into stunning screenshots in seconds. Custom themes, 100+ languages, HD export. The best free ray.so & carbon alternative for developers.";
+  "Create beautiful code screenshots in seconds. Pick a theme, export HD images, share instantly. Best alternative to ray.so and Carbon for developers.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -19,9 +20,6 @@ export const metadata: Metadata = {
     template: "%s | CuteCode",
   },
   description,
-  alternates: {
-    canonical: BASE_URL,
-  },
   robots: {
     index: true,
     follow: true,
@@ -58,15 +56,15 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "CuteCode — Beautiful Code Screenshots",
+        alt: "CuteCode — Create beautiful images of your code",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@cutecodeapp",
-    creator: "@cutecodeapp",
+    site: "@iamsimpleneeraj",
+    creator: "@iamsimpleneeraj",
     title,
     description,
     images: [`${BASE_URL}/og-image.png`],
@@ -75,12 +73,6 @@ export const metadata: Metadata = {
   category: "Developer Tools",
   creator: "CuteCode",
   publisher: "CuteCode",
-  // ── Verification (add your tokens here once you verify ownership)
-  // verification: {
-  //   google: "YOUR_GOOGLE_SEARCH_CONSOLE_TOKEN",
-  //   yandex: "YOUR_YANDEX_TOKEN",
-  //   bing: "YOUR_BING_WEBMASTER_TOKEN",
-  // },
 };
 
 export const viewport: Viewport = {
@@ -94,7 +86,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <ClerkThemeProvider>
       <html lang="en" suppressHydrationWarning>
         <head>
-          {/* JSON-LD structured data — parsed by Google before JavaScript runs */}
           <JsonLd />
         </head>
         <body className="relative">
@@ -102,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <TooltipProvider>
               <div className="isolate relative flex flex-col">{children}</div>
               <Toaster position="top-center" offset={70} duration={2000} />
-              <Analytics />
+              {process.env.NODE_ENV === "production" && <Analytics />}
             </TooltipProvider>
           </ThemeProvider>
         </body>

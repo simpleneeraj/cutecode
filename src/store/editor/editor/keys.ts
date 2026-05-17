@@ -19,4 +19,7 @@ export enum StoreKey {
 
   /* Themes */
   UNLOCKED_THEMES = "unlockedThemes",
+
+  /* Preview */
+  PREVIEW_WALLPAPER_OPTIONS = "preview_wallpaper_options",
 }

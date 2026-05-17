@@ -2,7 +2,7 @@ import { useSetAtom } from "jotai";
 import { AccessLevel } from "@/typings/enums";
 import { useUser } from "@clerk/nextjs";
 import { useSubscription } from "@/hooks/use-subscription";
-import { plansDialogOpenAtom } from "@/store/editor/plans-dialog";
+import { plansDialogOpenAtom } from "@/store/editor/plans";
 
 function resolveAccess(isPremium: boolean, isSignedIn: boolean, isPro: boolean): AccessLevel {
   if (!isPremium) return AccessLevel.ALLOWED;

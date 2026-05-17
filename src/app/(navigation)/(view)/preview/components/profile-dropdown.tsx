@@ -15,7 +15,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSubscription } from "@/hooks/use-subscription";
 import { resetEditorAtom } from "@/store/editor/editor/reset";
-import { plansDialogOpenAtom } from "@/store/editor/plans-dialog";
+import { plansDialogOpenAtom } from "@/store/editor/plans";
 import useBilling from "@/hooks/use-billing";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
@@ -28,7 +28,7 @@ interface ProfileDropdownProps extends React.HTMLAttributes<HTMLDivElement> {}
 export default function ProfileDropdown({ className, ...props }: ProfileDropdownProps) {
   const { user } = useUser();
   const { openBilling } = useBilling();
-  const { isPro, plan } = useSubscription();
+  const { isPro } = useSubscription();
   const { signOut, openUserProfile } = useClerk();
 
   const resetEditor = useSetAtom(resetEditorAtom);
@@ -71,12 +71,10 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
             </Avatar>
 
             {isPro ? (
-              // PRO: golden crown badge
               <span className="absolute -bottom-1 -right-1 flex size-3 items-center justify-center rounded-full bg-linear-to-tr from-amber-400 to-orange-500 shadow ring-2 ring-background">
                 <Icon icon="solar:crown-star-bold" className="size-2.5 text-white" />
               </span>
             ) : (
-              // FREE: subtle upgrade nudge badge
               <span className="absolute -bottom-1 -right-1 flex size-3 items-center justify-center rounded-full bg-muted shadow ring-2 ring-background">
                 <Icon icon="solar:crown-bold" className="size-2.5 text-muted-foreground" />
               </span>
@@ -85,7 +83,6 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" sideOffset={8} className="w-64 p-2 rounded-2xl shadow-xl flex flex-col gap-1">
-          {/* User info header */}
           <div
             className={cn(
               "flex items-center gap-3 px-3 py-2 mb-1 rounded-xl",

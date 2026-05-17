@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import View from "@/components/view";
-import { useShareLinkPreview } from "@/hooks/use-share-link";
-import { PasscodeGate } from "../../preview/components/passcode-gate";
-import { SnippetFrame } from "../../preview/components/snippet-frame";
+import siteConfig from "@/contstant/site-config";
+import { useSharePreview } from "@/hooks/use-share";
 import BlackHoleLoader from "@/components/loader/black-hole";
-import Link from "next/link";
-import { Logo } from "@/components/logo";
+import { PasscodeGate } from "../../(view)/preview/components/passcode-gate";
+import { SnippetFrame } from "../../(view)/preview/components/snippet-frame";
+import SnippetNotFound from "../../(view)/preview/components/preview-not-found";
 
 type EmbedSnippetClientProps = { slug: string };
 
@@ -15,7 +16,7 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
   const [passcode, setPasscode] = useState("");
   const [submittedPasscode, setSubmittedPasscode] = useState("");
 
-  const { data, isLoading, error } = useShareLinkPreview(slug, {
+  const { data, isLoading, error } = useSharePreview(slug, {
     passcode: submittedPasscode,
   });
 
@@ -44,11 +45,7 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
   }
 
   if (error || !data) {
-    return (
-      <View className="flex items-center justify-center p-8 bg-background border rounded-lg text-muted-foreground">
-        Snippet not found or access denied.
-      </View>
-    );
+    return <SnippetNotFound />;
   }
 
   const { snippet } = data;
@@ -62,8 +59,8 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
     : Object.keys(elements ?? {});
 
   return (
-    <View className="flex flex-col gap-4 p-2">
-      <View className="flex flex-col gap-6">
+    <View className="flex flex-col gap-4 p-2 ">
+      <View className="flex-1 flex flex-col justify-center">
         {elementIds.map((elId) => {
           const element = elements?.[elId] as Record<string, unknown> | undefined;
           if (!element) return null;
@@ -73,14 +70,15 @@ export default function EmbedSnippetClient({ slug }: EmbedSnippetClientProps) {
         })}
       </View>
 
-      <View className="flex items-center justify-end px-2 pt-2 border-t mt-4">
+      <View className="flex items-center justify-end px-2 pt-2 border-t">
         <Link
-          href="/"
+          href={`${process.env.NEXT_PUBLIC_BASE_URL}`}
           target="_blank"
           className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity"
         >
-          <span className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">Powered by</span>
-          <Logo className="h-3 w-auto" />
+          <span className="text-xxs font-medium uppercase tracking-wider text-muted-foreground">Powered by</span>
+          <img src={`${process.env.NEXT_PUBLIC_BASE_URL}/favicon.png`} alt="" className="w-4 h-4" />
+          <span>{siteConfig.name}</span>
         </Link>
       </View>
     </View>

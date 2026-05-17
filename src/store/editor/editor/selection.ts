@@ -7,10 +7,7 @@ import { InitialValues } from "@/typings/editor";
 /*
  * Active slide ID — persisted across reloads.
  */
-export const currentSlideIdAtom = atomWithStorage<string | null>(
-  StoreKey.CURRENT_SLIDE_ID,
-  InitialValues.SLIDE_ID,
-);
+export const currentSlideIdAtom = atomWithStorage<string | null>(StoreKey.CURRENT_SLIDE_ID, InitialValues.SLIDE_ID);
 
 /*
  * Active element ID — persisted across reloads.

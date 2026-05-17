@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og";
 
-// Image metadata
 export const size = {
   width: 32,
   height: 32,
@@ -13,17 +12,24 @@ export default async function Icon() {
   return new ImageResponse(
     <div
       style={{
-        width: "100%",
-        height: "100%",
+        width: 32,
+        height: 32,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "#0D1126",
+        borderRadius: 12,
       }}
     >
-      <img src={source} alt="Logo" width={32} height={32} />
+      <img
+        src={source}
+        alt="CuteCode"
+        style={{
+          width: 26,
+          height: 26,
+        }}
+      />
     </div>,
-    {
-      ...size,
-    },
+    { ...size },
   );
 }

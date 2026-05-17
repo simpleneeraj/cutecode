@@ -39,7 +39,13 @@ export function getHighlighter(): Promise<Highlighter> {
         // All 66 Shiki bundled themes — loaded lazily via dynamic imports
         ...Object.values(bundledThemes),
       ],
-      langs: [LANGUAGES.javascript.src(), LANGUAGES.tsx.src(), LANGUAGES.swift.src(), LANGUAGES.python.src()],
+      langs: [
+        LANGUAGES.javascript.src(),
+        LANGUAGES.tsx.src(),
+        LANGUAGES.swift.src(),
+        LANGUAGES.python.src(),
+        LANGUAGES.html.src(),
+      ],
       engine: createOnigurumaEngine(() => import("shiki/wasm")),
     }) as Promise<Highlighter>;
   }

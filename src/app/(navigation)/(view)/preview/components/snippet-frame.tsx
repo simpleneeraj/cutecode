@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import View from "@/components/view";
 import { BaseFrameProps } from "@/typings/presets";
 import { PresetFrame } from "@/components/presets";
 import Editor from "@/components/editor/textarea";
@@ -37,8 +37,10 @@ export function SnippetFrame({ elementId, element, windowWidth }: SnippetFramePr
   };
 
   return (
-    <PresetFrame key={elementId} {...frameProps}>
-      <Editor previewData={element} />
-    </PresetFrame>
+    <View className="relative overflow-hidden">
+      <PresetFrame key={elementId} {...frameProps}>
+        <Editor previewData={element} />
+      </PresetFrame>
+    </View>
   );
 }

@@ -10,7 +10,7 @@ export default function JsonLd() {
     name: "CuteCode",
     url: "https://www.cutecode.app",
     description:
-      "CuteCode is a free online code screenshot tool. Create beautiful, export-ready images of your code with custom themes, fonts, and backgrounds — no sign-up required.",
+      "Create beautiful code screenshots in seconds. Pick a theme, export HD images, share instantly. Best alternative to ray.so and Carbon for developers.",
     applicationCategory: "DeveloperApplication",
     operatingSystem: "All",
     browserRequirements: "Requires JavaScript",
@@ -21,24 +21,25 @@ export default function JsonLd() {
         "@type": "Offer",
         price: "0",
         priceCurrency: "USD",
-        name: "Free",
-        description: "10 exports/month with basic themes",
+        name: "Free Plan",
+        description: "Get started for free with core code screenshot features. No credit card required.",
       },
       {
         "@type": "Offer",
-        price: "9",
+        price: "5",
         priceCurrency: "USD",
-        name: "Pro",
-        description: "Unlimited HD exports, premium themes, watermark removal",
+        name: "Pro Plan",
+        description: "Unlimited HD exports, premium themes, custom fonts, and watermark-free images.",
       },
     ],
     featureList: [
       "Beautiful code screenshots",
       "Syntax highlighting for 100+ languages",
       "Custom themes and fonts",
-      "Export as PNG, SVG, or clipboard",
+      "Export as PNG or copy to clipboard",
       "Share code snippets via URL",
       "Dark and light mode support",
+      "Embed snippets anywhere",
     ],
     screenshot: "https://www.cutecode.app/og-image.png",
     author: {
@@ -46,13 +47,7 @@ export default function JsonLd() {
       name: "CuteCode",
       url: "https://www.cutecode.app",
     },
-    sameAs: ["https://twitter.com/cutecode"],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 }

@@ -1,18 +1,34 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { CopyPlus, Plus, Trash2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, CopyPlus, Plus, Trash2 } from "lucide-react";
 import { Toolbar, ToolbarButton, ToolbarGroup } from "@/components/ui/toolbar";
 import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAtomValue, useSetAtom } from "jotai";
-import { createSlideAtom, deleteSlideAtom, duplicateSlideAtom, slidesAtom } from "@/store/editor/editor";
+import {
+  createSlideAtom,
+  currentSlideIdAtom,
+  deleteSlideAtom,
+  duplicateSlideAtom,
+  selectSlideAtom,
+  slidesAtom,
+} from "@/store/editor/editor";
 import { Separator } from "../ui/separator";
+import useHotkeys from "@/utils/useHotkeys";
+import { Kbd, KbdGroup } from "../ui/kbd";
+import View from "../view";
 
 export default function ToolbarParticle() {
   const slides = useAtomValue(slidesAtom);
+
   const createSlide = useSetAtom(createSlideAtom);
   const duplicateSlide = useSetAtom(duplicateSlideAtom);
   const deleteSlide = useSetAtom(deleteSlideAtom);
+
+  const selectSlide = useSetAtom(selectSlideAtom);
+  const slideId = useAtomValue(currentSlideIdAtom);
+
+  const currentIndex = slides.findIndex((s) => s.id === slideId);
 
   const onCreateSlide = () => {
     createSlide({
@@ -22,11 +38,67 @@ export default function ToolbarParticle() {
     });
   };
 
+  const previousSlide = () => {
+    if (currentIndex > 0) {
+      selectSlide(slides[currentIndex - 1].id);
+    }
+  };
+
+  const nextSlide = () => {
+    if (currentIndex < slides.length - 1) {
+      selectSlide(slides[currentIndex + 1].id);
+    }
+  };
+
+  /**
+   * Hotkeys
+   */
+
+  useHotkeys("shift+left", previousSlide);
+  useHotkeys("shift+right", nextSlide);
+
+  useHotkeys("a", onCreateSlide);
+
+  useHotkeys("d", duplicateSlide);
+
+  useHotkeys("shift+backspace", () => {
+    if (slides.length > 1) {
+      deleteSlide();
+    }
+  });
+
   return (
     <TooltipProvider>
       <Toolbar>
         <ToolbarGroup>
-          {" "}
+          {/* Previous Slide */}
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToolbarButton
+                  aria-label="Previous slide"
+                  render={
+                    <Button size="icon-sm" variant="ghost" onClick={previousSlide} disabled={currentIndex === 0} />
+                  }
+                >
+                  <ChevronLeft className="text-accent-foreground" />
+                </ToolbarButton>
+              }
+            />
+
+            <TooltipPopup sideOffset={8}>
+              <View className="flex items-center gap-2">
+                Previous Slide
+                <KbdGroup>
+                  <Kbd>Shift</Kbd>
+                  <Kbd>←</Kbd>
+                </KbdGroup>
+              </View>
+            </TooltipPopup>
+          </Tooltip>
+
+          <Separator orientation="vertical" />
+
           {/* Add Slide */}
           <Tooltip>
             <TooltipTrigger
@@ -39,9 +111,18 @@ export default function ToolbarParticle() {
                 </ToolbarButton>
               }
             />
-            <TooltipPopup sideOffset={8}>Add Slide</TooltipPopup>
+
+            <TooltipPopup sideOffset={8}>
+              <View className="flex items-center gap-2">
+                Add Slide
+                <KbdGroup>
+                  <Kbd>A</Kbd>
+                </KbdGroup>
+              </View>
+            </TooltipPopup>
           </Tooltip>
-          {/* Duplicate */}
+
+          {/* Duplicate Slide */}
           <Tooltip>
             <TooltipTrigger
               render={
@@ -53,27 +134,80 @@ export default function ToolbarParticle() {
                 </ToolbarButton>
               }
             />
-            <TooltipPopup sideOffset={8}>Duplicate</TooltipPopup>
+
+            <TooltipPopup sideOffset={8}>
+              <View className="flex items-center gap-2">
+                Duplicate Slide
+                <KbdGroup>
+                  <Kbd>D</Kbd>
+                </KbdGroup>
+              </View>
+            </TooltipPopup>
           </Tooltip>
-          {slides?.length > 1 && <Separator orientation="vertical" />}
-          {/* Delete */}
-          {slides?.length > 1 && (
-            <Tooltip>
-              <TooltipTrigger
-                render={
-                  <ToolbarButton
-                    aria-label="Delete slide"
-                    render={
-                      <Button size="icon-sm" variant="ghost" className="text-destructive" onClick={deleteSlide} />
-                    }
-                  >
-                    <Trash2 />
-                  </ToolbarButton>
-                }
-              />
-              <TooltipPopup sideOffset={8}>Delete</TooltipPopup>
-            </Tooltip>
+
+          {slides.length > 1 && (
+            <>
+              <Separator orientation="vertical" />
+
+              {/* Delete Slide */}
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <ToolbarButton
+                      aria-label="Delete slide"
+                      render={
+                        <Button size="icon-sm" variant="ghost" className="text-destructive" onClick={deleteSlide} />
+                      }
+                    >
+                      <Trash2 />
+                    </ToolbarButton>
+                  }
+                />
+
+                <TooltipPopup sideOffset={8}>
+                  <View className="flex items-center gap-2">
+                    Delete Slide
+                    <KbdGroup>
+                      <Kbd>Delete</Kbd>
+                    </KbdGroup>
+                  </View>
+                </TooltipPopup>
+              </Tooltip>
+            </>
           )}
+
+          <Separator orientation="vertical" />
+
+          {/* Next Slide */}
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <ToolbarButton
+                  aria-label="Next slide"
+                  render={
+                    <Button
+                      size="icon-sm"
+                      variant="ghost"
+                      onClick={nextSlide}
+                      disabled={currentIndex === slides.length - 1}
+                    />
+                  }
+                >
+                  <ChevronRight className="text-accent-foreground" />
+                </ToolbarButton>
+              }
+            />
+
+            <TooltipPopup sideOffset={8}>
+              <View className="flex items-center gap-2">
+                Next Slide
+                <KbdGroup>
+                  <Kbd>Shift</Kbd>
+                  <Kbd>→</Kbd>
+                </KbdGroup>
+              </View>
+            </TooltipPopup>
+          </Tooltip>
         </ToolbarGroup>
       </Toolbar>
     </TooltipProvider>

@@ -22,6 +22,7 @@ import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@iconify/react";
 import View from "@/components/view";
+import { trackEditor } from "@/lib/analytics";
 
 type FontFaceItem = {
   name: string;
@@ -42,7 +43,10 @@ export default function FontFaceControl() {
     if (!font) return;
     const isPremium = font.tags?.includes(BadgeVariant.PREMIUM) ?? false;
     const access = checkAccess(isPremium);
-    withAccess(access, () => updateSlideElement({ style: { fontFamily: font.name } }));
+    withAccess(access, () => {
+      updateSlideElement({ style: { fontFamily: font.name } });
+      trackEditor.fontChanged(font.name, isPremium);
+    });
   };
 
   return (
@@ -62,6 +66,7 @@ export default function FontFaceControl() {
         >
           <ComboboxValue placeholder="Select font">
             {(font) => {
+              if (!font) return null;
               const isPremium = font.tags?.includes(BadgeVariant.PREMIUM) ?? false;
               const access = checkAccess(isPremium);
               return (

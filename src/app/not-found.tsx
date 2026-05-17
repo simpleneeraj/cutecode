@@ -25,7 +25,7 @@ export default function Particle() {
                 Create snippet
               </Button>
 
-              <Button size="sm" variant="outline" onClick={() => router.push("/community")}>
+              <Button size="sm" variant="outline" onClick={() => router.push("/explore")}>
                 Explore community
               </Button>
             </div>

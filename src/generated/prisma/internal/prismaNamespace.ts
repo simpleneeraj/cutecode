@@ -1872,6 +1872,7 @@ export const SnippetScalarFieldEnum = {
   elementId: 'elementId',
   title: 'title',
   description: 'description',
+  tags: 'tags',
   isPublic: 'isPublic',
   isE2EEncrypted: 'isE2EEncrypted',
   encryptionHint: 'encryptionHint',

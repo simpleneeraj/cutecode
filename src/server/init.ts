@@ -8,25 +8,39 @@
 import "server-only";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
-import { NextRequest } from "next/server";
-import { getAuth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
+import { cacheGet, cacheSet } from "@/lib/redis";
 import { initTRPC, TRPCError } from "@trpc/server";
 import type { User } from "@/generated/prisma/client";
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 
-// ─── Context ──────────────────────────────────────────────────────────────────
-
+/**
+ * Context type
+ */
 export type Context = {
   user: User | null;
 };
 
+/**
+ * Create context for tRPC
+ * @param req
+ * @returns
+ */
 export async function createContext({ req }: FetchCreateContextFnOptions): Promise<Context> {
   try {
-    const { userId: clerkId } = getAuth(req as NextRequest);
+    const { isAuthenticated, userId } = await auth();
+    if (!isAuthenticated) return { user: null };
 
-    if (!clerkId) return { user: null };
+    const cacheKey = `user-ctx:${userId}`;
+    let user = await cacheGet<User>(cacheKey);
 
-    const user = await prisma.user.findUnique({ where: { clerkId } });
+    if (!user) {
+      user = await prisma.user.findUnique({ where: { clerkId: userId } });
+      if (user) {
+        await cacheSet(cacheKey, user, 60 * 30); // Cache for 30 minutes
+      }
+    }
+
     return { user };
   } catch (e) {
     console.error(e);
@@ -45,8 +59,9 @@ export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
   return next({ ctx: { user: ctx.user } });
 });
 
-// ─── Shared inputs ────────────────────────────────────────────────────────────
-
+/**
+ * Pagination input
+ */
 export const paginationInput = z.object({
   page: z.number().int().min(1).default(1),
   limit: z.number().int().min(1).max(100).default(20),

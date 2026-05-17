@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { cacheDel } from "@/lib/redis";
 
 /**
  * Sync a Clerk user into the database.
@@ -6,7 +7,7 @@ import { prisma } from "@/lib/db";
  * Safe to call multiple times (upsert).
  */
 export async function syncClerkUser(params: { clerkId: string; email: string; name?: string }) {
-  return prisma.user.upsert({
+  const result = await prisma.user.upsert({
     where: { clerkId: params.clerkId },
     create: {
       clerkId: params.clerkId,
@@ -18,6 +19,8 @@ export async function syncClerkUser(params: { clerkId: string; email: string; na
       name: params.name ?? null,
     },
   });
+  await cacheDel(`user-ctx:${params.clerkId}`);
+  return result;
 }
 
 /**
@@ -25,9 +28,11 @@ export async function syncClerkUser(params: { clerkId: string; email: string; na
  * Subscription and snippets are cascade-deleted by Prisma.
  */
 export async function deleteClerkUser(clerkId: string) {
-  return prisma.user.delete({ where: { clerkId } }).catch((error) => {
+  const result = await prisma.user.delete({ where: { clerkId } }).catch((error) => {
     console.error(`Failed to delete user ${clerkId} from DB:`, error);
   });
+  await cacheDel(`user-ctx:${clerkId}`);
+  return result;
 }
 
 /** Extract primary email from Clerk webhook data */

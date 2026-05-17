@@ -17,6 +17,7 @@ import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useAtomValue, useSetAtom } from "jotai";
 import { currentElementAtom, updateSlideElementAtom } from "@/store/editor/editor";
+import { trackEditor } from "@/lib/analytics";
 
 type LanguageItem = {
   id: string;
@@ -69,6 +70,7 @@ const LanguageControl: React.FC = () => {
                 language: item.language?.name,
               },
             });
+            trackEditor.languageChanged(item.language?.name ?? "auto");
           }
         }}
         itemToStringLabel={(item) => item?.name ?? ""}

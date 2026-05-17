@@ -28,6 +28,7 @@ import { themes } from "@/components/presets/themes";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { groupThemes } from "@/components/presets/themes/shared";
 import { AccessLevel } from "@/typings/enums";
+import { trackEditor } from "@/lib/analytics";
 
 interface ThemeIconProps {
   theme: Theme;
@@ -88,7 +89,10 @@ const ThemeControl: React.FC = () => {
     if (!theme) return;
     const isPremium = theme.tags?.includes(BadgeVariant.PREMIUM) ?? false;
     const access = checkAccess(isPremium);
-    withAccess(access, () => update({ properties: { theme: theme.id } }));
+    withAccess(access, () => {
+      update({ properties: { theme: theme.id } });
+      trackEditor.themeChanged(theme.id, isPremium);
+    });
   };
   return (
     <Field>
@@ -103,14 +107,14 @@ const ThemeControl: React.FC = () => {
         isItemEqualToValue={(item, selected) => item.id === selected.id}
       >
         <ComboboxTrigger
-          render={<Button className="min-w-36 justify-between font-normal" variant="outline" />}
+          render={<Button className="min-w-14 justify-between font-normal" variant="outline" />}
           className="max-w-sm"
         >
           <ComboboxValue>
             {(theme) => (
               <div className="flex items-center gap-2">
                 <ThemeIcon theme={theme} className="size-3.5" />
-                {theme.name}
+                {/* {theme.name} */}
               </div>
             )}
           </ComboboxValue>

@@ -3,9 +3,9 @@ import { cn } from "@/utils/cn";
 import View from "@/components/view";
 import editorFonts from "@/fonts/editor";
 import globalFonts from "@/fonts/global";
+import PlansDialog from "@/components/editor/dialogs/plans";
 import EditorProvider from "@/store/editor/providers/editor";
 import { EditorContextProvider } from "@/store/editor/context/editor";
-import PlansDialog from "@/components/editor/dialogs/plans";
 
 export default function NavigationLayout({ children }: { children: React.ReactNode }) {
   return (

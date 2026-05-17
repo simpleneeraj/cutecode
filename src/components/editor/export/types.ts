@@ -6,6 +6,8 @@ export enum Visibility {
 
 export type PublishSnippetState = {
   description: string;
+  title: string;
+  tags: string[];
   visibility: Visibility;
   passcode: string;
   isPublishing: boolean;
