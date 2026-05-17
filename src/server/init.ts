@@ -52,11 +52,22 @@ export async function createContext({ req }: FetchCreateContextFnOptions): Promi
           const name =
             [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") || undefined;
 
-          user = await prisma.user.upsert({
-            where: { clerkId: userId },
-            create: { clerkId: userId, email: primaryEmail, name: name ?? null },
-            update: { email: primaryEmail, name: name ?? null },
-          });
+          try {
+            user = await prisma.user.upsert({
+              where: { clerkId: userId },
+              create: { clerkId: userId, email: primaryEmail, name: name ?? null },
+              update: { email: primaryEmail, name: name ?? null },
+            });
+          } catch (upsertErr: any) {
+            // P2002 = unique constraint violation — a concurrent request already
+            // created this user between our findUnique and this upsert. That's
+            // fine; just fetch the row that now exists.
+            if (upsertErr?.code === "P2002") {
+              user = await prisma.user.findUnique({ where: { clerkId: userId } });
+            } else {
+              throw upsertErr;
+            }
+          }
         } catch (provisionErr) {
           console.error("[tRPC] JIT user provisioning failed:", provisionErr);
           return { user: null };
