@@ -115,22 +115,22 @@ const FirecrawlFrame = ({ exportSize, padding, darkMode, transparent, children }
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
-        transparent && !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        !transparent && styles.frame,
+        !transparent && !darkMode && styles.frameLightMode,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding, ["--frame-padding" as string]: `${padding}px` }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
       <div className={styles.window}>
-        {transparent && (
+        {!transparent && (
           <div className={styles.asciiArtContainer}>
             <pre className={styles.asciiArt}>{FIRECRAWL_ASCII_ART}</pre>
           </div>
         )}
         {children}
-        {transparent && (
+        {!transparent && (
           <FirecrawlFrameCanvas
             gridColor={gridColor}
             padding={parseInt(padding.toString().replace("px", ""))}

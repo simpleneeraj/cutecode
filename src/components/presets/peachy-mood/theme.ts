@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const peachyMood: Theme = {
+  id: "peachy-mood",
+  name: "Peachy Mood",
+  background: {
+    from: "#fff3ee",
+    to: "#ffe5d0",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:peach",
+  },
+  group: "Aesthetic",
+  font: "fira-code",
+  tags: [BadgeVariant.NEW],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#7c2d12",
+      constant: "#c2410c",
+      string: "#b45309",
+      comment: "#9ca3af",
+      keyword: "#ea580c",
+      parameter: "#92400e",
+      function: "#c2410c",
+      stringExpression: "#b45309",
+      punctuation: "#d97706",
+      link: "#ea580c",
+      number: "#b45309",
+      property: "#c2410c",
+      highlight: "rgba(234, 88, 12, 0.08)",
+      highlightBorder: "#f97316",
+      highlightHover: "rgba(251, 146, 60, 0.04)",
+      diffInserted: "#b45309",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#fed7aa",
+      constant: "#fdba74",
+      string: "#fcd34d",
+      comment: "#7c2d12",
+      keyword: "#fb923c",
+      parameter: "#fbbf24",
+      function: "#fdba74",
+      stringExpression: "#fcd34d",
+      punctuation: "#7c3314",
+      link: "#fb923c",
+      number: "#fdba74",
+      property: "#fb923c",
+      highlight: "rgba(251, 146, 60, 0.07)",
+      highlightBorder: "#f97316",
+      highlightHover: "rgba(253, 186, 116, 0.04)",
+      diffInserted: "#fcd34d",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

@@ -14,7 +14,7 @@ const PROMPT = {
 export default function MacOSTerminalFrame({ padding, darkMode, transparent, children }: BaseFrameProps) {
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(
         " ",
       )}
       style={{ padding }}

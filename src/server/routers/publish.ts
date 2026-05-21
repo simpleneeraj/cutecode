@@ -13,8 +13,11 @@ import { nanoid } from "nanoid";
 import { prisma } from "@/lib/db";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../init";
-import { publishRateLimit, checkRateLimit } from "@/lib/redis";
+import { publishRateLimit, publishDailyRateLimit, checkRateLimit } from "@/lib/redis";
 import { ShareVisibility, type Prisma } from "@/generated/prisma/client";
+import { Plan } from "@/generated/prisma/enums";
+import { isPlanAtLeast } from "@/lib/billing/plans";
+import { FREE_DAILY_PUBLISH_LIMIT } from "@/lib/billing/constants";
 
 export const publishRouter = router({
   /**
@@ -83,7 +86,8 @@ export const publishRouter = router({
       const safeWidth = Math.max(400, Math.min(width ?? 680, 1600));
 
       /**
-       * Idempotency: reuse existing share link for this elementId
+       * Idempotency: reuse existing share link for this elementId.
+       * Updates do NOT count against the daily publish quota.
        */
       const existingSnippet = await prisma.snippet.findFirst({
         where: { userId: ctx.user.id, elementId },
@@ -129,6 +133,21 @@ export const publishRouter = router({
         });
 
         return { slug: existingSlug, updated: true };
+      }
+
+      /**
+       * New publish — enforce daily quota for free-plan users.
+       * Pro and above get unlimited new publishes.
+       */
+      const isFreeUser = !isPlanAtLeast(ctx.user.plan, Plan.PRO);
+      if (isFreeUser) {
+        const { success: dailyOk } = await checkRateLimit(publishDailyRateLimit, `publish:daily:${ctx.user.id}`);
+        if (!dailyOk) {
+          throw new TRPCError({
+            code: "TOO_MANY_REQUESTS",
+            message: `Daily publish limit reached (${FREE_DAILY_PUBLISH_LIMIT}/day). Upgrade to Pro for unlimited publishes.`,
+          });
+        }
       }
 
       /**

@@ -7,7 +7,7 @@ const MINTLIFY_PATTERN_DARK = "/editor/assets/mintlify/pattern-dark.svg";
 const MINTLIFY_PATTERN_LIGHT = "/editor/assets/mintlify/pattern-light.svg";
 
 const MintlifyFrame = ({ padding, darkMode, transparent, fileName, onFileNameChange, children }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
 
   return (
     <div

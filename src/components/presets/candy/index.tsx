@@ -28,17 +28,17 @@ const CandyFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
-        transparent && !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        !transparent && styles.frame,
+        !transparent && !darkMode && styles.frameLightMode,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
 
       {/* Soda Bubbles Layer */}
-      {transparent && (
+      {!transparent && (
         <div className={styles.sodaBubbles} aria-hidden>
           {BUBBLES.map((b) => (
             <div
@@ -57,7 +57,7 @@ const CandyFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
       )}
 
       {/* Striped overlay mask to give it that "Candy" wrap feel */}
-      {transparent && <div className={styles.stripesOverlay} aria-hidden />}
+      {!transparent && <div className={styles.stripesOverlay} aria-hidden />}
 
       <div
         className={classNames(styles.window, {

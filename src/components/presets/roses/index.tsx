@@ -31,17 +31,17 @@ const RosesFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
-        transparent && !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        !transparent && styles.frame,
+        !transparent && !darkMode && styles.frameLightMode,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
 
       {/* Scattered botanical icons — only with background */}
-      {transparent && (
+      {!transparent && (
         <div className={styles.iconsLayer} aria-hidden>
           {SCATTERED_ICONS.map(({ Icon, x, y, size, rotate, opacity }, i) => (
             <span

@@ -9,15 +9,15 @@ const BrowserbaseFrame = ({ padding, darkMode, transparent, fileName, onFileName
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
+        !transparent && styles.frame,
         !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
-      {transparent && (
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
+      {!transparent && (
         <div className={styles.background}>
           <div className={styles.backgroundGridline}></div>
           <div className={styles.backgroundGridline}></div>

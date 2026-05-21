@@ -38,6 +38,14 @@ import { cottonCandy } from "../cotton-candy/theme";
 import { coffeeDate } from "../coffee-date/theme";
 import { sunsetChill } from "../sunset-chill/theme";
 import { ps6 } from "../ps6/theme";
+import { auroraNights } from "../aurora-nights/theme";
+import { starryNight } from "../starry-night/theme";
+import { strawberryMilk } from "../strawberry-milk/theme";
+import { frostedGlass } from "../frosted-glass/theme";
+import { velvetNight } from "../velvet-night/theme";
+import { peachyMood } from "../peachy-mood/theme";
+import { neonDreams } from "../neon-dreams/theme";
+import { goldenHour } from "../golden-hour/theme";
 
 export const themes: { [index: string]: Theme } = {
   vercel,
@@ -79,6 +87,14 @@ export const themes: { [index: string]: Theme } = {
   "coffee-date": coffeeDate,
   "sunset-chill": sunsetChill,
   ps6,
+  "aurora-nights": auroraNights,
+  "starry-night": starryNight,
+  "strawberry-milk": strawberryMilk,
+  "frosted-glass": frostedGlass,
+  "velvet-night": velvetNight,
+  "peachy-mood": peachyMood,
+  "neon-dreams": neonDreams,
+  "golden-hour": goldenHour,
   // "macos-terminal": macosTerminal,
   // All 66 Shiki bundled themes — syntax rendered natively by Shiki
   // ...shikiThemes,

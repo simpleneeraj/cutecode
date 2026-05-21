@@ -11,7 +11,7 @@ const PrismaFrame = ({
   onFileNameChange,
   children,
 }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
 
   return (
     <div

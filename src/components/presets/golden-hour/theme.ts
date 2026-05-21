@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const goldenHour: Theme = {
+  id: "golden-hour",
+  name: "Golden Hour",
+  background: {
+    from: "#fff8f0",
+    to: "#fef3e2",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:sun-with-face",
+  },
+  group: "Aesthetic",
+  font: "geist-mono",
+  tags: [BadgeVariant.NEW],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#78350f",
+      constant: "#b45309",
+      string: "#92400e",
+      comment: "#9ca3af",
+      keyword: "#d97706",
+      parameter: "#78350f",
+      function: "#b45309",
+      stringExpression: "#92400e",
+      punctuation: "#a16207",
+      link: "#d97706",
+      number: "#92400e",
+      property: "#b45309",
+      highlight: "rgba(217, 119, 6, 0.08)",
+      highlightBorder: "#f59e0b",
+      highlightHover: "rgba(251, 191, 36, 0.05)",
+      diffInserted: "#92400e",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#fef3c7",
+      constant: "#fcd34d",
+      string: "#fde68a",
+      comment: "#78350f",
+      keyword: "#f59e0b",
+      parameter: "#fbbf24",
+      function: "#fcd34d",
+      stringExpression: "#fde68a",
+      punctuation: "#92400e",
+      link: "#f59e0b",
+      number: "#fcd34d",
+      property: "#f59e0b",
+      highlight: "rgba(245, 158, 11, 0.07)",
+      highlightBorder: "#fbbf24",
+      highlightHover: "rgba(252, 211, 77, 0.04)",
+      diffInserted: "#fde68a",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

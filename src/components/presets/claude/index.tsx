@@ -13,15 +13,15 @@ const ClaudeFrame = ({ padding, darkMode, transparent, children, fileName, onFil
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
-        transparent && !darkMode && styles.frameLightMode,
+        !transparent && styles.frame,
+        !transparent && !darkMode && styles.frameLightMode,
 
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern} />}
       <div
         className={classNames(styles.window, {
           [styles.darkWindow]: darkMode,

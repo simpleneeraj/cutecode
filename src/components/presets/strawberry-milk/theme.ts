@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const strawberryMilk: Theme = {
+  id: "strawberry-milk",
+  name: "Strawberry Milk",
+  background: {
+    from: "#ffe4ec",
+    to: "#fff0f3",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:strawberry",
+  },
+  group: "Romantic",
+  font: "fira-code",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#3d0015",
+      constant: "#9d0208",
+      string: "#1a5c38",
+      comment: "#d4a5b5",
+      keyword: "#e63950",
+      parameter: "#7c3c00",
+      function: "#c9184a",
+      stringExpression: "#1a5c38",
+      punctuation: "#d0849a",
+      link: "#e63950",
+      number: "#1a5c38",
+      property: "#9d0208",
+      highlight: "rgba(255, 77, 109, 0.07)",
+      highlightBorder: "#ff4d6d",
+      highlightHover: "rgba(255, 143, 163, 0.05)",
+      diffInserted: "#1a5c38",
+      diffDeleted: "#c9184a",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#ffe0e9",
+      constant: "#ff8fa3",
+      string: "#7affd4",
+      comment: "#3d1520",
+      keyword: "#ff8fa3",
+      parameter: "#ffd97d",
+      function: "#ff4d6d",
+      stringExpression: "#7affd4",
+      punctuation: "#5a2030",
+      link: "#ff8fa3",
+      number: "#7affd4",
+      property: "#ff8fa3",
+      highlight: "rgba(255, 77, 109, 0.07)",
+      highlightBorder: "#ff4d6d",
+      highlightHover: "rgba(255, 143, 163, 0.05)",
+      diffInserted: "#7affd4",
+      diffDeleted: "#ff4d6d",
+    }),
+  },
+};

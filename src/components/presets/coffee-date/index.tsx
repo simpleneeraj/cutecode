@@ -38,7 +38,7 @@ const PARTICLES = Array.from({ length: 15 }, (_, i) => ({
 export default function CoffeeDateFrame({ padding, darkMode, transparent, children }: BaseFrameProps) {
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(
         " ",
       )}
       style={{ padding }}

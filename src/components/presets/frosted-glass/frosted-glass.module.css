@@ -1,0 +1,83 @@
+/* frosted-glass — layout & color only, no keyframes */
+
+.scene {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.dark  { background: #0a0c1e; }
+.light { background: radial-gradient(ellipse at 30% 20%, #f0f4ff 0%, #faf0ff 50%, #f0f9ff 100%); }
+.transparent { background: transparent; }
+
+/* ── Vivid blobs visible through the glass panel ── */
+.blobA, .blobB, .blobC, .blobD { position: absolute; border-radius: 50%; pointer-events: none; }
+
+.dark .blobA { width: 400px; height: 400px; background: #4f46e5; top: -140px; left: -100px; opacity: 0.3; filter: blur(90px); }
+.dark .blobB { width: 320px; height: 320px; background: #7c3aed; bottom: -100px; right: -80px; opacity: 0.25; filter: blur(80px); }
+.dark .blobC { width: 260px; height: 260px; background: #0ea5e9; top: 30%; left: 55%; transform: translate(-50%,-50%); opacity: 0.2; filter: blur(100px); }
+.dark .blobD { width: 200px; height: 200px; background: #f43f5e; bottom: 20%; left: 10%; opacity: 0.15; filter: blur(80px); }
+
+.light .blobA { width: 420px; height: 420px; background: #c7d2fe; top: -150px; left: -110px; opacity: 0.75; filter: blur(90px); }
+.light .blobB { width: 340px; height: 340px; background: #ddd6fe; bottom: -110px; right: -90px; opacity: 0.65; filter: blur(80px); }
+.light .blobC { width: 280px; height: 280px; background: #bae6fd; top: 30%; left: 55%; transform: translate(-50%,-50%); opacity: 0.55; filter: blur(100px); }
+.light .blobD { width: 220px; height: 220px; background: #fecdd3; bottom: 20%; left: 10%; opacity: 0.6; filter: blur(80px); }
+
+/* ── Fleck layer ── */
+.fleckLayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: 24px; }
+
+/* ── Top edge ── */
+.topEdge { position: absolute; top: 0; left: 0; right: 0; height: 2px; overflow: hidden; z-index: 20; pointer-events: none; }
+.dark .topEdge  { background: rgba(255,255,255,0.06); }
+.light .topEdge { background: rgba(255,255,255,0.5); }
+
+.topEdgeSweep { position: absolute; inset-block: 0; width: 40%; background: linear-gradient(90deg, transparent, #6366f1, #8b5cf6, #38bdf8, #f43f5e, transparent); }
+
+/* ── Window — the frosted glass card ── */
+.window { position: relative; border-radius: 20px; overflow: hidden; z-index: 10; }
+
+.dark .window {
+  background: rgba(12,14,35,0.78);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 0 0 2px rgba(99,102,241,0.12),
+    0 8px 32px rgba(99,102,241,0.12),
+    0 24px 80px rgba(0,0,0,0.7),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+}
+.light .window {
+  background: rgba(255,255,255,0.72);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.7),
+    0 0 0 2px rgba(99,102,241,0.1),
+    0 8px 32px rgba(99,102,241,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+/* ── Header ── */
+.header { display: grid; grid-template-columns: 70px 1fr 70px; align-items: center; padding: 12px 16px 11px; }
+.dark .header  { background: rgba(15,17,42,0.6); border-bottom: 1px solid rgba(255,255,255,0.06); }
+.light .header { background: rgba(255,255,255,0.55); border-bottom: 1px solid rgba(255,255,255,0.6); }
+
+.headerRule { height: 1px; background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3) 20%, rgba(139,92,246,0.3) 50%, rgba(56,189,248,0.3) 80%, transparent); }
+
+.dots { display: flex; gap: 7px; align-items: center; }
+.dot  { width: 13px; height: 13px; border-radius: 50%; position: relative; cursor: default; }
+.dot::after { content: ""; position: absolute; top: 3px; left: 3px; width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.65); }
+
+.dotA { background: radial-gradient(circle at 35% 35%, #a5b4fc, #4f46e5); box-shadow: 0 1px 4px rgba(99,102,241,0.5); }
+.dotB { background: radial-gradient(circle at 35% 35%, #7dd3fc, #0ea5e9); box-shadow: 0 1px 4px rgba(14,165,233,0.5); }
+.dotC { background: radial-gradient(circle at 35% 35%, #c4b5fd, #7c3aed); box-shadow: 0 1px 4px rgba(124,58,237,0.5); }
+
+.headerCenter { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.headerLabel  { font-family: "Geist Mono","Courier New",monospace; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: lowercase; }
+.dark .headerLabel  { color: #a5b4fc; }
+.light .headerLabel { color: #4f46e5; }
+
+.headerRight { display: flex; justify-content: flex-end; align-items: center; opacity: 0.6; }
+
+/* ── Editor ── */
+.editor { position: relative; }
+.dark .editor  { background: rgba(8,10,28,0.7); }
+.light .editor { background: rgba(255,255,255,0.6); }

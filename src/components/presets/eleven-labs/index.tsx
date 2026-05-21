@@ -5,7 +5,7 @@ import styles from "./eleven-labs.module.css";
 import sharedStyles from "../default/default.module.css";
 
 const ElevenLabsFrame = ({ padding, darkMode, transparent, windowWidth, code, children }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
 
   const windowRef = useRef<HTMLDivElement>(null);
   const [circleDiameter, setCircleDiameter] = useState(0);

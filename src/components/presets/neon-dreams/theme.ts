@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const neonDreams: Theme = {
+  id: "neon-dreams",
+  name: "Neon Dreams",
+  background: {
+    from: "#0d0014",
+    to: "#080008",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:dizzy",
+  },
+  group: "Aesthetic",
+  font: "fira-code",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#1a0028",
+      constant: "#7c00cc",
+      string: "#006b6b",
+      comment: "#9ca3af",
+      keyword: "#cc0066",
+      parameter: "#664400",
+      function: "#0066cc",
+      stringExpression: "#006b6b",
+      punctuation: "#8800aa",
+      link: "#cc0066",
+      number: "#007777",
+      property: "#7c00cc",
+      highlight: "rgba(204, 0, 102, 0.06)",
+      highlightBorder: "#ff0090",
+      highlightHover: "rgba(0, 255, 249, 0.04)",
+      diffInserted: "#006b6b",
+      diffDeleted: "#cc0033",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#e0d4f5",
+      constant: "#bf00ff",
+      string: "#00fff9",
+      comment: "#2d0045",
+      keyword: "#ff0090",
+      parameter: "#ffcc00",
+      function: "#00bfff",
+      stringExpression: "#00fff9",
+      punctuation: "#6600aa",
+      link: "#ff0090",
+      number: "#00fff9",
+      property: "#bf00ff",
+      highlight: "rgba(255, 0, 144, 0.06)",
+      highlightBorder: "#ff0090",
+      highlightHover: "rgba(0, 255, 249, 0.04)",
+      diffInserted: "#00fff9",
+      diffDeleted: "#ff2255",
+    }),
+  },
+};

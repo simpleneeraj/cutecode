@@ -20,7 +20,7 @@ const ThemeWrapper = ({
   darkMode,
   transparent,
 }: ThemeWrapperProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
 
   return (
     <div

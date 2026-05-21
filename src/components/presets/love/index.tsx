@@ -65,15 +65,15 @@ export default function LoveFrame({ padding, darkMode, transparent, children }: 
 
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(
         " ",
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={styles.transparentPattern} />}
+      {transparent && <div data-ignore-in-export className={styles.transparentPattern} />}
 
       {/* Background blobs */}
-      {transparent && (
+      {!transparent && (
         <>
           <div className={styles.blobA} aria-hidden />
           <div className={styles.blobB} aria-hidden />
@@ -82,7 +82,7 @@ export default function LoveFrame({ padding, darkMode, transparent, children }: 
       )}
 
       {/* Particle layer */}
-      {transparent && (
+      {!transparent && (
         <div className={styles.particleLayer} aria-hidden>
           {PARTICLES.map((p) => (
             <div
@@ -102,7 +102,7 @@ export default function LoveFrame({ padding, darkMode, transparent, children }: 
       )}
 
       {/* Ambient icons */}
-      {transparent && (
+      {!transparent && (
         <div className={styles.ambientLayer} aria-hidden>
           {AMBIENT_ICONS.map((a, i) => (
             <motion.span

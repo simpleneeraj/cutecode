@@ -10,15 +10,15 @@ const ClerkFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
+        !transparent && styles.frame,
         !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
-      {transparent && <img src={CLERK_PATTERN_URL} alt="" className={styles.pattern} />}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
+      {!transparent && <img src={CLERK_PATTERN_URL} alt="" className={styles.pattern} />}
       <div className={styles.window}>
         <div className={styles.code}>{children}</div>
       </div>

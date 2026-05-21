@@ -33,6 +33,14 @@ import SunsetChillFrame from "./sunset-chill";
 import { themes } from "./themes";
 import PS6Frame from "./ps6";
 import MacOSTerminalFrame from "./terminals/mac-os";
+import AuroraNightsFrame from "./aurora-nights";
+import StarryNightFrame from "./starry-night";
+import StrawberryMilkFrame from "./strawberry-milk";
+import FrostedGlassFrame from "./frosted-glass";
+import VelvetNightFrame from "./velvet-night";
+import PeachyMoodFrame from "./peachy-mood";
+import NeonDreamsFrame from "./neon-dreams";
+import GoldenHourFrame from "./golden-hour";
 
 type PresetsProps = {
   id: string;
@@ -105,6 +113,22 @@ export function PresetFrame({ themeId, ...props }: BaseFrameProps) {
 
     case themes.ps6.id:
       return <PS6Frame themeId={themeId} {...props} />;
+    case themes["aurora-nights"].id:
+      return <AuroraNightsFrame themeId={themeId} {...props} />;
+    case themes["starry-night"].id:
+      return <StarryNightFrame themeId={themeId} {...props} />;
+    case themes["strawberry-milk"].id:
+      return <StrawberryMilkFrame themeId={themeId} {...props} />;
+    case themes["frosted-glass"].id:
+      return <FrostedGlassFrame themeId={themeId} {...props} />;
+    case themes["velvet-night"].id:
+      return <VelvetNightFrame themeId={themeId} {...props} />;
+    case themes["peachy-mood"].id:
+      return <PeachyMoodFrame themeId={themeId} {...props} />;
+    case themes["neon-dreams"].id:
+      return <NeonDreamsFrame themeId={themeId} {...props} />;
+    case themes["golden-hour"].id:
+      return <GoldenHourFrame themeId={themeId} {...props} />;
     // case themes["macos-terminal"].id:
     //   return <MacOSTerminalFrame themeId={themeId} {...props} />;
     default:

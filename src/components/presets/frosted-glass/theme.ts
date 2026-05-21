@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const frostedGlass: Theme = {
+  id: "frosted-glass",
+  name: "Frosted Glass",
+  background: {
+    from: "#f0f4ff",
+    to: "#faf0ff",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:snowflake",
+  },
+  group: "Aesthetic",
+  font: "geist-mono",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#1e1b4b",
+      constant: "#4f46e5",
+      string: "#065f46",
+      comment: "#94a3b8",
+      keyword: "#7c3aed",
+      parameter: "#b45309",
+      function: "#0ea5e9",
+      stringExpression: "#065f46",
+      punctuation: "#94a3b8",
+      link: "#0ea5e9",
+      number: "#0891b2",
+      property: "#4f46e5",
+      highlight: "rgba(79, 70, 229, 0.06)",
+      highlightBorder: "#6366f1",
+      highlightHover: "rgba(124, 58, 237, 0.04)",
+      diffInserted: "#065f46",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#e2e8f0",
+      constant: "#a5b4fc",
+      string: "#6ee7b7",
+      comment: "#334155",
+      keyword: "#c4b5fd",
+      parameter: "#fbbf24",
+      function: "#38bdf8",
+      stringExpression: "#6ee7b7",
+      punctuation: "#475569",
+      link: "#38bdf8",
+      number: "#6ee7b7",
+      property: "#a5b4fc",
+      highlight: "rgba(165, 180, 252, 0.06)",
+      highlightBorder: "#818cf8",
+      highlightHover: "rgba(196, 181, 253, 0.04)",
+      diffInserted: "#6ee7b7",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

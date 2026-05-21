@@ -57,10 +57,10 @@ const OptionsControl: React.FC = () => {
           {/* Background */}
           <MenuCheckboxItem
             variant="switch"
-            checked={transparent}
+            checked={!transparent}
             onCheckedChange={(checked) =>
               updateSlideElement({
-                properties: { transparent: checked },
+                properties: { transparent: !checked },
               })
             }
             className="flex items-center justify-between gap-2 rounded-lg px-2 py-2"

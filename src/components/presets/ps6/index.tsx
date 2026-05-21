@@ -26,7 +26,7 @@ const PARTICLES = Array.from({ length: 16 }, (_, i) => ({
 export default function PS6Frame({ padding, darkMode, transparent, children }: BaseFrameProps) {
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(
         " ",
       )}
       style={{ padding }}

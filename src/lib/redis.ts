@@ -1,5 +1,6 @@
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
+import { FREE_DAILY_PUBLISH_LIMIT } from "@/lib/billing/constants";
 
 const url = process.env.UPSTASH_REDIS_REST_URL || "";
 const token = process.env.UPSTASH_REDIS_REST_TOKEN || "";
@@ -9,13 +10,25 @@ export const isRedisConfigured = !!url && !!token;
 export const redis = new Redis({ url, token });
 
 /**
- * Publish: 10 per minute per user (strict)
+ * Publish abuse guard: 10 per minute per user (strict, all users)
  */
 export const publishRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(10, "1 m"),
   analytics: true,
   prefix: "ratelimit:publish",
+});
+
+/**
+ * Daily publish quota for free-plan users: FREE_DAILY_PUBLISH_LIMIT new snippets per 24 hours.
+ * Only checked for new publishes — updating an existing snippet does not consume this limit.
+ * Pro+ users bypass this limiter entirely.
+ */
+export const publishDailyRateLimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(FREE_DAILY_PUBLISH_LIMIT, "24 h"),
+  analytics: true,
+  prefix: "ratelimit:publish:daily",
 });
 
 /**

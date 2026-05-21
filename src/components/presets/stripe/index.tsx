@@ -6,7 +6,7 @@ import styles from "./stripe.module.css";
 import sharedStyles from "../default/default.module.css";
 
 const StripeFrame = ({ padding, darkMode, transparent, code, windowWidth, children }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
   const isSafari = useIsSafari();
 
   const windowRef = useRef<HTMLDivElement>(null);

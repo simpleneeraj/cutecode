@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const starryNight: Theme = {
+  id: "starry-night",
+  name: "Starry Night",
+  background: {
+    from: "#060818",
+    to: "#0d1b3e",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:star",
+  },
+  group: "Aesthetic",
+  font: "jetbrains-mono",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#0f172a",
+      constant: "#4f46e5",
+      string: "#065f46",
+      comment: "#94a3b8",
+      keyword: "#1d4ed8",
+      parameter: "#92400e",
+      function: "#4338ca",
+      stringExpression: "#065f46",
+      punctuation: "#64748b",
+      link: "#1d4ed8",
+      number: "#0891b2",
+      property: "#4f46e5",
+      highlight: "rgba(99, 102, 241, 0.06)",
+      highlightBorder: "#6366f1",
+      highlightHover: "rgba(67, 56, 202, 0.04)",
+      diffInserted: "#065f46",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#e8f4fd",
+      constant: "#a78bfa",
+      string: "#34d399",
+      comment: "#1e3050",
+      keyword: "#60a5fa",
+      parameter: "#fbbf24",
+      function: "#818cf8",
+      stringExpression: "#34d399",
+      punctuation: "#2e4a6a",
+      link: "#60a5fa",
+      number: "#fcd34d",
+      property: "#a78bfa",
+      highlight: "rgba(96, 165, 250, 0.06)",
+      highlightBorder: "#60a5fa",
+      highlightHover: "rgba(129, 140, 248, 0.04)",
+      diffInserted: "#34d399",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

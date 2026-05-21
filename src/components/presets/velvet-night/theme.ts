@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const velvetNight: Theme = {
+  id: "velvet-night",
+  name: "Velvet Night",
+  background: {
+    from: "#1a0a2e",
+    to: "#0d0518",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:purple-heart",
+  },
+  group: "Aesthetic",
+  font: "geist-mono",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#2d1b69",
+      constant: "#5b21b6",
+      string: "#4c1d95",
+      comment: "#9ca3af",
+      keyword: "#7c3aed",
+      parameter: "#92400e",
+      function: "#5b21b6",
+      stringExpression: "#4c1d95",
+      punctuation: "#8b5cf6",
+      link: "#7c3aed",
+      number: "#6d28d9",
+      property: "#5b21b6",
+      highlight: "rgba(124, 58, 237, 0.08)",
+      highlightBorder: "#7c3aed",
+      highlightHover: "rgba(139, 92, 246, 0.04)",
+      diffInserted: "#4c1d95",
+      diffDeleted: "#be123c",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#e9d5ff",
+      constant: "#c4b5fd",
+      string: "#ddd6fe",
+      comment: "#3b0764",
+      keyword: "#a78bfa",
+      parameter: "#fbbf24",
+      function: "#c4b5fd",
+      stringExpression: "#ddd6fe",
+      punctuation: "#581c87",
+      link: "#a78bfa",
+      number: "#c4b5fd",
+      property: "#a78bfa",
+      highlight: "rgba(167, 139, 250, 0.07)",
+      highlightBorder: "#8b5cf6",
+      highlightHover: "rgba(196, 181, 253, 0.04)",
+      diffInserted: "#ddd6fe",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

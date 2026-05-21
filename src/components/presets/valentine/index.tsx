@@ -77,7 +77,7 @@ export default function ValentineFrame({ padding, darkMode, transparent, childre
 
   return (
     <div
-      className={[styles.scene, darkMode ? styles.dark : styles.light, !transparent ? styles.transparent : ""].join(
+      className={[styles.scene, darkMode ? styles.dark : styles.light, transparent ? styles.transparent : ""].join(
         " ",
       )}
       style={{ padding }}

@@ -7,7 +7,7 @@ import useIsSafari from "@/components/editor/util/useIsSafari";
 const BEAMS_URL = "/editor/assets/tailwind/beams.png";
 
 const TailwindFrame = ({ padding, darkMode, transparent, children }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
   const isSafari = useIsSafari();
 
   return (

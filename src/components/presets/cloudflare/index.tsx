@@ -12,7 +12,7 @@ const CloudflareFrame = ({
   selectedLanguage,
   children,
 }: BaseFrameProps) => {
-  const showBackground = transparent;
+  const showBackground = !transparent;
 
   return (
     <div

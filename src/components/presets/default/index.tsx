@@ -22,20 +22,20 @@ const DefaultFrame = ({
         styles.frame,
         styles[themeId || "default"],
         darkMode && styles.darkMode,
-        transparent && styles.withBackground,
+        !transparent && styles.withBackground,
       )}
       style={{
         padding,
-        backgroundImage: transparent ? themeBackground : "",
+        backgroundImage: !transparent ? themeBackground : "",
         backgroundSize: backgroundImage ? "cover" : undefined,
         backgroundPosition: backgroundImage ? "center" : undefined,
       }}
     >
-      {!transparent && <div data-ignore-in-export className={styles.transparentPattern}></div>}
+      {transparent && <div data-ignore-in-export className={styles.transparentPattern}></div>}
       <div
         className={cn(styles.window, {
           [styles.withBorder]: !isSafari,
-          [styles.withShadow]: !isSafari && transparent,
+          [styles.withShadow]: !isSafari && !transparent,
         })}
       >
         <div className={styles.header}>

@@ -1,0 +1,58 @@
+import { Theme, IconType, BadgeVariant } from "@/typings/editor";
+import { convertToShikiTheme } from "../themes/shared";
+
+export const auroraNights: Theme = {
+  id: "aurora-nights",
+  name: "Aurora Nights",
+  background: {
+    from: "#050d0e",
+    to: "#0a1628",
+  },
+  icon: {
+    type: IconType.ICONIFY,
+    source: "fluent-emoji:sparkles",
+  },
+  group: "Aesthetic",
+  font: "fira-code",
+  tags: [BadgeVariant.NEW, BadgeVariant.PREMIUM],
+  syntax: {
+    light: convertToShikiTheme({
+      foreground: "#064e3b",
+      constant: "#5b21b6",
+      string: "#065f46",
+      comment: "#9ca3af",
+      keyword: "#0369a1",
+      parameter: "#92400e",
+      function: "#047857",
+      stringExpression: "#065f46",
+      punctuation: "#6b7280",
+      link: "#0369a1",
+      number: "#065f46",
+      property: "#5b21b6",
+      highlight: "rgba(0, 200, 100, 0.06)",
+      highlightBorder: "#00c864",
+      highlightHover: "rgba(0, 150, 200, 0.04)",
+      diffInserted: "#065f46",
+      diffDeleted: "#991b1b",
+    }),
+    dark: convertToShikiTheme({
+      foreground: "#d4fde4",
+      constant: "#a78bfa",
+      string: "#34d399",
+      comment: "#1a4a3a",
+      keyword: "#22d3ee",
+      parameter: "#fbbf24",
+      function: "#00ff88",
+      stringExpression: "#34d399",
+      punctuation: "#2a4a45",
+      link: "#22d3ee",
+      number: "#34d399",
+      property: "#a78bfa",
+      highlight: "rgba(0, 255, 136, 0.06)",
+      highlightBorder: "#00ff88",
+      highlightHover: "rgba(0, 229, 212, 0.04)",
+      diffInserted: "#34d399",
+      diffDeleted: "#f87171",
+    }),
+  },
+};

@@ -23,13 +23,13 @@ const RetroMacFrame = ({
       className="relative transition-[padding] duration-200"
       style={{
         padding,
-        backgroundImage: transparent ? themeBackground : undefined,
+        backgroundImage: !transparent ? themeBackground : undefined,
         backgroundSize: backgroundImage ? "cover" : undefined,
         backgroundPosition: backgroundImage ? "center" : undefined,
       }}
     >
       {/* Transparent checker pattern */}
-      {!transparent && (
+      {transparent && (
         <div
           data-ignore-in-export
           className="absolute inset-0 -z-10"
@@ -51,7 +51,7 @@ const RetroMacFrame = ({
         className="relative flex min-h-[100px] flex-col overflow-hidden rounded-[10px]"
         style={{
           backgroundColor: cardBg,
-          boxShadow: transparent
+          boxShadow: !transparent
             ? `0 0 0 1.5px ${cardBorder}, 0 20px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.35)`
             : `0 0 0 1.5px ${cardBorder}`,
         }}

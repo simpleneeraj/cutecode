@@ -8,14 +8,14 @@ const VercelFrame = ({ padding, darkMode, transparent, children }: BaseFrameProp
     <div
       className={classNames(
         sharedStyles.frame,
-        transparent && styles.frame,
-        transparent && !darkMode && styles.frameLightMode,
-        !transparent && sharedStyles.noBackground,
-        !transparent && styles.noBackground,
+        !transparent && styles.frame,
+        !transparent && !darkMode && styles.frameLightMode,
+        transparent && sharedStyles.noBackground,
+        transparent && styles.noBackground,
       )}
       style={{ padding }}
     >
-      {!transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
+      {transparent && <div data-ignore-in-export className={sharedStyles.transparentPattern}></div>}
       <div className={styles.window}>
         <span className={styles.gridlinesHorizontal} data-grid></span>
         <span className={styles.gridlinesVertical} data-grid></span>

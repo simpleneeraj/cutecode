@@ -4,7 +4,7 @@ import { BASE_URL } from "@/utils/common";
 
 const title = "Create beautiful images of your code";
 const description =
-  "Turn any snippet into a beautiful, shareable image. Perfect for Twitter, READMEs, blog posts, and slide decks.";
+  "Turn your code snippets into beautiful, shareable visuals for social media, documentation, blogs, and presentations.";
 
 export const metadata: Metadata = {
   title,

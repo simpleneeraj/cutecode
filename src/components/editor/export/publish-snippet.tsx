@@ -33,10 +33,10 @@ import { useAuth } from "@clerk/nextjs";
 import React, { useState } from "react";
 import SuccessDialog from "./success-dialog";
 import { Icon } from "@iconify/react";
-import { usePremiumAccess } from "@/hooks/use-premium-access";
-import { AccessLevel } from "@/typings/enums";
+import { useSubscription } from "@/hooks/use-subscription";
+import { plansDialogOpenAtom } from "@/store/editor/plans";
+import { FREE_DAILY_PUBLISH_LIMIT } from "@/lib/billing/constants";
 import { cn } from "@/utils/cn";
-import PremiumBadge from "@/app/(navigation)/(view)/preview/components/premium-badge";
 import { trackSnippet } from "@/lib/analytics";
 
 const OTP_LENGTH = 6;
@@ -81,16 +81,15 @@ const PublishSnippet: React.FC = () => {
   const windowWidth = useAtomValue(windowWidthAtom);
   const fileName = useAtomValue(fileNameAtom);
 
-  const { isSignedIn } = useAuth();
+  const { isSignedIn, isLoaded } = useAuth();
   const { publish } = usePublish();
-  const { checkAccess, withAccess } = usePremiumAccess();
-
-  const access = checkAccess(true);
-  const isLocked = access !== AccessLevel.ALLOWED;
+  const { isPro } = useSubscription();
+  const setPlansOpen = useSetAtom(plansDialogOpenAtom);
 
   const onTriggerClick = () => {
-    if (isLocked) {
-      withAccess(access, () => {});
+    if (!isLoaded) return;
+    if (!isSignedIn) {
+      setPlansOpen(true);
       return;
     }
     trackSnippet.publishDialogOpened();
@@ -131,8 +130,15 @@ const PublishSnippet: React.FC = () => {
       dispatch({ publishedUrl: url, isSuccessOpen: true });
       await navigator.clipboard.writeText(url).catch(() => {});
       trackSnippet.published(visibility, Boolean(description?.trim()));
-    } catch {
-      toast.error("Failed to publish snippet.");
+    } catch (err: unknown) {
+      const message = (err as Error)?.message ?? "";
+      if (message.includes("Daily publish limit")) {
+        setOpen(false);
+        setPlansOpen(true);
+        toast.error(message);
+      } else {
+        toast.error("Failed to publish snippet.");
+      }
     } finally {
       setIsPending(false);
     }
@@ -153,7 +159,9 @@ const PublishSnippet: React.FC = () => {
           <Icon icon="solar:share-bold" className="size-4" />
           Publish snippet
         </span>
-        <PremiumBadge />
+        {!isPro && isSignedIn && (
+          <span className="text-xs text-muted-foreground">{FREE_DAILY_PUBLISH_LIMIT}/day</span>
+        )}
       </DialogTrigger>
 
       <DialogPopup className="sm:max-w-md rounded-2xl overflow-hidden p-0">
@@ -174,6 +182,11 @@ const PublishSnippet: React.FC = () => {
           </DialogTitle>
           <DialogDescription className="text-xs text-muted-foreground mt-1">
             Share your snippet publicly, protect it with a passcode, or keep it private.
+            {!isPro && (
+              <span className="block mt-1 text-amber-400/80">
+                Free plan: {FREE_DAILY_PUBLISH_LIMIT} new publishes/day. Upgrade to Pro for unlimited.
+              </span>
+            )}
           </DialogDescription>
         </DialogHeader>
 
