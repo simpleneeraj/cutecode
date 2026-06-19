@@ -48,7 +48,7 @@ const Frame = () => {
   );
 
   return (
-    <div className={cn(styles.frameContainer, "sm:py-24")} data-theme={darkMode ? "dark" : "light"}>
+    <div className={cn(styles.frameContainer, "pb-36 sm:py-24 sm:pb-24")} data-theme={darkMode ? "dark" : "light"}>
       <AnimatePresence mode="wait">
         {slide && (
           <motion.div

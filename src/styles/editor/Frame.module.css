@@ -3,11 +3,14 @@
   justify-content: center;
   grid-area: content;
   transform: scale(0.6);
+  transform-origin: top center;
   min-width: 0;
   width: 100%;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     transform: scale(1);
+    overflow: visible;
   }
 }
 

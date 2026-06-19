@@ -12,13 +12,13 @@ import { Card, CardPanel } from "@/components/ui/card";
 
 const Controls: React.FC = () => {
   return (
-    <div className="flex flex-col gap-2 fixed bottom-4 left-1/2 -translate-x-1/2">
+    <div className="flex flex-col gap-2 fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-auto">
       <View className="flex items-center justify-center">
         <SliderControl />
       </View>
       <div className="relative">
         <Card className="w-full bg-card/75 backdrop-blur-3xl relative">
-          <CardPanel className="flex flex-row gap-3 p-3">
+          <CardPanel className="flex flex-row gap-3 p-3 overflow-x-auto">
             <ThemeControl />
             <PaddingControl />
             <LanguageControl />

@@ -42,7 +42,7 @@ export function SnippetActions({
 
   return (
     <div className="flex flex-col gap-0 w-full">
-      <div className="flex gap-2 justify-between w-full">
+      <div className="flex flex-wrap gap-2 justify-between w-full">
         <View className="flex items-center gap-2">
           <TooltipProvider>
             <Tooltip>
@@ -88,7 +88,7 @@ export function SnippetActions({
           </TooltipProvider>
         </View>
 
-        <View className="flex items-center gap-2">
+        <View className="flex items-center gap-2 flex-wrap">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger
@@ -123,7 +123,7 @@ export function SnippetActions({
                     ) : (
                       <Blend className="size-4 shrink-0" aria-hidden />
                     )}
-                    <span>{isRemixing ? "Remixing..." : "Remix"}</span>
+                    <span className="hidden sm:inline">{isRemixing ? "Remixing..." : "Remix"}</span>
                   </Button>
                 }
               />
