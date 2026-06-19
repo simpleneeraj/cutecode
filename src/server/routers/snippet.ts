@@ -5,6 +5,7 @@
  *
  * Procedures:
  *   snippet.list         — paginated list of the caller's snippets
+ *   snippet.explore      — paginated public explore feed (no auth)
  *   snippet.get          — single snippet with resolved element
  *   snippet.create       — create a snippet tied to a presentation element
  *   snippet.update       — patch title / isPublic
@@ -13,6 +14,7 @@
  *   snippet.toggleBookmark — toggle bookmark (auth required)
  *   snippet.listComments — paginated public comments
  *   snippet.addComment   — add a comment (auth required)
+ *   snippet.remix        — fork a public snippet into the caller's account
  */
 
 import { TRPCError } from "@trpc/server";
@@ -51,6 +53,63 @@ export const snippetRouter = router({
 
     return { snippets, total, page, limit };
   }),
+
+  /** Public explore feed — paginated, filterable by language or sort order */
+  explore: publicProcedure
+    .input(
+      z.object({
+        page: z.number().int().min(1).default(1),
+        limit: z.number().int().min(1).max(48).default(24),
+        sort: z.enum(["recent", "popular"]).default("recent"),
+        language: z.string().optional(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const { page, limit, sort, language } = input;
+      const skip = (page - 1) * limit;
+
+      const where = {
+        isPublic: true,
+        shareLinks: {
+          some: { visibility: ShareVisibility.PUBLIC },
+        },
+        ...(language ? { presentation: { elements: { path: ["language"], equals: language } } } : {}),
+      };
+
+      const orderBy =
+        sort === "popular"
+          ? { upvotes: { _count: "desc" as const } }
+          : { createdAt: "desc" as const };
+
+      const [snippets, total] = await prisma.$transaction([
+        prisma.snippet.findMany({
+          where,
+          orderBy,
+          skip,
+          take: limit,
+          select: {
+            id: true,
+            title: true,
+            description: true,
+            tags: true,
+            createdAt: true,
+            elementId: true,
+            user: { select: { id: true, name: true, clerkId: true } },
+            presentation: { select: { id: true, name: true, elements: true } },
+            shareLinks: {
+              where: { visibility: ShareVisibility.PUBLIC },
+              select: { slug: true },
+              take: 1,
+              orderBy: { createdAt: "asc" },
+            },
+            _count: { select: { upvotes: true, bookmarks: true, comments: true } },
+          },
+        }),
+        prisma.snippet.count({ where }),
+      ]);
+
+      return { snippets, total, page, limit };
+    }),
 
   /**
    * Get a snippet

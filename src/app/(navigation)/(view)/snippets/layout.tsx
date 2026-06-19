@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import View from "@/components/view";
-import Navigations from "../../components/naviagtions";
+import Navigations from "../../components/navigation";
 import { PreviewSnippetHeader } from "../preview/components/preview-snippet-header";
 
 export const metadata: Metadata = {

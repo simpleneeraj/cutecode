@@ -1,7 +1,7 @@
 "use client";
 
 import AuthControls from "./controls";
-import Navigations from "./naviagtions";
+import Navigations from "./navigation";
 import { usePathname } from "next/navigation";
 import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";

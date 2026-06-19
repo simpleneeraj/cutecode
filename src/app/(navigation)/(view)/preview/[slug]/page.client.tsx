@@ -1,7 +1,8 @@
-// preview-snippet-client.tsx
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { motion } from "motion/react";
 import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
@@ -131,6 +132,28 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
             </SnippetCard>
           </View>
         </View>
+
+        {/* Attribution CTA — always visible, non-dismissible */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="z-10 flex items-center justify-center pb-8"
+        >
+          <Link
+            href={`/remix/${slug}`}
+            className="group flex items-center gap-2.5 rounded-full border border-border bg-background/80 backdrop-blur-sm px-4 py-2 text-sm font-medium text-muted-foreground transition-all hover:border-brand/60 hover:text-foreground hover:bg-background"
+          >
+            <span
+              className="flex size-5 items-center justify-center rounded-full text-xs font-bold transition-colors"
+              style={{ background: "hsl(var(--brand-subtle))", color: "hsl(var(--brand))" }}
+            >
+              C
+            </span>
+            Made with CuteCode
+            <span className="text-brand font-semibold group-hover:underline">Remix this</span>
+          </Link>
+        </motion.div>
       </View>
     </React.Fragment>
   );

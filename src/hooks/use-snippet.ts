@@ -19,6 +19,7 @@ import type { AppRouter } from "@/server/types";
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
 export type SnippetListOutput = RouterOutput["snippet"]["list"];
+export type SnippetExploreOutput = RouterOutput["snippet"]["explore"];
 export type SnippetGetOutput = RouterOutput["snippet"]["get"];
 export type SnippetToggleUpvoteOutput = RouterOutput["snippet"]["toggleUpvote"];
 export type SnippetToggleBookmarkOutput = RouterOutput["snippet"]["toggleBookmark"];
@@ -33,6 +34,28 @@ export function useSnippetList({ page = 1, limit = 20 }: { page?: number; limit?
   return useSWR(["snippet.list", page, limit] as const, () => trpc.snippet.list.query({ page, limit }), {
     keepPreviousData: true,
   });
+}
+
+// ─────────────────────────────────────────────
+// useSnippetExplore
+// ─────────────────────────────────────────────
+
+export function useSnippetExplore({
+  page = 1,
+  limit = 24,
+  sort = "recent" as "recent" | "popular",
+  language,
+}: {
+  page?: number;
+  limit?: number;
+  sort?: "recent" | "popular";
+  language?: string;
+} = {}) {
+  return useSWR(
+    ["snippet.explore", page, limit, sort, language] as const,
+    () => trpc.snippet.explore.query({ page, limit, sort, language }),
+    { keepPreviousData: true },
+  );
 }
 
 // ─────────────────────────────────────────────

@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 
+import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
 import { BASE_URL } from "@/utils/common";
 import { Toaster } from "@/components/toast";
 import JsonLd from "@/components/seo/json-ld";
@@ -8,6 +9,18 @@ import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/tooltip";
 import { ClerkThemeProvider } from "@/components/clerk-theme-provider";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
 
 const title = "CuteCode — Create beautiful images of your code";
 const description =
@@ -84,7 +97,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkThemeProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className={`${plusJakartaSans.variable} ${geistMono.variable}`}>
         <head>
           <JsonLd />
         </head>
