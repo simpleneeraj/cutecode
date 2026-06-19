@@ -36,6 +36,7 @@ type SnippetCardProps = {
   currentUserId?: string;
   onUpvote: () => void;
   onBookmark: () => void;
+  renderComments?: () => React.ReactNode;
 };
 
 export function SnippetCard({
@@ -56,6 +57,7 @@ export function SnippetCard({
   currentUserId,
   onUpvote,
   onBookmark,
+  renderComments,
 }: SnippetCardProps) {
   const authorId = author?.id ?? "";
   const avatarUrl = author?.clerkId ? `https://img.clerk.com/preview.png?size=80&seed=${author.clerkId}` : undefined;
@@ -137,6 +139,7 @@ export function SnippetCard({
           commentCount={commentCount}
           onUpvote={onUpvote}
           onBookmark={onBookmark}
+          renderComments={renderComments}
         />
       </CardFooter>
     </Card>

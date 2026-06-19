@@ -227,19 +227,22 @@ export const snippetRouter = router({
       const snippet = await prisma.snippet.findUnique({ where: { id: snippetId } });
       if (!snippet) throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
 
+      const shareLinks = await prisma.shareLink.findMany({ where: { snippetId }, select: { slug: true } });
+      const bustCache = () => Promise.all(shareLinks.map(({ slug }) => cacheDel(`shareLink:${slug}`)));
+
       const existing = await prisma.snippetUpvote.findUnique({
         where: { snippetId_userId: { snippetId, userId: ctx.user.id } },
       });
 
       if (existing) {
         await prisma.snippetUpvote.delete({ where: { id: existing.id } });
-        await cacheDel(`shareLink:${snippetId}`);
+        await bustCache();
         const count = await prisma.snippetUpvote.count({ where: { snippetId } });
         return { upvoted: false, count };
       }
 
       await prisma.snippetUpvote.create({ data: { snippetId, userId: ctx.user.id } });
-      await cacheDel(`shareLink:${snippetId}`);
+      await bustCache();
       const count = await prisma.snippetUpvote.count({ where: { snippetId } });
       return { upvoted: true, count };
     }),
@@ -263,19 +266,22 @@ export const snippetRouter = router({
       const snippet = await prisma.snippet.findUnique({ where: { id: snippetId } });
       if (!snippet) throw new TRPCError({ code: "NOT_FOUND", message: "Snippet not found" });
 
+      const shareLinks = await prisma.shareLink.findMany({ where: { snippetId }, select: { slug: true } });
+      const bustCache = () => Promise.all(shareLinks.map(({ slug }) => cacheDel(`shareLink:${slug}`)));
+
       const existing = await prisma.snippetBookmark.findUnique({
         where: { snippetId_userId: { snippetId, userId: ctx.user.id } },
       });
 
       if (existing) {
         await prisma.snippetBookmark.delete({ where: { id: existing.id } });
-        await cacheDel(`shareLink:${snippetId}`);
+        await bustCache();
         const count = await prisma.snippetBookmark.count({ where: { snippetId } });
         return { bookmarked: false, count };
       }
 
       await prisma.snippetBookmark.create({ data: { snippetId, userId: ctx.user.id } });
-      await cacheDel(`shareLink:${snippetId}`);
+      await bustCache();
       const count = await prisma.snippetBookmark.count({ where: { snippetId } });
       return { bookmarked: true, count };
     }),

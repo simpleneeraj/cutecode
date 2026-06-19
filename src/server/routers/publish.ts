@@ -127,6 +127,7 @@ export const publishRouter = router({
               data: {
                 visibility,
                 passcodeHash: passcodeHash ?? existingShareLink.passcodeHash,
+                indexable: visibility === ShareVisibility.PUBLIC,
               },
             });
           }
@@ -186,10 +187,12 @@ export const publishRouter = router({
             targetType: "SNIPPET",
             targetId: snippet.id,
             snippetId: snippet.id,
+            presentationId: presentation.id,
             visibility,
             passcodeHash,
             allowCopy: true,
             allowDownload: true,
+            indexable: visibility === ShareVisibility.PUBLIC,
           },
         });
       });

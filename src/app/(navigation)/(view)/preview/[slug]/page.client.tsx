@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { PasscodeGate } from "../components/passcode-gate";
 import { SnippetFrame } from "../components/snippet-frame";
@@ -13,6 +14,7 @@ import { PreviewLoading } from "../components/preview-loading";
 import SnippetNotFound from "../components/preview-not-found";
 import MaskWallpaper from "@/plugings/mask-wallpaper";
 import { useSnippetPreview } from "../hooks/use-snippet-preview";
+import { useSnippetComments, useSnippetMutations } from "@/hooks/use-snippet";
 import { useAtomValue } from "jotai";
 import { wallpaperOptionsAtom } from "@/store/preview/wallpaper-atom";
 import SnippetInfo from "../components/snippet-info";
@@ -45,6 +47,66 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
     handleBookmarkToggle,
     shareLinkPayload,
   } = useSnippetPreview(slug);
+
+  const snippetId = snippetRecord?.id ?? null;
+  const { data: commentsData, mutate: mutateComments } = useSnippetComments(snippetId);
+  const { addComment } = useSnippetMutations();
+  const [commentText, setCommentText] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  async function handleAddComment() {
+    if (!snippetId || !commentText.trim()) return;
+    setIsSubmitting(true);
+    try {
+      await addComment(snippetId, commentText.trim());
+      setCommentText("");
+      await mutateComments();
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  function renderComments() {
+    const comments = commentsData?.comments ?? [];
+    return (
+      <div className="flex flex-col gap-3">
+        {authenticatedUserId && (
+          <div className="flex gap-2">
+            <textarea
+              className="flex-1 resize-none rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-brand"
+              rows={2}
+              placeholder="Add a comment..."
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleAddComment();
+              }}
+            />
+            <Button size="sm" disabled={isSubmitting || !commentText.trim()} onClick={handleAddComment} className="self-end">
+              {isSubmitting ? "Posting..." : "Post"}
+            </Button>
+          </div>
+        )}
+        {comments.length === 0 ? (
+          <p className="text-sm text-muted-foreground">No comments yet. Be the first to comment.</p>
+        ) : (
+          <ul className="flex flex-col gap-2">
+            {comments.map((c) => (
+              <li key={c.id} className="flex gap-2.5 text-sm">
+                <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand/20 text-brand text-[10px] font-bold">
+                  {(c.user?.name?.[0] ?? "U").toUpperCase()}
+                </span>
+                <div className="flex flex-col gap-0.5">
+                  <span className="font-medium leading-tight">{c.user?.name ?? "Anonymous"}</span>
+                  <p className="text-muted-foreground leading-snug">{c.content}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
 
   const [copied, setCopied] = React.useState(false);
   const onCopy = (content: string) => {
@@ -107,6 +169,7 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
               onBookmark={handleBookmarkToggle}
               tags={snippetRecord.tags ?? []}
               title={snippetRecord.title ?? ""}
+              renderComments={renderComments}
             >
               <View className="flex flex-col">
                 {resolvedElementIds.map((elementId) => {
