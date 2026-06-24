@@ -1,0 +1,45 @@
+# CuteCode
+
+> CuteCode is a free, open-source code screenshot tool and ray.so alternative. Create beautiful images of your code with 45+ themes, share snippets via unique URLs, and explore community-created code art. Built with Next.js, React, and TypeScript.
+
+## Documentation
+
+- [Homepage](https://cutecode.app): Create beautiful code screenshots with the online editor
+- [Explore Snippets](https://cutecode.app/explore): Browse and discover public code snippets shared by the community
+- [Snippets](https://cutecode.app/snippets): View and manage your saved code snippets
+- [Pricing](https://cutecode.app/pricing): Free and Pro plans — unlimited HD exports, premium themes, watermark-free
+- [GitHub Repository](https://github.com/simpleneeraj/cutecode): Source code, issues, and contribution guidelines
+
+## Features
+
+- Code screenshot generator with 45+ built-in themes
+- Brand-themed frames: Vercel, Stripe, Supabase, OpenAI, Claude, Gemini, Clerk, Prisma, and more
+- Aesthetic themes: Aurora Nights, Neon Dreams, Golden Hour, Frosted Glass, Velvet Night, and more
+- Syntax highlighting for 100+ programming languages via Shiki
+- Export as PNG, copy to clipboard, or share via unique URL
+- Snippet sharing and remixing — fork any public snippet
+- Dark and light mode with system preference detection
+- Authentication via Clerk for saving and managing snippets
+- Responsive design — works on desktop and mobile
+
+## Tech Stack
+
+- Next.js 16 (App Router, Server Components)
+- React 19, TypeScript
+- Tailwind CSS 4, Radix UI
+- Shiki (syntax highlighting)
+- Prisma ORM + PostgreSQL
+- Clerk (authentication)
+- Jotai (state management)
+- Motion (animations)
+- Deployed on Vercel
+
+## API & Integration
+
+- Embeddable code previews via /embed route
+- Shareable snippet URLs with full theme and code preservation
+- Open source under MIT License
+
+## Optional
+
+- [llms-full.txt](https://cutecode.app/llms-full.txt): Extended documentation for AI agents

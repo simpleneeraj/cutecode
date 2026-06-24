@@ -1,83 +1,233 @@
-<!-- TEXT_SECTION:header:START -->
-<p align="center">
-  <a href="https://cutecode.com" target="_blank" rel="noopener noreferrer">
-    <img width="1024" src="app/assets/og-image.png" alt="CuteCode">
-  </a>
-</p>
-<h1 align="center">
-  CuteCode
-</h1>
-<h3 align="center">
-  Forked from <a href="https://raycast.com/#ref=ray.so" target="_blank" rel="noopener noreferrer">Raycast / ray.so</a>
-</h3>
-<p align="center">
-  Create code snippets, browse AI prompts, create extension icons and more.
-</p>
+<div align="center">
+  <img src="public/og-image.png" alt="CuteCode" width="100%" />
+  <h1>CuteCode</h1>
+  <p><strong>Create beautiful images of your code</strong></p>
+  <p>Open-source ray.so alternative with 45+ themes, snippet sharing, and more.<br/>Small Tools – Big Impact ✨</p>
 
-<p align="center">
-  <a aria-label="Follow Raycast on X" href="https://x.com/raycast">
-    <img alt="" src="https://img.shields.io/badge/Follow%20@raycastapp-black.svg?style=for-the-badge&logo=X">
-  </a>
-  <a aria-label="Join the community on Slack" href="https://raycast.com/community">
-    <img alt="" src="https://img.shields.io/badge/Join%20the%20community-black.svg?style=for-the-badge&logo=Slack">
-  </a>
-</p>
+  <a href="https://github.com/simpleneeraj/cutecode/stargazers"><img src="https://img.shields.io/github/stars/simpleneeraj/cutecode?style=for-the-badge&logo=github&logoColor=white&color=0d1117" alt="Stars" /></a>
+  <a href="https://github.com/simpleneeraj/cutecode/blob/main/LICENSE"><img src="https://img.shields.io/github/license/simpleneeraj/cutecode?style=for-the-badge&color=0d1117" alt="License" /></a>
+  <a href="https://github.com/simpleneeraj/cutecode/issues"><img src="https://img.shields.io/github/issues/simpleneeraj/cutecode?style=for-the-badge&color=0d1117" alt="Issues" /></a>
+  <a href="https://github.com/sponsors/simpleneeraj"><img src="https://img.shields.io/badge/Sponsor-❤️-0d1117?style=for-the-badge" alt="Sponsor" /></a>
+  <br />
+  <a href="https://cutecode.app"><strong>Live Demo →</strong></a> · <a href="#-getting-started">Quick Start</a> · <a href="#-contributing">Contribute</a> · <a href="https://github.com/simpleneeraj/cutecode/issues">Report Bug</a>
+</div>
 
-<!-- TEXT_SECTION:header:END -->
+<br />
 
-## About
+## ✨ Features
 
-This repository contains the source code for [CuteCode](https://cutecode.com), a collection of tools forked from [ray.so](https://ray.so) by [Raycast](https://raycast.com/#ref=ray.so). It includes:
+- 🎨 **45+ Beautiful Themes** — Brand themes (Vercel, Stripe, Supabase, OpenAI, Claude, Gemini, etc.) + aesthetic themes (Aurora Nights, Neon Dreams, Golden Hour, etc.)
+- 🖼️ **Code Screenshot Generator** — Turn code into stunning shareable images in seconds
+- 📝 **Snippet Sharing** — Save, share, and explore public code snippets with unique URLs
+- 🔄 **Remix** — Fork and remix any shared snippet with your own customizations
+- 🌓 **Dark & Light Mode** — Full theme support with system preference detection
+- 🎯 **Syntax Highlighting** — Powered by Shiki with 100+ language support
+- 📤 **Export Options** — Copy to clipboard, download as PNG, or share via URL
+- 🔐 **Authentication** — Clerk-powered sign-in to save and manage your snippets
+- 💎 **Pro Plan** — Unlimited HD exports, premium themes, watermark-free images
+- 📱 **Responsive Design** — Works beautifully on desktop and mobile
+- ⚡ **Built on Next.js 16** — React 19, App Router, Server Components, Edge-ready
 
-- [**Code Images**](</app/(navigation)/(code)>): Create beautiful images of your code.
-- [**Icon Maker**](</app/(navigation)/icon/>): Create beautiful icons for Raycast Extensions.
-- [**Prompt Explorer**](</app/(navigation)/prompts/>): Explore AI Prompts for Raycast.
-- [**Preset Explorer**](</app/(navigation)/presets/>): Explore AI Presets for Raycast.
-- [**Quicklink Explorer**](</app/(navigation)/quicklinks/>): Browse and import Raycast Quicklinks.
-- [**Snippet Explorer**](</app/(navigation)/snippets/>): Browse and import Raycast Snippets.
-- [**Theme Explorer**](</app/(navigation)/themes/>): Browse and import Raycast Themes.
+## 🎨 Themes (45+)
 
-## Setup
+CuteCode ships with 45+ hand-crafted themes across two categories:
 
-This is a [Next.js](https://nextjs.org/) project. If you're unfamiliar with it, check out the [Next.js Documentation](https://nextjs.org/docs).
+| Brand Themes (16) | Aesthetic Themes (28+) |
+|---|---|
+| Vercel | Bitmap |
+| Supabase | Noir |
+| Tailwind | Ice |
+| OpenAI | Sand |
+| Mintlify | Forest |
+| Prisma | Mono |
+| Clerk | Breeze |
+| ElevenLabs | Candy |
+| Resend | Crimson |
+| Trigger.dev | Falcon |
+| Nuxt | Meadow |
+| Browserbase | Midnight |
+| Cloudflare | Raindrop |
+| Gemini | Sunset |
+| Stripe | Roses |
+| Claude | Retro Mac |
+| | Love |
+| | Valentine |
+| | Coffee Date |
+| | Sunset Chill |
+| | PS6 |
+| | Aurora Nights |
+| | Starry Night |
+| | Strawberry Milk |
+| | Frosted Glass |
+| | Velvet Night |
+| | Peachy Mood |
+| | Neon Dreams |
+| | Golden Hour |
+| | Rabbit |
 
-To get started, download the repo, install dependencies and run the development server:
+> **Want to add a theme?** Check the [Contributing](#-contributing) section below!
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|---|---|
+| **Framework** | Next.js 16 (App Router) |
+| **Language** | TypeScript |
+| **UI** | React 19, Tailwind CSS 4, Radix UI |
+| **Animation** | Motion (Framer Motion) |
+| **Syntax Highlighting** | Shiki |
+| **Authentication** | Clerk |
+| **Database** | PostgreSQL + Prisma ORM |
+| **Payments** | Dodo Payments |
+| **State Management** | Jotai |
+| **Deployment** | Vercel |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** 18+
+- **PostgreSQL** database
+- **Yarn** (package manager)
+
+### 1. Clone the repository
 
 ```bash
-npm install
-npm run dev
+git clone https://github.com/simpleneeraj/cutecode.git
+cd cutecode
 ```
 
-## Contributing
+### 2. Install dependencies
 
-We welcome contributions primarily in the form of new presets, prompts, snippets, themes, and bug fixes.
+```bash
+yarn install
+```
 
-> [!NOTE]
-> If you're interested in creating a new code theme we recommend forking the project to run your own version. However, certain partner themes may be considered. Please reach out by creating an issue or [contacting us](mailto:feedback+rayso@raycast.com) first.
+### 3. Set up environment variables
 
-If you're interested in contributing, follow the steps below:
+```bash
+cp .env.example .env.development
+```
 
-### Presets, Prompts, Quicklinks & Snippets
+Fill in your environment variables:
 
-- Open [prompts.ts](</app/(navigation)/prompts/prompts.ts>) or [presets.ts](</app/(navigation)/presets/presets.ts>) or [snippets.ts](</app/(navigation)/snippets/snippets.ts>) or [quicklinks.ts](</app/(navigation)/quicklinks/quicklinks.ts>)
-- Add your data to the relevant category
-  - Ensure it includes all fields, and that they're unique within their category
-- Add your name and (optional) website url to the `author` field
-- Create a pull request
+```env
+# App
+NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 
-### Themes
+# Clerk Authentication (https://clerk.com)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
+CLERK_SECRET_KEY="sk_test_..."
+CLERK_WEBHOOK_SECRET="whsec_..."
+NEXT_PUBLIC_CLERK_SIGN_IN_URL="/account/sign-in"
+NEXT_PUBLIC_CLERK_SIGN_UP_URL="/account/sign-up"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/"
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/"
 
-#### 1. Copy the Theme JSON from Raycast
+# Dodo Payments (https://dodopayments.com)
+DODO_PAYMENTS_API_KEY="your_api_key"
+DODO_PAYMENTS_WEBHOOK_KEY="whsec_..."
+DODO_PAYMENTS_RETURN_URL="http://localhost:3000/checkout/success"
+DODO_PAYMENTS_ENVIRONMENT="test_mode"
+NEXT_PUBLIC_DODO_PRODUCT_PRO="pdt_..."
 
-- Open Theme Studio in Raycast
-- Right click on your Theme and select "Copy as JSON"
+# Database (PostgreSQL)
+DATABASE_URL="postgresql://user:password@localhost:5432/cutecode"
 
-#### 2. Add the theme to repo
+# Redis (optional, for rate limiting)
+REDIS_URL="redis://localhost:6379"
 
-- In [themes](</app/(navigation)/themes/themes>), create a folder with your Raycast username, ie: `peduarte`
-- In that folder, create a file with the theme name, ie: `red.json`
-- In that file, paste the theme JSON you copied from Raycast's Theme Studio
+# Cron Security
+CRON_SECRET="generate-with-openssl-rand-hex-32"
+```
 
-#### 3. Commit and push your changes
+### 4. Set up the database
 
-- Create a Pull Request 🚀
+```bash
+yarn db:generate
+yarn db:push
+```
+
+### 5. Run the development server
+
+```bash
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) — you're all set! 🎉
+
+## 📁 Project Structure
+
+```
+cutecode/
+├── prisma/              # Database schema & migrations
+├── public/              # Static assets, backgrounds, icons
+├── src/
+│   ├── app/             # Next.js App Router pages
+│   │   ├── (navigation)/ # Main app routes (editor, explore, snippets)
+│   │   ├── api/         # API routes (tRPC, webhooks)
+│   │   ├── account/     # Auth pages (sign-in, sign-up)
+│   │   ├── pricing/     # Pricing page
+│   │   └── legal/       # Terms, privacy, refund
+│   ├── components/      # Reusable UI components
+│   │   └── presets/     # 45+ theme preset frames
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utility libraries
+│   ├── server/          # Server-side logic (tRPC routers)
+│   ├── store/           # Jotai state atoms
+│   ├── styles/          # Global CSS & preset styles
+│   └── utils/           # Helper functions
+├── .env.example         # Environment variables template
+├── next.config.js       # Next.js configuration
+└── package.json
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Here's how to get started:
+
+1. **Fork** the repository
+2. **Create** your feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+### Adding a New Theme
+
+1. Create a new directory in `src/components/presets/your-theme-name/`
+2. Add your theme configuration and frame component
+3. Register it in `src/components/presets/themes/index.ts`
+4. Submit a PR!
+
+> We love new themes — brand themes, aesthetic themes, seasonal themes, you name it!
+
+## 💖 Sponsor
+
+If CuteCode helps you create beautiful code screenshots, consider sponsoring to keep the project alive and growing:
+
+<a href="https://github.com/sponsors/simpleneeraj">
+  <img src="https://img.shields.io/badge/Sponsor_CuteCode-❤️-ea4aaa?style=for-the-badge&logo=github-sponsors" alt="Sponsor" />
+</a>
+
+## 🙏 Acknowledgements
+
+- **Special thanks to [Raycast](https://raycast.com) and [ray.so](https://ray.so)** — CuteCode started as a fork of the incredible ray.so project. We're grateful for the foundation they built and their commitment to open source.
+- [Shiki](https://shiki.matsu.io/) — Beautiful syntax highlighting
+- [Clerk](https://clerk.com) — Authentication
+- [Vercel](https://vercel.com) — Hosting & deployment
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+  <p><strong>Small Tools – Big Impact ✨</strong></p>
+  <p>Built with ❤️ by <a href="https://github.com/simpleneeraj">simpleneeraj</a></p>
+  <p>
+    <a href="https://cutecode.app">Website</a> · 
+    <a href="https://x.com/iamsimpleneeraj">Twitter</a> · 
+    <a href="https://github.com/simpleneeraj/cutecode/issues">Issues</a>
+  </p>
+</div>
