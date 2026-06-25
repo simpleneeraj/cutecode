@@ -34,7 +34,6 @@ import { claude } from "../claude/theme";
 import { retroMac } from "../retro-mac/theme";
 import { love } from "../love/theme";
 import { valentine } from "../valentine/theme";
-import { cottonCandy } from "../cotton-candy/theme";
 import { coffeeDate } from "../coffee-date/theme";
 import { sunsetChill } from "../sunset-chill/theme";
 import { ps6 } from "../ps6/theme";
@@ -83,7 +82,6 @@ export const themes: { [index: string]: Theme } = {
   "retro-mac": retroMac,
   love,
   valentine,
-  // "cotton-candy": cottonCandy,
   "coffee-date": coffeeDate,
   "sunset-chill": sunsetChill,
   ps6,
@@ -95,7 +93,6 @@ export const themes: { [index: string]: Theme } = {
   "peachy-mood": peachyMood,
   "neon-dreams": neonDreams,
   "golden-hour": goldenHour,
-  // "macos-terminal": macosTerminal,
   // All 66 Shiki bundled themes — syntax rendered natively by Shiki
   // ...shikiThemes,
 };

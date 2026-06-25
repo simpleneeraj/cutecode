@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Icon } from "@/components/ui/icon";
+import { CodeSquare, CheckCircle, Copy } from "@solar-icons/react";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { DialogProps } from "@radix-ui/react-dialog";
@@ -11,8 +11,6 @@ import { useEditorContext } from "@/store/editor/context/editor";
 import View from "@/components/view";
 
 import { Tabs, TabsList, TabsPanel, TabsTab } from "@/components/ui/tabs";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Checkmark, Copy01Icon } from "@hugeicons/core-free-icons";
 
 type EmbedDialogProps = {
   slug: string;
@@ -66,7 +64,7 @@ export function EmbedDialog({ slug, ...props }: EmbedDialogProps) {
         <DialogHeader className="relative px-5 pt-5 pb-4">
           <DialogTitle className="flex items-center gap-2.5 text-base">
             <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
-              <Icon icon="solar:code-square-bold" className="size-4" />
+              <CodeSquare weight="BoldDuotone" className="size-4" aria-hidden="true" />
             </span>
             Embed Snippet
           </DialogTitle>
@@ -126,7 +124,7 @@ export function EmbedDialog({ slug, ...props }: EmbedDialogProps) {
                             exit={{ scale: 0.5, opacity: 0 }}
                             transition={{ duration: 0.15 }}
                           >
-                            <HugeiconsIcon icon={Checkmark} className="size-3.5" />
+                            <CheckCircle weight="BoldDuotone" className="size-3.5" aria-hidden="true" />
                           </motion.span>
                         ) : (
                           <motion.span
@@ -136,7 +134,7 @@ export function EmbedDialog({ slug, ...props }: EmbedDialogProps) {
                             exit={{ scale: 0.5, opacity: 0 }}
                             transition={{ duration: 0.15 }}
                           >
-                            <HugeiconsIcon icon={Copy01Icon} className="size-3.5" />
+                            <Copy weight="LineDuotone" className="size-3.5" aria-hidden="true" />
                           </motion.span>
                         )}
                       </AnimatePresence>

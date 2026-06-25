@@ -4,7 +4,7 @@ import React from "react";
 import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardFooter, CardHeader, CardPanel, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import FollowButton from "@/components/follow-button";
 import FollowersDialog from "@/components/followers-dialog";
 import { SnippetActions } from "./snippet-actions";
@@ -60,7 +60,6 @@ export function SnippetCard({
   renderComments,
 }: SnippetCardProps) {
   const authorId = author?.id ?? "";
-  const avatarUrl = author?.name ? `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(author.name)}` : undefined;
   const handle = `@${author?.name?.replace(/\s+/g, "").toLowerCase() || "user"}`;
 
   return (
@@ -70,8 +69,7 @@ export function SnippetCard({
           <View className="flex items-center justify-between">
             <View className="flex items-center gap-3">
               <Avatar className="size-10 shrink-0 ring-2 ring-border">
-                <AvatarImage src={avatarUrl} />
-                <AvatarFallback className="text-sm font-semibold">
+                <AvatarFallback className="bg-foreground text-background text-sm font-semibold">
                   {author?.name?.[0]?.toUpperCase() || "U"}
                 </AvatarFallback>
               </Avatar>

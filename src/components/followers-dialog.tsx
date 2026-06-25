@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Dialog, DialogTrigger, DialogPopup, DialogHeader, DialogTitle, DialogPanel } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 import { useUserFollowers, useUserFollowing, type UserFollowersOutput } from "@/hooks/use-user";
 
 export type FollowUser = UserFollowersOutput["users"][number];
@@ -70,7 +70,7 @@ function FollowersList({ userId, currentUserId }: { userId: string; currentUserI
   if (isLoading && allUsers.length === 0) {
     return (
       <div className="flex justify-center py-8">
-        <Loader2 className="animate-spin size-5 text-muted-foreground" />
+        <Spinner className="size-5 text-muted-foreground" />
       </div>
     );
   }
@@ -92,7 +92,7 @@ function FollowersList({ userId, currentUserId }: { userId: string; currentUserI
           disabled={isLoading}
           onClick={() => setCursor(localNextCursor)}
         >
-          {isLoading ? <Loader2 className="animate-spin size-4" /> : "Load more"}
+          {isLoading ? <Spinner className="size-4" /> : "Load more"}
         </Button>
       )}
     </div>
@@ -120,7 +120,7 @@ function FollowingList({ userId, currentUserId }: { userId: string; currentUserI
   if (isLoading && allUsers.length === 0) {
     return (
       <div className="flex justify-center py-8">
-        <Loader2 className="animate-spin size-5 text-muted-foreground" />
+        <Spinner className="size-5 text-muted-foreground" />
       </div>
     );
   }
@@ -142,7 +142,7 @@ function FollowingList({ userId, currentUserId }: { userId: string; currentUserI
           disabled={isLoading}
           onClick={() => setCursor(localNextCursor)}
         >
-          {isLoading ? <Loader2 className="animate-spin size-4" /> : "Load more"}
+          {isLoading ? <Spinner className="size-4" /> : "Load more"}
         </Button>
       )}
     </div>

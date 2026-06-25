@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Eye, Copy, Check, ChartSplineIcon } from "lucide-react";
+import { Eye, Copy, CheckCircle } from "@solar-icons/react";
 
 type SnippetInfoProps = {
   language: string | null;
@@ -14,7 +14,7 @@ const SnippetInfo = ({ language, viewCount, copied, onCopy }: SnippetInfoProps) 
     <div className="flex items-center justify-between px-3 py-1.5 bg-muted/40 border-b border-border">
       <div className="flex items-center gap-2">
         <span className="flex items-center gap-1 text-xxs text-muted-foreground">
-          <ChartSplineIcon className="size-3.5" />
+          <Eye weight="BoldDuotone" className="size-3.5" aria-hidden="true" />
           <span className="tabular-nums">{viewCount}</span>
         </span>
         <Separator orientation="vertical" />{" "}
@@ -27,12 +27,12 @@ const SnippetInfo = ({ language, viewCount, copied, onCopy }: SnippetInfoProps) 
       <Button size="sm" variant="ghost" onClick={onCopy} aria-label={copied ? "Copied!" : "Copy code"}>
         {copied ? (
           <>
-            <Check className="size-3.5" />
+            <CheckCircle weight="BoldDuotone" className="size-3.5" aria-hidden="true" />
             <span>Copied</span>
           </>
         ) : (
           <>
-            <Copy className="size-3.5" />
+            <Copy weight="LineDuotone" className="size-3.5" aria-hidden="true" />
             <span>Copy</span>
           </>
         )}

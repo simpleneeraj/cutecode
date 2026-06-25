@@ -14,19 +14,16 @@ import { Kbd, Kbds } from "@/components/kbd";
 import { Popover, PopoverDescription, PopoverPopup, PopoverTitle, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Group } from "@/components/ui/group";
-import { ChevronDownIcon, SparklesIcon } from "lucide-react";
+import { AltArrowDown, Stars, Crown, GalleryDownload, Copy, DownloadMinimalistic } from "@solar-icons/react";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Select, SelectItem, SelectPopup, SelectTrigger } from "@/components/ui/select";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Download02Icon } from "@hugeicons/core-free-icons";
 import PublishSnippet from "./publish-snippet";
 import { useEditorContext } from "@/store/editor/context/editor";
 import { toast } from "@/components/toast";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { AccessLevel } from "@/typings/enums";
-import { Icon } from "@/components/ui/icon";
 import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
 import { BadgeVariant } from "@/typings/editor";
@@ -124,13 +121,13 @@ const ExportButton: React.FC = () => {
     <>
       <Group aria-label="Export actions">
         <Button variant="outline" onClick={handleExportClick}>
-          <HugeiconsIcon icon={Download02Icon} />
+          <DownloadMinimalistic weight="LineDuotone" aria-hidden="true" />
           Export
         </Button>
         <Separator orientation="vertical" />
         <Popover>
           <PopoverTrigger render={<Button aria-label="Export options" size="icon" variant="outline" />}>
-            <ChevronDownIcon aria-hidden="true" />
+            <AltArrowDown weight="LineDuotone" aria-hidden="true" />
           </PopoverTrigger>
 
           <PopoverPopup className="w-80 max-w-[90vw]">
@@ -150,7 +147,7 @@ const ExportButton: React.FC = () => {
                     onChange={(e) => setCustomFileName(e.target.value)}
                   />
                   <Button variant="outline" onClick={() => setCustomFileName(randomNameGenerator())}>
-                    <SparklesIcon />
+                    <Stars weight="BoldDuotone" aria-hidden="true" />
                   </Button>
                 </Group>
                 <FieldDescription>The name of the file that will be downloaded.</FieldDescription>
@@ -174,7 +171,7 @@ const ExportButton: React.FC = () => {
                               variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
                               title={BadgeVariant.PREMIUM}
                             >
-                              <Icon icon="solar:crown-bold" className="size-3" />
+                              <Crown weight="BoldDuotone" className="size-3" aria-hidden="true" />
                             </Badge>
                           )}
                         </span>
@@ -197,7 +194,7 @@ const ExportButton: React.FC = () => {
                                 variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
                                 title={BadgeVariant.PREMIUM}
                               >
-                                <Icon icon={"solar:crown-bold"} className="size-3" />
+                                <Crown weight="BoldDuotone" className="size-3" aria-hidden="true" />
                               </Badge>
                             )}
                           </View>
@@ -212,7 +209,7 @@ const ExportButton: React.FC = () => {
               <Separator />
 
               <Button variant="ghost" onClick={savePng}>
-                <Icon icon="solar:gallery-download-bold" className="size-4" />
+                <GalleryDownload weight="BoldDuotone" className="size-4" aria-hidden="true" />
                 Save PNG
                 <Kbds>
                   <Kbd>⌘</Kbd>
@@ -222,7 +219,7 @@ const ExportButton: React.FC = () => {
 
               {pngClipboardSupported && (
                 <Button variant="ghost" onClick={copyPng}>
-                  <Icon icon="solar:copy-bold" className="size-4" />
+                  <Copy weight="BoldDuotone" className="size-4" aria-hidden="true" />
                   Copy Image
                   <Kbds>
                     <Kbd>⌘</Kbd>

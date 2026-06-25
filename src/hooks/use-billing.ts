@@ -16,7 +16,7 @@ function useBilling() {
       const url = await createCustomerPortalAction();
       window.location.href = url;
     } catch {
-      router.push("/pricing");
+      router.push("/");
     } finally {
       setIsLoading(false);
     }
@@ -28,7 +28,7 @@ function useBilling() {
       const url = await createCheckoutAction(productId);
       window.location.href = url;
     } catch {
-      router.push("/pricing");
+      router.push("/");
     } finally {
       setIsLoading(false);
     }
@@ -40,7 +40,7 @@ function useBilling() {
     } else if (productId) {
       await openCheckout(productId);
     } else {
-      router.push("/pricing");
+      router.push("/");
     }
   }
 

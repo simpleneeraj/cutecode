@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectItem, SelectPopup, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider, SliderValue } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
-import { PaletteIcon } from "lucide-react";
+import { Palette } from "@solar-icons/react";
 import { COLORS } from "../../../../../features/share/colors";
 import { PATTERNS, PATTERN_SIZE } from "../../../../../features/share/patterns";
 import { useWallpaperOptions } from "../hooks/use-wallpaper-options";
@@ -34,7 +34,7 @@ export function ThemeCustomizationDrawer() {
   return (
     <Drawer position="right">
       <DrawerTrigger render={<Button variant="outline" />}>
-        <PaletteIcon className="h-4 w-4" />
+        <Palette weight="BoldDuotone" className="h-4 w-4" aria-hidden="true" />
       </DrawerTrigger>
       <DrawerPopup variant="inset" showCloseButton showBackdrop={false}>
         <DrawerHeader className="px-5 pt-5 pb-4">

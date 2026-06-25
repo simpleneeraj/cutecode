@@ -97,7 +97,12 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
                 if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleAddComment();
               }}
             />
-            <Button size="sm" disabled={isSubmitting || !commentText.trim()} onClick={handleAddComment} className="self-end">
+            <Button
+              size="sm"
+              disabled={isSubmitting || !commentText.trim()}
+              onClick={handleAddComment}
+              className="self-end"
+            >
               {isSubmitting ? "Posting..." : "Post"}
             </Button>
           </div>
@@ -152,23 +157,16 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
 
   return (
     <React.Fragment>
-      <MaskWallpaper options={wallpaperOptions} className="absolute top-0 left-0 w-full h-full z-0" />
+      {/* <MaskWallpaper options={wallpaperOptions} className="absolute top-0 left-0 w-full h-full z-0" /> */}
       <View className="layout-scroll flex-2 gap-3">
         <View className="flex flex-row gap-3 z-10 max-w-3xl mx-auto w-full p-2 relative">
           <View className="flex flex-col flex-2 gap-3 relative">
-            <View className="flex items-center justify-center">
+            <View className="flex items-center justify-center gap-2">
               <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
-                Snippet Created
+                Published {format(new Date(snippetRecord.createdAt), "MMMM d, yyyy")}
               </Badge>
-            </View>
-            <View className="flex items-center justify-center">
-              <Badge variant="secondary" className="bg-background/75 backdrop-blur-lg">
-                {format(new Date(snippetRecord.createdAt), "MMMM d, yyyy")}
-              </Badge>
-            </View>
 
-            {viewerCount > 1 && (
-              <View className="flex items-center justify-center">
+              {viewerCount > 1 && (
                 <Badge variant="secondary" className="gap-1.5 bg-background/75 backdrop-blur-lg">
                   <span className="relative flex size-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/70" />
@@ -176,8 +174,8 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
                   </span>
                   {viewerCount} viewing now
                 </Badge>
-              </View>
-            )}
+              )}
+            </View>
 
             <SnippetCard
               slug={slug}

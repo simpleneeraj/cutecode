@@ -2,14 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import View from "@/components/view";
-import { ShieldAlertIcon, Loader2 } from "lucide-react";
+import { ShieldWarning, LockPassword } from "@solar-icons/react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Card, CardDescription, CardFooter, CardHeader, CardPanel, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { OTPField, OTPFieldInput, OTPFieldSeparator } from "@/components/ui/otp-field";
 import { motion, AnimatePresence } from "motion/react";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { LockPasswordIcon } from "@hugeicons/core-free-icons";
 
 const OTP_LENGTH = 6;
 const OTP_SLOT_KEYS = Array.from({ length: OTP_LENGTH }, (_, i) => `otp-slot-${i}`);
@@ -47,7 +46,7 @@ export function PasscodeGate({ passcode, invalidPasscode, isLoading, onChange, o
                 transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
                 className="flex items-center justify-center w-14 h-14 rounded-2xl bg-muted border mb-2"
               >
-                <HugeiconsIcon icon={LockPasswordIcon} />
+                <LockPassword weight="BoldDuotone" className="size-6 text-foreground" aria-hidden="true" />
               </motion.div>
             </View>
             <CardTitle>Passcode Required</CardTitle>
@@ -100,7 +99,7 @@ export function PasscodeGate({ passcode, invalidPasscode, isLoading, onChange, o
                     transition={{ duration: 0.2 }}
                     className="flex items-center gap-1.5 text-destructive text-sm font-medium"
                   >
-                    <ShieldAlertIcon className="size-3.5 shrink-0" />
+                    <ShieldWarning weight="LineDuotone" className="size-3.5 shrink-0" aria-hidden="true" />
                     Incorrect passcode. Try again.
                   </motion.div>
                 ) : (
@@ -120,7 +119,7 @@ export function PasscodeGate({ passcode, invalidPasscode, isLoading, onChange, o
             <Button className="w-full" onClick={onSubmit} disabled={!isComplete || isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="animate-spin -ml-1 mr-2" />
+                  <Spinner />
                   Unlocking...
                 </>
               ) : (

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, CopyPlus, Plus, Trash2 } from "lucide-react";
+import { AltArrowLeft, AltArrowRight, Copy, AddSquare, TrashBinTrash } from "@solar-icons/react";
 import { Toolbar, ToolbarButton, ToolbarGroup } from "@/components/ui/toolbar";
 import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useAtomValue, useSetAtom } from "jotai";
@@ -81,7 +81,7 @@ export default function ToolbarParticle() {
                     <Button size="icon-sm" variant="ghost" onClick={previousSlide} disabled={currentIndex === 0} />
                   }
                 >
-                  <ChevronLeft className="text-accent-foreground" />
+                  <AltArrowLeft weight="Linear" className="text-accent-foreground" aria-hidden="true" />
                 </ToolbarButton>
               }
             />
@@ -107,7 +107,7 @@ export default function ToolbarParticle() {
                   aria-label="Add slide"
                   render={<Button size="icon-sm" variant="ghost" onClick={onCreateSlide} />}
                 >
-                  <Plus className="text-accent-foreground" />
+                  <AddSquare weight="Linear" className="text-accent-foreground" aria-hidden="true" />
                 </ToolbarButton>
               }
             />
@@ -130,7 +130,7 @@ export default function ToolbarParticle() {
                   aria-label="Duplicate slide"
                   render={<Button size="icon-sm" variant="ghost" onClick={duplicateSlide} />}
                 >
-                  <CopyPlus className="text-accent-foreground" />
+                  <Copy weight="Linear" className="text-accent-foreground" aria-hidden="true" />
                 </ToolbarButton>
               }
             />
@@ -159,7 +159,7 @@ export default function ToolbarParticle() {
                         <Button size="icon-sm" variant="ghost" className="text-destructive" onClick={deleteSlide} />
                       }
                     >
-                      <Trash2 />
+                      <TrashBinTrash weight="Linear" aria-hidden="true" />
                     </ToolbarButton>
                   }
                 />
@@ -193,7 +193,7 @@ export default function ToolbarParticle() {
                     />
                   }
                 >
-                  <ChevronRight className="text-accent-foreground" />
+                  <AltArrowRight weight="Linear" className="text-accent-foreground" aria-hidden="true" />
                 </ToolbarButton>
               }
             />

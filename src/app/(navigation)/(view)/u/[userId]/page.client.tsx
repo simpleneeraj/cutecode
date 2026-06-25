@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { UserIcon, UsersIcon } from "lucide-react";
+import { UsersGroupRounded } from "@solar-icons/react";
 import { useUserProfile, useUserMutations } from "@/hooks/use-user";
 import { useSnippetExplore } from "@/hooks/use-snippet";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ExploreSnippetCard } from "../../../(create)/explore/components/explore-snippet-card";
+import { ExploreSnippetCard } from "../../explore/components/explore-snippet-card";
 import { SLIDE_UP, EASE_OUT } from "@/lib/motion";
 import View from "@/components/view";
 import { useUser } from "@/hooks/use-auth";
@@ -90,7 +90,7 @@ export default function ProfilePageClient({ userId }: ProfilePageClientProps) {
                 {profile.plan.toLowerCase()}
               </Badge>
               <span className="flex items-center gap-1">
-                <UsersIcon className="size-3.5" />
+                <UsersGroupRounded weight="LineDuotone" className="size-3.5" aria-hidden="true" />
                 {profile._count.followers}{" "}
                 {profile._count.followers === 1 ? "follower" : "followers"}
               </span>

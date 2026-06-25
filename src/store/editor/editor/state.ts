@@ -28,9 +28,9 @@ export const createDefaultElement = (): ElementType => ({
   },
 
   properties: {
-    theme: "clerk",
+    theme: "mono",
     language: "Swift",
-    transparent: true,
+    transparent: false,
     darkMode: true,
     showLineNumbers: true,
     highlightedLines: [],
@@ -75,7 +75,7 @@ const initialState: EditorState = {
         type: BACKGROUND_TYPE.GRADIENT,
         style: { width: 450, height: 450, size: "cover", position: "center", repeat: "no-repeat", aspectRatio: "1:1" },
         properties: {
-          image: "https://cdn.pixabay.com/photo/2022/01/28/18/32/leaves-6975462_1280.png",
+          image: "",
           gradient: "",
         },
       },

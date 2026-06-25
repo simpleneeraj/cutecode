@@ -1,29 +1,44 @@
 import { ImageResponse } from "next/og";
 
-// Flat, high-contrast mark (no gradient) — legible at 16px. Enterprise style.
-export const size = { width: 32, height: 32 };
+// Dynamic favicon/icon — gold "crown" palette + Alice (brand Google serif).
+export const size = { width: 48, height: 48 };
 export const contentType = "image/png";
 
-export default function Icon() {
+// Alice as raw TTF (satori needs ttf/otf, not the woff2 the CSS endpoint serves).
+const ALICE_TTF = "https://raw.githubusercontent.com/google/fonts/main/ofl/alice/Alice-Regular.ttf";
+async function loadAlice(): Promise<ArrayBuffer> {
+  return (await fetch(ALICE_TTF)).arrayBuffer();
+}
+
+export default async function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: 32,
-          height: 32,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 7,
-          background: "#0A0A0B",
-        }}
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 9L11 12L8 15" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M13 15H17" stroke="white" strokeWidth="2.4" strokeLinecap="round" />
-        </svg>
-      </div>
-    ),
-    { ...size },
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#e9e2d7",
+        color: "#1b1a16",
+        fontFamily: "Alice",
+        fontSize: 36,
+        fontWeight: 400,
+        borderRadius: "12px",
+      }}
+    >
+      C
+    </div>,
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Alice",
+          data: await loadAlice(),
+          weight: 400,
+          style: "normal",
+        },
+      ],
+    },
   );
 }

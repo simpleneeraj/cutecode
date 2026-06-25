@@ -70,7 +70,7 @@ export function AccountCard({ plan, renewsAt, cancelAtPeriodEnd, totalSnippets }
       {isFree ? (
         <Button size="lg" className="w-full" onClick={() => setPlansOpen(true)}>
           <Icon icon="solar:crown-linear" className="size-4" />
-          Upgrade to Pro
+          Upgrade plan
         </Button>
       ) : (
         <Button

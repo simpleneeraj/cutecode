@@ -13,8 +13,7 @@ import { SocialFooter } from "@/components/social-footer";
 import useHotkeys from "@/utils/useHotkeys";
 import { useCallback, useState } from "react";
 import usePngClipboardSupported from "../util/usePngClipboardSupported";
-import { InformationSquareIcon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
+import { InfoSquare } from "@solar-icons/react";
 
 function InfoDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +25,7 @@ function InfoDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen} modal>
       <DialogTrigger render={<Button variant={"outline"} className="hidden md:flex gap-2" />}>
-        <HugeiconsIcon icon={InformationSquareIcon} />
+        <InfoSquare weight="LineDuotone" aria-hidden="true" />
       </DialogTrigger>
       <DialogPopup className={"max-w-3xl"}>
         <DialogHeader>

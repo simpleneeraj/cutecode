@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import View from "@/components/view";
-import { ArrowBigUpDash, Blend, BookmarkIcon, MessageCircle, ChevronDown, ChevronUp, Loader2 } from "lucide-react";
+import { Like, Bookmark, ChatRound, AltArrowDown, AltArrowUp, MagicStick3 } from "@solar-icons/react";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Tooltip, TooltipPopup, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { EmbedDialog } from "./embed-dialog";
 import { ShareDialog } from "./share-dialog";
@@ -55,7 +56,7 @@ export function SnippetActions({
                     aria-label={upvoted ? "Remove upvote" : "Upvote"}
                     aria-pressed={upvoted}
                   >
-                    <ArrowBigUpDash className="size-4 shrink-0" aria-hidden />
+                    <Like weight="BoldDuotone" className="size-4 shrink-0" aria-hidden />
                     <span className="tabular-nums">{upvoteCount}</span>
                   </Button>
                 }
@@ -73,12 +74,12 @@ export function SnippetActions({
                     aria-expanded={commentsOpen}
                     onClick={() => setCommentsOpen((prev) => !prev)}
                   >
-                    <MessageCircle className="size-4 shrink-0" aria-hidden />
+                    <ChatRound weight="LineDuotone" className="size-4 shrink-0" aria-hidden />
                     <span className="tabular-nums">{commentCount}</span>
                     {commentsOpen ? (
-                      <ChevronUp className="size-3 shrink-0 ml-0.5" aria-hidden />
+                      <AltArrowUp weight="LineDuotone" className="size-3 shrink-0 ml-0.5" aria-hidden />
                     ) : (
-                      <ChevronDown className="size-3 shrink-0 ml-0.5" aria-hidden />
+                      <AltArrowDown weight="LineDuotone" className="size-3 shrink-0 ml-0.5" aria-hidden />
                     )}
                   </Button>
                 }
@@ -100,7 +101,7 @@ export function SnippetActions({
                     aria-label={bookmarked ? "Remove bookmark" : "Bookmark"}
                     aria-pressed={bookmarked}
                   >
-                    <BookmarkIcon className="size-4 shrink-0" aria-hidden />
+                    <Bookmark weight="BoldDuotone" className="size-4 shrink-0" aria-hidden />
                     <span className="tabular-nums">{bookmarkCount}</span>
                   </Button>
                 }
@@ -119,9 +120,9 @@ export function SnippetActions({
                     disabled={isRemixing}
                   >
                     {isRemixing ? (
-                      <Loader2 className="size-4 shrink-0 animate-spin" aria-hidden />
+                      <Spinner className="size-4 shrink-0" />
                     ) : (
-                      <Blend className="size-4 shrink-0" aria-hidden />
+                      <MagicStick3 weight="BoldDuotone" className="size-4 shrink-0" aria-hidden />
                     )}
                     <span className="hidden sm:inline">{isRemixing ? "Remixing..." : "Remix"}</span>
                   </Button>

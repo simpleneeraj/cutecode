@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
+import { AltArrowDown, Magnifer, Crown } from "@solar-icons/react";
 import { Button } from "@/components/ui/button";
 import {
   Combobox,
@@ -20,7 +20,6 @@ import { BadgeVariant } from "@/typings/editor";
 import { AccessLevel } from "@/typings/enums";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { Badge } from "@/components/ui/badge";
-import { Icon } from "@/components/ui/icon";
 import View from "@/components/view";
 import { trackEditor } from "@/lib/analytics";
 
@@ -79,14 +78,14 @@ export default function FontFaceControl() {
                       className="text-xs"
                       variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
                     >
-                      <Icon icon={"solar:crown-bold"} className="size-3" />
+                      <Crown weight="BoldDuotone" className="size-3" aria-hidden="true" />
                     </Badge>
                   )}
                 </View>
               );
             }}
           </ComboboxValue>
-          <ChevronsUpDownIcon className="-me-1!" />
+          <AltArrowDown weight="LineDuotone" className="-me-1!" aria-hidden="true" />
         </ComboboxTrigger>
         <ComboboxPopup aria-label="Select font face">
           <div className="border-b p-2">
@@ -94,7 +93,7 @@ export default function FontFaceControl() {
               className="rounded-md before:rounded-[calc(var(--radius-md)-1px)]"
               placeholder="Search fonts..."
               showTrigger={false}
-              startAddon={<SearchIcon />}
+              startAddon={<Magnifer weight="LineDuotone" aria-hidden="true" />}
             />
           </div>
           <ComboboxEmpty>No fonts found.</ComboboxEmpty>
@@ -115,7 +114,7 @@ export default function FontFaceControl() {
                         className="text-xs"
                         variant={access === AccessLevel.ALLOWED ? "outline" : "warning"}
                       >
-                        <Icon icon={"solar:crown-bold"} className="size-3" />
+                        <Crown weight="BoldDuotone" className="size-3" aria-hidden="true" />
                       </Badge>
                     )}
                   </View>

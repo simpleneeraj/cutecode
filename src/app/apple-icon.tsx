@@ -1,29 +1,44 @@
 import { ImageResponse } from "next/og";
 
-// Apple touch icon — same flat mark at 180×180.
+// Dynamic favicon/icon — gold "crown" palette + Alice (brand Google serif).
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-export default function AppleIcon() {
+// Alice as raw TTF (satori needs ttf/otf, not the woff2 the CSS endpoint serves).
+const ALICE_TTF = "https://raw.githubusercontent.com/google/fonts/main/ofl/alice/Alice-Regular.ttf";
+async function loadAlice(): Promise<ArrayBuffer> {
+  return (await fetch(ALICE_TTF)).arrayBuffer();
+}
+
+export default async function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: 180,
-          height: 180,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 40,
-          background: "#0A0A0B",
-        }}
-      >
-        <svg width="104" height="104" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 9L11 12L8 15" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M13 15H17" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
-        </svg>
-      </div>
-    ),
-    { ...size },
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#e9e2d7",
+        color: "#1b1a16",
+        fontFamily: "Alice",
+        fontSize: 36,
+        fontWeight: 400,
+        borderRadius: "12px",
+      }}
+    >
+      C
+    </div>,
+    {
+      ...size,
+      fonts: [
+        {
+          name: "Alice",
+          data: await loadAlice(),
+          weight: 400,
+          style: "normal",
+        },
+      ],
+    },
   );
 }

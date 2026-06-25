@@ -8,13 +8,15 @@ export const wallpaperOptionsAtom = atomWithStorage<MaskWallpaperOptions>(StoreK
   fps: 30,
   tails: 30,
   animate: false,
-  colors: COLORS[3].colors,
+  // Warm "Calico" tones to match the parchment/espresso theme (was vivid pink).
+  colors: COLORS[2].colors,
   scrollAnimate: false,
   pattern: {
-    image: PATTERNS[2].path,
+    image: PATTERNS[8].path,
     background: "#000",
     size: `${PATTERN_SIZE}px`,
-    opacity: 0.25,
+    // Subtle by default — a quiet textured canvas, not a busy emoji field.
+    opacity: 0.1,
     mask: true,
     blur: 0,
   },

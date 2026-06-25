@@ -8,6 +8,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { TooltipProvider } from "@/components/tooltip";
 import { ThemeProvider } from "@/components/theme-switch/theme-provider";
+import { headingFontVariable } from "@/fonts/global";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -95,7 +96,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${headingFontVariable}`}
+    >
       <head>
         <JsonLd />
       </head>

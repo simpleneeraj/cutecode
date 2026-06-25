@@ -1,9 +1,9 @@
 import { cn } from "@/utils/cn";
 import localFont from "next/font/local";
-import { Kablammo, Nothing_You_Could_Do, Delius, Cabin_Sketch } from "next/font/google";
+import { Kablammo, Nothing_You_Could_Do, Delius, Cabin_Sketch, Fraunces } from "next/font/google";
 
 /* ------------------------------- */
-/* App Fonts (unchanged)           */
+/* App Fonts                       */
 /* ------------------------------- */
 
 const fontSans = localFont({
@@ -12,11 +12,13 @@ const fontSans = localFont({
   variable: "--font-sans",
 });
 
-const fontHeading = localFont({
-  display: "swap",
-  src: "./CalSans-SemiBold.woff2",
+// Heading: Fraunces — premium variable serif with optical sizing. Real weights,
+// so heading `font-semibold`/`font-bold` stay crisp (no faux-bold).
+const fontHeading = Fraunces({
+  subsets: ["latin"],
   variable: "--font-heading",
-  weight: "600",
+  display: "swap",
+  axes: ["opsz"],
 });
 
 const kablammo = Kablammo({ subsets: ["latin"], weight: "variable", variable: "--kablammo" });
@@ -28,6 +30,9 @@ const nothingYouCouldDo = Nothing_You_Could_Do({
 });
 const delius = Delius({ weight: ["400"], subsets: ["latin"], variable: "--delius" });
 const cabinSketch = Cabin_Sketch({ weight: ["400", "700"], subsets: ["latin"], variable: "--cabin-sketch" });
+
+// Applied at the root layout so portaled overlays (dialog/sheet titles) inherit the heading font.
+export const headingFontVariable = fontHeading.variable;
 
 export default cn(
   kablammo.variable,

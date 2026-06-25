@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/combobox";
 import { cn } from "@/utils/cn";
 import { Button } from "@/components/ui/button";
-import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
+import { AltArrowDown, Magnifer } from "@solar-icons/react";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { useAtomValue, useSetAtom } from "jotai";
 import { currentElementAtom, updateSlideElementAtom } from "@/store/editor/editor";
@@ -87,7 +87,7 @@ const LanguageControl: React.FC = () => {
               </>
             )}
           </ComboboxValue>
-          <ChevronsUpDownIcon className="-me-1!" />
+          <AltArrowDown weight="LineDuotone" className="-me-1!" aria-hidden="true" />
         </ComboboxTrigger>
         <ComboboxPopup>
           <div className="border-b p-2">
@@ -95,7 +95,7 @@ const LanguageControl: React.FC = () => {
               className="rounded-md before:rounded-[calc(var(--radius-md)-1px)]"
               placeholder="Search..."
               showTrigger={false}
-              startAddon={<SearchIcon />}
+              startAddon={<Magnifer weight="LineDuotone" aria-hidden="true" />}
             />
           </div>
           <ComboboxEmpty>No languages found.</ComboboxEmpty>

@@ -20,7 +20,6 @@ export function Header() {
       {/* Main row */}
       <div className="flex h-14 sm:h-16 w-full items-center justify-between gap-3 px-4 md:px-6">
         <div className="flex shrink-0 items-center gap-2">
-          <BrandMark className="size-7" />
           <span className="font-heading text-lg sm:text-[1.625em] leading-none">{siteConfig.name}</span>
           <AnimatePresence mode="wait" initial={false}>
             {activeTab && (

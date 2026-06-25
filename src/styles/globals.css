@@ -144,15 +144,15 @@
 
 @layer base {
   :root {
-    /* Warm near-black — barely perceptible warm undertone vs. pure gray */
-    --background: 20 5% 4%;
-    --panel: 20 4% 9%;
+    /* Warm espresso night — Goodreads "reading at night" base */
+    --background: 30 25% 6%;
+    --panel: 30 20% 10%;
     --white: 0 0% 100%;
     --black: 0 0% 0%;
-    /* Monochrome brand — warm-neutral to match the gray scale (no color accent) */
-    --brand: 20 6% 93%;
-    --brand-dim: 20 4% 72%;
-    --brand-subtle: 20 5% 16%;
+    /* Brand accent — Goodreads green (brightened for dark surfaces) */
+    --brand: 145 42% 58%;
+    --brand-dim: 145 38% 46%;
+    --brand-subtle: 150 24% 15%;
     --accent-gold: 38 90% 60%;
     --purple: 255.6 99.2% 75.9%;
     --blue: 201.4 99.4% 66.8%;
@@ -195,12 +195,12 @@
 }
 
 .light {
-  /* Sandy cream — Claude-style warm light surface */
-  --background: 32 25% 96%;
-  --panel: 32 18% 93%;
-  --brand: 20 8% 14%;
-  --brand-dim: 20 6% 32%;
-  --brand-subtle: 20 12% 88%;
+  /* Parchment — Goodreads library paper */
+  --background: 41 30% 93%;
+  --panel: 41 22% 89%;
+  --brand: 147 44% 41%;
+  --brand-dim: 147 42% 32%;
+  --brand-subtle: 145 40% 88%;
   --accent-gold: 38 85% 50%;
   /* Warm-tinted gray scale for light mode */
   --gray-1: 32 20% 93%;
@@ -346,14 +346,15 @@ select {
   --ray-highlight-border: transparent;
   --line-number: rgba(0, 0, 0, 0.2);
   --radius: 0.625rem;
-  --background: var(--color-white);
-  --foreground: var(--color-neutral-800);
-  --card: var(--color-white);
-  --card-foreground: var(--color-neutral-800);
-  --popover: var(--color-white);
-  --popover-foreground: var(--color-neutral-800);
-  --primary: var(--color-neutral-800);
-  --primary-foreground: var(--color-neutral-50);
+  /* Goodreads light: parchment surfaces, espresso ink, brown chrome */
+  --background: hsl(41 30% 95%);
+  --foreground: hsl(28 48% 14%);
+  --card: hsl(40 33% 97%);
+  --card-foreground: hsl(28 48% 14%);
+  --popover: hsl(40 33% 97%);
+  --popover-foreground: hsl(28 48% 14%);
+  --primary: hsl(28 48% 16%);
+  --primary-foreground: hsl(41 33% 96%);
   --secondary: --alpha(var(--color-black) / 4%);
   --secondary-foreground: var(--color-neutral-800);
   --muted: --alpha(var(--color-black) / 4%);
@@ -635,14 +636,15 @@ select {
 }
 
 .dark {
-  --background: color-mix(in srgb, var(--color-neutral-950) 95%, var(--color-white));
-  --foreground: var(--color-neutral-100);
-  --card: color-mix(in srgb, var(--background) 98%, var(--color-white));
-  --card-foreground: var(--color-neutral-100);
-  --popover: color-mix(in srgb, var(--background) 98%, var(--color-white));
-  --popover-foreground: var(--color-neutral-100);
-  --primary: var(--color-neutral-100);
-  --primary-foreground: var(--color-neutral-800);
+  /* Goodreads night: warm espresso surfaces, warm parchment ink + chrome */
+  --background: hsl(30 26% 7%);
+  --foreground: hsl(40 28% 90%);
+  --card: color-mix(in srgb, var(--background) 96%, var(--color-white));
+  --card-foreground: hsl(40 28% 90%);
+  --popover: color-mix(in srgb, var(--background) 96%, var(--color-white));
+  --popover-foreground: hsl(40 28% 90%);
+  --primary: hsl(40 30% 92%);
+  --primary-foreground: hsl(28 40% 14%);
   --secondary: --alpha(var(--color-white) / 4%);
   --secondary-foreground: var(--color-neutral-100);
   --muted: --alpha(var(--color-white) / 4%);

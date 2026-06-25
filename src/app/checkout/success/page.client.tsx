@@ -6,7 +6,7 @@ import Confetti from "react-confetti";
 import { useRouter } from "next/navigation";
 import { useInterval, useWindowSize } from "react-use";
 import { motion, AnimatePresence } from "motion/react";
-import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import { CheckCircle, AltArrowRight, Stars } from "@solar-icons/react";
 
 const REDIRECT_SECONDS = 5;
 
@@ -73,7 +73,7 @@ export default function CheckoutSuccessClient() {
               className="relative"
             >
               <div className="size-24 rounded-full bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center">
-                <CheckCircle2 className="size-12 text-emerald-400" strokeWidth={1.5} />
+                <CheckCircle weight="BoldDuotone" className="size-12 text-emerald-400" aria-hidden="true" />
               </div>
               {/* Orbiting sparkle */}
               <motion.div
@@ -81,7 +81,7 @@ export default function CheckoutSuccessClient() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               >
-                <Sparkles className="size-5 text-amber-400" />
+                <Stars weight="BoldDuotone" className="size-5 text-amber-400" aria-hidden="true" />
               </motion.div>
             </motion.div>
 
@@ -112,7 +112,7 @@ export default function CheckoutSuccessClient() {
                   key={feature}
                   className="flex items-center gap-2 rounded-xl bg-emerald-500/8 border border-emerald-500/15 px-3 py-2"
                 >
-                  <CheckCircle2 className="size-3.5 text-emerald-400 shrink-0" />
+                  <CheckCircle weight="BoldDuotone" className="size-3.5 text-emerald-400 shrink-0" aria-hidden="true" />
                   <span className="text-xs text-white/70 font-medium">{feature}</span>
                 </div>
               ))}
@@ -164,7 +164,7 @@ export default function CheckoutSuccessClient() {
                   className="w-full group flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3.5 font-semibold text-sm transition-colors"
                 >
                   Start creating now
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                  <AltArrowRight weight="LineDuotone" className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </motion.button>
               </Link>
             </motion.div>

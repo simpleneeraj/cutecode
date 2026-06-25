@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { TelescopeIcon, TrendingUpIcon, ClockIcon } from "lucide-react";
+import { ClockCircle, Fire, Telescope } from "@solar-icons/react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { useSnippetExplore } from "@/hooks/use-snippet";
 import { ExploreSnippetCard } from "./components/explore-snippet-card";
-import { staggerContainer, staggerItem, EASE_OUT } from "@/lib/motion";
+import { SnippetSkeletonCard } from "../snippets/components/snippet-skeleton-card";
+import { BrowsePagination } from "../../components/browse-pagination";
+import { staggerContainer, EASE_OUT } from "@/lib/motion";
 import { cn } from "@/utils/cn";
 import View from "@/components/view";
 
 const POPULAR_LANGUAGES = ["typescript", "python", "javascript", "rust", "go", "bash", "sql"];
+const GRID = "grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4";
 
 export default function ExplorePageClient() {
   const [sort, setSort] = useState<"recent" | "popular">("recent");
@@ -37,23 +40,24 @@ export default function ExplorePageClient() {
 
   return (
     <View className="layout-fill z-10">
-      <View className="flex flex-col gap-6 py-6 px-4 sm:px-6 max-w-6xl mx-auto w-full layout-fill">
-        {/* Header row */}
-        <View className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <View className="flex items-center gap-2">
-            <h1 className="text-lg font-bold tracking-tight text-foreground">Explore</h1>
-            <Badge variant="outline">{!isLoading ? total : "…"} snippets</Badge>
-          </View>
+      <View className="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-6 sm:px-6 layout-fill">
+        {/* Toolbar */}
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
+          <div className="flex items-center gap-2">
+            <h1 className="font-heading text-xl font-semibold tracking-tight text-foreground">Explore</h1>
+            <Badge variant="outline" className="tabular-nums">
+              {isLoading ? "…" : total} snippets
+            </Badge>
+          </div>
 
-          {/* Sort toggles */}
-          <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
+          <div className="flex items-center gap-1 rounded-lg bg-muted/60 p-1">
             <Button
               size="sm"
               variant={sort === "recent" ? "default" : "ghost"}
               className="h-7 gap-1.5 text-xs"
               onClick={() => handleSortChange("recent")}
             >
-              <ClockIcon className="size-3.5" />
+              <ClockCircle weight="LineDuotone" className="size-3.5" aria-hidden="true" />
               Recent
             </Button>
             <Button
@@ -62,11 +66,11 @@ export default function ExplorePageClient() {
               className="h-7 gap-1.5 text-xs"
               onClick={() => handleSortChange("popular")}
             >
-              <TrendingUpIcon className="size-3.5" />
+              <Fire weight="BoldDuotone" className="size-3.5" aria-hidden="true" />
               Popular
             </Button>
           </div>
-        </View>
+        </div>
 
         {/* Language filters */}
         <div className="flex flex-wrap gap-1.5">
@@ -74,10 +78,7 @@ export default function ExplorePageClient() {
             <Badge
               key={lang}
               variant={language === lang ? "default" : "outline"}
-              className={cn(
-                "cursor-pointer select-none transition-colors",
-                language === lang && "bg-brand text-white border-brand",
-              )}
+              className={cn("cursor-pointer select-none transition-colors")}
               onClick={() => handleLanguageToggle(lang)}
             >
               {lang}
@@ -97,19 +98,12 @@ export default function ExplorePageClient() {
           )}
         </div>
 
-        {/* Grid */}
         <View className="layout-scroll">
           <AnimatePresence mode="wait">
             {isLoading ? (
-              <motion.div
-                key="skeleton"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-              >
-                {Array.from({ length: 12 }).map((_, i) => (
-                  <div key={i} className="h-52 rounded-xl bg-muted animate-pulse" />
+              <motion.div key="skeleton" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className={GRID}>
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <SnippetSkeletonCard key={i} />
                 ))}
               </motion.div>
             ) : snippets.length === 0 ? (
@@ -120,10 +114,10 @@ export default function ExplorePageClient() {
                 exit={{ opacity: 0 }}
                 transition={{ ease: EASE_OUT, duration: 0.25 }}
               >
-                <Empty>
+                <Empty className="py-20">
                   <EmptyHeader>
                     <EmptyMedia variant="icon">
-                      <TelescopeIcon />
+                      <Telescope weight="BoldDuotone" aria-hidden="true" />
                     </EmptyMedia>
                     <EmptyTitle>Nothing here yet</EmptyTitle>
                     <EmptyDescription>
@@ -142,7 +136,7 @@ export default function ExplorePageClient() {
                 initial="hidden"
                 animate="visible"
                 exit={{ opacity: 0 }}
-                className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+                className={GRID}
               >
                 {snippets.map((snippet, i) => (
                   <ExploreSnippetCard key={snippet.id} snippet={snippet} index={i} />
@@ -150,36 +144,9 @@ export default function ExplorePageClient() {
               </motion.div>
             )}
           </AnimatePresence>
-
-          {/* Pagination */}
-          {totalPages > 1 && !isLoading && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="flex items-center justify-center gap-2 mt-8 pb-6"
-            >
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={page <= 1}
-                onClick={() => setPage((p) => p - 1)}
-              >
-                Previous
-              </Button>
-              <span className="text-sm text-muted-foreground">
-                Page {page} of {totalPages}
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={page >= totalPages}
-                onClick={() => setPage((p) => p + 1)}
-              >
-                Next
-              </Button>
-            </motion.div>
-          )}
         </View>
+
+        <BrowsePagination page={page} totalPages={totalPages} onPageChange={setPage} />
       </View>
     </View>
   );

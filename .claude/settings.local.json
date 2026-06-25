@@ -4,7 +4,7 @@
       "Bash(npx tsc *)"
     ]
   },
-  "enabledMcpjsonServers": [
+  "disabledMcpjsonServers": [
     "codegraph"
   ]
 }

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useInterval } from "react-use";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { XCircle, RefreshCcw, Home, AlertTriangle } from "lucide-react";
+import { CloseCircle, RefreshCircle, Home, DangerTriangle } from "@solar-icons/react";
 
 const REDIRECT_SECONDS = 8;
 
@@ -50,7 +50,7 @@ export default function CheckoutFailurePage() {
               transition={{ delay: 0.2, type: "spring", stiffness: 220, damping: 16 }}
             >
               <div className="size-24 rounded-full bg-red-500/15 border border-red-500/20 flex items-center justify-center">
-                <XCircle className="size-12 text-red-400" strokeWidth={1.5} />
+                <CloseCircle weight="BoldDuotone" className="size-12 text-red-400" aria-hidden="true" />
               </div>
             </motion.div>
 
@@ -78,7 +78,7 @@ export default function CheckoutFailurePage() {
               transition={{ delay: 0.4, duration: 0.4 }}
               className="w-full flex items-start gap-3 rounded-2xl bg-amber-500/8 border border-amber-500/15 px-4 py-3 text-left"
             >
-              <AlertTriangle className="size-4 text-amber-400 shrink-0 mt-0.5" />
+              <DangerTriangle weight="LineDuotone" className="size-4 text-amber-400 shrink-0 mt-0.5" aria-hidden="true" />
               <p className="text-xs text-white/55 leading-relaxed">
                 Common reasons: insufficient funds, card expired, or bank declined the transaction. Contact your bank if
                 the issue persists.
@@ -130,7 +130,7 @@ export default function CheckoutFailurePage() {
                   whileTap={{ scale: 0.97 }}
                   className="w-full group flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-white/90 text-black px-6 py-3.5 font-semibold text-sm transition-colors"
                 >
-                  <RefreshCcw className="size-4 transition-transform group-hover:-rotate-180 duration-500" />
+                  <RefreshCircle weight="LineDuotone" className="size-4 transition-transform group-hover:-rotate-180 duration-500" aria-hidden="true" />
                   Try again
                 </motion.button>
               </Link>
@@ -141,7 +141,7 @@ export default function CheckoutFailurePage() {
                   whileTap={{ scale: 0.97 }}
                   className="w-full group flex items-center justify-center gap-2 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white px-6 py-3.5 font-medium text-sm transition-all"
                 >
-                  <Home className="size-4" />
+                  <Home weight="LineDuotone" className="size-4" aria-hidden="true" />
                   Return home
                 </motion.button>
               </Link>

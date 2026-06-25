@@ -2,18 +2,18 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  BanIcon,
-  CodeIcon,
-  Edit,
-  EyeOffIcon,
-  GlobeIcon,
-  LockIcon,
-  PinIcon,
-  TrashIcon,
-  TriangleAlertIcon,
-  EllipsisVerticalIcon,
-  ThumbsDownIcon,
-} from "lucide-react";
+  ForbiddenCircle,
+  CodeSquare,
+  PenNewSquare,
+  EyeClosed,
+  Global,
+  Lock,
+  Pin,
+  TrashBinTrash,
+  DangerTriangle,
+  MenuDots,
+  Dislike,
+} from "@solar-icons/react";
 import { Menu, MenuItem, MenuPopup, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
 import React, { useState } from "react";
 import { EmbedDialog } from "./embed-dialog";
@@ -39,17 +39,17 @@ const VISIBILITY_CYCLE: Record<Visibility, { next: Visibility; label: string; ic
   public: {
     next: "unlisted",
     label: "Make Unlisted",
-    icon: <EyeOffIcon className="size-4" aria-hidden />,
+    icon: <EyeClosed weight="LineDuotone" className="size-4" aria-hidden />,
   },
   unlisted: {
     next: "private",
     label: "Make Private",
-    icon: <LockIcon className="size-4" aria-hidden />,
+    icon: <Lock weight="LineDuotone" className="size-4" aria-hidden />,
   },
   private: {
     next: "public",
     label: "Make Public",
-    icon: <GlobeIcon className="size-4" aria-hidden />,
+    icon: <Global weight="LineDuotone" className="size-4" aria-hidden />,
   },
 };
 
@@ -79,14 +79,14 @@ export default function MoreOptions({
     <React.Fragment>
       <Menu>
         <MenuTrigger render={<Button variant="outline" size="sm" aria-label="More options" />}>
-          <EllipsisVerticalIcon className="size-4" aria-hidden />
+          <MenuDots weight="LineDuotone" className="size-4" aria-hidden />
         </MenuTrigger>
 
         <MenuPopup align="end">
           {isOwner ? (
             <>
               <MenuItem onClick={onEdit}>
-                <Edit className="size-4" aria-hidden />
+                <PenNewSquare weight="LineDuotone" className="size-4" aria-hidden />
                 Edit Snippet
               </MenuItem>
 
@@ -96,20 +96,20 @@ export default function MoreOptions({
               </MenuItem>
 
               <MenuItem onClick={onPin}>
-                <PinIcon className="size-4" aria-hidden />
+                <Pin weight="LineDuotone" className="size-4" aria-hidden />
                 Pin to Profile
               </MenuItem>
 
               <MenuSeparator />
 
               <MenuItem onClick={() => setEmbedOpen(true)}>
-                <CodeIcon className="size-4" aria-hidden />
+                <CodeSquare weight="LineDuotone" className="size-4" aria-hidden />
                 Embed Snippet
               </MenuItem>
               <MenuSeparator />
 
               <MenuItem onClick={onDelete} className={"text-destructive focus:text-destructive"}>
-                <TrashIcon className="size-4" aria-hidden />
+                <TrashBinTrash weight="BoldDuotone" className="size-4" aria-hidden />
                 Delete Snippet
               </MenuItem>
             </>
@@ -117,24 +117,24 @@ export default function MoreOptions({
             <>
               {/* ── Viewer actions ── */}
               <MenuItem onClick={() => setEmbedOpen(true)}>
-                <CodeIcon className="size-4" aria-hidden />
+                <CodeSquare weight="LineDuotone" className="size-4" aria-hidden />
                 Embed Snippet
               </MenuItem>
 
               <MenuSeparator />
 
               <MenuItem onClick={onNotInterested}>
-                <ThumbsDownIcon className="size-4" aria-hidden />
+                <Dislike weight="LineDuotone" className="size-4" aria-hidden />
                 Not Interested
               </MenuItem>
 
               <MenuItem onClick={onReport}>
-                <TriangleAlertIcon className="size-4" aria-hidden />
+                <DangerTriangle weight="LineDuotone" className="size-4" aria-hidden />
                 Report
               </MenuItem>
 
               <MenuItem onClick={onBlock} className="text-destructive focus:text-destructive">
-                <BanIcon className="size-4" aria-hidden />
+                <ForbiddenCircle weight="LineDuotone" className="size-4" aria-hidden />
                 Block User
               </MenuItem>
             </>

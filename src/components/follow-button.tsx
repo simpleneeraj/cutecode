@@ -4,7 +4,8 @@ import { cn } from "@/utils/cn";
 import React, { useState } from "react";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
-import { Loader2, UserCheck, UserPlus } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { UserCheck, UserPlus } from "@solar-icons/react";
 import { useUserMutations, useUserProfile } from "@/hooks/use-user";
 
 interface FollowButtonProps {
@@ -88,8 +89,6 @@ export function FollowButton({
 
   const label = isFollowing ? (isHovering ? "Unfollow" : "Following") : "Follow";
 
-  const Icon = isFollowPending ? Loader2 : isFollowing ? UserCheck : UserPlus;
-
   return (
     <div className="flex items-center gap-2">
       <Button
@@ -107,7 +106,13 @@ export function FollowButton({
           className,
         )}
       >
-        <Icon className={cn("size-3.5", isFollowPending && "animate-spin")} aria-hidden="true" />
+        {isFollowPending ? (
+          <Spinner className="size-3.5" />
+        ) : isFollowing ? (
+          <UserCheck weight="LineDuotone" className="size-3.5" aria-hidden="true" />
+        ) : (
+          <UserPlus weight="LineDuotone" className="size-3.5" aria-hidden="true" />
+        )}
         {label}
       </Button>
 

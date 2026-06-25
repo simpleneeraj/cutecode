@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/utils/cn";
-import { useRouter } from "next/navigation";
+import { Link } from "@/components/link";
 import { useClerk, useUser } from "@/hooks/use-auth";
 import { useSetAtom } from "jotai";
 import {
@@ -31,7 +31,6 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
   const { isPro } = useSubscription();
   const { signOut, openUserProfile } = useClerk();
 
-  const router = useRouter();
   const resetEditor = useSetAtom(resetEditorAtom);
   const setPlansOpen = useSetAtom(plansDialogOpenAtom);
 
@@ -49,7 +48,7 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
       .map((n: string) => n[0])
       .join("")
       .toUpperCase()
-      .slice(0, 2);
+      .slice(0, 1);
     return { name, email, avatar, initials };
   }, [user]);
 
@@ -68,7 +67,7 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
           >
             <Avatar>
               <AvatarImage src={avatar} alt={name} />
-              <AvatarFallback className="text-xs font-semibold">{initials}</AvatarFallback>
+              <AvatarFallback>{initials}</AvatarFallback>
             </Avatar>
 
             {isPro && (
@@ -96,9 +95,11 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => router.push("/dashboard")}>
-            <Icon icon="solar:widget-2-linear" className="size-4" />
-            Dashboard
+          <DropdownMenuItem asChild className="cursor-pointer gap-2.5 px-2 py-2">
+            <Link href="/dashboard">
+              <Icon icon="solar:widget-2-linear" className="size-4" />
+              Dashboard
+            </Link>
           </DropdownMenuItem>
 
           {isPro && (
@@ -117,8 +118,8 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
             <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => setPlansOpen(true)}>
               <Icon icon="solar:crown-linear" className="size-4" />
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-foreground">Upgrade to Pro</span>
-                <span className="text-xs text-muted-foreground">Unlock premium themes & fonts</span>
+                <span className="text-sm font-medium text-foreground">Upgrade plan</span>
+                <span className="text-xs text-muted-foreground">Premium themes, 4K & API</span>
               </div>
             </DropdownMenuItem>
           )}

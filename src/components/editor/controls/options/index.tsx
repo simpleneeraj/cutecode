@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Menu, MenuCheckboxItem, MenuItem, MenuPopup, MenuSeparator, MenuTrigger } from "@/components/ui/menu";
-import { Settings2, Moon, Hash, Image } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAtomValue, useSetAtom } from "jotai";
 import {
@@ -12,7 +11,7 @@ import {
   resetEditorAtom,
 } from "@/store/editor/editor";
 import useHotkeys from "@/utils/useHotkeys";
-import { Icon } from "@/components/ui/icon";
+import { SettingsMinimalistic, Gallery, Moon, Hashtag, TrashBinTrash } from "@solar-icons/react";
 
 const OptionsControl: React.FC = () => {
   const updateSlideElement = useSetAtom(updateSlideElementAtom);
@@ -50,7 +49,7 @@ const OptionsControl: React.FC = () => {
 
       <Menu>
         <MenuTrigger render={<Button variant="outline" size="icon" className="shadow-sm hover:shadow-md transition" />}>
-          <Settings2 className="w-4 h-4" />
+          <SettingsMinimalistic weight="Linear" className="size-4" />
         </MenuTrigger>
 
         <MenuPopup className="w-56 p-2 space-y-1 rounded-xl">
@@ -66,7 +65,7 @@ const OptionsControl: React.FC = () => {
             className="flex items-center justify-between gap-2 rounded-lg px-2 py-2"
           >
             <div className="flex items-center gap-2 text-sm">
-              <Image className="w-4 h-4 opacity-70" />
+              <Gallery weight="Linear" className="size-4 opacity-70" />
               <span>Background</span>
             </div>
             {/* <span className="text-xs text-muted-foreground">{transparent ? "Hidden" : "Visible"}</span> */}
@@ -84,7 +83,7 @@ const OptionsControl: React.FC = () => {
             className="flex items-center justify-between gap-2 rounded-lg px-2 py-2"
           >
             <div className="flex items-center gap-2 text-sm">
-              <Moon className="w-4 h-4 opacity-70" />
+              <Moon weight="Linear" className="size-4 opacity-70" />
               <span>Dark Mode</span>
             </div>
           </MenuCheckboxItem>
@@ -101,7 +100,7 @@ const OptionsControl: React.FC = () => {
             className="flex items-center justify-between gap-2 rounded-lg px-2 py-2"
           >
             <div className="flex items-center gap-2 text-sm">
-              <Hash className="w-4 h-4 opacity-70" />
+              <Hashtag weight="Linear" className="size-4 opacity-70" />
               <span>Line Numbers</span>
             </div>
           </MenuCheckboxItem>
@@ -113,7 +112,7 @@ const OptionsControl: React.FC = () => {
             onClick={handleReset}
             className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm text-destructive data-highlighted:bg-destructive/10 data-highlighted:text-destructive"
           >
-            <Icon icon={"solar:trash-bin-trash-bold"} />
+            <TrashBinTrash weight="Bold" className="size-4" />
             <span>Reset Storage</span>
             <code>12KB</code>
           </MenuItem>

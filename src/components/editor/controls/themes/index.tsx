@@ -15,7 +15,7 @@ import {
   ComboboxCollection,
   ComboboxInput,
 } from "@/components/ui/combobox";
-import { ChevronsUpDownIcon, SearchIcon } from "lucide-react";
+import { AltArrowDown, Magnifer, Fire, Crown } from "@solar-icons/react";
 import { Theme, IconType, BadgeVariant } from "@/typings/editor";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { elementThemeAtom, updateSlideElementAtom } from "@/store/editor/editor";
@@ -62,13 +62,13 @@ function Badges({ tags, access }: { tags?: Theme["tags"]; access: AccessLevel })
       )}
       {tags?.includes(BadgeVariant.POPULAR) && (
         <Badge className="text-xs" size="sm" variant="error">
-          <Icon icon="solar:fire-bold" className="size-3" />
+          <Fire weight="BoldDuotone" className="size-3" aria-hidden="true" />
           {BadgeVariant.POPULAR}
         </Badge>
       )}
       {tags?.includes(BadgeVariant.PREMIUM) && (
         <Badge size="sm" variant={access === AccessLevel.ALLOWED ? "outline" : "warning"} title={BadgeVariant.PREMIUM}>
-          <Icon icon={"solar:crown-bold"} className="size-3" />
+          <Crown weight="BoldDuotone" className="size-3" aria-hidden="true" />
         </Badge>
       )}
     </>
@@ -118,7 +118,7 @@ const ThemeControl: React.FC = () => {
               </div>
             )}
           </ComboboxValue>
-          <ChevronsUpDownIcon className="-me-1!" />
+          <AltArrowDown weight="LineDuotone" className="-me-1!" aria-hidden="true" />
         </ComboboxTrigger>
         <ComboboxPopup aria-label="Select theme">
           <div className="border-t p-2">
@@ -126,7 +126,7 @@ const ThemeControl: React.FC = () => {
               className="rounded-md before:rounded-[calc(var(--radius-md)-1px)]"
               placeholder="Search themes..."
               showTrigger={false}
-              startAddon={<SearchIcon />}
+              startAddon={<Magnifer weight="LineDuotone" aria-hidden="true" />}
             />
           </div>
           <ComboboxEmpty>No themes found.</ComboboxEmpty>

@@ -16,7 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { OTPField, OTPFieldInput } from "@/components/ui/otp-field";
 import { Spinner } from "@/components/ui/spinner";
-import { X } from "lucide-react";
+import { Share, CloseCircle } from "@solar-icons/react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { dispatchPublishSnippetAtom, publishSnippetAtom } from "./store";
 import { Visibility } from "./types";
@@ -46,21 +46,21 @@ const OTP_SLOTS = Array.from({ length: OTP_LENGTH }, (_, i) => `otp-slot-${i}`);
 
 const visibilityConfig = {
   [Visibility.PUBLIC]: {
-    icon: "solar:global-bold",
+    icon: "solar:global-bold-duotone",
     label: "Public",
     sub: "Anyone with the link can view",
     color: "text-foreground",
     bg: "bg-muted",
   },
   [Visibility.PASSCODE]: {
-    icon: "solar:lock-password-bold",
+    icon: "solar:lock-password-bold-duotone",
     label: "Passcode Protected",
     sub: "Viewers must enter a code",
     color: "text-foreground",
     bg: "bg-muted",
   },
   [Visibility.PRIVATE]: {
-    icon: "solar:shield-keyhole-minimalistic-bold",
+    icon: "solar:shield-keyhole-minimalistic-bold-duotone",
     label: "Private",
     sub: "Only visible to you",
     color: "text-muted-foreground",
@@ -158,7 +158,7 @@ const PublishSnippet: React.FC = () => {
         onClick={onTriggerClick}
       >
         <span className="flex items-center gap-2">
-          <Icon icon="solar:share-bold" className="size-4" />
+          <Share weight="BoldDuotone" className="size-4" aria-hidden="true" />
           Publish snippet
         </span>
         {!isPro && isSignedIn && (
@@ -170,7 +170,7 @@ const PublishSnippet: React.FC = () => {
         <DialogHeader className="relative px-5 pt-5 pb-4">
           <DialogTitle className="flex items-center gap-2.5 text-base">
             <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
-              <Icon icon="solar:share-bold" className="size-4" />
+              <Share weight="BoldDuotone" className="size-4" aria-hidden="true" />
             </span>
             Publish Snippet
           </DialogTitle>
@@ -224,7 +224,7 @@ const PublishSnippet: React.FC = () => {
                       onClick={() => dispatch({ tags: tags.filter((t) => t !== tag) })}
                       className="hover:text-destructive focus:outline-none"
                     >
-                      <X className="size-3" />
+                      <CloseCircle weight="LineDuotone" className="size-3" aria-hidden="true" />
                     </button>
                   </span>
                 ))}
