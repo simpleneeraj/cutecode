@@ -57,35 +57,10 @@ export type UserFollows = Prisma.UserFollowsModel
  */
 export type Subscription = Prisma.SubscriptionModel
 /**
- * Model Payment
- * 
- */
-export type Payment = Prisma.PaymentModel
-/**
  * Model WebhookEvent
  * 
  */
 export type WebhookEvent = Prisma.WebhookEventModel
-/**
- * Model UsageEvent
- * 
- */
-export type UsageEvent = Prisma.UsageEventModel
-/**
- * Model AuditLog
- * 
- */
-export type AuditLog = Prisma.AuditLogModel
-/**
- * Model DunningAttempt
- * 
- */
-export type DunningAttempt = Prisma.DunningAttemptModel
-/**
- * Model IdempotencyKey
- * 
- */
-export type IdempotencyKey = Prisma.IdempotencyKeyModel
 /**
  * Model Snippet
  * 

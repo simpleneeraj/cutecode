@@ -11,7 +11,7 @@
 @theme {
   /* Font family */
   --font-family-sans:
-    var(--font-plus-jakarta-sans), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-family-mono:
     var(--font-geist-mono), "Geist Mono", "Cascadia Code", ui-monospace, monospace;
@@ -149,10 +149,10 @@
     --panel: 20 4% 9%;
     --white: 0 0% 100%;
     --black: 0 0% 0%;
-    /* Claude-inspired terracotta/coral brand */
-    --brand: 17 65% 62%;
-    --brand-dim: 17 55% 50%;
-    --brand-subtle: 17 40% 14%;
+    /* Monochrome brand — warm-neutral to match the gray scale (no color accent) */
+    --brand: 20 6% 93%;
+    --brand-dim: 20 4% 72%;
+    --brand-subtle: 20 5% 16%;
     --accent-gold: 38 90% 60%;
     --purple: 255.6 99.2% 75.9%;
     --blue: 201.4 99.4% 66.8%;
@@ -198,9 +198,9 @@
   /* Sandy cream — Claude-style warm light surface */
   --background: 32 25% 96%;
   --panel: 32 18% 93%;
-  --brand: 17 65% 55%;
-  --brand-dim: 17 55% 45%;
-  --brand-subtle: 17 60% 90%;
+  --brand: 20 8% 14%;
+  --brand-dim: 20 6% 32%;
+  --brand-subtle: 20 12% 88%;
   --accent-gold: 38 85% 50%;
   /* Warm-tinted gray scale for light mode */
   --gray-1: 32 20% 93%;

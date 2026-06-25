@@ -14,7 +14,7 @@ import { Plan } from "@/generated/prisma/enums";
 type SnippetAuthor = {
   id?: string;
   name?: string | null;
-  clerkId?: string;
+  supabaseId?: string;
   plan?: string;
 };
 
@@ -60,7 +60,7 @@ export function SnippetCard({
   renderComments,
 }: SnippetCardProps) {
   const authorId = author?.id ?? "";
-  const avatarUrl = author?.clerkId ? `https://img.clerk.com/preview.png?size=80&seed=${author.clerkId}` : undefined;
+  const avatarUrl = author?.name ? `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(author.name)}` : undefined;
   const handle = `@${author?.name?.replace(/\s+/g, "").toLowerCase() || "user"}`;
 
   return (
@@ -120,7 +120,7 @@ export function SnippetCard({
           {tags.length > 0 && (
             <div className="flex flex-wrap gap-1.5">
               {tags.map((tag) => (
-                <Badge variant="outline" className="text-xxs text-amber-500" key={tag}>
+                <Badge variant="outline" className="text-xxs" key={tag}>
                   #{tag}
                 </Badge>
               ))}

@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/toast";
 import { AnimatePresence, motion } from "motion/react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { shortenUrl } from "@/utils/common";
 import siteConfig from "@/contstant/site-config";
 
@@ -63,23 +63,15 @@ export function ShareDialog({ slug }: ShareDialogProps) {
         <span>Share</span>
       </DialogTrigger>
 
-      <DialogPopup className="sm:max-w-md rounded-2xl overflow-hidden p-0">
-        {/* Ambient top strip */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-500/50 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-emerald-500/6 to-transparent pointer-events-none" />
-
+      <DialogPopup className="sm:max-w-md overflow-hidden rounded-2xl p-0">
         <DialogHeader className="relative px-5 pt-5 pb-4">
           <DialogTitle className="flex items-center gap-2.5 text-base">
-            <motion.div
-              className="flex size-8 items-center justify-center rounded-xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-md shadow-emerald-500/25"
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
-            >
-              <Icon icon="solar:share-bold" className="size-4 text-white" />
-            </motion.div>
+            <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
+              <Icon icon="solar:share-bold" className="size-4" />
+            </span>
             Share Snippet
           </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground mt-1">
+          <DialogDescription className="mt-1 text-xs text-muted-foreground">
             Share this snippet with your friends or colleagues.
           </DialogDescription>
         </DialogHeader>
@@ -141,7 +133,7 @@ export function ShareDialog({ slug }: ShareDialogProps) {
                       exit={{ scale: 0.5, opacity: 0 }}
                       transition={{ duration: 0.15 }}
                     >
-                      <Icon icon="solar:check-circle-bold" className="size-3.5 text-emerald-500" />
+                      <Icon icon="solar:check-circle-bold" className="size-3.5 text-foreground" />
                     </motion.span>
                   ) : (
                     <motion.span

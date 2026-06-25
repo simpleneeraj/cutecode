@@ -26,7 +26,7 @@ import { useEditorContext } from "@/store/editor/context/editor";
 import { toast } from "@/components/toast";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { AccessLevel } from "@/typings/enums";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import View from "@/components/view";
 import { Badge } from "@/components/ui/badge";
 import { BadgeVariant } from "@/typings/editor";

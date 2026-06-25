@@ -1,4 +1,4 @@
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import styles from "./claude.module.css";
 import { cn as classNames } from "@/utils/cn";
 import { BaseFrameProps } from "@/typings/presets";

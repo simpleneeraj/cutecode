@@ -15,6 +15,7 @@ import SnippetNotFound from "../components/preview-not-found";
 import MaskWallpaper from "@/plugings/mask-wallpaper";
 import { useSnippetPreview } from "../hooks/use-snippet-preview";
 import { useSnippetComments, useSnippetMutations } from "@/hooks/use-snippet";
+import { useRealtimeChannel } from "@/hooks/use-realtime-channel";
 import { useAtomValue } from "jotai";
 import { wallpaperOptionsAtom } from "@/store/preview/wallpaper-atom";
 import SnippetInfo from "../components/snippet-info";
@@ -54,6 +55,18 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
   const [commentText, setCommentText] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
+  // Realtime: live viewer presence + live comment sync for this snippet.
+  const { viewerCount, broadcast } = useRealtimeChannel({
+    channel: snippetId ? `snippet:${snippetId}` : null,
+    presence: true,
+    presenceKey: authenticatedUserId ?? undefined,
+    onBroadcast: {
+      "new-comment": () => {
+        void mutateComments();
+      },
+    },
+  });
+
   async function handleAddComment() {
     if (!snippetId || !commentText.trim()) return;
     setIsSubmitting(true);
@@ -61,6 +74,8 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
       await addComment(snippetId, commentText.trim());
       setCommentText("");
       await mutateComments();
+      // Notify other viewers to refetch the thread.
+      broadcast("new-comment", { snippetId });
     } finally {
       setIsSubmitting(false);
     }
@@ -151,6 +166,18 @@ export default function PreviewSnippetClient({ slug }: PreviewSnippetClientProps
                 {format(new Date(snippetRecord.createdAt), "MMMM d, yyyy")}
               </Badge>
             </View>
+
+            {viewerCount > 1 && (
+              <View className="flex items-center justify-center">
+                <Badge variant="secondary" className="gap-1.5 bg-background/75 backdrop-blur-lg">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500/70" />
+                    <span className="relative inline-flex size-2 rounded-full bg-green-500" />
+                  </span>
+                  {viewerCount} viewing now
+                </Badge>
+              </View>
+            )}
 
             <SnippetCard
               slug={slug}

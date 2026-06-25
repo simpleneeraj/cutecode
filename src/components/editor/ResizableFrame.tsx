@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { windowWidthAtom } from "@//store/editor/editor";
 import { motion, AnimatePresence } from "framer-motion";
 import { MAX_SLIDE_WIDTH, MIN_SLIDE_WIDTH } from "@/store/editor/editor/state";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 
 type Handle = "right" | "left";
 

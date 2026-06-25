@@ -128,7 +128,7 @@ export default function MoreOptions({
                 Not Interested
               </MenuItem>
 
-              <MenuItem onClick={onReport} className="text-amber-500 focus:text-amber-500">
+              <MenuItem onClick={onReport}>
                 <TriangleAlertIcon className="size-4" aria-hidden />
                 Report
               </MenuItem>

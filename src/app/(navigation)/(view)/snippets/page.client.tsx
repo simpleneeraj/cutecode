@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { CodeIcon, PlusIcon } from "lucide-react";
 import { useSnippetList } from "@/hooks/use-snippet";
 import { Button } from "@/components/ui/button";

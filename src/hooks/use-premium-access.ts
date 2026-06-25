@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { AccessLevel } from "@/typings/enums";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/hooks/use-auth";
 import { useSubscription } from "@/hooks/use-subscription";
 import { plansDialogOpenAtom } from "@/store/editor/plans";
 

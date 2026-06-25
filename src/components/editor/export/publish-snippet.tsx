@@ -15,7 +15,8 @@ import { Select, SelectItem, SelectPopup, SelectTrigger } from "@/components/ui/
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { OTPField, OTPFieldInput } from "@/components/ui/otp-field";
-import { Loader2, X } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { X } from "lucide-react";
 import { useAtomValue, useSetAtom } from "jotai";
 import { dispatchPublishSnippetAtom, publishSnippetAtom } from "./store";
 import { Visibility } from "./types";
@@ -29,10 +30,11 @@ import {
   windowWidthAtom,
 } from "@/store/editor/editor";
 import { toast } from "@/components/toast";
-import { useAuth } from "@clerk/nextjs";
+import { useUser } from "@/hooks/use-auth";
+import { getShareUrl } from "@/lib/share/urls";
 import React, { useState } from "react";
 import SuccessDialog from "./success-dialog";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { useSubscription } from "@/hooks/use-subscription";
 import { plansDialogOpenAtom } from "@/store/editor/plans";
 import { FREE_DAILY_PUBLISH_LIMIT } from "@/lib/billing/constants";
@@ -47,15 +49,15 @@ const visibilityConfig = {
     icon: "solar:global-bold",
     label: "Public",
     sub: "Anyone with the link can view",
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
+    color: "text-foreground",
+    bg: "bg-muted",
   },
   [Visibility.PASSCODE]: {
     icon: "solar:lock-password-bold",
     label: "Passcode Protected",
     sub: "Viewers must enter a code",
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
+    color: "text-foreground",
+    bg: "bg-muted",
   },
   [Visibility.PRIVATE]: {
     icon: "solar:shield-keyhole-minimalistic-bold",
@@ -81,7 +83,7 @@ const PublishSnippet: React.FC = () => {
   const windowWidth = useAtomValue(windowWidthAtom);
   const fileName = useAtomValue(fileNameAtom);
 
-  const { isSignedIn, isLoaded } = useAuth();
+  const { isSignedIn, isLoaded } = useUser();
   const { publish } = usePublish();
   const { isPro } = useSubscription();
   const setPlansOpen = useSetAtom(plansDialogOpenAtom);
@@ -126,7 +128,7 @@ const PublishSnippet: React.FC = () => {
         passcode: visibility === Visibility.PASSCODE ? passcode : undefined,
       });
 
-      const url = `${window.location.origin}/preview/${slug}`;
+      const url = getShareUrl(slug);
       dispatch({ publishedUrl: url, isSuccessOpen: true });
       await navigator.clipboard.writeText(url).catch(() => {});
       trackSnippet.published(visibility, Boolean(description?.trim()));
@@ -164,26 +166,18 @@ const PublishSnippet: React.FC = () => {
         )}
       </DialogTrigger>
 
-      <DialogPopup className="sm:max-w-md rounded-2xl overflow-hidden p-0">
-        {/* Ambient top strip */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-500/50 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-emerald-500/6 to-transparent pointer-events-none" />
-
+      <DialogPopup className="sm:max-w-md overflow-hidden rounded-2xl p-0">
         <DialogHeader className="relative px-5 pt-5 pb-4">
           <DialogTitle className="flex items-center gap-2.5 text-base">
-            <motion.div
-              className="flex size-8 items-center justify-center rounded-xl bg-linear-to-br from-emerald-400 to-teal-500 shadow-md shadow-emerald-500/25"
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
-            >
-              <Icon icon="solar:share-bold" className="size-4 text-white" />
-            </motion.div>
+            <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
+              <Icon icon="solar:share-bold" className="size-4" />
+            </span>
             Publish Snippet
           </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground mt-1">
+          <DialogDescription className="mt-1 text-xs text-muted-foreground">
             Share your snippet publicly, protect it with a passcode, or keep it private.
             {!isPro && (
-              <span className="block mt-1 text-amber-400/80">
+              <span className="mt-1 block text-muted-foreground">
                 Free plan: {FREE_DAILY_PUBLISH_LIMIT} new publishes/day. Upgrade to Pro for unlimited.
               </span>
             )}
@@ -293,8 +287,8 @@ const PublishSnippet: React.FC = () => {
                 transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                 style={{ overflow: "hidden" }}
               >
-                <Field className="items-center border border-amber-500/20 bg-amber-500/5 p-6 rounded-xl">
-                  <FieldLabel className="text-xs text-amber-600 dark:text-amber-400">Set a 6-digit passcode</FieldLabel>
+                <Field className="items-center rounded-xl border border-border bg-muted/50 p-6">
+                  <FieldLabel className="text-xs text-muted-foreground">Set a 6-digit passcode</FieldLabel>
                   <OTPField
                     size="lg"
                     value={passcode}
@@ -319,23 +313,14 @@ const PublishSnippet: React.FC = () => {
           <DialogClose render={<Button className="flex-1" variant="outline" disabled={isPending} />}>
             Cancel
           </DialogClose>
-          <Button
-            className="flex-1 relative overflow-hidden bg-linear-to-r from-emerald-500 to-teal-500 text-white border-0 shadow-md shadow-emerald-500/20 hover:from-emerald-400 hover:to-teal-400"
-            onClick={publishSnippet}
-            disabled={isPublishDisabled}
-          >
-            <motion.span
-              className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
-              whileHover={{ x: ["-200%", "200%"] }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
+          <Button className="flex-1" onClick={publishSnippet} disabled={isPublishDisabled}>
             {isPending ? (
-              <span className="flex items-center gap-2">
-                <Loader2 className="size-3.5 animate-spin" />
+              <>
+                <Spinner />
                 Publishing…
-              </span>
+              </>
             ) : (
-              <span className="flex items-center gap-2">Publish</span>
+              "Publish"
             )}
           </Button>
         </DialogFooter>

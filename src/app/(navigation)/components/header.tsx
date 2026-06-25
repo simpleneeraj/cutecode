@@ -7,7 +7,7 @@ import siteConfig from "@/contstant/site-config";
 import { Separator } from "@/components/ui/separator";
 import ExportButton from "@/components/editor/export";
 import { AnimatePresence, motion, Transition } from "motion/react";
-import InfoDialog from "@/components/editor/dialogs/info";
+import { BrandMark } from "@/components/brand-mark";
 
 const transition: Transition = { duration: 0.2, ease: "easeOut" };
 
@@ -18,9 +18,9 @@ export function Header() {
   return (
     <header className="border-b bg-background/95 backdrop-blur-sm supports-backdrop-filter:bg-background/60">
       {/* Main row */}
-      <div className="flex h-14 sm:h-16 items-center justify-between gap-3 px-4 md:px-6">
-        <div className="flex shrink-0 items-center gap-1.5">
-          <img src={siteConfig.logo} alt="" className="size-6" />
+      <div className="flex h-14 sm:h-16 w-full items-center justify-between gap-3 px-4 md:px-6">
+        <div className="flex shrink-0 items-center gap-2">
+          <BrandMark className="size-7" />
           <span className="font-heading text-lg sm:text-[1.625em] leading-none">{siteConfig.name}</span>
           <AnimatePresence mode="wait" initial={false}>
             {activeTab && (

@@ -20,8 +20,7 @@ export type Role = (typeof Role)[keyof typeof Role]
 export const Plan = {
   FREE: 'FREE',
   PRO: 'PRO',
-  ELITE: 'ELITE',
-  ULTIMATE: 'ULTIMATE'
+  PREMIUM: 'PREMIUM'
 } as const
 
 export type Plan = (typeof Plan)[keyof typeof Plan]
@@ -33,60 +32,10 @@ export const SubscriptionStatus = {
   PAST_DUE: 'PAST_DUE',
   UNPAID: 'UNPAID',
   CANCELED: 'CANCELED',
-  EXPIRED: 'EXPIRED',
-  INCOMPLETE: 'INCOMPLETE'
+  EXPIRED: 'EXPIRED'
 } as const
 
 export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
-
-
-export const PaymentStatus = {
-  PENDING: 'PENDING',
-  SUCCEEDED: 'SUCCEEDED',
-  FAILED: 'FAILED',
-  REFUNDED: 'REFUNDED',
-  PARTIALLY_REFUNDED: 'PARTIALLY_REFUNDED',
-  DISPUTED: 'DISPUTED',
-  CHARGEBACK: 'CHARGEBACK'
-} as const
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
-export const WebhookEventStatus = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  SUCCEEDED: 'SUCCEEDED',
-  FAILED: 'FAILED',
-  SKIPPED: 'SKIPPED'
-} as const
-
-export type WebhookEventStatus = (typeof WebhookEventStatus)[keyof typeof WebhookEventStatus]
-
-
-export const AuditAction = {
-  SUBSCRIPTION_CREATED: 'SUBSCRIPTION_CREATED',
-  SUBSCRIPTION_UPDATED: 'SUBSCRIPTION_UPDATED',
-  SUBSCRIPTION_CANCELED: 'SUBSCRIPTION_CANCELED',
-  SUBSCRIPTION_REACTIVATED: 'SUBSCRIPTION_REACTIVATED',
-  PLAN_UPGRADED: 'PLAN_UPGRADED',
-  PLAN_DOWNGRADED: 'PLAN_DOWNGRADED',
-  PLAN_DOWNGRADE_SCHEDULED: 'PLAN_DOWNGRADE_SCHEDULED',
-  PAYMENT_SUCCEEDED: 'PAYMENT_SUCCEEDED',
-  PAYMENT_FAILED: 'PAYMENT_FAILED',
-  PAYMENT_REFUNDED: 'PAYMENT_REFUNDED',
-  CHARGEBACK_OPENED: 'CHARGEBACK_OPENED',
-  ACCESS_GRANTED: 'ACCESS_GRANTED',
-  ACCESS_REVOKED: 'ACCESS_REVOKED',
-  GRACE_PERIOD_STARTED: 'GRACE_PERIOD_STARTED',
-  DUNNING_EMAIL_SENT: 'DUNNING_EMAIL_SENT',
-  WEBHOOK_RECEIVED: 'WEBHOOK_RECEIVED',
-  IDEMPOTENCY_HIT: 'IDEMPOTENCY_HIT',
-  TRIAL_STARTED: 'TRIAL_STARTED',
-  TRIAL_ENDED: 'TRIAL_ENDED'
-} as const
-
-export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
 
 
 export const ShareTarget = {

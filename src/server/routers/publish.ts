@@ -9,8 +9,8 @@
 
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { nanoid } from "nanoid";
 import { prisma } from "@/lib/db";
+import { generateUniqueSlug } from "@/lib/share/slug";
 import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure } from "../init";
 import { publishRateLimit, publishDailyRateLimit, checkRateLimit } from "@/lib/redis";
@@ -154,7 +154,7 @@ export const publishRouter = router({
       /**
        * First publish
        */
-      const slug = nanoid(8);
+      const slug = await generateUniqueSlug();
 
       const shareLink = await prisma.$transaction(async (tx) => {
         const presentation = await tx.presentation.create({

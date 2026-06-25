@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { ShareVisibility } from "@/generated/prisma/enums";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -22,11 +22,11 @@ function formatDate(date: string | Date) {
 function visibilityMeta(v: string) {
   switch (v) {
     case ShareVisibility.PUBLIC:
-      return { label: "Public", icon: "solar:global-bold", color: "text-emerald-500", bg: "bg-emerald-500/10" };
+      return { label: "Public", icon: "solar:global-bold", color: "text-foreground", bg: "bg-muted" };
     case ShareVisibility.UNLISTED:
-      return { label: "Unlisted", icon: "solar:eye-closed-bold", color: "text-amber-500", bg: "bg-amber-500/10" };
+      return { label: "Unlisted", icon: "solar:eye-closed-bold", color: "text-foreground", bg: "bg-muted" };
     case ShareVisibility.PASSCODE:
-      return { label: "Protected", icon: "solar:lock-password-bold", color: "text-sky-500", bg: "bg-sky-500/10" };
+      return { label: "Protected", icon: "solar:lock-password-bold", color: "text-foreground", bg: "bg-muted" };
     default:
       return { label: "Private", icon: "solar:lock-bold", color: "text-muted-foreground", bg: "bg-muted" };
   }

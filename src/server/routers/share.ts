@@ -15,7 +15,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { nanoid } from "nanoid";
+import { generateUniqueSlug } from "@/lib/share/slug";
 import { prisma } from "@/lib/db";
 import { router, protectedProcedure, publicProcedure } from "../init";
 import { createShareLinkSchema, updateShareLinkSchema } from "@/lib/schemas";
@@ -117,10 +117,8 @@ export const shareRouter = router({
 
     const passcodeHash = passcode ? await bcrypt.hash(passcode, 10) : undefined;
 
-    // Generate unique slug (retry once on collision)
-    let slug = nanoid(8);
-    const existing = await prisma.shareLink.findUnique({ where: { slug } });
-    if (existing) slug = nanoid(8);
+    // Generate a collision-free slug.
+    const slug = await generateUniqueSlug();
 
     return prisma.shareLink.create({
       data: {
@@ -383,7 +381,7 @@ async function fetchShareLink(slug: string) {
     include: {
       snippet: {
         include: {
-          user: { select: { id: true, name: true, clerkId: true } },
+          user: { select: { id: true, name: true } },
           presentation: true,
           _count: { select: { upvotes: true, bookmarks: true, comments: true } },
         },

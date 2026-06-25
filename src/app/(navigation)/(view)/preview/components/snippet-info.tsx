@@ -27,8 +27,8 @@ const SnippetInfo = ({ language, viewCount, copied, onCopy }: SnippetInfoProps) 
       <Button size="sm" variant="ghost" onClick={onCopy} aria-label={copied ? "Copied!" : "Copy code"}>
         {copied ? (
           <>
-            <Check className="size-3.5 text-green-500" />
-            <span className="text-green-500">Copied</span>
+            <Check className="size-3.5" />
+            <span>Copied</span>
           </>
         ) : (
           <>

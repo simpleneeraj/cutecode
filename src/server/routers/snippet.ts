@@ -94,7 +94,7 @@ export const snippetRouter = router({
             tags: true,
             createdAt: true,
             elementId: true,
-            user: { select: { id: true, name: true, clerkId: true } },
+            user: { select: { id: true, name: true } },
             presentation: { select: { id: true, name: true, elements: true } },
             shareLinks: {
               where: { visibility: ShareVisibility.PUBLIC },
@@ -306,7 +306,7 @@ export const snippetRouter = router({
         orderBy: { createdAt: "desc" },
         take,
         ...(input.cursor ? { skip: 1, cursor: { id: input.cursor } } : {}),
-        include: { user: { select: { id: true, name: true, clerkId: true } } },
+        include: { user: { select: { id: true, name: true } } },
       });
 
       const nextCursor = comments.length === take ? comments[comments.length - 1].id : null;
@@ -337,7 +337,7 @@ export const snippetRouter = router({
 
       return prisma.snippetComment.create({
         data: { snippetId: input.snippetId, userId: ctx.user.id, content: input.content.trim() },
-        include: { user: { select: { id: true, name: true, clerkId: true } } },
+        include: { user: { select: { id: true, name: true } } },
       });
     }),
 

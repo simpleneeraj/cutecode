@@ -23,8 +23,8 @@
 - 🌓 **Dark & Light Mode** — Full theme support with system preference detection
 - 🎯 **Syntax Highlighting** — Powered by Shiki with 100+ language support
 - 📤 **Export Options** — Copy to clipboard, download as PNG, or share via URL
-- 🔐 **Authentication** — Clerk-powered sign-in to save and manage your snippets
-- 💎 **Pro Plan** — Unlimited HD exports, premium themes, watermark-free images
+- 🔐 **Authentication** — Supabase Auth (email + GitHub/Google OAuth) to save and manage your snippets
+- 💎 **Pro & Premium Plans** — Unlimited HD/4K exports, premium themes, watermark-free images
 - 📱 **Responsive Design** — Works beautifully on desktop and mobile
 - ⚡ **Built on Next.js 16** — React 19, App Router, Server Components, Edge-ready
 
@@ -73,10 +73,10 @@ CuteCode ships with 45+ hand-crafted themes across two categories:
 |---|---|
 | **Framework** | Next.js 16 (App Router) |
 | **Language** | TypeScript |
-| **UI** | React 19, Tailwind CSS 4, Radix UI |
+| **UI** | React 19, Tailwind CSS 4, Base UI (coss) |
 | **Animation** | Motion (Framer Motion) |
 | **Syntax Highlighting** | Shiki |
-| **Authentication** | Clerk |
+| **Authentication** | Supabase Auth |
 | **Database** | PostgreSQL + Prisma ORM |
 | **Payments** | Dodo Payments |
 | **State Management** | Jotai |
@@ -86,7 +86,7 @@ CuteCode ships with 45+ hand-crafted themes across two categories:
 
 ### Prerequisites
 
-- **Node.js** 18+
+- **Node.js** 20+ (Next.js 16 requirement)
 - **PostgreSQL** database
 - **Yarn** (package manager)
 
@@ -109,20 +109,16 @@ yarn install
 cp .env.example .env.development
 ```
 
-Fill in your environment variables:
+Fill in your environment variables (see [`.env.example`](.env.example) for the full list with comments):
 
 ```env
 # App
 NEXT_PUBLIC_BASE_URL="http://localhost:3000"
 
-# Clerk Authentication (https://clerk.com)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_..."
-CLERK_SECRET_KEY="sk_test_..."
-CLERK_WEBHOOK_SECRET="whsec_..."
-NEXT_PUBLIC_CLERK_SIGN_IN_URL="/account/sign-in"
-NEXT_PUBLIC_CLERK_SIGN_UP_URL="/account/sign-up"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/"
+# Supabase Auth (https://supabase.com → Project Settings → API)
+NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY="sb_publishable_..."
+SUPABASE_SERVICE_ROLE_KEY="sb_secret_..."   # server only
 
 # Dodo Payments (https://dodopayments.com)
 DODO_PAYMENTS_API_KEY="your_api_key"
@@ -130,16 +126,18 @@ DODO_PAYMENTS_WEBHOOK_KEY="whsec_..."
 DODO_PAYMENTS_RETURN_URL="http://localhost:3000/checkout/success"
 DODO_PAYMENTS_ENVIRONMENT="test_mode"
 NEXT_PUBLIC_DODO_PRODUCT_PRO="pdt_..."
+NEXT_PUBLIC_DODO_PRODUCT_PREMIUM="pdt_..."
 
 # Database (PostgreSQL)
 DATABASE_URL="postgresql://user:password@localhost:5432/cutecode"
 
-# Redis (optional, for rate limiting)
-REDIS_URL="redis://localhost:6379"
-
 # Cron Security
 CRON_SECRET="generate-with-openssl-rand-hex-32"
 ```
+
+> **Auth setup:** in the Supabase dashboard, enable the GitHub/Google OAuth providers,
+> add `<your-url>/auth/callback` as a redirect URL, and set the sign-up + recovery email
+> templates to include `{{ .Token }}` so the 6-digit code screens work.
 
 ### 4. Set up the database
 
@@ -213,8 +211,10 @@ If CuteCode helps you create beautiful code screenshots, consider sponsoring to 
 
 - **Special thanks to [Raycast](https://raycast.com) and [ray.so](https://ray.so)** — CuteCode started as a fork of the incredible ray.so project. We're grateful for the foundation they built and their commitment to open source.
 - [Shiki](https://shiki.matsu.io/) — Beautiful syntax highlighting
-- [Clerk](https://clerk.com) — Authentication
+- [Supabase](https://supabase.com) — Authentication
 - [Vercel](https://vercel.com) — Hosting & deployment
+
+See [CREDITS.md](CREDITS.md) for the full list of technologies, libraries, and inspirations.
 
 ## 📄 License
 

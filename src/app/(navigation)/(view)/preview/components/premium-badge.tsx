@@ -1,28 +1,10 @@
 import React from "react";
-import { cn } from "@/utils/cn";
-import { Icon } from "@iconify/react";
-import { useSubscription } from "@/hooks/use-subscription";
+import { Icon } from "@/components/ui/icon";
 
-type PremiumBadgeProps = {};
-
-const PremiumBadge: React.FC<PremiumBadgeProps> = () => {
-  const { isPro } = useSubscription();
+const PremiumBadge: React.FC = () => {
   return (
-    <span
-      className={cn(
-        "shrink-0 inline-flex items-center gap-1",
-        "text-xs font-semibold tracking-wide",
-        "px-1.5 py-0.5 rounded-md",
-        "",
-        isPro
-          ? "text-primary bg-primary/10 border border-primary/20"
-          : "text-amber-400 bg-amber-500/10 border border-amber-500/20",
-      )}
-    >
-      <Icon
-        icon="solar:crown-star-bold"
-        className={cn("size-3 text-amber-400", isPro ? "text-primary" : "text-amber-400")}
-      />
+    <span className="inline-flex shrink-0 items-center gap-1 rounded-md border bg-muted px-1.5 py-0.5 text-xs font-semibold tracking-wide text-foreground">
+      <Icon icon="solar:crown-bold" className="size-3" />
       Pro
     </span>
   );

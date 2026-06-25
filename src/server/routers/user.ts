@@ -45,7 +45,6 @@ export const userRouter = router({
         id: string;
         name: string | null;
         email: string;
-        clerkId: string;
         plan: string;
         createdAt: Date;
         _count: { followers: number; following: number; snippets: number };
@@ -58,7 +57,6 @@ export const userRouter = router({
             id: true,
             name: true,
             email: true,
-            clerkId: true,
             plan: true,
             createdAt: true,
             _count: { select: { followers: true, following: true, snippets: true } },
@@ -120,7 +118,7 @@ export const userRouter = router({
         orderBy: { createdAt: "desc" },
         include: {
           follower: {
-            select: { id: true, name: true, clerkId: true, plan: true, _count: { select: { followers: true } } },
+            select: { id: true, name: true, plan: true, _count: { select: { followers: true } } },
           },
         },
       });
@@ -179,7 +177,7 @@ export const userRouter = router({
         orderBy: { createdAt: "desc" },
         include: {
           following: {
-            select: { id: true, name: true, clerkId: true, plan: true, _count: { select: { followers: true } } },
+            select: { id: true, name: true, plan: true, _count: { select: { followers: true } } },
           },
         },
       });

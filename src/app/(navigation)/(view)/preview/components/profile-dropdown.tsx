@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { cn } from "@/utils/cn";
-import { LogOut, CreditCard, Settings } from "lucide-react";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { useClerk, useUser } from "@/hooks/use-auth";
 import { useSetAtom } from "jotai";
 import {
   DropdownMenu,
@@ -18,7 +18,7 @@ import { resetEditorAtom } from "@/store/editor/editor/reset";
 import { plansDialogOpenAtom } from "@/store/editor/plans";
 import useBilling from "@/hooks/use-billing";
 import { Button } from "@/components/ui/button";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import PremiumBadge from "./premium-badge";
 
 const productId = process.env.NEXT_PUBLIC_DODO_PRODUCT_PRO;
@@ -31,6 +31,7 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
   const { isPro } = useSubscription();
   const { signOut, openUserProfile } = useClerk();
 
+  const router = useRouter();
   const resetEditor = useSetAtom(resetEditorAtom);
   const setPlansOpen = useSetAtom(plansDialogOpenAtom);
 
@@ -45,7 +46,7 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
     const avatar = user?.imageUrl ?? "";
     const initials = name
       .split(" ")
-      .map((n) => n[0])
+      .map((n: string) => n[0])
       .join("")
       .toUpperCase()
       .slice(0, 2);
@@ -61,7 +62,7 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
             size="icon"
             type="button"
             className={cn(
-              "relative flex items-center justify-center rounded-full outline-none transition-all duration-200",
+              "relative flex items-center justify-center rounded-full p-0 outline-none",
               isPro && "ring-2 ring-amber-500/40 ring-offset-1 ring-offset-background",
             )}
           >
@@ -70,82 +71,63 @@ export default function ProfileDropdown({ className, ...props }: ProfileDropdown
               <AvatarFallback className="text-xs font-semibold">{initials}</AvatarFallback>
             </Avatar>
 
-            {isPro ? (
-              <span className="absolute -bottom-1 -right-1 flex size-3 items-center justify-center rounded-full bg-linear-to-tr from-amber-400 to-orange-500 shadow ring-2 ring-background">
-                <Icon icon="solar:crown-star-bold" className="size-2.5 text-white" />
-              </span>
-            ) : (
-              <span className="absolute -bottom-1 -right-1 flex size-3 items-center justify-center rounded-full bg-muted shadow ring-2 ring-background">
-                <Icon icon="solar:crown-bold" className="size-2.5 text-muted-foreground" />
+            {isPro && (
+              <span className="absolute -bottom-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-foreground ring-2 ring-background">
+                <Icon icon="solar:crown-bold" className="size-2.5 text-background" />
               </span>
             )}
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end" sideOffset={8} className="w-64 p-2 rounded-2xl shadow-xl flex flex-col gap-1">
-          <div
-            className={cn(
-              "flex items-center gap-3 px-3 py-2 mb-1 rounded-xl",
-              isPro && "bg-linear-to-br from-amber-500/10 to-orange-500/5 border border-amber-500/10",
-            )}
-          >
-            <div className="relative shrink-0">
-              <Avatar className="size-8">
-                <AvatarImage src={avatar} alt={name} />
-                <AvatarFallback className="text-xs font-semibold">{initials}</AvatarFallback>
-              </Avatar>
-            </div>
+        <DropdownMenuContent align="end" sideOffset={8} className="flex w-64 flex-col gap-1 p-1.5">
+          <div className="flex items-center gap-3 px-2 py-1.5">
+            <Avatar className="size-9">
+              <AvatarImage src={avatar} alt={name} />
+              <AvatarFallback className="text-xs font-semibold">{initials}</AvatarFallback>
+            </Avatar>
 
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1.5">
-                <p className="text-sm font-medium truncate">{name}</p>
-              </div>
-              <p className="text-xs text-muted-foreground truncate">{email}</p>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-foreground">{name}</p>
+              <p className="truncate text-xs text-muted-foreground">{email}</p>
             </div>
 
             {isPro && <PremiumBadge />}
           </div>
 
           <DropdownMenuSeparator />
+
+          <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => router.push("/dashboard")}>
+            <Icon icon="solar:widget-2-linear" className="size-4" />
+            Dashboard
+          </DropdownMenuItem>
+
           {isPro && (
-            <DropdownMenuItem
-              className="flex items-center gap-2.5 px-3 py-2 rounded-xl cursor-pointer"
-              onClick={() => openBilling(productId)}
-            >
-              <CreditCard className="size-4 text-muted-foreground" />
-              <span className="text-sm">Manage billing</span>
+            <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => openBilling(productId)}>
+              <Icon icon="solar:card-linear" className="size-4" />
+              Manage billing
             </DropdownMenuItem>
           )}
 
-          <DropdownMenuItem
-            className="flex items-center gap-2.5 px-3 py-2 rounded-xl cursor-pointer"
-            onClick={() => openUserProfile()}
-          >
-            <Settings className="size-4 text-muted-foreground" />
-            <span className="text-sm">Manage account</span>
+          <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => openUserProfile()}>
+            <Icon icon="solar:settings-minimalistic-linear" className="size-4" />
+            Manage account
           </DropdownMenuItem>
+
           {!isPro && (
-            <DropdownMenuItem
-              className="flex items-center gap-2.5 px-3 py-2 rounded-xl cursor-pointer bg-linear-to-r from-amber-500/5 to-orange-500/5 border border-amber-500/10 hover:from-amber-500/10 hover:to-orange-500/10"
-              onClick={() => setPlansOpen(true)}
-            >
-              <Icon icon="solar:crown-star-bold" className="size-4 text-amber-500" />
+            <DropdownMenuItem className="cursor-pointer gap-2.5 px-2 py-2" onClick={() => setPlansOpen(true)}>
+              <Icon icon="solar:crown-linear" className="size-4" />
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-amber-500">Upgrade to Pro</span>
-                <span className="text-xxs text-muted-foreground">Unlock premium themes & fonts</span>
+                <span className="text-sm font-medium text-foreground">Upgrade to Pro</span>
+                <span className="text-xs text-muted-foreground">Unlock premium themes & fonts</span>
               </div>
             </DropdownMenuItem>
           )}
 
           <DropdownMenuSeparator />
 
-          {/* Sign out */}
-          <DropdownMenuItem
-            className="flex items-center gap-2.5 px-3 py-2 rounded-xl cursor-pointer text-red-500 focus:text-red-500 focus:bg-red-500/10"
-            onClick={onSignOut}
-          >
-            <LogOut className="size-4 text-red-500" />
-            <span className="text-sm font-medium">Sign out</span>
+          <DropdownMenuItem variant="destructive" className="cursor-pointer gap-2.5 px-2 py-2" onClick={onSignOut}>
+            <Icon icon="solar:logout-3-linear" className="size-4" />
+            Sign out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -3,21 +3,28 @@
 import { prisma } from "@/lib/db";
 import { logger } from "@/lib/logger";
 import { NextRequest } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { createClient } from "@/lib/supabase/server";
 import { CustomerPortal, Checkout } from "@dodopayments/nextjs";
 
 export async function createCustomerPortalAction() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  const supabase = await createClient();
+  const {
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
+
+  if (!authUser) throw new Error("Unauthorized");
 
   const user = await prisma.user.findUnique({
-    where: { clerkId: userId },
+    where: { supabaseId: authUser.id },
     include: { subscription: true },
   });
 
   const customerId = user?.subscription?.dodoCustomerId;
   if (!customerId) {
-    logger.warn({ userId }, "Failed to open portal via Server Action: No Dodo customer ID found.");
+    logger.warn(
+      { userId: user?.id },
+      "Failed to open portal via Server Action: No Dodo customer ID found."
+    );
     throw new Error("No customer ID found");
   }
 

@@ -15,7 +15,7 @@ export type ExploreSnippet = {
   tags: string[];
   createdAt: Date | string;
   elementId: string;
-  user: { id: string; name: string | null; clerkId: string } | null;
+  user: { id: string; name: string | null } | null;
   presentation: { id: string; name: string };
   shareLinks: { slug: string }[];
   _count: { upvotes: number; bookmarks: number; comments: number };

@@ -12,7 +12,7 @@ import {
   resetEditorAtom,
 } from "@/store/editor/editor";
 import useHotkeys from "@/utils/useHotkeys";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 
 const OptionsControl: React.FC = () => {
   const updateSlideElement = useSetAtom(updateSlideElementAtom);

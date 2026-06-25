@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import React, { useMemo } from "react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import {
   Combobox,
   ComboboxTrigger,

@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ExploreSnippetCard } from "../../../(create)/explore/components/explore-snippet-card";
 import { SLIDE_UP, EASE_OUT } from "@/lib/motion";
 import View from "@/components/view";
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/hooks/use-auth";
 
 type ProfilePageClientProps = {
   userId: string;

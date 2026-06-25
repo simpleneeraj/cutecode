@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import siteConfig from "@/contstant/site-config";
 import { BadgeVariant } from "@/typings/editor";
 import { trackNavigation } from "@/lib/analytics";

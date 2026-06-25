@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { toast } from "@/components/toast";
 import { Button } from "@/components/ui/button";
 import { DialogProps } from "@radix-ui/react-dialog";
@@ -62,23 +62,15 @@ export function EmbedDialog({ slug, ...props }: EmbedDialogProps) {
   };
   return (
     <Dialog {...props}>
-      <DialogPopup className="sm:max-w-3xl rounded-2xl overflow-hidden p-0">
-        {/* Ambient top strip */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-amber-500/50 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-20 bg-linear-to-b from-amber-500/6 to-transparent pointer-events-none" />
-
+      <DialogPopup className="sm:max-w-3xl overflow-hidden rounded-2xl p-0">
         <DialogHeader className="relative px-5 pt-5 pb-4">
           <DialogTitle className="flex items-center gap-2.5 text-base">
-            <motion.div
-              className="flex size-8 items-center justify-center rounded-xl bg-linear-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/25"
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
-            >
+            <span className="flex size-8 items-center justify-center rounded-xl bg-foreground text-background">
               <Icon icon="solar:code-square-bold" className="size-4" />
-            </motion.div>
+            </span>
             Embed Snippet
           </DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground mt-1">
+          <DialogDescription className="mt-1 text-xs text-muted-foreground">
             Copy this code to embed the snippet on your website or blog.
           </DialogDescription>
         </DialogHeader>

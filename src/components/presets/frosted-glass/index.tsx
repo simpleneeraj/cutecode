@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import styles from "./frosted-glass.module.css";
 import { BaseFrameProps } from "@/typings/presets";
 

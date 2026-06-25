@@ -1,123 +1,107 @@
-import { Redis } from "@upstash/redis";
-import { Ratelimit } from "@upstash/ratelimit";
+/**
+ * Lightweight in-memory rate limiting + cache.
+ *
+ * Replaces the former Upstash Redis dependency — no external service required.
+ * Suitable for self-hosting and single-instance/dev. NOTE: on serverless (many
+ * isolated instances) limits and cache are per-instance and reset on cold start,
+ * so this is best-effort, not globally shared. Swap in a shared store (Redis,
+ * Vercel KV, etc.) behind this same API if you need cross-instance guarantees.
+ */
 import { FREE_DAILY_PUBLISH_LIMIT } from "@/lib/billing/constants";
 
-const url = process.env.UPSTASH_REDIS_REST_URL || "";
-const token = process.env.UPSTASH_REDIS_REST_TOKEN || "";
+export type RateLimiter = { points: number; windowMs: number; prefix: string };
 
-export const isRedisConfigured = !!url && !!token;
+function rl(points: number, windowMs: number, prefix: string): RateLimiter {
+  return { points, windowMs, prefix };
+}
 
-export const redis = new Redis({ url, token });
+const MINUTE = 60_000;
+const DAY = 24 * 60 * MINUTE;
 
-/**
- * Publish abuse guard: 10 per minute per user (strict, all users)
- */
-export const publishRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(10, "1 m"),
-  analytics: true,
-  prefix: "ratelimit:publish",
-});
+/** Publish abuse guard: 10 per minute per user. */
+export const publishRateLimit = rl(10, MINUTE, "publish");
 
-/**
- * Daily publish quota for free-plan users: FREE_DAILY_PUBLISH_LIMIT new snippets per 24 hours.
- * Only checked for new publishes — updating an existing snippet does not consume this limit.
- * Pro+ users bypass this limiter entirely.
- */
-export const publishDailyRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(FREE_DAILY_PUBLISH_LIMIT, "24 h"),
-  analytics: true,
-  prefix: "ratelimit:publish:daily",
-});
+/** Daily publish quota for free-plan users (Pro+ bypass this entirely). */
+export const publishDailyRateLimit = rl(FREE_DAILY_PUBLISH_LIMIT, DAY, "publish:daily");
 
-/**
- * Social actions (upvote/bookmark/follow): 30 per minute per user
- */
-export const socialRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(30, "1 m"),
-  analytics: true,
-  prefix: "ratelimit:social",
-});
+/** Social actions (upvote/bookmark/follow): 30 per minute per user. */
+export const socialRateLimit = rl(30, MINUTE, "social");
 
-/**
- * General read API: 120 per minute per IP
- */
-export const apiRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(120, "1 m"),
-  analytics: true,
-  prefix: "ratelimit:api",
-});
+/** General read API: 120 per minute per IP. */
+export const apiRateLimit = rl(120, MINUTE, "api");
+
+/** Comments: 20 per minute per user. */
+export const commentRateLimit = rl(20, MINUTE, "comment");
+
+// ── Sliding-window store ────────────────────────────────────────────────────
+
+const hits = new Map<string, number[]>();
+let lastSweep = Date.now();
+
+/** Periodically drop empty buckets so the map can't grow unbounded. */
+function maybeSweep(now: number) {
+  if (now - lastSweep < 5 * MINUTE) return;
+  lastSweep = now;
+  for (const [key, times] of hits) {
+    if (times.length === 0 || times[times.length - 1] < now - DAY) hits.delete(key);
+  }
+}
 
 /**
- * Comments: 20 per minute per user
- */
-export const commentRateLimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(20, "1 m"),
-  analytics: true,
-  prefix: "ratelimit:comment",
-});
-
-/**
- * Safely check rate limit. Fails open if Redis is down (never blocks users on infra issues).
+ * Check (and consume) a rate-limit token. Fails open on any unexpected error —
+ * limiting should never cause user-facing failures.
  */
 export async function checkRateLimit(
-  ratelimiter: Ratelimit,
+  limiter: RateLimiter,
   identifier: string,
 ): Promise<{ success: boolean; limit?: number; remaining?: number; reset?: number }> {
-  if (!isRedisConfigured) return { success: true };
-
   try {
-    return await ratelimiter.limit(identifier);
+    const key = `${limiter.prefix}:${identifier}`;
+    const now = Date.now();
+    maybeSweep(now);
+
+    const windowStart = now - limiter.windowMs;
+    const recent = (hits.get(key) ?? []).filter((t) => t > windowStart);
+
+    if (recent.length >= limiter.points) {
+      hits.set(key, recent);
+      return { success: false, limit: limiter.points, remaining: 0, reset: recent[0] + limiter.windowMs };
+    }
+
+    recent.push(now);
+    hits.set(key, recent);
+    return {
+      success: true,
+      limit: limiter.points,
+      remaining: limiter.points - recent.length,
+      reset: now + limiter.windowMs,
+    };
   } catch {
-    /**
-     * Fail open — Redis outage should never cause user-facing errors
-     */
     return { success: true };
   }
 }
 
-/**
- * Cache a value in Redis with an expiry (seconds).
- */
+// ── TTL cache ───────────────────────────────────────────────────────────────
+
+const cache = new Map<string, { value: unknown; expiresAt: number }>();
+
+/** Cache a value with an expiry (seconds). */
 export async function cacheSet(key: string, value: unknown, ttlSeconds: number) {
-  if (!isRedisConfigured) return;
-  try {
-    await redis.setex(key, ttlSeconds, JSON.stringify(value));
-  } catch {
-    /**
-     * Non-fatal
-     */
-  }
+  cache.set(key, { value, expiresAt: Date.now() + ttlSeconds * 1000 });
 }
 
-/**
- * Get a cached value from Redis.
- */
+/** Get a cached value (null if missing or expired). */
 export async function cacheGet<T>(key: string): Promise<T | null> {
-  if (!isRedisConfigured) return null;
-  try {
-    const raw = await redis.get(key);
-    if (!raw) return null;
-    return (typeof raw === "string" ? JSON.parse(raw) : raw) as T;
-  } catch {
+  const entry = cache.get(key);
+  if (!entry) return null;
+  if (Date.now() > entry.expiresAt) {
+    cache.delete(key);
     return null;
   }
+  return entry.value as T;
 }
 
-/**
- * Invalidate a cache key.
- */
+/** Invalidate a cache key. */
 export async function cacheDel(key: string) {
-  if (!isRedisConfigured) return;
-  try {
-    await redis.del(key);
-  } catch {
-    /**
-     * Non-fatal
-     */
-  }
+  cache.delete(key);
 }

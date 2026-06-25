@@ -7,7 +7,7 @@
 
 import "server-only";
 import { z } from "zod";
-import { auth, clerkClient } from "@clerk/nextjs/server";
+import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/db";
 import { cacheGet, cacheSet } from "@/lib/redis";
 import { initTRPC, TRPCError } from "@trpc/server";
@@ -28,42 +28,39 @@ export type Context = {
  */
 export async function createContext({ req }: FetchCreateContextFnOptions): Promise<Context> {
   try {
-    const { isAuthenticated, userId } = await auth();
-    if (!isAuthenticated || !userId) return { user: null };
+    const supabase = await createClient();
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser();
+    if (!authUser) return { user: null };
 
+    const userId = authUser.id;
     const cacheKey = `user-ctx:${userId}`;
     let user = await cacheGet<User>(cacheKey);
 
     if (!user) {
-      user = await prisma.user.findUnique({ where: { clerkId: userId } });
+      user = await prisma.user.findUnique({ where: { supabaseId: userId } });
 
       // ── Just-in-time provisioning ─────────────────────────────────────────
-      // If the user is authenticated in Clerk but missing from our DB it means
-      // the `user.created` webhook was missed (not configured at sign-up time,
-      // or a delivery failure). We fetch from Clerk and upsert now so the user
-      // is never permanently blocked from using the app.
+      // If the user is authenticated in Supabase but missing from our DB,
+      // upsert from the metadata.
       if (!user) {
         try {
-          const clerk = await clerkClient();
-          const clerkUser = await clerk.users.getUser(userId);
-          const primaryEmail =
-            clerkUser.emailAddresses.find((e) => e.id === clerkUser.primaryEmailAddressId)
-              ?.emailAddress ?? clerkUser.emailAddresses[0]?.emailAddress ?? "";
-          const name =
-            [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") || undefined;
+          const email = authUser.email ?? "";
+          const name = authUser.user_metadata?.full_name || authUser.user_metadata?.name || undefined;
 
           try {
             user = await prisma.user.upsert({
-              where: { clerkId: userId },
-              create: { clerkId: userId, email: primaryEmail, name: name ?? null },
-              update: { email: primaryEmail, name: name ?? null },
+              where: { supabaseId: userId },
+              create: { supabaseId: userId, email, name: name ?? null },
+              update: { email, name: name ?? null },
             });
           } catch (upsertErr: any) {
             // P2002 = unique constraint violation — a concurrent request already
             // created this user between our findUnique and this upsert. That's
             // fine; just fetch the row that now exists.
             if (upsertErr?.code === "P2002") {
-              user = await prisma.user.findUnique({ where: { clerkId: userId } });
+              user = await prisma.user.findUnique({ where: { supabaseId: userId } });
             } else {
               throw upsertErr;
             }

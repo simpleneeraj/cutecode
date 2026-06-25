@@ -1,61 +1,70 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-/**
- * Public routes — no authentication required.
- * Webhook routes MUST be public or Clerk will block the incoming requests.
- */
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/pricing(.*)",
-  "/checkout/success(.*)",
-  "/checkout/failure(.*)",
-  "/api/webhooks/(.*)",
-  "/api/checkout(.*)",
-  "/api/trpc(.*)",
-  "/waitlist(.*)",
-  "/legal/terms(.*)",
-  "/legal/privacy(.*)",
-  "/legal/refund(.*)",
-  "/embed(.*)",
-  "/icon(.*)",
-  "/sitemap.xml",
-  "/robots.txt",
-  "/api/share-links/(.*)",
-  "/api/users/(.*)",
-  "/account(.*)",
-  "/upgrade-to-pro(.*)",
-]);
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
-const isProRoute = createRouteMatcher([
-  // "/explore(.*)", "/snippets(.*)",
-  // "/preview(.*)",
-]);
+const publicPaths = [
+  /^\/$/,
+  /^\/pricing(\/.*)?$/,
+  /^\/checkout\/success(\/.*)?$/,
+  /^\/checkout\/failure(\/.*)?$/,
+  /^\/api\/webhooks(\/.*)?$/,
+  /^\/api\/trpc(\/.*)?$/,
+  /^\/waitlist(\/.*)?$/,
+  /^\/legal\/terms(\/.*)?$/,
+  /^\/legal\/privacy(\/.*)?$/,
+  /^\/legal\/refund(\/.*)?$/,
+  /^\/embed(\/.*)?$/,
+  /^\/icon(\/.*)?$/,
+  /^\/sitemap\.xml$/,
+  /^\/robots\.txt$/,
+  /^\/api\/share-links(\/.*)?$/,
+  /^\/api\/users(\/.*)?$/,
+  /^\/account(\/.*)?$/,
+  /^\/auth\/callback(\/.*)?$/,
+  /^\/upgrade-to-pro(\/.*)?$/,
+];
 
-export default clerkMiddleware(async (auth, req) => {
-  if (isProRoute(req)) {
-    const authObject = await auth();
-    if (!authObject.userId) {
-      await auth.protect();
+function isPublicPath(pathname: string) {
+  return publicPaths.some((regex) => regex.test(pathname));
+}
+
+export default async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  let response = NextResponse.next({ request });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set(name, value, options);
+          });
+        },
+      },
     }
+  );
 
-    // const publicMetadata = (authObject.sessionClaims?.publicMetadata as any) || {};
-    // const plan = publicMetadata?.plan || Plan.FREE;
-    // const subscriptionStatus = publicMetadata?.subscriptionStatus || SubscriptionStatus.ACTIVE;
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-    // const isExpired =
-    // subscriptionStatus === SubscriptionStatus.EXPIRED || subscriptionStatus === SubscriptionStatus.UNPAID;
-    // const isPro = (plan === Plan.PRO || plan === Plan.ELITE || plan === Plan.ULTIMATE) && !isExpired;
-
-    // if (!isPro) {
-    //   return NextResponse.redirect(new URL("/upgrade-to-pro", req.url));
-    // }
-  } else if (!isPublicRoute(req)) {
-    await auth.protect();
+  if (!user && !isPublicPath(pathname)) {
+    const url = new URL("/account/sign-in", request.url);
+    url.searchParams.set("redirectedFrom", pathname);
+    return NextResponse.redirect(url);
   }
-});
+
+  return response;
+}
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and static files
+    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
     "/(api|trpc)(.*)",

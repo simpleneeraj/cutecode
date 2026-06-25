@@ -832,6 +832,14 @@ export type EnumShareVisibilityFieldUpdateOperationsInput = {
   set?: $Enums.ShareVisibility
 }
 
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ShareLinkCreateNestedOneWithoutViewsInput = {
   create?: Prisma.XOR<Prisma.ShareLinkCreateWithoutViewsInput, Prisma.ShareLinkUncheckedCreateWithoutViewsInput>
   connectOrCreate?: Prisma.ShareLinkCreateOrConnectWithoutViewsInput

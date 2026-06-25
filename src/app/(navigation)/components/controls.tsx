@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSetAtom } from "jotai";
-import { LogIn } from "lucide-react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { useUser, SignInButton } from "@clerk/nextjs";
-import { getRedirectUrlWithParam } from "@/utils/url";
+import { useUser } from "@/hooks/use-auth";
 import { useSubscription } from "@/hooks/use-subscription";
 import { plansDialogOpenAtom } from "@/store/editor/plans";
 import { AnimatePresence, motion, Transition } from "motion/react";
@@ -41,6 +41,7 @@ export default function AuthControls() {
   const { isSignedIn, isLoaded } = useUser();
   const { isPro, isLoaded: subLoaded } = useSubscription();
   const setOpen = useSetAtom(plansDialogOpenAtom);
+  const pathname = usePathname();
 
   const stateKey = React.useMemo(() => {
     if (!isLoaded) return AuthState.LOADING_AUTH;
@@ -62,50 +63,32 @@ export default function AuthControls() {
 
       case AuthState.SIGNED_OUT:
         return (
-          <SignInButton mode="redirect" forceRedirectUrl={getRedirectUrlWithParam("ref", "header")}>
-            <Button variant="outline" onClick={() => trackAuth.signInClicked("header")}>
-              <LogIn className="size-3.5" />
-              Sign in
-            </Button>
-          </SignInButton>
+          <Button
+            variant="outline"
+            onClick={() => trackAuth.signInClicked("header")}
+            render={
+              <Link href={`/account/sign-in?redirectedFrom=${encodeURIComponent(pathname ?? "/")}`} />
+            }
+          >
+            <Icon icon="solar:login-3-linear" className="size-3.5" />
+            Sign in
+          </Button>
         );
       case AuthState.FREE:
         return (
-          <React.Fragment>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              className="flex items-center gap-2"
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => {
+                trackUpgrade.dialogOpened("header");
+                setOpen(true);
+              }}
             >
-              <Button
-                variant="outline"
-                onClick={() => {
-                  trackUpgrade.dialogOpened("header");
-                  setOpen(true);
-                }}
-                className="group relative overflow-hidden rounded-lg border-amber-500/40 bg-amber-500/8 text-xs hover:border-amber-400/70 hover:bg-amber-500/12 transition-all duration-200"
-              >
-                {/* shimmer */}
-                <motion.span
-                  className="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-amber-300/15 to-transparent"
-                  animate={{ x: ["-200%", "200%"] }}
-                  transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
-                />
-                <motion.span
-                  animate={{ rotate: [0, -12, 12, -6, 6, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
-                >
-                  <Icon icon="solar:crown-star-bold" className="size-3.5 text-amber-400" />
-                </motion.span>
-
-                <span className="relative bg-linear-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">
-                  Upgrade to Pro
-                </span>
-              </Button>
-              <ProfileDropdown />
-            </motion.div>
-          </React.Fragment>
+              <Icon icon="solar:crown-linear" className="size-3.5" />
+              Upgrade to Pro
+            </Button>
+            <ProfileDropdown />
+          </div>
         );
 
       case AuthState.PRO:

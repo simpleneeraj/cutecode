@@ -20,29 +20,17 @@ export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayloa
 
 export type AggregateUser = {
   _count: UserCountAggregateOutputType | null
-  _avg: UserAvgAggregateOutputType | null
-  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
 
-export type UserAvgAggregateOutputType = {
-  usageMonth: number | null
-}
-
-export type UserSumAggregateOutputType = {
-  usageMonth: number | null
-}
-
 export type UserMinAggregateOutputType = {
   id: string | null
-  clerkId: string | null
+  supabaseId: string | null
   email: string | null
   name: string | null
   role: $Enums.Role | null
   plan: $Enums.Plan | null
-  usageMonth: number | null
-  usageReset: Date | null
   lastIpHash: string | null
   deviceFp: string | null
   trialUsed: boolean | null
@@ -52,13 +40,11 @@ export type UserMinAggregateOutputType = {
 
 export type UserMaxAggregateOutputType = {
   id: string | null
-  clerkId: string | null
+  supabaseId: string | null
   email: string | null
   name: string | null
   role: $Enums.Role | null
   plan: $Enums.Plan | null
-  usageMonth: number | null
-  usageReset: Date | null
   lastIpHash: string | null
   deviceFp: string | null
   trialUsed: boolean | null
@@ -68,13 +54,11 @@ export type UserMaxAggregateOutputType = {
 
 export type UserCountAggregateOutputType = {
   id: number
-  clerkId: number
+  supabaseId: number
   email: number
   name: number
   role: number
   plan: number
-  usageMonth: number
-  usageReset: number
   lastIpHash: number
   deviceFp: number
   trialUsed: number
@@ -84,23 +68,13 @@ export type UserCountAggregateOutputType = {
 }
 
 
-export type UserAvgAggregateInputType = {
-  usageMonth?: true
-}
-
-export type UserSumAggregateInputType = {
-  usageMonth?: true
-}
-
 export type UserMinAggregateInputType = {
   id?: true
-  clerkId?: true
+  supabaseId?: true
   email?: true
   name?: true
   role?: true
   plan?: true
-  usageMonth?: true
-  usageReset?: true
   lastIpHash?: true
   deviceFp?: true
   trialUsed?: true
@@ -110,13 +84,11 @@ export type UserMinAggregateInputType = {
 
 export type UserMaxAggregateInputType = {
   id?: true
-  clerkId?: true
+  supabaseId?: true
   email?: true
   name?: true
   role?: true
   plan?: true
-  usageMonth?: true
-  usageReset?: true
   lastIpHash?: true
   deviceFp?: true
   trialUsed?: true
@@ -126,13 +98,11 @@ export type UserMaxAggregateInputType = {
 
 export type UserCountAggregateInputType = {
   id?: true
-  clerkId?: true
+  supabaseId?: true
   email?: true
   name?: true
   role?: true
   plan?: true
-  usageMonth?: true
-  usageReset?: true
   lastIpHash?: true
   deviceFp?: true
   trialUsed?: true
@@ -179,18 +149,6 @@ export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: UserAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: UserSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: UserMinAggregateInputType
@@ -221,29 +179,23 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   _count?: UserCountAggregateInputType | true
-  _avg?: UserAvgAggregateInputType
-  _sum?: UserSumAggregateInputType
   _min?: UserMinAggregateInputType
   _max?: UserMaxAggregateInputType
 }
 
 export type UserGroupByOutputType = {
   id: string
-  clerkId: string
+  supabaseId: string
   email: string
   name: string | null
   role: $Enums.Role
   plan: $Enums.Plan
-  usageMonth: number
-  usageReset: Date
   lastIpHash: string | null
   deviceFp: string | null
   trialUsed: boolean
   createdAt: Date
   updatedAt: Date
   _count: UserCountAggregateOutputType | null
-  _avg: UserAvgAggregateOutputType | null
-  _sum: UserSumAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
 }
@@ -268,13 +220,11 @@ export type UserWhereInput = {
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
-  clerkId?: Prisma.StringFilter<"User"> | string
+  supabaseId?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
-  usageMonth?: Prisma.IntFilter<"User"> | number
-  usageReset?: Prisma.DateTimeFilter<"User"> | Date | string
   lastIpHash?: Prisma.StringNullableFilter<"User"> | string | null
   deviceFp?: Prisma.StringNullableFilter<"User"> | string | null
   trialUsed?: Prisma.BoolFilter<"User"> | boolean
@@ -282,10 +232,6 @@ export type UserWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   snippets?: Prisma.SnippetListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
-  usageEvents?: Prisma.UsageEventListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
-  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
   presentations?: Prisma.PresentationListRelationFilter
   shareLinks?: Prisma.ShareLinkListRelationFilter
   shareAccess?: Prisma.ShareLinkAccessListRelationFilter
@@ -298,13 +244,11 @@ export type UserWhereInput = {
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  clerkId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  usageMonth?: Prisma.SortOrder
-  usageReset?: Prisma.SortOrder
   lastIpHash?: Prisma.SortOrderInput | Prisma.SortOrder
   deviceFp?: Prisma.SortOrderInput | Prisma.SortOrder
   trialUsed?: Prisma.SortOrder
@@ -312,10 +256,6 @@ export type UserOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   subscription?: Prisma.SubscriptionOrderByWithRelationInput
   snippets?: Prisma.SnippetOrderByRelationAggregateInput
-  payments?: Prisma.PaymentOrderByRelationAggregateInput
-  usageEvents?: Prisma.UsageEventOrderByRelationAggregateInput
-  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
-  dunningAttempts?: Prisma.DunningAttemptOrderByRelationAggregateInput
   presentations?: Prisma.PresentationOrderByRelationAggregateInput
   shareLinks?: Prisma.ShareLinkOrderByRelationAggregateInput
   shareAccess?: Prisma.ShareLinkAccessOrderByRelationAggregateInput
@@ -328,7 +268,7 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  clerkId?: string
+  supabaseId?: string
   email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
@@ -336,8 +276,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanFilter<"User"> | $Enums.Plan
-  usageMonth?: Prisma.IntFilter<"User"> | number
-  usageReset?: Prisma.DateTimeFilter<"User"> | Date | string
   lastIpHash?: Prisma.StringNullableFilter<"User"> | string | null
   deviceFp?: Prisma.StringNullableFilter<"User"> | string | null
   trialUsed?: Prisma.BoolFilter<"User"> | boolean
@@ -345,10 +283,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   subscription?: Prisma.XOR<Prisma.SubscriptionNullableScalarRelationFilter, Prisma.SubscriptionWhereInput> | null
   snippets?: Prisma.SnippetListRelationFilter
-  payments?: Prisma.PaymentListRelationFilter
-  usageEvents?: Prisma.UsageEventListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
-  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
   presentations?: Prisma.PresentationListRelationFilter
   shareLinks?: Prisma.ShareLinkListRelationFilter
   shareAccess?: Prisma.ShareLinkAccessListRelationFilter
@@ -357,27 +291,23 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   snippetBookmarks?: Prisma.SnippetBookmarkListRelationFilter
   followers?: Prisma.UserFollowsListRelationFilter
   following?: Prisma.UserFollowsListRelationFilter
-}, "id" | "clerkId" | "email">
+}, "id" | "supabaseId" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  clerkId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  usageMonth?: Prisma.SortOrder
-  usageReset?: Prisma.SortOrder
   lastIpHash?: Prisma.SortOrderInput | Prisma.SortOrder
   deviceFp?: Prisma.SortOrderInput | Prisma.SortOrder
   trialUsed?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
-  _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
-  _sum?: Prisma.UserSumOrderByAggregateInput
 }
 
 export type UserScalarWhereWithAggregatesInput = {
@@ -385,13 +315,11 @@ export type UserScalarWhereWithAggregatesInput = {
   OR?: Prisma.UserScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
-  clerkId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  supabaseId?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   plan?: Prisma.EnumPlanWithAggregatesFilter<"User"> | $Enums.Plan
-  usageMonth?: Prisma.IntWithAggregatesFilter<"User"> | number
-  usageReset?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   lastIpHash?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   deviceFp?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   trialUsed?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -401,13 +329,11 @@ export type UserScalarWhereWithAggregatesInput = {
 
 export type UserCreateInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -415,10 +341,6 @@ export type UserCreateInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -431,13 +353,11 @@ export type UserCreateInput = {
 
 export type UserUncheckedCreateInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -445,10 +365,6 @@ export type UserUncheckedCreateInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -461,13 +377,11 @@ export type UserUncheckedCreateInput = {
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -475,10 +389,6 @@ export type UserUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -491,13 +401,11 @@ export type UserUpdateInput = {
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -505,10 +413,6 @@ export type UserUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -521,13 +425,11 @@ export type UserUncheckedUpdateInput = {
 
 export type UserCreateManyInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -537,13 +439,11 @@ export type UserCreateManyInput = {
 
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -553,13 +453,11 @@ export type UserUpdateManyMutationInput = {
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -569,13 +467,11 @@ export type UserUncheckedUpdateManyInput = {
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  clerkId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  usageMonth?: Prisma.SortOrder
-  usageReset?: Prisma.SortOrder
   lastIpHash?: Prisma.SortOrder
   deviceFp?: Prisma.SortOrder
   trialUsed?: Prisma.SortOrder
@@ -583,19 +479,13 @@ export type UserCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserAvgOrderByAggregateInput = {
-  usageMonth?: Prisma.SortOrder
-}
-
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  clerkId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  usageMonth?: Prisma.SortOrder
-  usageReset?: Prisma.SortOrder
   lastIpHash?: Prisma.SortOrder
   deviceFp?: Prisma.SortOrder
   trialUsed?: Prisma.SortOrder
@@ -605,13 +495,11 @@ export type UserMaxOrderByAggregateInput = {
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  clerkId?: Prisma.SortOrder
+  supabaseId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   name?: Prisma.SortOrder
   role?: Prisma.SortOrder
   plan?: Prisma.SortOrder
-  usageMonth?: Prisma.SortOrder
-  usageReset?: Prisma.SortOrder
   lastIpHash?: Prisma.SortOrder
   deviceFp?: Prisma.SortOrder
   trialUsed?: Prisma.SortOrder
@@ -619,18 +507,9 @@ export type UserMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserSumOrderByAggregateInput = {
-  usageMonth?: Prisma.SortOrder
-}
-
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
-}
-
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -649,20 +528,12 @@ export type EnumPlanFieldUpdateOperationsInput = {
   set?: $Enums.Plan
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
-}
-
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
 }
 
 export type UserCreateNestedOneWithoutFollowingInput = {
@@ -705,64 +576,6 @@ export type UserUpdateOneRequiredWithoutSubscriptionNestedInput = {
   upsert?: Prisma.UserUpsertWithoutSubscriptionInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionInput, Prisma.UserUpdateWithoutSubscriptionInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionInput>
-}
-
-export type UserCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.UserUpsertWithoutPaymentsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentsInput, Prisma.UserUpdateWithoutPaymentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type UserCreateNestedOneWithoutUsageEventsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUsageEventsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutUsageEventsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutUsageEventsInput
-  upsert?: Prisma.UserUpsertWithoutUsageEventsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUsageEventsInput, Prisma.UserUpdateWithoutUsageEventsInput>, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
-}
-
-export type UserCreateNestedOneWithoutAuditLogsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneWithoutAuditLogsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
-  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
-  disconnect?: Prisma.UserWhereInput | boolean
-  delete?: Prisma.UserWhereInput | boolean
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
-}
-
-export type UserCreateNestedOneWithoutDunningAttemptsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDunningAttemptsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutDunningAttemptsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDunningAttemptsInput
-  upsert?: Prisma.UserUpsertWithoutDunningAttemptsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDunningAttemptsInput, Prisma.UserUpdateWithoutDunningAttemptsInput>, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
 }
 
 export type UserCreateNestedOneWithoutSnippetsInput = {
@@ -865,13 +678,11 @@ export type UserUpdateOneRequiredWithoutSnippetBookmarksNestedInput = {
 
 export type UserCreateWithoutFollowingInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -879,10 +690,6 @@ export type UserCreateWithoutFollowingInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -894,13 +701,11 @@ export type UserCreateWithoutFollowingInput = {
 
 export type UserUncheckedCreateWithoutFollowingInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -908,10 +713,6 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -928,13 +729,11 @@ export type UserCreateOrConnectWithoutFollowingInput = {
 
 export type UserCreateWithoutFollowersInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -942,10 +741,6 @@ export type UserCreateWithoutFollowersInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -957,13 +752,11 @@ export type UserCreateWithoutFollowersInput = {
 
 export type UserUncheckedCreateWithoutFollowersInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -971,10 +764,6 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -1002,13 +791,11 @@ export type UserUpdateToOneWithWhereWithoutFollowingInput = {
 
 export type UserUpdateWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1016,10 +803,6 @@ export type UserUpdateWithoutFollowingInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -1031,13 +814,11 @@ export type UserUpdateWithoutFollowingInput = {
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1045,10 +826,6 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -1071,13 +848,11 @@ export type UserUpdateToOneWithWhereWithoutFollowersInput = {
 
 export type UserUpdateWithoutFollowersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1085,10 +860,6 @@ export type UserUpdateWithoutFollowersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -1100,13 +871,11 @@ export type UserUpdateWithoutFollowersInput = {
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1114,10 +883,6 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -1129,23 +894,17 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
 
 export type UserCreateWithoutSubscriptionInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -1158,23 +917,17 @@ export type UserCreateWithoutSubscriptionInput = {
 
 export type UserUncheckedCreateWithoutSubscriptionInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -1203,23 +956,17 @@ export type UserUpdateToOneWithWhereWithoutSubscriptionInput = {
 
 export type UserUpdateWithoutSubscriptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -1232,551 +979,17 @@ export type UserUpdateWithoutSubscriptionInput = {
 
 export type UserUncheckedUpdateWithoutSubscriptionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserCreateWithoutPaymentsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
-}
-
-export type UserUncheckedCreateWithoutPaymentsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
-}
-
-export type UserCreateOrConnectWithoutPaymentsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-}
-
-export type UserUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentsInput, Prisma.UserUncheckedCreateWithoutPaymentsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutPaymentsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentsInput, Prisma.UserUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type UserUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserCreateWithoutUsageEventsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
-}
-
-export type UserUncheckedCreateWithoutUsageEventsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
-}
-
-export type UserCreateOrConnectWithoutUsageEventsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
-}
-
-export type UserUpsertWithoutUsageEventsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutUsageEventsInput, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutUsageEventsInput, Prisma.UserUncheckedCreateWithoutUsageEventsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutUsageEventsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutUsageEventsInput, Prisma.UserUncheckedUpdateWithoutUsageEventsInput>
-}
-
-export type UserUpdateWithoutUsageEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutUsageEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserCreateWithoutAuditLogsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
-}
-
-export type UserUncheckedCreateWithoutAuditLogsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
-}
-
-export type UserCreateOrConnectWithoutAuditLogsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-}
-
-export type UserUpsertWithoutAuditLogsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
-}
-
-export type UserUpdateWithoutAuditLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAuditLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUncheckedUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserCreateWithoutDunningAttemptsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsCreateNestedManyWithoutFollowerInput
-}
-
-export type UserUncheckedCreateWithoutDunningAttemptsInput = {
-  id?: string
-  clerkId: string
-  email: string
-  name?: string | null
-  role?: $Enums.Role
-  plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
-  lastIpHash?: string | null
-  deviceFp?: string | null
-  trialUsed?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
-  snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
-  shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
-  shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
-  snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUncheckedCreateNestedManyWithoutUserInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUncheckedCreateNestedManyWithoutUserInput
-  followers?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowingInput
-  following?: Prisma.UserFollowsUncheckedCreateNestedManyWithoutFollowerInput
-}
-
-export type UserCreateOrConnectWithoutDunningAttemptsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
-}
-
-export type UserUpsertWithoutDunningAttemptsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDunningAttemptsInput, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDunningAttemptsInput, Prisma.UserUncheckedCreateWithoutDunningAttemptsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutDunningAttemptsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDunningAttemptsInput, Prisma.UserUncheckedUpdateWithoutDunningAttemptsInput>
-}
-
-export type UserUpdateWithoutDunningAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
-  shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
-  shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
-  snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
-  snippetUpvotes?: Prisma.SnippetUpvoteUpdateManyWithoutUserNestedInput
-  snippetBookmarks?: Prisma.SnippetBookmarkUpdateManyWithoutUserNestedInput
-  followers?: Prisma.UserFollowsUpdateManyWithoutFollowingNestedInput
-  following?: Prisma.UserFollowsUpdateManyWithoutFollowerNestedInput
-}
-
-export type UserUncheckedUpdateWithoutDunningAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -1789,23 +1002,17 @@ export type UserUncheckedUpdateWithoutDunningAttemptsInput = {
 
 export type UserCreateWithoutSnippetsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -1818,23 +1025,17 @@ export type UserCreateWithoutSnippetsInput = {
 
 export type UserUncheckedCreateWithoutSnippetsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -1863,23 +1064,17 @@ export type UserUpdateToOneWithWhereWithoutSnippetsInput = {
 
 export type UserUpdateWithoutSnippetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -1892,23 +1087,17 @@ export type UserUpdateWithoutSnippetsInput = {
 
 export type UserUncheckedUpdateWithoutSnippetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -1921,13 +1110,11 @@ export type UserUncheckedUpdateWithoutSnippetsInput = {
 
 export type UserCreateWithoutPresentationsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -1935,10 +1122,6 @@ export type UserCreateWithoutPresentationsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
   snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
@@ -1950,13 +1133,11 @@ export type UserCreateWithoutPresentationsInput = {
 
 export type UserUncheckedCreateWithoutPresentationsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -1964,10 +1145,6 @@ export type UserUncheckedCreateWithoutPresentationsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
   snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
@@ -1995,13 +1172,11 @@ export type UserUpdateToOneWithWhereWithoutPresentationsInput = {
 
 export type UserUpdateWithoutPresentationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2009,10 +1184,6 @@ export type UserUpdateWithoutPresentationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
   snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
@@ -2024,13 +1195,11 @@ export type UserUpdateWithoutPresentationsInput = {
 
 export type UserUncheckedUpdateWithoutPresentationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2038,10 +1207,6 @@ export type UserUncheckedUpdateWithoutPresentationsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
   snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2053,13 +1218,11 @@ export type UserUncheckedUpdateWithoutPresentationsInput = {
 
 export type UserCreateWithoutShareLinksInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2067,10 +1230,6 @@ export type UserCreateWithoutShareLinksInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
   snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
@@ -2082,13 +1241,11 @@ export type UserCreateWithoutShareLinksInput = {
 
 export type UserUncheckedCreateWithoutShareLinksInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2096,10 +1253,6 @@ export type UserUncheckedCreateWithoutShareLinksInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
   snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
@@ -2127,13 +1280,11 @@ export type UserUpdateToOneWithWhereWithoutShareLinksInput = {
 
 export type UserUpdateWithoutShareLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2141,10 +1292,6 @@ export type UserUpdateWithoutShareLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
   snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
@@ -2156,13 +1303,11 @@ export type UserUpdateWithoutShareLinksInput = {
 
 export type UserUncheckedUpdateWithoutShareLinksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2170,10 +1315,6 @@ export type UserUncheckedUpdateWithoutShareLinksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
   snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2185,13 +1326,11 @@ export type UserUncheckedUpdateWithoutShareLinksInput = {
 
 export type UserCreateWithoutShareAccessInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2199,10 +1338,6 @@ export type UserCreateWithoutShareAccessInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   snippetComments?: Prisma.SnippetCommentCreateNestedManyWithoutUserInput
@@ -2214,13 +1349,11 @@ export type UserCreateWithoutShareAccessInput = {
 
 export type UserUncheckedCreateWithoutShareAccessInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2228,10 +1361,6 @@ export type UserUncheckedCreateWithoutShareAccessInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   snippetComments?: Prisma.SnippetCommentUncheckedCreateNestedManyWithoutUserInput
@@ -2259,13 +1388,11 @@ export type UserUpdateToOneWithWhereWithoutShareAccessInput = {
 
 export type UserUpdateWithoutShareAccessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2273,10 +1400,6 @@ export type UserUpdateWithoutShareAccessInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   snippetComments?: Prisma.SnippetCommentUpdateManyWithoutUserNestedInput
@@ -2288,13 +1411,11 @@ export type UserUpdateWithoutShareAccessInput = {
 
 export type UserUncheckedUpdateWithoutShareAccessInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2302,10 +1423,6 @@ export type UserUncheckedUpdateWithoutShareAccessInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   snippetComments?: Prisma.SnippetCommentUncheckedUpdateManyWithoutUserNestedInput
@@ -2317,13 +1434,11 @@ export type UserUncheckedUpdateWithoutShareAccessInput = {
 
 export type UserCreateWithoutSnippetCommentsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2331,10 +1446,6 @@ export type UserCreateWithoutSnippetCommentsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -2346,13 +1457,11 @@ export type UserCreateWithoutSnippetCommentsInput = {
 
 export type UserUncheckedCreateWithoutSnippetCommentsInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2360,10 +1469,6 @@ export type UserUncheckedCreateWithoutSnippetCommentsInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -2391,13 +1496,11 @@ export type UserUpdateToOneWithWhereWithoutSnippetCommentsInput = {
 
 export type UserUpdateWithoutSnippetCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2405,10 +1508,6 @@ export type UserUpdateWithoutSnippetCommentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -2420,13 +1519,11 @@ export type UserUpdateWithoutSnippetCommentsInput = {
 
 export type UserUncheckedUpdateWithoutSnippetCommentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2434,10 +1531,6 @@ export type UserUncheckedUpdateWithoutSnippetCommentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -2449,13 +1542,11 @@ export type UserUncheckedUpdateWithoutSnippetCommentsInput = {
 
 export type UserCreateWithoutSnippetUpvotesInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2463,10 +1554,6 @@ export type UserCreateWithoutSnippetUpvotesInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -2478,13 +1565,11 @@ export type UserCreateWithoutSnippetUpvotesInput = {
 
 export type UserUncheckedCreateWithoutSnippetUpvotesInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2492,10 +1577,6 @@ export type UserUncheckedCreateWithoutSnippetUpvotesInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -2523,13 +1604,11 @@ export type UserUpdateToOneWithWhereWithoutSnippetUpvotesInput = {
 
 export type UserUpdateWithoutSnippetUpvotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2537,10 +1616,6 @@ export type UserUpdateWithoutSnippetUpvotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -2552,13 +1627,11 @@ export type UserUpdateWithoutSnippetUpvotesInput = {
 
 export type UserUncheckedUpdateWithoutSnippetUpvotesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2566,10 +1639,6 @@ export type UserUncheckedUpdateWithoutSnippetUpvotesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -2581,13 +1650,11 @@ export type UserUncheckedUpdateWithoutSnippetUpvotesInput = {
 
 export type UserCreateWithoutSnippetBookmarksInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2595,10 +1662,6 @@ export type UserCreateWithoutSnippetBookmarksInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessCreateNestedManyWithoutGrantedToInput
@@ -2610,13 +1673,11 @@ export type UserCreateWithoutSnippetBookmarksInput = {
 
 export type UserUncheckedCreateWithoutSnippetBookmarksInput = {
   id?: string
-  clerkId: string
+  supabaseId: string
   email: string
   name?: string | null
   role?: $Enums.Role
   plan?: $Enums.Plan
-  usageMonth?: number
-  usageReset?: Date | string
   lastIpHash?: string | null
   deviceFp?: string | null
   trialUsed?: boolean
@@ -2624,10 +1685,6 @@ export type UserUncheckedCreateWithoutSnippetBookmarksInput = {
   updatedAt?: Date | string
   subscription?: Prisma.SubscriptionUncheckedCreateNestedOneWithoutUserInput
   snippets?: Prisma.SnippetUncheckedCreateNestedManyWithoutUserInput
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
-  usageEvents?: Prisma.UsageEventUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutUserInput
   presentations?: Prisma.PresentationUncheckedCreateNestedManyWithoutUserInput
   shareLinks?: Prisma.ShareLinkUncheckedCreateNestedManyWithoutUserInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedCreateNestedManyWithoutGrantedToInput
@@ -2655,13 +1712,11 @@ export type UserUpdateToOneWithWhereWithoutSnippetBookmarksInput = {
 
 export type UserUpdateWithoutSnippetBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2669,10 +1724,6 @@ export type UserUpdateWithoutSnippetBookmarksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUpdateManyWithoutGrantedToNestedInput
@@ -2684,13 +1735,11 @@ export type UserUpdateWithoutSnippetBookmarksInput = {
 
 export type UserUncheckedUpdateWithoutSnippetBookmarksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  clerkId?: Prisma.StringFieldUpdateOperationsInput | string
+  supabaseId?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  usageMonth?: Prisma.IntFieldUpdateOperationsInput | number
-  usageReset?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   lastIpHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceFp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   trialUsed?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2698,10 +1747,6 @@ export type UserUncheckedUpdateWithoutSnippetBookmarksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   subscription?: Prisma.SubscriptionUncheckedUpdateOneWithoutUserNestedInput
   snippets?: Prisma.SnippetUncheckedUpdateManyWithoutUserNestedInput
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
-  usageEvents?: Prisma.UsageEventUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutUserNestedInput
   presentations?: Prisma.PresentationUncheckedUpdateManyWithoutUserNestedInput
   shareLinks?: Prisma.ShareLinkUncheckedUpdateManyWithoutUserNestedInput
   shareAccess?: Prisma.ShareLinkAccessUncheckedUpdateManyWithoutGrantedToNestedInput
@@ -2718,10 +1763,6 @@ export type UserUncheckedUpdateWithoutSnippetBookmarksInput = {
 
 export type UserCountOutputType = {
   snippets: number
-  payments: number
-  usageEvents: number
-  auditLogs: number
-  dunningAttempts: number
   presentations: number
   shareLinks: number
   shareAccess: number
@@ -2734,10 +1775,6 @@ export type UserCountOutputType = {
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   snippets?: boolean | UserCountOutputTypeCountSnippetsArgs
-  payments?: boolean | UserCountOutputTypeCountPaymentsArgs
-  usageEvents?: boolean | UserCountOutputTypeCountUsageEventsArgs
-  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
-  dunningAttempts?: boolean | UserCountOutputTypeCountDunningAttemptsArgs
   presentations?: boolean | UserCountOutputTypeCountPresentationsArgs
   shareLinks?: boolean | UserCountOutputTypeCountShareLinksArgs
   shareAccess?: boolean | UserCountOutputTypeCountShareAccessArgs
@@ -2763,34 +1800,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountSnippetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SnippetWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountUsageEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UsageEventWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AuditLogWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountDunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DunningAttemptWhereInput
 }
 
 /**
@@ -2852,13 +1861,11 @@ export type UserCountOutputTypeCountFollowingArgs<ExtArgs extends runtime.Types.
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  clerkId?: boolean
+  supabaseId?: boolean
   email?: boolean
   name?: boolean
   role?: boolean
   plan?: boolean
-  usageMonth?: boolean
-  usageReset?: boolean
   lastIpHash?: boolean
   deviceFp?: boolean
   trialUsed?: boolean
@@ -2866,10 +1873,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedAt?: boolean
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   snippets?: boolean | Prisma.User$snippetsArgs<ExtArgs>
-  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
-  dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
   presentations?: boolean | Prisma.User$presentationsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.User$shareLinksArgs<ExtArgs>
   shareAccess?: boolean | Prisma.User$shareAccessArgs<ExtArgs>
@@ -2883,13 +1886,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  clerkId?: boolean
+  supabaseId?: boolean
   email?: boolean
   name?: boolean
   role?: boolean
   plan?: boolean
-  usageMonth?: boolean
-  usageReset?: boolean
   lastIpHash?: boolean
   deviceFp?: boolean
   trialUsed?: boolean
@@ -2899,13 +1900,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  clerkId?: boolean
+  supabaseId?: boolean
   email?: boolean
   name?: boolean
   role?: boolean
   plan?: boolean
-  usageMonth?: boolean
-  usageReset?: boolean
   lastIpHash?: boolean
   deviceFp?: boolean
   trialUsed?: boolean
@@ -2915,13 +1914,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 
 export type UserSelectScalar = {
   id?: boolean
-  clerkId?: boolean
+  supabaseId?: boolean
   email?: boolean
   name?: boolean
   role?: boolean
   plan?: boolean
-  usageMonth?: boolean
-  usageReset?: boolean
   lastIpHash?: boolean
   deviceFp?: boolean
   trialUsed?: boolean
@@ -2929,14 +1926,10 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "clerkId" | "email" | "name" | "role" | "plan" | "usageMonth" | "usageReset" | "lastIpHash" | "deviceFp" | "trialUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "supabaseId" | "email" | "name" | "role" | "plan" | "lastIpHash" | "deviceFp" | "trialUsed" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscription?: boolean | Prisma.User$subscriptionArgs<ExtArgs>
   snippets?: boolean | Prisma.User$snippetsArgs<ExtArgs>
-  payments?: boolean | Prisma.User$paymentsArgs<ExtArgs>
-  usageEvents?: boolean | Prisma.User$usageEventsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
-  dunningAttempts?: boolean | Prisma.User$dunningAttemptsArgs<ExtArgs>
   presentations?: boolean | Prisma.User$presentationsArgs<ExtArgs>
   shareLinks?: boolean | Prisma.User$shareLinksArgs<ExtArgs>
   shareAccess?: boolean | Prisma.User$shareAccessArgs<ExtArgs>
@@ -2955,10 +1948,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     subscription: Prisma.$SubscriptionPayload<ExtArgs> | null
     snippets: Prisma.$SnippetPayload<ExtArgs>[]
-    payments: Prisma.$PaymentPayload<ExtArgs>[]
-    usageEvents: Prisma.$UsageEventPayload<ExtArgs>[]
-    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
-    dunningAttempts: Prisma.$DunningAttemptPayload<ExtArgs>[]
     presentations: Prisma.$PresentationPayload<ExtArgs>[]
     shareLinks: Prisma.$ShareLinkPayload<ExtArgs>[]
     shareAccess: Prisma.$ShareLinkAccessPayload<ExtArgs>[]
@@ -2970,13 +1959,11 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    clerkId: string
+    supabaseId: string
     email: string
     name: string | null
     role: $Enums.Role
     plan: $Enums.Plan
-    usageMonth: number
-    usageReset: Date
     lastIpHash: string | null
     deviceFp: string | null
     trialUsed: boolean
@@ -3378,10 +2365,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscription<T extends Prisma.User$subscriptionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionArgs<ExtArgs>>): Prisma.Prisma__SubscriptionClient<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   snippets<T extends Prisma.User$snippetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$snippetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SnippetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  payments<T extends Prisma.User$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  usageEvents<T extends Prisma.User$usageEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$usageEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UsageEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  dunningAttempts<T extends Prisma.User$dunningAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dunningAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DunningAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   presentations<T extends Prisma.User$presentationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$presentationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PresentationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareLinks<T extends Prisma.User$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shareAccess<T extends Prisma.User$shareAccessArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shareAccessArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ShareLinkAccessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3420,13 +2403,11 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
-  readonly clerkId: Prisma.FieldRef<"User", 'String'>
+  readonly supabaseId: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly plan: Prisma.FieldRef<"User", 'Plan'>
-  readonly usageMonth: Prisma.FieldRef<"User", 'Int'>
-  readonly usageReset: Prisma.FieldRef<"User", 'DateTime'>
   readonly lastIpHash: Prisma.FieldRef<"User", 'String'>
   readonly deviceFp: Prisma.FieldRef<"User", 'String'>
   readonly trialUsed: Prisma.FieldRef<"User", 'Boolean'>
@@ -3865,102 +2846,6 @@ export type User$snippetsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.SnippetScalarFieldEnum | Prisma.SnippetScalarFieldEnum[]
-}
-
-/**
- * User.payments
- */
-export type User$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Payment
-   */
-  select?: Prisma.PaymentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Payment
-   */
-  omit?: Prisma.PaymentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PaymentInclude<ExtArgs> | null
-  where?: Prisma.PaymentWhereInput
-  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
-}
-
-/**
- * User.usageEvents
- */
-export type User$usageEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UsageEvent
-   */
-  select?: Prisma.UsageEventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UsageEvent
-   */
-  omit?: Prisma.UsageEventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UsageEventInclude<ExtArgs> | null
-  where?: Prisma.UsageEventWhereInput
-  orderBy?: Prisma.UsageEventOrderByWithRelationInput | Prisma.UsageEventOrderByWithRelationInput[]
-  cursor?: Prisma.UsageEventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UsageEventScalarFieldEnum | Prisma.UsageEventScalarFieldEnum[]
-}
-
-/**
- * User.auditLogs
- */
-export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the AuditLog
-   */
-  select?: Prisma.AuditLogSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the AuditLog
-   */
-  omit?: Prisma.AuditLogOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AuditLogInclude<ExtArgs> | null
-  where?: Prisma.AuditLogWhereInput
-  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
-  cursor?: Prisma.AuditLogWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
-}
-
-/**
- * User.dunningAttempts
- */
-export type User$dunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DunningAttempt
-   */
-  select?: Prisma.DunningAttemptSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DunningAttempt
-   */
-  omit?: Prisma.DunningAttemptOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DunningAttemptInclude<ExtArgs> | null
-  where?: Prisma.DunningAttemptWhereInput
-  orderBy?: Prisma.DunningAttemptOrderByWithRelationInput | Prisma.DunningAttemptOrderByWithRelationInput[]
-  cursor?: Prisma.DunningAttemptWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DunningAttemptScalarFieldEnum | Prisma.DunningAttemptScalarFieldEnum[]
 }
 
 /**

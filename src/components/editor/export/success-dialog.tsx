@@ -12,7 +12,7 @@ import {
 import { toast } from "@/components/toast";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 
 export default function SuccessDialog({
   isSuccessOpen,
@@ -34,11 +34,7 @@ export default function SuccessDialog({
 
   return (
     <Dialog open={isSuccessOpen} onOpenChange={setIsSuccessOpen}>
-      <DialogPopup className="sm:max-w-sm rounded-2xl overflow-hidden p-0" showCloseButton={false}>
-        {/* Ambient top strip */}
-        <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-500/60 to-transparent" />
-        <div className="absolute inset-x-0 top-0 h-28 bg-linear-to-b from-emerald-500/8 to-transparent pointer-events-none" />
-
+      <DialogPopup className="sm:max-w-sm overflow-hidden rounded-2xl p-0" showCloseButton={false}>
         <DialogHeader className="relative items-center text-center px-6 pt-6 pb-4 gap-4">
           {/* Animated icon */}
           <motion.div
@@ -49,18 +45,18 @@ export default function SuccessDialog({
           >
             {/* outer ring pulse */}
             <motion.div
-              className="absolute inset-0 rounded-full bg-emerald-500/15"
+              className="absolute inset-0 rounded-full bg-foreground/10"
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0, 0.6] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
             />
-            <div className="flex size-14 items-center justify-center rounded-full bg-linear-to-br from-emerald-400 to-teal-500 shadow-lg shadow-emerald-500/30">
+            <div className="flex size-14 items-center justify-center rounded-full bg-foreground text-background">
               <motion.div
                 initial={{ scale: 0, rotate: -30 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.2 }}
               >
-                <Icon icon="solar:verified-check-bold" className="size-7 text-white" />
+                <Icon icon="solar:verified-check-bold" className="size-7" />
               </motion.div>
             </div>
           </motion.div>
@@ -103,7 +99,7 @@ export default function SuccessDialog({
                     exit={{ scale: 0.5, opacity: 0 }}
                     transition={{ duration: 0.15 }}
                   >
-                    <Icon icon="solar:check-circle-bold" className="size-3.5 text-emerald-500" />
+                    <Icon icon="solar:check-circle-bold" className="size-3.5 text-foreground" />
                   </motion.span>
                 ) : (
                   <motion.span
@@ -127,18 +123,12 @@ export default function SuccessDialog({
             Close
           </DialogClose>
           <Button
-            className="flex-1 relative overflow-hidden bg-linear-to-r from-emerald-500 to-teal-500 text-white border-0 shadow-md shadow-emerald-500/20 hover:from-emerald-400 hover:to-teal-400"
+            className="flex-1"
             onClick={() => {
               window.open(publishedUrl ?? "", "_blank");
               setIsSuccessOpen(false);
             }}
           >
-            <motion.span
-              className="absolute inset-0 translate-x-[-200%] bg-linear-to-r from-transparent via-white/20 to-transparent"
-              whileHover={{ x: ["-200%", "200%"] }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-            />
-            {/* <Icon icon="solar:square-arrow-right-up-bold" className="size-3.5" /> */}
             Open Preview
           </Button>
         </DialogFooter>

@@ -9,7 +9,7 @@ export const PERMISSIONS = {
   // Exports
   "export:basic": Plan.FREE,
   "export:hd": Plan.PRO,
-  "export:4k": Plan.ELITE,
+  "export:4k": Plan.PREMIUM,
   // Themes
   "theme:premium": Plan.PRO,
   // Watermark
@@ -17,7 +17,7 @@ export const PERMISSIONS = {
   // Snippets
   "snippet:save": Plan.FREE,
   // API
-  "api:access": Plan.ELITE,
+  "api:access": Plan.PREMIUM,
   // Admin (role-based, not plan-based)
   "admin:panel": null,
 } as const satisfies Record<string, Plan | null>;
@@ -27,8 +27,7 @@ export type Permission = keyof typeof PERMISSIONS;
 const PLAN_ORDER: Record<Plan, number> = {
   [Plan.FREE]: 0,
   [Plan.PRO]: 1,
-  [Plan.ELITE]: 2,
-  [Plan.ULTIMATE]: 3,
+  [Plan.PREMIUM]: 2,
 };
 
 /**

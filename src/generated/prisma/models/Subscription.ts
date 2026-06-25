@@ -48,8 +48,6 @@ export type SubscriptionMinAggregateOutputType = {
   canceledAt: Date | null
   scheduledPlan: $Enums.Plan | null
   scheduledPlanAt: Date | null
-  trialStart: Date | null
-  trialEnd: Date | null
   lastEventSeq: number | null
   lastEventAt: Date | null
   createdAt: Date | null
@@ -70,8 +68,6 @@ export type SubscriptionMaxAggregateOutputType = {
   canceledAt: Date | null
   scheduledPlan: $Enums.Plan | null
   scheduledPlanAt: Date | null
-  trialStart: Date | null
-  trialEnd: Date | null
   lastEventSeq: number | null
   lastEventAt: Date | null
   createdAt: Date | null
@@ -92,8 +88,6 @@ export type SubscriptionCountAggregateOutputType = {
   canceledAt: number
   scheduledPlan: number
   scheduledPlanAt: number
-  trialStart: number
-  trialEnd: number
   lastEventSeq: number
   lastEventAt: number
   createdAt: number
@@ -124,8 +118,6 @@ export type SubscriptionMinAggregateInputType = {
   canceledAt?: true
   scheduledPlan?: true
   scheduledPlanAt?: true
-  trialStart?: true
-  trialEnd?: true
   lastEventSeq?: true
   lastEventAt?: true
   createdAt?: true
@@ -146,8 +138,6 @@ export type SubscriptionMaxAggregateInputType = {
   canceledAt?: true
   scheduledPlan?: true
   scheduledPlanAt?: true
-  trialStart?: true
-  trialEnd?: true
   lastEventSeq?: true
   lastEventAt?: true
   createdAt?: true
@@ -168,8 +158,6 @@ export type SubscriptionCountAggregateInputType = {
   canceledAt?: true
   scheduledPlan?: true
   scheduledPlanAt?: true
-  trialStart?: true
-  trialEnd?: true
   lastEventSeq?: true
   lastEventAt?: true
   createdAt?: true
@@ -277,8 +265,6 @@ export type SubscriptionGroupByOutputType = {
   canceledAt: Date | null
   scheduledPlan: $Enums.Plan | null
   scheduledPlanAt: Date | null
-  trialStart: Date | null
-  trialEnd: Date | null
   lastEventSeq: number
   lastEventAt: Date | null
   createdAt: Date
@@ -322,15 +308,11 @@ export type SubscriptionWhereInput = {
   canceledAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   scheduledPlan?: Prisma.EnumPlanNullableFilter<"Subscription"> | $Enums.Plan | null
   scheduledPlanAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
-  trialStart?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
-  trialEnd?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   lastEventSeq?: Prisma.IntFilter<"Subscription"> | number
   lastEventAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  payments?: Prisma.PaymentListRelationFilter
-  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
 }
 
 export type SubscriptionOrderByWithRelationInput = {
@@ -347,15 +329,11 @@ export type SubscriptionOrderByWithRelationInput = {
   canceledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledPlan?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledPlanAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  trialStart?: Prisma.SortOrderInput | Prisma.SortOrder
-  trialEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   lastEventSeq?: Prisma.SortOrder
   lastEventAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  payments?: Prisma.PaymentOrderByRelationAggregateInput
-  dunningAttempts?: Prisma.DunningAttemptOrderByRelationAggregateInput
 }
 
 export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
@@ -375,15 +353,11 @@ export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   canceledAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   scheduledPlan?: Prisma.EnumPlanNullableFilter<"Subscription"> | $Enums.Plan | null
   scheduledPlanAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
-  trialStart?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
-  trialEnd?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   lastEventSeq?: Prisma.IntFilter<"Subscription"> | number
   lastEventAt?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  payments?: Prisma.PaymentListRelationFilter
-  dunningAttempts?: Prisma.DunningAttemptListRelationFilter
 }, "id" | "userId" | "dodoSubscriptionId">
 
 export type SubscriptionOrderByWithAggregationInput = {
@@ -400,8 +374,6 @@ export type SubscriptionOrderByWithAggregationInput = {
   canceledAt?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledPlan?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledPlanAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  trialStart?: Prisma.SortOrderInput | Prisma.SortOrder
-  trialEnd?: Prisma.SortOrderInput | Prisma.SortOrder
   lastEventSeq?: Prisma.SortOrder
   lastEventAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -430,8 +402,6 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   canceledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   scheduledPlan?: Prisma.EnumPlanNullableWithAggregatesFilter<"Subscription"> | $Enums.Plan | null
   scheduledPlanAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
-  trialStart?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
-  trialEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   lastEventSeq?: Prisma.IntWithAggregatesFilter<"Subscription"> | number
   lastEventAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
@@ -443,7 +413,7 @@ export type SubscriptionCreateInput = {
   dodoSubscriptionId: string
   dodoCustomerId?: string | null
   plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
+  status: $Enums.SubscriptionStatus
   currentPeriodStart: Date | string
   currentPeriodEnd: Date | string
   gracePeriodEnd?: Date | string | null
@@ -451,15 +421,11 @@ export type SubscriptionCreateInput = {
   canceledAt?: Date | string | null
   scheduledPlan?: $Enums.Plan | null
   scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
   lastEventSeq?: number
   lastEventAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubscriptionInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutSubscriptionInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutSubscriptionInput
 }
 
 export type SubscriptionUncheckedCreateInput = {
@@ -468,7 +434,7 @@ export type SubscriptionUncheckedCreateInput = {
   dodoSubscriptionId: string
   dodoCustomerId?: string | null
   plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
+  status: $Enums.SubscriptionStatus
   currentPeriodStart: Date | string
   currentPeriodEnd: Date | string
   gracePeriodEnd?: Date | string | null
@@ -476,14 +442,10 @@ export type SubscriptionUncheckedCreateInput = {
   canceledAt?: Date | string | null
   scheduledPlan?: $Enums.Plan | null
   scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
   lastEventSeq?: number
   lastEventAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriptionInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutSubscriptionInput
 }
 
 export type SubscriptionUpdateInput = {
@@ -499,15 +461,11 @@ export type SubscriptionUpdateInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubscriptionNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutSubscriptionNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutSubscriptionNestedInput
 }
 
 export type SubscriptionUncheckedUpdateInput = {
@@ -524,14 +482,10 @@ export type SubscriptionUncheckedUpdateInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriptionNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutSubscriptionNestedInput
 }
 
 export type SubscriptionCreateManyInput = {
@@ -540,7 +494,7 @@ export type SubscriptionCreateManyInput = {
   dodoSubscriptionId: string
   dodoCustomerId?: string | null
   plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
+  status: $Enums.SubscriptionStatus
   currentPeriodStart: Date | string
   currentPeriodEnd: Date | string
   gracePeriodEnd?: Date | string | null
@@ -548,8 +502,6 @@ export type SubscriptionCreateManyInput = {
   canceledAt?: Date | string | null
   scheduledPlan?: $Enums.Plan | null
   scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
   lastEventSeq?: number
   lastEventAt?: Date | string | null
   createdAt?: Date | string
@@ -569,8 +521,6 @@ export type SubscriptionUpdateManyMutationInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -591,8 +541,6 @@ export type SubscriptionUncheckedUpdateManyInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -618,8 +566,6 @@ export type SubscriptionCountOrderByAggregateInput = {
   canceledAt?: Prisma.SortOrder
   scheduledPlan?: Prisma.SortOrder
   scheduledPlanAt?: Prisma.SortOrder
-  trialStart?: Prisma.SortOrder
-  trialEnd?: Prisma.SortOrder
   lastEventSeq?: Prisma.SortOrder
   lastEventAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -644,8 +590,6 @@ export type SubscriptionMaxOrderByAggregateInput = {
   canceledAt?: Prisma.SortOrder
   scheduledPlan?: Prisma.SortOrder
   scheduledPlanAt?: Prisma.SortOrder
-  trialStart?: Prisma.SortOrder
-  trialEnd?: Prisma.SortOrder
   lastEventSeq?: Prisma.SortOrder
   lastEventAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -666,8 +610,6 @@ export type SubscriptionMinOrderByAggregateInput = {
   canceledAt?: Prisma.SortOrder
   scheduledPlan?: Prisma.SortOrder
   scheduledPlanAt?: Prisma.SortOrder
-  trialStart?: Prisma.SortOrder
-  trialEnd?: Prisma.SortOrder
   lastEventSeq?: Prisma.SortOrder
   lastEventAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -676,11 +618,6 @@ export type SubscriptionMinOrderByAggregateInput = {
 
 export type SubscriptionSumOrderByAggregateInput = {
   lastEventSeq?: Prisma.SortOrder
-}
-
-export type SubscriptionScalarRelationFilter = {
-  is?: Prisma.SubscriptionWhereInput
-  isNot?: Prisma.SubscriptionWhereInput
 }
 
 export type SubscriptionCreateNestedOneWithoutUserInput = {
@@ -727,34 +664,12 @@ export type NullableEnumPlanFieldUpdateOperationsInput = {
   set?: $Enums.Plan | null
 }
 
-export type SubscriptionCreateNestedOneWithoutPaymentsInput = {
-  create?: Prisma.XOR<Prisma.SubscriptionCreateWithoutPaymentsInput, Prisma.SubscriptionUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.SubscriptionCreateOrConnectWithoutPaymentsInput
-  connect?: Prisma.SubscriptionWhereUniqueInput
-}
-
-export type SubscriptionUpdateOneWithoutPaymentsNestedInput = {
-  create?: Prisma.XOR<Prisma.SubscriptionCreateWithoutPaymentsInput, Prisma.SubscriptionUncheckedCreateWithoutPaymentsInput>
-  connectOrCreate?: Prisma.SubscriptionCreateOrConnectWithoutPaymentsInput
-  upsert?: Prisma.SubscriptionUpsertWithoutPaymentsInput
-  disconnect?: Prisma.SubscriptionWhereInput | boolean
-  delete?: Prisma.SubscriptionWhereInput | boolean
-  connect?: Prisma.SubscriptionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriptionUpdateToOneWithWhereWithoutPaymentsInput, Prisma.SubscriptionUpdateWithoutPaymentsInput>, Prisma.SubscriptionUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type SubscriptionCreateNestedOneWithoutDunningAttemptsInput = {
-  create?: Prisma.XOR<Prisma.SubscriptionCreateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedCreateWithoutDunningAttemptsInput>
-  connectOrCreate?: Prisma.SubscriptionCreateOrConnectWithoutDunningAttemptsInput
-  connect?: Prisma.SubscriptionWhereUniqueInput
-}
-
-export type SubscriptionUpdateOneRequiredWithoutDunningAttemptsNestedInput = {
-  create?: Prisma.XOR<Prisma.SubscriptionCreateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedCreateWithoutDunningAttemptsInput>
-  connectOrCreate?: Prisma.SubscriptionCreateOrConnectWithoutDunningAttemptsInput
-  upsert?: Prisma.SubscriptionUpsertWithoutDunningAttemptsInput
-  connect?: Prisma.SubscriptionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SubscriptionUpdateToOneWithWhereWithoutDunningAttemptsInput, Prisma.SubscriptionUpdateWithoutDunningAttemptsInput>, Prisma.SubscriptionUncheckedUpdateWithoutDunningAttemptsInput>
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type SubscriptionCreateWithoutUserInput = {
@@ -762,7 +677,7 @@ export type SubscriptionCreateWithoutUserInput = {
   dodoSubscriptionId: string
   dodoCustomerId?: string | null
   plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
+  status: $Enums.SubscriptionStatus
   currentPeriodStart: Date | string
   currentPeriodEnd: Date | string
   gracePeriodEnd?: Date | string | null
@@ -770,14 +685,10 @@ export type SubscriptionCreateWithoutUserInput = {
   canceledAt?: Date | string | null
   scheduledPlan?: $Enums.Plan | null
   scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
   lastEventSeq?: number
   lastEventAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.PaymentCreateNestedManyWithoutSubscriptionInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutSubscriptionInput
 }
 
 export type SubscriptionUncheckedCreateWithoutUserInput = {
@@ -785,7 +696,7 @@ export type SubscriptionUncheckedCreateWithoutUserInput = {
   dodoSubscriptionId: string
   dodoCustomerId?: string | null
   plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
+  status: $Enums.SubscriptionStatus
   currentPeriodStart: Date | string
   currentPeriodEnd: Date | string
   gracePeriodEnd?: Date | string | null
@@ -793,14 +704,10 @@ export type SubscriptionUncheckedCreateWithoutUserInput = {
   canceledAt?: Date | string | null
   scheduledPlan?: $Enums.Plan | null
   scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
   lastEventSeq?: number
   lastEventAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriptionInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutSubscriptionInput
 }
 
 export type SubscriptionCreateOrConnectWithoutUserInput = {
@@ -832,14 +739,10 @@ export type SubscriptionUpdateWithoutUserInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.PaymentUpdateManyWithoutSubscriptionNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutSubscriptionNestedInput
 }
 
 export type SubscriptionUncheckedUpdateWithoutUserInput = {
@@ -855,270 +758,12 @@ export type SubscriptionUncheckedUpdateWithoutUserInput = {
   canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
   scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
   lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriptionNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutSubscriptionNestedInput
 }
 
-export type SubscriptionCreateWithoutPaymentsInput = {
-  id?: string
-  dodoSubscriptionId: string
-  dodoCustomerId?: string | null
-  plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
-  currentPeriodStart: Date | string
-  currentPeriodEnd: Date | string
-  gracePeriodEnd?: Date | string | null
-  cancelAtPeriodEnd?: boolean
-  canceledAt?: Date | string | null
-  scheduledPlan?: $Enums.Plan | null
-  scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
-  lastEventSeq?: number
-  lastEventAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutSubscriptionInput
-  dunningAttempts?: Prisma.DunningAttemptCreateNestedManyWithoutSubscriptionInput
-}
-
-export type SubscriptionUncheckedCreateWithoutPaymentsInput = {
-  id?: string
-  userId: string
-  dodoSubscriptionId: string
-  dodoCustomerId?: string | null
-  plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
-  currentPeriodStart: Date | string
-  currentPeriodEnd: Date | string
-  gracePeriodEnd?: Date | string | null
-  cancelAtPeriodEnd?: boolean
-  canceledAt?: Date | string | null
-  scheduledPlan?: $Enums.Plan | null
-  scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
-  lastEventSeq?: number
-  lastEventAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  dunningAttempts?: Prisma.DunningAttemptUncheckedCreateNestedManyWithoutSubscriptionInput
-}
-
-export type SubscriptionCreateOrConnectWithoutPaymentsInput = {
-  where: Prisma.SubscriptionWhereUniqueInput
-  create: Prisma.XOR<Prisma.SubscriptionCreateWithoutPaymentsInput, Prisma.SubscriptionUncheckedCreateWithoutPaymentsInput>
-}
-
-export type SubscriptionUpsertWithoutPaymentsInput = {
-  update: Prisma.XOR<Prisma.SubscriptionUpdateWithoutPaymentsInput, Prisma.SubscriptionUncheckedUpdateWithoutPaymentsInput>
-  create: Prisma.XOR<Prisma.SubscriptionCreateWithoutPaymentsInput, Prisma.SubscriptionUncheckedCreateWithoutPaymentsInput>
-  where?: Prisma.SubscriptionWhereInput
-}
-
-export type SubscriptionUpdateToOneWithWhereWithoutPaymentsInput = {
-  where?: Prisma.SubscriptionWhereInput
-  data: Prisma.XOR<Prisma.SubscriptionUpdateWithoutPaymentsInput, Prisma.SubscriptionUncheckedUpdateWithoutPaymentsInput>
-}
-
-export type SubscriptionUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-  currentPeriodStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  gracePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
-  scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutSubscriptionNestedInput
-  dunningAttempts?: Prisma.DunningAttemptUpdateManyWithoutSubscriptionNestedInput
-}
-
-export type SubscriptionUncheckedUpdateWithoutPaymentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-  currentPeriodStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  gracePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
-  scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  dunningAttempts?: Prisma.DunningAttemptUncheckedUpdateManyWithoutSubscriptionNestedInput
-}
-
-export type SubscriptionCreateWithoutDunningAttemptsInput = {
-  id?: string
-  dodoSubscriptionId: string
-  dodoCustomerId?: string | null
-  plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
-  currentPeriodStart: Date | string
-  currentPeriodEnd: Date | string
-  gracePeriodEnd?: Date | string | null
-  cancelAtPeriodEnd?: boolean
-  canceledAt?: Date | string | null
-  scheduledPlan?: $Enums.Plan | null
-  scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
-  lastEventSeq?: number
-  lastEventAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutSubscriptionInput
-  payments?: Prisma.PaymentCreateNestedManyWithoutSubscriptionInput
-}
-
-export type SubscriptionUncheckedCreateWithoutDunningAttemptsInput = {
-  id?: string
-  userId: string
-  dodoSubscriptionId: string
-  dodoCustomerId?: string | null
-  plan: $Enums.Plan
-  status?: $Enums.SubscriptionStatus
-  currentPeriodStart: Date | string
-  currentPeriodEnd: Date | string
-  gracePeriodEnd?: Date | string | null
-  cancelAtPeriodEnd?: boolean
-  canceledAt?: Date | string | null
-  scheduledPlan?: $Enums.Plan | null
-  scheduledPlanAt?: Date | string | null
-  trialStart?: Date | string | null
-  trialEnd?: Date | string | null
-  lastEventSeq?: number
-  lastEventAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutSubscriptionInput
-}
-
-export type SubscriptionCreateOrConnectWithoutDunningAttemptsInput = {
-  where: Prisma.SubscriptionWhereUniqueInput
-  create: Prisma.XOR<Prisma.SubscriptionCreateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedCreateWithoutDunningAttemptsInput>
-}
-
-export type SubscriptionUpsertWithoutDunningAttemptsInput = {
-  update: Prisma.XOR<Prisma.SubscriptionUpdateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedUpdateWithoutDunningAttemptsInput>
-  create: Prisma.XOR<Prisma.SubscriptionCreateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedCreateWithoutDunningAttemptsInput>
-  where?: Prisma.SubscriptionWhereInput
-}
-
-export type SubscriptionUpdateToOneWithWhereWithoutDunningAttemptsInput = {
-  where?: Prisma.SubscriptionWhereInput
-  data: Prisma.XOR<Prisma.SubscriptionUpdateWithoutDunningAttemptsInput, Prisma.SubscriptionUncheckedUpdateWithoutDunningAttemptsInput>
-}
-
-export type SubscriptionUpdateWithoutDunningAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-  currentPeriodStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  gracePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
-  scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutSubscriptionNestedInput
-  payments?: Prisma.PaymentUpdateManyWithoutSubscriptionNestedInput
-}
-
-export type SubscriptionUncheckedUpdateWithoutDunningAttemptsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoSubscriptionId?: Prisma.StringFieldUpdateOperationsInput | string
-  dodoCustomerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  plan?: Prisma.EnumPlanFieldUpdateOperationsInput | $Enums.Plan
-  status?: Prisma.EnumSubscriptionStatusFieldUpdateOperationsInput | $Enums.SubscriptionStatus
-  currentPeriodStart?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  currentPeriodEnd?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  gracePeriodEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  cancelAtPeriodEnd?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  canceledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  scheduledPlan?: Prisma.NullableEnumPlanFieldUpdateOperationsInput | $Enums.Plan | null
-  scheduledPlanAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  trialEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastEventSeq?: Prisma.IntFieldUpdateOperationsInput | number
-  lastEventAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payments?: Prisma.PaymentUncheckedUpdateManyWithoutSubscriptionNestedInput
-}
-
-
-/**
- * Count Type SubscriptionCountOutputType
- */
-
-export type SubscriptionCountOutputType = {
-  payments: number
-  dunningAttempts: number
-}
-
-export type SubscriptionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  payments?: boolean | SubscriptionCountOutputTypeCountPaymentsArgs
-  dunningAttempts?: boolean | SubscriptionCountOutputTypeCountDunningAttemptsArgs
-}
-
-/**
- * SubscriptionCountOutputType without action
- */
-export type SubscriptionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the SubscriptionCountOutputType
-   */
-  select?: Prisma.SubscriptionCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * SubscriptionCountOutputType without action
- */
-export type SubscriptionCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentWhereInput
-}
-
-/**
- * SubscriptionCountOutputType without action
- */
-export type SubscriptionCountOutputTypeCountDunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DunningAttemptWhereInput
-}
 
 
 export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1135,16 +780,11 @@ export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   canceledAt?: boolean
   scheduledPlan?: boolean
   scheduledPlanAt?: boolean
-  trialStart?: boolean
-  trialEnd?: boolean
   lastEventSeq?: boolean
   lastEventAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  payments?: boolean | Prisma.Subscription$paymentsArgs<ExtArgs>
-  dunningAttempts?: boolean | Prisma.Subscription$dunningAttemptsArgs<ExtArgs>
-  _count?: boolean | Prisma.SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subscription"]>
 
 export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1161,8 +801,6 @@ export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   canceledAt?: boolean
   scheduledPlan?: boolean
   scheduledPlanAt?: boolean
-  trialStart?: boolean
-  trialEnd?: boolean
   lastEventSeq?: boolean
   lastEventAt?: boolean
   createdAt?: boolean
@@ -1184,8 +822,6 @@ export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   canceledAt?: boolean
   scheduledPlan?: boolean
   scheduledPlanAt?: boolean
-  trialStart?: boolean
-  trialEnd?: boolean
   lastEventSeq?: boolean
   lastEventAt?: boolean
   createdAt?: boolean
@@ -1207,20 +843,15 @@ export type SubscriptionSelectScalar = {
   canceledAt?: boolean
   scheduledPlan?: boolean
   scheduledPlanAt?: boolean
-  trialStart?: boolean
-  trialEnd?: boolean
   lastEventSeq?: boolean
   lastEventAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "dodoSubscriptionId" | "dodoCustomerId" | "plan" | "status" | "currentPeriodStart" | "currentPeriodEnd" | "gracePeriodEnd" | "cancelAtPeriodEnd" | "canceledAt" | "scheduledPlan" | "scheduledPlanAt" | "trialStart" | "trialEnd" | "lastEventSeq" | "lastEventAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
+export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "dodoSubscriptionId" | "dodoCustomerId" | "plan" | "status" | "currentPeriodStart" | "currentPeriodEnd" | "gracePeriodEnd" | "cancelAtPeriodEnd" | "canceledAt" | "scheduledPlan" | "scheduledPlanAt" | "lastEventSeq" | "lastEventAt" | "createdAt" | "updatedAt", ExtArgs["result"]["subscription"]>
 export type SubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  payments?: boolean | Prisma.Subscription$paymentsArgs<ExtArgs>
-  dunningAttempts?: boolean | Prisma.Subscription$dunningAttemptsArgs<ExtArgs>
-  _count?: boolean | Prisma.SubscriptionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SubscriptionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1233,8 +864,6 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "Subscription"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    payments: Prisma.$PaymentPayload<ExtArgs>[]
-    dunningAttempts: Prisma.$DunningAttemptPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1250,8 +879,6 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     canceledAt: Date | null
     scheduledPlan: $Enums.Plan | null
     scheduledPlanAt: Date | null
-    trialStart: Date | null
-    trialEnd: Date | null
     lastEventSeq: number
     lastEventAt: Date | null
     createdAt: Date
@@ -1651,8 +1278,6 @@ readonly fields: SubscriptionFieldRefs;
 export interface Prisma__SubscriptionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  payments<T extends Prisma.Subscription$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscription$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  dunningAttempts<T extends Prisma.Subscription$dunningAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Subscription$dunningAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DunningAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1695,8 +1320,6 @@ export interface SubscriptionFieldRefs {
   readonly canceledAt: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly scheduledPlan: Prisma.FieldRef<"Subscription", 'Plan'>
   readonly scheduledPlanAt: Prisma.FieldRef<"Subscription", 'DateTime'>
-  readonly trialStart: Prisma.FieldRef<"Subscription", 'DateTime'>
-  readonly trialEnd: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly lastEventSeq: Prisma.FieldRef<"Subscription", 'Int'>
   readonly lastEventAt: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Subscription", 'DateTime'>
@@ -2099,54 +1722,6 @@ export type SubscriptionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Subscriptions to delete.
    */
   limit?: number
-}
-
-/**
- * Subscription.payments
- */
-export type Subscription$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Payment
-   */
-  select?: Prisma.PaymentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Payment
-   */
-  omit?: Prisma.PaymentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PaymentInclude<ExtArgs> | null
-  where?: Prisma.PaymentWhereInput
-  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
-}
-
-/**
- * Subscription.dunningAttempts
- */
-export type Subscription$dunningAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DunningAttempt
-   */
-  select?: Prisma.DunningAttemptSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DunningAttempt
-   */
-  omit?: Prisma.DunningAttemptOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DunningAttemptInclude<ExtArgs> | null
-  where?: Prisma.DunningAttemptWhereInput
-  orderBy?: Prisma.DunningAttemptOrderByWithRelationInput | Prisma.DunningAttemptOrderByWithRelationInput[]
-  cursor?: Prisma.DunningAttemptWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DunningAttemptScalarFieldEnum | Prisma.DunningAttemptScalarFieldEnum[]
 }
 
 /**

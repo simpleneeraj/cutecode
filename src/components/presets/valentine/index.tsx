@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./valentine.module.css";
 

@@ -1,16 +1,17 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
+import { useUser } from "@/hooks/use-auth";
 import { PLAN_ORDER } from "@/lib/billing/plans";
 import { Plan, SubscriptionStatus } from "@/generated/prisma/enums";
 
 /**
  * Client-side subscription hook.
  *
- * Reads plan data from Clerk publicMetadata — kept in sync by our webhook handler.
+ * Reads plan data from Supabase app_metadata (surfaced as publicMetadata by
+ * useUser()) — kept in sync by syncPlanToSupabase on webhook events.
  * Use for UI gating ONLY. All real enforcement is always server-side.
  *
- * publicMetadata shape (set by syncPlanToClerk):
+ * publicMetadata shape:
  *   { plan, subscriptionStatus, gracePeriodEnd }
  */
 export function useSubscription() {
@@ -33,8 +34,7 @@ export function useSubscription() {
   // An expired subscription means the user has lost access even if plan metadata
   // still says PRO — webhook may not have synced yet on the client.
   const isPro = planRank >= PLAN_ORDER[Plan.PRO] && !isExpired;
-  const isElite = planRank >= PLAN_ORDER[Plan.ELITE] && !isExpired;
-  const isUltimate = plan === Plan.ULTIMATE && !isExpired;
+  const isPremium = planRank >= PLAN_ORDER[Plan.PREMIUM] && !isExpired;
   const isFree = plan === Plan.FREE || isExpired;
 
   /**
@@ -48,8 +48,7 @@ export function useSubscription() {
     subscriptionStatus,
     gracePeriodEnd,
     isPro,
-    isElite,
-    isUltimate,
+    isPremium,
     isFree,
     isPastDue,
     isExpired,

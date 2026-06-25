@@ -1,44 +1,30 @@
 import { Webhooks } from "@dodopayments/nextjs";
 import { WebhookService } from "@/lib/billing/webhook-service";
-import { AuditLogger } from "@/lib/billing/audit";
-import { AuditAction } from "@/generated/prisma/enums";
 import { logger } from "@/lib/logger";
 
 // ─── Shared Event Processor ──────────────────────────────────────────────────
 
 /**
- * Standardizes the webhook pipeline: Store → Audit → Process.
- * Ensures idempotency and error tracking across all event cases.
+ * Store → Process pipeline. Store-first guarantees no event loss and idempotent
+ * dedup; processing dispatches subscription events to BillingService.
  */
 async function processWebhookEvent(payload: any) {
   const data = payload.data || payload;
 
-  // Extract event ID and Type securely
   // Build a STABLE fallback event ID — never include Date.now() or any
-  // timestamp here.  A timestamp would make every Dodo retry look like a
-  // brand-new event, defeating idempotency and bypassing the cron retry queue.
+  // timestamp here, or every Dodo retry would look like a brand-new event and
+  // bypass idempotency.
   const eventId =
     data.event_id ??
     payload.id ??
     payload.eventId ??
-    `fallback_${data.payment_id ?? data.subscription_id ?? "unknown"}`;
+    `fallback_${data.subscription_id ?? "unknown"}`;
 
   const eventType = payload.type ?? payload.event_type ?? data.type ?? "unknown";
 
-  // ① Store raw event FIRST (ensures no event loss if processing fails)
   const isNew = await WebhookService.store(eventId, eventType, payload);
+  if (!isNew) return; // duplicate delivery — exit idempotently
 
-  await AuditLogger.record({
-    action: isNew ? AuditAction.WEBHOOK_RECEIVED : AuditAction.IDEMPOTENCY_HIT,
-    metadata: { eventId, eventType, duplicate: !isNew },
-  });
-
-  if (!isNew) {
-    // Duplicate delivery — exit idempotently
-    return;
-  }
-
-  // ② Process inline with domain logic
   try {
     await WebhookService.process(eventId);
   } catch (err) {
@@ -52,32 +38,13 @@ async function processWebhookEvent(payload: any) {
 /**
  * POST /api/webhooks/dodo
  *
- * Uses the official @dodopayments/nextjs SDK for reliable signature verification.
- * Explicitly binds to all granular webhook cases supported by the SDK.
+ * Lean billing: only subscription lifecycle events drive plan state. Payment,
+ * refund, and dispute events are not handled here (Dodo dashboard is the system
+ * of record for transactions).
  */
 export const POST = Webhooks({
   webhookKey: process.env.DODO_PAYMENTS_WEBHOOK_KEY!,
 
-  // Payments
-  onPaymentSucceeded: processWebhookEvent,
-  onPaymentFailed: processWebhookEvent,
-  onPaymentProcessing: processWebhookEvent,
-  onPaymentCancelled: processWebhookEvent,
-
-  // Refunds
-  onRefundSucceeded: processWebhookEvent,
-  onRefundFailed: processWebhookEvent,
-
-  // Disputes (Chargebacks & Arbitrations)
-  onDisputeOpened: processWebhookEvent,
-  onDisputeExpired: processWebhookEvent,
-  onDisputeAccepted: processWebhookEvent,
-  onDisputeCancelled: processWebhookEvent,
-  onDisputeChallenged: processWebhookEvent,
-  onDisputeWon: processWebhookEvent,
-  onDisputeLost: processWebhookEvent,
-
-  // Subscriptions
   onSubscriptionActive: processWebhookEvent,
   onSubscriptionOnHold: processWebhookEvent,
   onSubscriptionRenewed: processWebhookEvent,
@@ -85,7 +52,4 @@ export const POST = Webhooks({
   onSubscriptionCancelled: processWebhookEvent,
   onSubscriptionFailed: processWebhookEvent,
   onSubscriptionExpired: processWebhookEvent,
-
-  // Custom Product Events
-  onLicenseKeyCreated: processWebhookEvent,
 });

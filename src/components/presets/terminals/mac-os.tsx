@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import { BaseFrameProps } from "@/typings/presets";
 import styles from "./terminals.module.css";
 

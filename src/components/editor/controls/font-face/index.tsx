@@ -20,7 +20,7 @@ import { BadgeVariant } from "@/typings/editor";
 import { AccessLevel } from "@/typings/enums";
 import { usePremiumAccess } from "@/hooks/use-premium-access";
 import { Badge } from "@/components/ui/badge";
-import { Icon } from "@iconify/react";
+import { Icon } from "@/components/ui/icon";
 import View from "@/components/view";
 import { trackEditor } from "@/lib/analytics";
 

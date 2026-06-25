@@ -54,12 +54,7 @@ export const ModelName = {
   User: 'User',
   UserFollows: 'UserFollows',
   Subscription: 'Subscription',
-  Payment: 'Payment',
   WebhookEvent: 'WebhookEvent',
-  UsageEvent: 'UsageEvent',
-  AuditLog: 'AuditLog',
-  DunningAttempt: 'DunningAttempt',
-  IdempotencyKey: 'IdempotencyKey',
   Snippet: 'Snippet',
   Presentation: 'Presentation',
   ShareLink: 'ShareLink',
@@ -88,13 +83,11 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  clerkId: 'clerkId',
+  supabaseId: 'supabaseId',
   email: 'email',
   name: 'name',
   role: 'role',
   plan: 'plan',
-  usageMonth: 'usageMonth',
-  usageReset: 'usageReset',
   lastIpHash: 'lastIpHash',
   deviceFp: 'deviceFp',
   trialUsed: 'trialUsed',
@@ -128,8 +121,6 @@ export const SubscriptionScalarFieldEnum = {
   canceledAt: 'canceledAt',
   scheduledPlan: 'scheduledPlan',
   scheduledPlanAt: 'scheduledPlanAt',
-  trialStart: 'trialStart',
-  trialEnd: 'trialEnd',
   lastEventSeq: 'lastEventSeq',
   lastEventAt: 'lastEventAt',
   createdAt: 'createdAt',
@@ -139,99 +130,15 @@ export const SubscriptionScalarFieldEnum = {
 export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
 
 
-export const PaymentScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  subscriptionId: 'subscriptionId',
-  dodoPaymentId: 'dodoPaymentId',
-  idempotencyKey: 'idempotencyKey',
-  amount: 'amount',
-  currency: 'currency',
-  status: 'status',
-  refundedAmount: 'refundedAmount',
-  refundedAt: 'refundedAt',
-  refundReason: 'refundReason',
-  disputedAt: 'disputedAt',
-  disputeId: 'disputeId',
-  chargebackAt: 'chargebackAt',
-  periodStart: 'periodStart',
-  periodEnd: 'periodEnd',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
-
-
 export const WebhookEventScalarFieldEnum = {
   id: 'id',
   type: 'type',
-  status: 'status',
   rawPayload: 'rawPayload',
-  attempts: 'attempts',
-  lastAttemptAt: 'lastAttemptAt',
   processedAt: 'processedAt',
-  errorMessage: 'errorMessage',
   createdAt: 'createdAt'
 } as const
 
 export type WebhookEventScalarFieldEnum = (typeof WebhookEventScalarFieldEnum)[keyof typeof WebhookEventScalarFieldEnum]
-
-
-export const UsageEventScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  feature: 'feature',
-  quantity: 'quantity',
-  occurredAt: 'occurredAt',
-  billingWindow: 'billingWindow',
-  idempotencyKey: 'idempotencyKey',
-  isBackdated: 'isBackdated',
-  createdAt: 'createdAt'
-} as const
-
-export type UsageEventScalarFieldEnum = (typeof UsageEventScalarFieldEnum)[keyof typeof UsageEventScalarFieldEnum]
-
-
-export const AuditLogScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  action: 'action',
-  metadata: 'metadata',
-  ipHash: 'ipHash',
-  createdAt: 'createdAt'
-} as const
-
-export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
-
-
-export const DunningAttemptScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  subscriptionId: 'subscriptionId',
-  attemptNumber: 'attemptNumber',
-  scheduledAt: 'scheduledAt',
-  sentAt: 'sentAt',
-  emailType: 'emailType',
-  succeeded: 'succeeded',
-  createdAt: 'createdAt'
-} as const
-
-export type DunningAttemptScalarFieldEnum = (typeof DunningAttemptScalarFieldEnum)[keyof typeof DunningAttemptScalarFieldEnum]
-
-
-export const IdempotencyKeyScalarFieldEnum = {
-  id: 'id',
-  action: 'action',
-  userId: 'userId',
-  resultCode: 'resultCode',
-  resultBody: 'resultBody',
-  expiresAt: 'expiresAt',
-  createdAt: 'createdAt'
-} as const
-
-export type IdempotencyKeyScalarFieldEnum = (typeof IdempotencyKeyScalarFieldEnum)[keyof typeof IdempotencyKeyScalarFieldEnum]
 
 
 export const SnippetScalarFieldEnum = {
@@ -363,14 +270,6 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
-export const NullableJsonNullValueInput = {
-  DbNull: DbNull,
-  JsonNull: JsonNull
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

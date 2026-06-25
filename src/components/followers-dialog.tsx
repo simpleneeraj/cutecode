@@ -15,7 +15,7 @@ import { Tabs, TabsList, TabsPanel, TabsTab } from "./ui/tabs";
 import { Plan } from "@/generated/prisma/enums";
 
 function UserRow({ user, currentUserId }: { user: FollowUser; currentUserId?: string }) {
-  const avatarUrl = user.clerkId ? `https://img.clerk.com/preview.png?size=64&seed=${user.clerkId}` : undefined;
+  const avatarUrl = user.name ? `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}` : undefined;
 
   const handle = user.name?.replace(/\s+/g, "").toLowerCase() || "user";
 

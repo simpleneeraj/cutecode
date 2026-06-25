@@ -2,15 +2,14 @@ import { prisma } from "@/lib/db";
 import { cacheDel } from "@/lib/redis";
 
 /**
- * Sync a Clerk user into the database.
- * Called from the Clerk webhook handler.
+ * Sync a Supabase user into the database.
  * Safe to call multiple times (upsert).
  */
-export async function syncClerkUser(params: { clerkId: string; email: string; name?: string }) {
+export async function syncSupabaseUser(params: { supabaseId: string; email: string; name?: string }) {
   const result = await prisma.user.upsert({
-    where: { clerkId: params.clerkId },
+    where: { supabaseId: params.supabaseId },
     create: {
-      clerkId: params.clerkId,
+      supabaseId: params.supabaseId,
       email: params.email,
       name: params.name ?? null,
     },
@@ -19,30 +18,41 @@ export async function syncClerkUser(params: { clerkId: string; email: string; na
       name: params.name ?? null,
     },
   });
-  await cacheDel(`user-ctx:${params.clerkId}`);
+  await cacheDel(`user-ctx:${params.supabaseId}`);
   return result;
 }
 
 /**
- * Delete the DB user when a Clerk user is deleted.
- * Subscription and snippets are cascade-deleted by Prisma.
+ * Ensure a DB user row exists for the given Supabase auth user.
+ * Lazily creates it on first authenticated access (no auth webhook needed).
+ * No-op when the row already exists.
  */
-export async function deleteClerkUser(clerkId: string) {
-  const result = await prisma.user.delete({ where: { clerkId } }).catch((error) => {
-    console.error(`Failed to delete user ${clerkId} from DB:`, error);
+export async function ensureDbUser(authUser: {
+  id: string;
+  email?: string | null;
+  user_metadata?: { full_name?: string; name?: string } | null;
+}) {
+  const existing = await prisma.user.findUnique({
+    where: { supabaseId: authUser.id },
+    select: { id: true },
   });
-  await cacheDel(`user-ctx:${clerkId}`);
-  return result;
+  if (existing) return;
+
+  await syncSupabaseUser({
+    supabaseId: authUser.id,
+    email: authUser.email ?? `${authUser.id}@placeholder.local`,
+    name: authUser.user_metadata?.full_name ?? authUser.user_metadata?.name ?? undefined,
+  });
 }
 
-/** Extract primary email from Clerk webhook data */
-export function extractEmail(
-  emailAddresses: Array<{ email_address: string; id: string }>,
-  primaryEmailAddressId: string | null,
-): string {
-  if (primaryEmailAddressId) {
-    const primary = emailAddresses.find((e) => e.id === primaryEmailAddressId);
-    if (primary) return primary.email_address;
-  }
-  return emailAddresses[0]?.email_address ?? "";
+/**
+ * Delete the DB user when a Supabase user is deleted.
+ * Subscription and snippets are cascade-deleted by Prisma.
+ */
+export async function deleteSupabaseUser(supabaseId: string) {
+  const result = await prisma.user.delete({ where: { supabaseId } }).catch((error) => {
+    console.error(`Failed to delete user ${supabaseId} from DB:`, error);
+  });
+  await cacheDel(`user-ctx:${supabaseId}`);
+  return result;
 }

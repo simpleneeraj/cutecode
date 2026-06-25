@@ -23,8 +23,8 @@ export const PLANS = {
     apiAccess: false,
     price: 5,
   },
-  ELITE: {
-    name: "Elite",
+  PREMIUM: {
+    name: "Premium",
     monthlyExports: Infinity,
     premiumThemes: true,
     hdExport: true,
@@ -33,17 +33,6 @@ export const PLANS = {
     savedSnippets: Infinity,
     apiAccess: true,
     price: 12,
-  },
-  ULTIMATE: {
-    name: "Ultimate",
-    monthlyExports: Infinity,
-    premiumThemes: true,
-    hdExport: true,
-    export4k: true,
-    watermarkRemoval: true,
-    savedSnippets: Infinity,
-    apiAccess: true,
-    price: 25,
   },
 } as const satisfies Record<
   Plan,
@@ -80,8 +69,7 @@ export function canUseFeature(plan: Plan, feature: PlanFeature): boolean {
 export const PLAN_ORDER: Record<Plan, number> = {
   FREE: 0,
   PRO: 1,
-  ELITE: 2,
-  ULTIMATE: 3,
+  PREMIUM: 2,
 };
 
 /** Returns true if userPlan is at least as good as requiredPlan */
